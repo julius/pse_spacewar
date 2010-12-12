@@ -3,6 +3,7 @@ Git
 Ueberall wo git status steht, wird erwartet, dass "Nothing to commit" da steht.
 Wenn da was anderes bei rauskommt ist irgendwas falsch.
 
+Gutes Online Buch "Pro Git": http://progit.org/book/
 
 Aenderungen commiten und pushen
 > git add .
