@@ -10,7 +10,7 @@ namespace EtherDuels
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (EtherDuels game = new EtherDuels())
             {
                 game.Run();
             }
