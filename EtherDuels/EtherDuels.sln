@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtherDuels", "EtherDuels\EtherDuels\EtherDuels.csproj", "{B0ED64AD-3D6A-4C81-A109-1982C91E2346}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "EtherDuelsContent", "EtherDuels\EtherDuelsContent\EtherDuelsContent.contentproj", "{06DEFFC6-3242-42A7-B5E6-C12C85B14A3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0ED64AD-3D6A-4C81-A109-1982C91E2346}.Debug|x86.ActiveCfg = Debug|x86
+		{B0ED64AD-3D6A-4C81-A109-1982C91E2346}.Debug|x86.Build.0 = Debug|x86
+		{B0ED64AD-3D6A-4C81-A109-1982C91E2346}.Release|x86.ActiveCfg = Release|x86
+		{B0ED64AD-3D6A-4C81-A109-1982C91E2346}.Release|x86.Build.0 = Release|x86
+		{06DEFFC6-3242-42A7-B5E6-C12C85B14A3F}.Debug|x86.ActiveCfg = Debug|x86
+		{06DEFFC6-3242-42A7-B5E6-C12C85B14A3F}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
