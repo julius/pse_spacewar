@@ -1,0 +1,1 @@
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\EtherDuels\EtherDuels\EtherDuelsContent\obj\x86\Debug\ResolveAssemblyReference.cache

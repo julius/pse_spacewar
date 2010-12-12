@@ -14,12 +14,12 @@ namespace EtherDuels
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class EtherDuels : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1()
+        public EtherDuels()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
