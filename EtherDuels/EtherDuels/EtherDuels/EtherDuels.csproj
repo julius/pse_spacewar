@@ -107,9 +107,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EtherDuels.cs" />
+    <Compile Include="Game\CollisionHandler.cs" />
+    <Compile Include="Game\Physics.cs" />
+    <Compile Include="Game\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

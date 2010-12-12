@@ -1,0 +1,6 @@
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\EtherDuels\EtherDuels\EtherDuels\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\EtherDuels\EtherDuels\EtherDuels\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\EtherDuels\EtherDuels\EtherDuels\bin\x86\Debug\EtherDuels.exe
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\EtherDuels\EtherDuels\EtherDuels\bin\x86\Debug\EtherDuels.pdb
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\EtherDuels\EtherDuels\EtherDuels\obj\x86\Debug\EtherDuels.exe
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\EtherDuels\EtherDuels\EtherDuels\obj\x86\Debug\EtherDuels.pdb
