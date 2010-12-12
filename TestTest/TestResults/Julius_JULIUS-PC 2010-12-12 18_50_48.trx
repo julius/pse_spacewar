@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="993ab4f8-8a3a-41d2-9d93-38b731b1a251" name="Julius@JULIUS-PC 2010-12-12 18:50:48" runUser="Julius-PC\Julius" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="6573841c-2167-43db-9aca-a821b0fab680">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Julius_JULIUS-PC 2010-12-12 18_50_48">
+      <DeploymentItem filename="C:\Users\Julius\Desktop\code\NET40\Moq.dll" />
+      <DeploymentItem filename="c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTest\bin\Debug\TestTest.exe" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-12-12T18:50:48.6982000+01:00" queuing="2010-12-12T18:50:48.7294000+01:00" start="2010-12-12T18:50:48.8386000+01:00" finish="2010-12-12T18:50:49.4430000+01:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="DoFooTest" storage="c:\users\julius\documents\visual studio 2010\projects\testtest\testtesttest\bin\debug\testtesttest.dll" id="d2e67cef-8c55-3f21-3e20-72c29dcc416a">
+      <Execution id="03088591-e68f-4d29-a177-d2fbc84b9c53" />
+      <TestMethod codeBase="c:/users/julius/documents/visual studio 2010/Projects/TestTest/TestTestTest/bin/Debug/TestTestTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestTestTest.FooTest, TestTestTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DoFooTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="d2e67cef-8c55-3f21-3e20-72c29dcc416a" executionId="03088591-e68f-4d29-a177-d2fbc84b9c53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="03088591-e68f-4d29-a177-d2fbc84b9c53" testId="d2e67cef-8c55-3f21-3e20-72c29dcc416a" testName="DoFooTest" computerName="JULIUS-PC" duration="00:00:00.1210087" startTime="2010-12-12T18:50:48.9140000+01:00" endTime="2010-12-12T18:50:49.4020000+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03088591-e68f-4d29-a177-d2fbc84b9c53">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method TestTestTest.FooTest.DoFooTest threw exception: 
+System.NotSupportedException: Invalid setup on a non-virtual (overridable in VB) member: boing =&gt; boing.DoBoing(10)</Message>
+          <StackTrace>    at Moq.Mock.ThrowIfCantOverride(Expression setup, MethodInfo method)
+   at Moq.Mock.&lt;&gt;c__DisplayClass19`1.&lt;Setup&gt;b__18()
+   at Moq.PexProtector.Invoke[T](Func`1 function)
+   at Moq.Mock.Setup[T](Mock mock, Expression`1 expression, Func`1 condition)
+   at Moq.Mock`1.Setup(Expression`1 expression)
+   at TestTestTest.FooTest.DoFooTest() in c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\FooTest.cs:line 25
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

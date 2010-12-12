@@ -1,0 +1,10 @@
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\TestTestTest.dll
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\TestTestTest.pdb
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\obj\Debug\ResolveAssemblyReference.cache
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\obj\Debug\TestTestTest.dll
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\obj\Debug\TestTestTest.pdb
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\TestTest.exe
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\TestTest.pdb
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\Moq.dll
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\Moq.pdb
+c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\Moq.xml
