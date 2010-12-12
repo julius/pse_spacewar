@@ -1,2 +1,27 @@
-Insert a simple git tutorial here :)
+Git
+
+Ueberall wo git status steht, wird erwartet, dass "Nothing to commit" da steht.
+Wenn da was anderes bei rauskommt ist irgendwas falsch.
+
+
+Aenderungen commiten und pushen
+> git add .
+> git commit -a -m "bla bla bla"
+> git status
+> git push --all
+
+
+Neuesten master holen
+> git status
+> git pull origin master
+> git status
+
+
+Merge Conflict
+> git status
+> git pull origin master
+> git status => Konflikte!
+> git reset --hard HEAD
+=> Julius anrufen oder in Pro Git lesen :)
+
 
