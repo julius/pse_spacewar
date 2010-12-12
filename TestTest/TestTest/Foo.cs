@@ -25,6 +25,6 @@ namespace TestTest
         public string GetFoo()
         {
             return bar.GetText() + boing.GetNumber().ToString();
-        }
+                    }
     }
 }

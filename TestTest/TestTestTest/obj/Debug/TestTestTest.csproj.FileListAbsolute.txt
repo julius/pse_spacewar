@@ -8,3 +8,13 @@ c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\
 c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\Moq.dll
 c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\Moq.pdb
 c:\users\julius\documents\visual studio 2010\Projects\TestTest\TestTestTest\bin\Debug\Moq.xml
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\bin\Debug\TestTestTest.dll
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\bin\Debug\TestTestTest.pdb
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\bin\Debug\Moq.dll
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\bin\Debug\TestTest.exe
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\bin\Debug\TestTest.pdb
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\bin\Debug\Moq.pdb
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\bin\Debug\Moq.xml
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\obj\Debug\TestTestTest.dll
+C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\obj\Debug\TestTestTest.pdb
