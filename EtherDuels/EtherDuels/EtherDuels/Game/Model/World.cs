@@ -9,7 +9,7 @@ namespace EtherDuels.Game.Model
     {
         WorldObject[] worldObjects;
 
-        public void AddWorldObject(WorldObject object)
+        public void AddWorldObject(WorldObject worldObject)
         {
         }
 
@@ -18,7 +18,7 @@ namespace EtherDuels.Game.Model
             return worldObjects;
         }
 
-        public void RemoveWorldObject(WorldObject object)
+        public void RemoveWorldObject(WorldObject worldObject)
         {
         }
 
