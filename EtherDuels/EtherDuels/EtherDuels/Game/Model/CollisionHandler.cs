@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    interface CollisionHandler
+    public interface CollisionHandler
     {
         void OnCollision(WorldObject object1, WorldObject object2);
     }

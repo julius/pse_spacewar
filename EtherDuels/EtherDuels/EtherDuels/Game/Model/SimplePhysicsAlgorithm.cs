@@ -27,5 +27,10 @@ namespace EtherDuels.Game.Model
             }
         }
 
+        private void CheckCollision(WorldObject object1, WorldObject object2)
+        {
+
+        }
+
     }
 }

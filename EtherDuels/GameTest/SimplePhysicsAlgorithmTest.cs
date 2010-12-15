@@ -79,13 +79,23 @@ namespace GameTest
         }
 
         /// <summary>
-        ///A test for Update
+        ///A first simple Test for Update
         ///</summary>
         [TestMethod()]
         [DeploymentItem("EtherDuels.exe")]
         public void UpdateTest()
         {
-            
+            WorldObject_Accessor ship1 = new Spaceship_Accessor();
+            WorldObject_Accessor ship2 = new Spaceship_Accessor();
+            ship1.SetPosition(new Vector2(0, 0));
+            ship2.SetPosition(new Vector2(0, 0));
+
+            World_Accessor world = new World_Accessor();
+            world.AddWorldObject(ship1);
+            world.AddWorldObject(ship2);
+
+            var colHandMock = new Mock<CollisionHandler>();
+            colHandMock.Setup(c => c.OnCollision(ship1, ship2));
 
             SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
             GameTime gameTime = null; // TODO: Initialize to an appropriate value
