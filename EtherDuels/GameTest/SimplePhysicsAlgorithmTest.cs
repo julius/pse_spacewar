@@ -1,18 +1,18 @@
-﻿using TestTest;
+﻿using EtherDuels.Game.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Moq;
+using Microsoft.Xna.Framework;
 
-namespace TestTestTest
+namespace GameTest
 {
     
     
     /// <summary>
-    ///This is a test class for FooTest and is intended
-    ///to contain all FooTest Unit Tests
+    ///This is a test class for SimplePhysicsAlgorithmTest and is intended
+    ///to contain all SimplePhysicsAlgorithmTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class FooTest
+    public class SimplePhysicsAlgorithmTest
     {
 
 
@@ -66,38 +66,27 @@ namespace TestTestTest
 
 
         /// <summary>
-        ///A test for DoFoo
+        ///A test for SimplePhysicsAlgorithm Constructor
         ///</summary>
         [TestMethod()]
-        public void DoFooTest()
+        [DeploymentItem("EtherDuels.exe")]
+        public void SimplePhysicsAlgorithmConstructorTest()
         {
-            var barMock = new Mock<Bar>();
-            barMock.Setup(b => b.DoBar());
-
-            var boingMock = new Mock<Boing>();
-            boingMock.Setup(b => b.DoBoing(10));
-
-            Foo target = new Foo(barMock.Object, boingMock.Object); // TODO: Initialize to an appropriate value
-            target.DoFoo();
-
-            barMock.Verify(b => b.DoBar(), Times.Exactly(1));
-            boingMock.Verify(b => b.DoBoing(10), Times.Exactly(1));
+            SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor();
+            Assert.Inconclusive("TODO: Implement code to verify target");
         }
 
         /// <summary>
-        ///A test for GetFoo
+        ///A test for Update
         ///</summary>
         [TestMethod()]
-        public void GetFooTest()
+        [DeploymentItem("EtherDuels.exe")]
+        public void UpdateTest()
         {
-            var boingMock = new Mock<Boing>();
-            boingMock.Setup(b => b.GetNumber()).Returns(10);
-
-            Foo target = new Foo(new Baz("blabla"), boingMock.Object); // TODO: Initialize to an appropriate value
-            string expected = "blabla10"; // TODO: Initialize to an appropriate value
-            string actual;
-            actual = target.GetFoo();
-            Assert.AreEqual(expected, actual);
+            SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
+            GameTime gameTime = null; // TODO: Initialize to an appropriate value
+            target.Update(gameTime);
+            Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
     }
 }
