@@ -95,7 +95,7 @@ namespace GameTest
             world.AddWorldObject(ship2);
 
             var colHandMock = new Mock<CollisionHandler>();
-            colHandMock.Setup(c => c.OnCollision(ship1, ship2));
+            colHandMock.Setup(c => c.OnCollision(ship1.Target, ship2.Target));
 
             SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
             GameTime gameTime = null; // TODO: Initialize to an appropriate value
