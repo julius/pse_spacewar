@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
-using EtherDuels;
+//using EtherDuels;
 
 namespace EtherDuels.Game.Model
 {
