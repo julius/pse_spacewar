@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="28e1e842-3b26-44cd-848b-25550d2df679" name="Julius@JULIUS-PC 2010-12-15 16:54:57" runUser="Julius-PC\Julius" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="6573841c-2167-43db-9aca-a821b0fab680">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Julius_JULIUS-PC 2010-12-15 16_54_57">
+      <DeploymentItem filename="C:\Users\Julius\Desktop\code\NET40\Moq.dll" />
+      <DeploymentItem filename="C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTest\bin\Debug\TestTest.exe" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-12-15T16:54:57.8210000+01:00" queuing="2010-12-15T16:54:58.5880000+01:00" start="2010-12-15T16:54:58.6810000+01:00" finish="2010-12-15T16:54:59.8640000+01:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" error="0" failed="2" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="DoFooTest" storage="c:\users\julius\documents\visual studio 2010\projects\pse_spacewar\testtest\testtesttest\bin\debug\testtesttest.dll" id="d2e67cef-8c55-3f21-3e20-72c29dcc416a">
+      <Execution id="d710f7dd-63f9-45b2-bac7-3f233cc201fe" />
+      <TestMethod codeBase="C:/Users/Julius/Documents/Visual Studio 2010/Projects/pse_spacewar/TestTest/TestTestTest/bin/Debug/TestTestTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestTestTest.FooTest, TestTestTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DoFooTest" />
+    </UnitTest>
+    <UnitTest name="GetFooTest" storage="c:\users\julius\documents\visual studio 2010\projects\pse_spacewar\testtest\testtesttest\bin\debug\testtesttest.dll" id="6145f657-4e37-a7ff-7407-9bc67fa58366">
+      <Execution id="bfe24fa9-3434-4499-a382-e15421a458bb" />
+      <TestMethod codeBase="C:/Users/Julius/Documents/Visual Studio 2010/Projects/pse_spacewar/TestTest/TestTestTest/bin/Debug/TestTestTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestTestTest.FooTest, TestTestTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetFooTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="6145f657-4e37-a7ff-7407-9bc67fa58366" executionId="bfe24fa9-3434-4499-a382-e15421a458bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d2e67cef-8c55-3f21-3e20-72c29dcc416a" executionId="d710f7dd-63f9-45b2-bac7-3f233cc201fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="bfe24fa9-3434-4499-a382-e15421a458bb" testId="6145f657-4e37-a7ff-7407-9bc67fa58366" testName="GetFooTest" computerName="JULIUS-PC" duration="00:00:00.1913090" startTime="2010-12-15T16:54:58.7350000+01:00" endTime="2010-12-15T16:54:59.5690000+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bfe24fa9-3434-4499-a382-e15421a458bb">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method TestTestTest.FooTest.GetFooTest threw exception: 
+Castle.DynamicProxy.Generators.GeneratorException: Type TestTest.Boingis not public. Can not create proxy for types that are not accessible.</Message>
+          <StackTrace>    at Castle.DynamicProxy.DefaultProxyBuilder.AssertValidType(Type target)
+   at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options)
+   at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IInterceptor[] interceptors)
+   at Moq.Proxy.CastleProxyFactory.CreateProxy[T](ICallInterceptor interceptor, Type[] interfaces, Object[] arguments)
+   at Moq.Mock`1.&lt;InitializeInstance&gt;b__0()
+   at Moq.PexProtector.Invoke(Action action)
+   at Moq.Mock`1.InitializeInstance()
+   at Moq.Mock`1.OnGetObject()
+   at Moq.Mock`1.get_Object()
+   at TestTestTest.FooTest.GetFooTest() in C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\FooTest.cs:line 96
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d710f7dd-63f9-45b2-bac7-3f233cc201fe" testId="d2e67cef-8c55-3f21-3e20-72c29dcc416a" testName="DoFooTest" computerName="JULIUS-PC" duration="00:00:00.2353326" startTime="2010-12-15T16:54:59.5830000+01:00" endTime="2010-12-15T16:54:59.8340000+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d710f7dd-63f9-45b2-bac7-3f233cc201fe">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method TestTestTest.FooTest.DoFooTest threw exception: 
+Castle.DynamicProxy.Generators.GeneratorException: Type TestTest.Boingis not public. Can not create proxy for types that are not accessible.</Message>
+          <StackTrace>    at Castle.DynamicProxy.DefaultProxyBuilder.AssertValidType(Type target)
+   at Castle.DynamicProxy.DefaultProxyBuilder.CreateClassProxyType(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options)
+   at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IInterceptor[] interceptors)
+   at Moq.Proxy.CastleProxyFactory.CreateProxy[T](ICallInterceptor interceptor, Type[] interfaces, Object[] arguments)
+   at Moq.Mock`1.&lt;InitializeInstance&gt;b__0()
+   at Moq.PexProtector.Invoke(Action action)
+   at Moq.Mock`1.InitializeInstance()
+   at Moq.Mock`1.OnGetObject()
+   at Moq.Mock`1.get_Object()
+   at TestTestTest.FooTest.DoFooTest() in C:\Users\Julius\Documents\Visual Studio 2010\Projects\pse_spacewar\TestTest\TestTestTest\FooTest.cs:line 80
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

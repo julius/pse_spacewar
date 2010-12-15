@@ -74,7 +74,7 @@ namespace TestTestTest
             var barMock = new Mock<Bar>();
             barMock.Setup(b => b.DoBar());
 
-            var boingMock = new Mock<IBoing>();
+            var boingMock = new Mock<Boing>();
             boingMock.Setup(b => b.DoBoing(10));
 
             Foo target = new Foo(barMock.Object, boingMock.Object); // TODO: Initialize to an appropriate value
@@ -90,7 +90,7 @@ namespace TestTestTest
         [TestMethod()]
         public void GetFooTest()
         {
-            var boingMock = new Mock<IBoing>();
+            var boingMock = new Mock<Boing>();
             boingMock.Setup(b => b.GetNumber()).Returns(10);
 
             Foo target = new Foo(new Baz("blabla"), boingMock.Object); // TODO: Initialize to an appropriate value

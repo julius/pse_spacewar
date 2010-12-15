@@ -8,9 +8,9 @@ namespace TestTest
     class Foo
     {
         public Bar bar;
-        public IBoing boing;
+        public Boing boing;
 
-        public Foo(Bar bar, IBoing boing)
+        public Foo(Bar bar, Boing boing)
         {
             this.bar = bar;
             this.boing = boing;

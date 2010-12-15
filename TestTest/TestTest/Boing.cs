@@ -5,14 +5,14 @@ using System.Text;
 
 namespace TestTest
 {
-    class Boing : IBoing
+    public class Boing
     {
-        public int GetNumber()
+        public virtual int GetNumber()
         {
             return 100;
         }
 
-        public void DoBoing(int times)
+        public virtual void DoBoing(int times)
         {
         }
     }
