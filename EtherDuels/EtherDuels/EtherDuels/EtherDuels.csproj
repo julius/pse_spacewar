@@ -110,6 +110,7 @@
     <Compile Include="EtherDuels.cs" />
     <Compile Include="Game\Model\CollisionHandler.cs" />
     <Compile Include="Game\Model\Explosion.cs" />
+    <Compile Include="Game\Model\GameModel.cs" />
     <Compile Include="Game\Model\Planet.cs" />
     <Compile Include="Game\Model\Projectile.cs" />
     <Compile Include="Game\Model\Spaceship.cs" />
