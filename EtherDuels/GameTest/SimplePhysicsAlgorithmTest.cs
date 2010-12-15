@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.Xna.Framework;
 
+using Moq;
+
 namespace GameTest
 {
     
@@ -83,6 +85,8 @@ namespace GameTest
         [DeploymentItem("EtherDuels.exe")]
         public void UpdateTest()
         {
+            
+
             SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
             GameTime gameTime = null; // TODO: Initialize to an appropriate value
             target.Update(gameTime);
