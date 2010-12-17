@@ -11,6 +11,8 @@ namespace EtherDuels.Game.Model
 
         public void AddWorldObject(WorldObject worldObject)
         {
+            int numberOfObjects = worldObjects.Length;
+
         }
 
         public WorldObject[] GetWorldObjects()
