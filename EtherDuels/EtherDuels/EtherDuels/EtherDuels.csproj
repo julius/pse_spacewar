@@ -117,6 +117,8 @@
     <Compile Include="Game\Model\Player.cs" />
     <Compile Include="Game\Model\PlayerHandler.cs" />
     <Compile Include="Game\Model\Projectile.cs" />
+    <Compile Include="Game\Model\ShortLifespanObjectFactory.cs" />
+    <Compile Include="Game\Model\SimpleShortLifespanObjectFactory.cs" />
     <Compile Include="Game\Model\Spaceship.cs" />
     <Compile Include="Game\Model\Weapon.cs" />
     <Compile Include="Game\Model\WorldObject.cs" />
