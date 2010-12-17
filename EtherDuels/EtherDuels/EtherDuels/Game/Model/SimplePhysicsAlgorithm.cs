@@ -12,6 +12,12 @@ namespace EtherDuels.Game.Model
         private CollisionHandler collisionHandler;
         private World world;
 
+        public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world)
+        {
+            this.collisionHandler = collisionHandler;
+            this.world = world;
+        }
+
         public override void Update(GameTime gameTime)
         {
             WorldObject[] objects = world.GetWorldObjects();
@@ -19,6 +25,11 @@ namespace EtherDuels.Game.Model
             foreach (WorldObject worldObject in objects)
             {
             }
+        }
+
+        private void CheckCollision(WorldObject object1, WorldObject object2)
+        {
+
         }
 
     }

@@ -112,6 +112,7 @@
     <Compile Include="Game\Model\Explosion.cs" />
     <Compile Include="Game\Model\HumanPlayer.cs" />
     <Compile Include="Game\Model\InputConfigurationRetriever.cs" />
+    <Compile Include="Game\Model\GameModel.cs" />
     <Compile Include="Game\Model\Planet.cs" />
     <Compile Include="Game\Model\Player.cs" />
     <Compile Include="Game\Model\PlayerHandler.cs" />
