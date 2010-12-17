@@ -112,6 +112,8 @@
     <Compile Include="Game\Model\Explosion.cs" />
     <Compile Include="Game\Model\Planet.cs" />
     <Compile Include="Game\Model\Projectile.cs" />
+    <Compile Include="Game\Model\ShortLifespanObjectFactory.cs" />
+    <Compile Include="Game\Model\SimpleShortLifespanObjectFactory.cs" />
     <Compile Include="Game\Model\Spaceship.cs" />
     <Compile Include="Game\Model\Weapon.cs" />
     <Compile Include="Game\Model\WorldObject.cs" />
