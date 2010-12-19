@@ -8,39 +8,72 @@ namespace EtherDuels.Game.Model
 {
     abstract class Player
     {
-        // TODO Constructor
+        private int playerId;
+        private PlayerHandler playerHandler;
+        private int points = 0;
+        private Spaceship spaceship;
 
+        /// <summary>
+        /// Creates a player.
+        /// </summary>
+        /// <param name="playerId">The player's ID</param>
+        /// <param name="playerHandler">The player's Handler</param>
+        public Player(int playerId, PlayerHandler playerHandler)
+        {
+            this.playerId = playerId;
+            this.playerHandler = playerHandler;
+        }
+
+        /// <summary>
+        /// Gets the ID of the player.
+        /// </summary>
+        /// <returns>The player's ID</returns>
         public int GetPlayerId()
         {
-            // TODO
-            return 0;
+            return this.playerId;
         }
 
+        /// <summary>
+        /// Gets the points of the player.
+        /// </summary>
+        /// <returns>The player's points</returns>
         public int GetPoints()
         {
-            // TODO
-            return 0;
+            return this.points;
         }
 
+        /// <summary>
+        /// Sets the points of the player.
+        /// </summary>
+        /// <param name="points">The player's points</param>
         public void SetPoints(int points)
         {
-            // TODO
+            this.points = points;
         }
 
+        /// <summary>
+        /// Gets the spaceship of the player.
+        /// </summary>
+        /// <returns>The player's spaceship.</returns>
         public Spaceship GetSpaceship()
         {
-            // TODO
-            return null;
+            return this.spaceship;
         }
 
+        /// <summary>
+        /// Sets the player's spaceship
+        /// </summary>
+        /// <param name="spaceship">The player's spaceship</param>
         public void SetSpaceship(Spaceship spaceship)
         {
-            // TODO
+            this.spaceship = spaceship;
         }
 
-        public void Update(GameTime gameTime)
-        {
-            // TODO
-        }
+        /// <summary>
+        /// Called for every frame of the game.
+        /// Updates to the player's behaviour should be implemented in this method.
+        /// </summary>
+        /// <param name="gameTime">The time object for the current frame</param>
+        public abstract void Update(GameTime gameTime);
     }
 }
