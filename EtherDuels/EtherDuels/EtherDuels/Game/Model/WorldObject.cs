@@ -76,7 +76,7 @@ namespace EtherDuels.Game.Model
             this.rotation = rotation;
         }
 
-        public Vector2 Getveloctiy()
+        public Vector2 GetVeloctiy()
         {
             return velocity;
         }

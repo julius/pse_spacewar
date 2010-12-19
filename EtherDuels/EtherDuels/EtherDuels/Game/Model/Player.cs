@@ -8,10 +8,10 @@ namespace EtherDuels.Game.Model
 {
     public abstract class Player
     {
-        private int playerId;
-        private PlayerHandler playerHandler;
-        private int points = 0;
-        private Spaceship spaceship;
+        protected int playerId;
+        protected PlayerHandler playerHandler;
+        protected int points = 0;
+        protected Spaceship spaceship;
 
         /// <summary>
         /// Creates a player.

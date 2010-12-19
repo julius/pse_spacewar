@@ -28,7 +28,40 @@ namespace EtherDuels.Game.Model
         /// <param name="frameState">frame specific state</param>
         public override void Update(FrameState frameState)
         {
-            // TODO
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetFireKey()))
+            {
+                this.playerHandler.OnFire(this.spaceship);
+            }
+
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetForwardKey()))
+            {
+                float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
+                Vector2 velocity = this.spaceship.GetVeloctiy();
+                velocity.X += (float)Math.Sin(this.spaceship.GetRotation()) * speed;
+                velocity.Y -= (float)Math.Cos(this.spaceship.GetRotation()) * speed;
+                this.spaceship.SetVelocity(velocity);
+            }
+
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetBackwardKey()))
+            {
+                float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * -0.01f;
+                Vector2 velocity = this.spaceship.GetVeloctiy();
+                velocity.X += (float)Math.Sin(this.spaceship.GetRotation()) * speed;
+                velocity.Y -= (float)Math.Cos(this.spaceship.GetRotation()) * speed;
+                this.spaceship.SetVelocity(velocity);
+            }
+
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetLeftKey()))
+            {
+                float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
+                this.spaceship.SetRotation(this.spaceship.GetRotation() + (speed * -1f));
+            }
+
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetRightKey()))
+            {
+                float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
+                this.spaceship.SetRotation(this.spaceship.GetRotation() + (speed * 1f));
+            }
         }
     }
 }
