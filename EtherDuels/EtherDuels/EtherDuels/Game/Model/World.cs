@@ -5,9 +5,11 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    class World
+    public class World
     {
         WorldObject[] worldObjects;
+
+        // TODO initialize this.worldObjects (eg. with a constructor)
 
         public void AddWorldObject(WorldObject worldObject)
         {

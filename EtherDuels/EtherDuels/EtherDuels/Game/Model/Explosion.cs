@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    class Explosion : WorldObject
+    public class Explosion : WorldObject
     {
         TimeSpan creationTime;
 

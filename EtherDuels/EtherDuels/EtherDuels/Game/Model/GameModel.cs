@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
@@ -13,7 +14,7 @@ namespace EtherDuels.Game.Model
         Player[] players;
         World world;
 
-        public GameModel(ShortLifeSpanObjectFactory factory, Physics physics, Player[] players, World world)
+        public GameModel(ShortLifespanObjectFactory factory, Physics physics, Player[] players, World world)
         {
             this.factory = factory;
             this.physics = physics;
@@ -41,15 +42,14 @@ namespace EtherDuels.Game.Model
             this.world = world;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(FrameState frameState)
         {
-            for (int i = 0; i < players.GetLength(); i++)
+            for (int i = 0; i < players.Length; i++)
             {
-                players[i].Update(gameTime);
+                players[i].Update(frameState);
             }
 
-            physics.Update(gameTime);
-
+            physics.Update(frameState.GetGameTime());
         }
 
 

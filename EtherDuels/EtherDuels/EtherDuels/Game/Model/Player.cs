@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
-    abstract class Player
+    public abstract class Player
     {
         private int playerId;
         private PlayerHandler playerHandler;
@@ -73,7 +73,7 @@ namespace EtherDuels.Game.Model
         /// Called for every frame of the game.
         /// Updates to the player's behaviour should be implemented in this method.
         /// </summary>
-        /// <param name="gameTime">The time object for the current frame</param>
-        public abstract void Update(GameTime gameTime);
+        /// <param name="frameState">frame specific state</param>
+        public abstract void Update(FrameState frameState);
     }
 }

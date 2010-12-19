@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
-    class WorldObject
+    public class WorldObject
     {
         int attack;
         int health;

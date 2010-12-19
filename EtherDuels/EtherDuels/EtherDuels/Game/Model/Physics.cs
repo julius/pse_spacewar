@@ -8,8 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
-    abstract class Physics
+    public abstract class Physics
     {
+        // TODO handle never used warning. (for example, try a constructor.. not sure what the right solution is)
         private CollisionHandler collisionHandler;
         private World world;
 

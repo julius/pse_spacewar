@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
-    class SimplePhysicsAlgorithm : Physics
+    public class SimplePhysicsAlgorithm : Physics
     {
         private CollisionHandler collisionHandler;
         private World world;

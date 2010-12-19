@@ -2,19 +2,18 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.Xna.Framework;
-
-using Moq;
+using Microsoft.Xna.Framework.Input;
 
 namespace GameTest
 {
     
     
     /// <summary>
-    ///This is a test class for SimplePhysicsAlgorithmTest and is intended
-    ///to contain all SimplePhysicsAlgorithmTest Unit Tests
+    ///This is a test class for HumanPlayerTest and is intended
+    ///to contain all HumanPlayerTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class SimplePhysicsAlgorithmTest
+    public class HumanPlayerTest
     {
 
 
@@ -68,41 +67,30 @@ namespace GameTest
 
 
         /// <summary>
-        ///A test for SimplePhysicsAlgorithm Constructor
+        ///A test for Update
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
-        public void SimplePhysicsAlgorithmConstructorTest()
-        {
-            // TODO (Build Errors => I commented out some lines)
-            //SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor();
-            Assert.Inconclusive("TODO: Implement code to verify target");
-        }
-
-        /// <summary>
-        ///A first simple Test for Update
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
         public void UpdateTest()
         {
-            // TODO (Build Errors => I commented out some lines)
-            //WorldObject_Accessor ship1 = new Spaceship_Accessor();
-            //WorldObject_Accessor ship2 = new Spaceship_Accessor();
-            //ship1.SetPosition(new Vector2(0, 0));
-            //ship2.SetPosition(new Vector2(0, 0));
+            //int playerId = 0;
+            //var mockPlayerHandler = new Moq.Mock<PlayerHandler>();
+            //var mockInputConfigurationRetriever = new Moq.Mock<InputConfigurationRetriever>();
+            //mockInputConfigurationRetriever.Setup(b => b.GetFireKey()).Returns(Keys.Space);
 
-            //World_Accessor world = new World_Accessor();
-            //world.AddWorldObject(ship1);
-            //world.AddWorldObject(ship2);
+            //HumanPlayer target = new HumanPlayer(playerId, mockPlayerHandler.Object, mockInputConfigurationRetriever.Object);
 
-            //var colHandMock = new Mock<CollisionHandler>();
-            //colHandMock.Setup(c => c.OnCollision(ship1.Target, ship2.Target));
+            //Spaceship spaceship = new Spaceship();
+            //target.SetSpaceship(spaceship);
 
-            //SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
+            //Keys[] keys = { Keys.Space };
+            //var keyboardState = new KeyboardState(keys);
+
             //GameTime gameTime = null; // TODO: Initialize to an appropriate value
-            //target.Update(gameTime);
-            //Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            //FrameState frameState = new FrameState(gameTime, keyboardState);
+            
+            //target.Update(frameState);
+
+            //mockPlayerHandler.Verify(b => b.OnFire(spaceship));
         }
     }
 }

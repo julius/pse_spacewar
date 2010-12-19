@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EtherDuels.Game.Model
+namespace EtherDuels.Game.View
 {
-    public enum Weapon : byte
+    public class ExplosionView
     {
-        Rocket, Laser
+        // TODO
     }
 }

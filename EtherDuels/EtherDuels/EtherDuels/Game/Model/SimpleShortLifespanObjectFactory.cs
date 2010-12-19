@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EtherDuels.Game.View;
 
 namespace EtherDuels.Game.Model
 {
-    class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
+    public class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
     {
         public Explosion CreateExplosion()
         {
             Explosion explosion = new Explosion();
-            explosion.SetCreationTime(TimeSpan.G
+            // TODO continue editing here
+            // explosion.SetCreationTime(TimeSpan.G
+            return null;
         }
 
         public Projectile CreateProjectile()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    interface PlayerHandler
+    public interface PlayerHandler
     {
         /// <summary>
         /// Called by Players, when they want to shoot.
