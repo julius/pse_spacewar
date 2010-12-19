@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
     interface ShortLifespanObjectFactory
     {
-        public Explosion CreateExplosion();
-        public Projectile CreateProjectile();
-        public ExplosionView CreateExplosionView(Explosion explosion);
-        public ProjectileView CreateProjectileview(Projectile projectile);
+        public Explosion CreateExplosion(GameTime gameTime);
+        public Projectile CreateProjectile(Weapon weapon);
+        public WorldObjectView CreateExplosionView(Explosion explosion);
+        public WorldObjectView CreateProjectileview(Weapon weapon, Projectile projectile);
     }
 }
