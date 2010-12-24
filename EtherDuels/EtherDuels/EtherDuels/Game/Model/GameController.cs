@@ -86,7 +86,7 @@ namespace EtherDuels.Game
         /* Updates the GameModel */
         public void Update(GameTime gameTime)
         {
-            if (gameModel != null)
+            if (gameModel != null)      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert
             {
                 gameModel.Update(gameTime);
             }
