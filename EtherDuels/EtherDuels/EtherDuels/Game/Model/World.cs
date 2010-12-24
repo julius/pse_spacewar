@@ -2,28 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace EtherDuels.Game.Model
 {
     public class World
     {
-        WorldObject[] worldObjects;
+        //WorldObject[] worldObjects;
+        ArrayList worldObjects;
 
-        // TODO initialize this.worldObjects (eg. with a constructor)
+        public World(ArrayList worldObjects)
+        {
+            this.worldObjects = worldObjects;
+        }
 
         public void AddWorldObject(WorldObject worldObject)
         {
-            int numberOfObjects = worldObjects.Length;
-
+            worldObjects.Add(worldObject);
         }
 
-        public WorldObject[] GetWorldObjects()
+        public ArrayList GetWorldObjects()
         {
             return worldObjects;
         }
 
         public void RemoveWorldObject(WorldObject worldObject)
         {
+            worldObjects.Remove(worldObject);
         }
 
     }

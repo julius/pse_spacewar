@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EtherDuels.Game.View;
+using EtherDuels.Config;
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model

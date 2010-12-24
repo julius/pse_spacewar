@@ -20,11 +20,11 @@ namespace EtherDuels.Game.Model
 
         public override void Update(GameTime gameTime)
         {
-            WorldObject[] objects = world.GetWorldObjects();
+           /* WorldObject[] objects = world.GetWorldObjects();      // das is jetz ne ArrayList
 
             foreach (WorldObject worldObject in objects)
             {
-            }
+            }*/
         }
 
         private void CheckCollision(WorldObject object1, WorldObject object2)

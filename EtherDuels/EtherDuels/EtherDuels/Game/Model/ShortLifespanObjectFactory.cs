@@ -9,9 +9,9 @@ namespace EtherDuels.Game.Model
 {
     public interface ShortLifespanObjectFactory
     {
-        public Explosion CreateExplosion(GameTime gameTime);
-        public Projectile CreateProjectile(Weapon weapon);
-        public WorldObjectView CreateExplosionView(Explosion explosion);
-        public WorldObjectView CreateProjectileview(Weapon weapon, Projectile projectile);
+        Explosion CreateExplosion(GameTime gameTime);
+        Projectile CreateProjectile(Weapon weapon);
+        WorldObjectView CreateExplosionView(Explosion explosion);
+        WorldObjectView CreateProjectileview(Weapon weapon, Projectile projectile);
     }
 }
