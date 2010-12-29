@@ -66,43 +66,17 @@ namespace GameTest
         //
         #endregion
 
-
-        /// <summary>
-        ///A test for SimplePhysicsAlgorithm Constructor
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
-        public void SimplePhysicsAlgorithmConstructorTest()
+        [TestInitialize()]
+        public void Initialize()
         {
-            // TODO (Build Errors => I commented out some lines)
-            //SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor();
-            Assert.Inconclusive("TODO: Implement code to verify target");
         }
 
         /// <summary>
         ///A first simple Test for Update
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
         public void UpdateTest()
         {
-            // TODO (Build Errors => I commented out some lines)
-            //WorldObject_Accessor ship1 = new Spaceship_Accessor();
-            //WorldObject_Accessor ship2 = new Spaceship_Accessor();
-            //ship1.SetPosition(new Vector2(0, 0));
-            //ship2.SetPosition(new Vector2(0, 0));
-
-            //World_Accessor world = new World_Accessor();
-            //world.AddWorldObject(ship1);
-            //world.AddWorldObject(ship2);
-
-            //var colHandMock = new Mock<CollisionHandler>();
-            //colHandMock.Setup(c => c.OnCollision(ship1.Target, ship2.Target));
-
-            //SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
-            //GameTime gameTime = null; // TODO: Initialize to an appropriate value
-            //target.Update(gameTime);
-            //Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
     }
 }
