@@ -7,13 +7,8 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
-<<<<<<< HEAD
     public class SimplePhysicsAlgorithm : Physics
     {
-=======
-    class SimplePhysicsAlgorithm : Physics
-    {   
->>>>>>> neuffer
         private CollisionHandler collisionHandler;
         private World world;
 
@@ -25,7 +20,7 @@ namespace EtherDuels.Game.Model
             this.world = world;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(FrameState frameState)
         {
             WorldObject[] objects = world.GetWorldObjects();
 
