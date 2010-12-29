@@ -20,6 +20,9 @@ namespace GameTest
 
         private TestContext testContextInstance;
 
+        private SimplePhysicsAlgorithm target;
+        private Mock<CollisionHandler> mockCollisionHandler;
+
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -69,13 +72,14 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
+            
         }
 
         /// <summary>
-        ///A first simple Test for Update
+        /// Test of the collision detection
         ///</summary>
         [TestMethod()]
-        public void UpdateTest()
+        public void UpdateTest1()
         {
         }
     }

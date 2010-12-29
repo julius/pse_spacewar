@@ -7,23 +7,21 @@ namespace EtherDuels.Game.Model
 {
     public class World
     {
-        WorldObject[] worldObjects;
-
-        // TODO initialize this.worldObjects (eg. with a constructor)
+        List<WorldObject> worldObjects = new List<WorldObject>();
 
         public void AddWorldObject(WorldObject worldObject)
         {
-            int numberOfObjects = worldObjects.Length;
-
+            worldObjects.Add(worldObject);
         }
 
         public WorldObject[] GetWorldObjects()
         {
-            return worldObjects;
+            return worldObjects.ToArray<WorldObject>();
         }
 
         public void RemoveWorldObject(WorldObject worldObject)
         {
+            worldObjects.Remove(worldObject);
         }
 
     }
