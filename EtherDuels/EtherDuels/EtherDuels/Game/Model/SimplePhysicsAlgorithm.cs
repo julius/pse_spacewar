@@ -12,6 +12,7 @@ namespace EtherDuels.Game.Model
         private CollisionHandler collisionHandler;
         private World world;
 
+        private WorldObject[] worldObjects;
         private WorldObject[][] oldCollisions = new WorldObject[0][];
 
         public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world)
@@ -20,12 +21,36 @@ namespace EtherDuels.Game.Model
             this.world = world;
         }
 
+        /// <summary>
+        /// Updates gravity effects, calculates the new positions of all worldObjects 
+        /// and then reports all new collisions to the collisionHandler.
+        /// </summary>
+        /// <param name="frameState"></param>
         public override void Update(FrameState frameState)
         {
-            WorldObject[] objects = world.GetWorldObjects();
+            worldObjects = world.GetWorldObjects();
 
-            foreach (WorldObject worldObject in objects)
+            UpdateGravity(frameState.GetGameTime());
+            UpdatePositions(frameState.GetGameTime());
+
+            foreach (WorldObject[] collision in GetNewCollisions())
             {
+                collisionHandler.OnCollision(collision[0], collision[1]);
+            }
+        }
+
+        private void UpdateGravity(GameTime gameTime)
+        {
+            foreach (WorldObject worldObject in worldObjects)
+            {
+            }
+        }
+
+        private void UpdatePositions(GameTime gameTime)
+        {
+            foreach (WorldObject worldObject in worldObjects)
+            {
+                
             }
         }
 
@@ -35,16 +60,15 @@ namespace EtherDuels.Game.Model
         /// <returns>All current collisions</returns>
         private WorldObject[][] GetCollisions()
         {
-            WorldObject[] objects = world.GetWorldObjects();
             List<WorldObject[]> collisions = new List<WorldObject[]>();
 
-            for (int i = 0; i < objects.GetLength(0); i += 1)
+            for (int i = 0; i < worldObjects.GetLength(0); i += 1)
             {
-                WorldObject object1 = objects[i];
+                WorldObject object1 = worldObjects[i];
 
-                for (int j = i + 1; j < objects.GetLength(0); j += 1)
+                for (int j = i + 1; j < worldObjects.GetLength(0); j += 1)
                 {
-                    WorldObject object2 = objects[j];
+                    WorldObject object2 = worldObjects[j];
 
                     float distance = Vector2.Distance(object1.GetPosition(), object2.GetPosition());
                     if (distance < object1.GetRadius() + object2.GetRadius())
