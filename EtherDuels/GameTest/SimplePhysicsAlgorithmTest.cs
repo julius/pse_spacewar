@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.Xna.Framework;
 
+using Microsoft.Xna.Framework.Input;
 using Moq;
 
 namespace GameTest
@@ -21,7 +22,9 @@ namespace GameTest
         private TestContext testContextInstance;
 
         private SimplePhysicsAlgorithm target;
+        private World world;
         private Mock<CollisionHandler> mockCollisionHandler;
+        private FrameState frameState;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -72,7 +75,9 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
-            
+            world = new World();
+            mockCollisionHandler = new Mock<CollisionHandler>();
+            frameState = new FrameState(null, new KeyboardState(null));
         }
 
         /// <summary>
@@ -81,6 +86,24 @@ namespace GameTest
         [TestMethod()]
         public void UpdateTest1()
         {
+            WorldObject object1 = new WorldObject();
+            object1.SetPosition(new Vector2(0.0f, 0.0f));
+            object1.SetRadius(1.0f);
+
+            WorldObject object2 = new WorldObject();
+            object2.SetPosition(new Vector2(1.0f, 1.0f));
+            object2.SetRadius(1.0f);
+
+            world.AddWorldObject(object1);
+            world.AddWorldObject(object2);
+
+            mockCollisionHandler.Setup(m => m.OnCollision(object1, object2));
+
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world);
+            target.Update(frameState);
+            target.Update(frameState);
+
+            mockCollisionHandler.Verify(m => m.OnCollision(object1, object2), Times.Exactly(1));
         }
     }
 }
