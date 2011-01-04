@@ -16,7 +16,7 @@ namespace EtherDuels.Game.Model
         public Explosion CreateExplosion(GameTime gameTime)
         {
             Explosion explosion = new Explosion();
-            explosion.SetCreationTime(gameTime.TotalGameTime);
+            explosion.CreationTime = gameTime.TotalGameTime;
             return explosion;
         }
 
@@ -25,8 +25,8 @@ namespace EtherDuels.Game.Model
             Projectile projectile = new Projectile();
             switch (weapon)
             {
-                case Weapon.Laser: projectile.SetAttack(5); break;
-                case Weapon.Rocket: projectile.SetAttack(10); break;
+                case Weapon.Laser: projectile.Attack = 5; break;
+                case Weapon.Rocket: projectile.Attack = 10; break;
             }
             return projectile;
         }

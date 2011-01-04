@@ -8,10 +8,9 @@ namespace EtherDuels.Game.Model
 {
     public class World
     {
-        //WorldObject[] worldObjects;
-        ArrayList worldObjects;
+        List<WorldObject> worldObjects = new List<WorldObject>();
 
-        public World(ArrayList worldObjects)
+        public World(List<WorldObject> worldObjects)
         {
             this.worldObjects = worldObjects;
         }
@@ -21,9 +20,9 @@ namespace EtherDuels.Game.Model
             worldObjects.Add(worldObject);
         }
 
-        public ArrayList GetWorldObjects()
+        public WorldObject[] GetWorldObjects()
         {
-            return worldObjects;
+            return worldObjects.ToArray<WorldObject>();
         }
 
         public void RemoveWorldObject(WorldObject worldObject)

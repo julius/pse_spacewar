@@ -36,31 +36,31 @@ namespace EtherDuels.Game.Model
             if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetForwardKey()))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
-                Vector2 velocity = this.spaceship.GetVeloctiy();
-                velocity.X += (float)Math.Sin(this.spaceship.GetRotation()) * speed;
-                velocity.Y -= (float)Math.Cos(this.spaceship.GetRotation()) * speed;
-                this.spaceship.SetVelocity(velocity);
+                Vector2 velocity = this.spaceship.Velocity;
+                velocity.X += (float)Math.Sin(this.spaceship.Rotation) * speed;
+                velocity.Y -= (float)Math.Cos(this.spaceship.Rotation) * speed;
+                this.spaceship.Velocity = velocity;
             }
 
             if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetBackwardKey()))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * -0.01f;
-                Vector2 velocity = this.spaceship.GetVeloctiy();
-                velocity.X += (float)Math.Sin(this.spaceship.GetRotation()) * speed;
-                velocity.Y -= (float)Math.Cos(this.spaceship.GetRotation()) * speed;
-                this.spaceship.SetVelocity(velocity);
+                Vector2 velocity = this.spaceship.Velocity;
+                velocity.X += (float)Math.Sin(this.spaceship.Rotation) * speed;
+                velocity.Y -= (float)Math.Cos(this.spaceship.Rotation) * speed;
+                this.spaceship.Velocity = velocity;
             }
 
             if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetLeftKey()))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
-                this.spaceship.SetRotation(this.spaceship.GetRotation() + (speed * -1f));
+                this.spaceship.Rotation = this.spaceship.Rotation + (speed * -1f);
             }
 
             if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetRightKey()))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
-                this.spaceship.SetRotation(this.spaceship.GetRotation() + (speed * 1f));
+                this.spaceship.Rotation = this.spaceship.Rotation + (speed * 1f);
             }
         }
     }

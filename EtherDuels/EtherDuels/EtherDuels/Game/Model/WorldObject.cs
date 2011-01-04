@@ -16,74 +16,46 @@ namespace EtherDuels.Game.Model
         float rotation;
         Vector2 velocity;
 
-        public int GetAttack()
+        public int Attack
         {
-            return attack;
-        }
+            get { return attack; }
+            set { attack = value; }
+        }        
 
-        public void SetAttack(int attack)
+        public int Health
         {
-            this.attack = attack;
-        }
+            get { return health; }
+            set { health = value; }
+        }        
 
-        public int GetHealth()
+        public double Mass
         {
-            return health;
-        }
+            get { return mass; }
+            set { mass = value; }
+        }        
 
-        public void SetHealth(int health)
+        public Vector2 Position
         {
-            this.health = health;
+            get { return position; }
+            set { position = value; }
         }
-
-        public double GetMass()
+        
+        public float Radius
         {
-            return mass;
-        }
+            get { return radius; }
+            set { radius = value; }
+        }        
 
-        public void SetMass(double mass)
+        public float Rotation
         {
-            this.mass = mass;
-        }
+            get { return rotation; }
+            set { rotation = value; }
+        }        
 
-        public Vector2 GetPosition()
+        public Vector2 Velocity
         {
-            return position;
-        }
-
-        public void SetPosition(Vector2 position)
-        {
-            this.position = position;
-        }
-
-        public float GetRadius()
-        {
-            return radius;
-        }
-
-        public void SetRadius(float radius)
-        {
-            this.radius = radius;
-        }
-
-        public float GetRotation()
-        {
-            return rotation;
-        }
-
-        public void SetRotation(float rotation)
-        {
-            this.rotation = rotation;
-        }
-
-        public Vector2 GetVeloctiy()
-        {
-            return velocity;
-        }
-
-        public void SetVelocity(Vector2 velocity)
-        {
-            this.velocity = velocity;
+            get { return velocity; }
+            set { velocity = value; }
         }
     }
 }

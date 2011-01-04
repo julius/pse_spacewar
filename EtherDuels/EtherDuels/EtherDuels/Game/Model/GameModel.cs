@@ -14,6 +14,12 @@ namespace EtherDuels.Game.Model
         Player[] players;
         World world;
 
+        public World World
+        {
+            get { return world; }
+            set { world = value; }
+        }
+
         public GameModel(ShortLifespanObjectFactory factory, Physics physics, Player[] players, World world)
         {
             this.factory = factory;
@@ -30,16 +36,6 @@ namespace EtherDuels.Game.Model
         public Player[] GetPlayers()
         {
             return players;
-        }
-
-        public World GetWorld()
-        {
-            return world;
-        }
-
-        public void SetWorld(World world)
-        {
-            this.world = world;
         }
 
         public void Update(FrameState frameState)

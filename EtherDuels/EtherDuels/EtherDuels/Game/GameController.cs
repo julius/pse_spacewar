@@ -45,7 +45,7 @@ namespace EtherDuels.Game
             if (gameModel != null)
             {
                 World newWorld = gameBuilder.BuildWorld();
-                gameModel.SetWorld(newWorld);
+                gameModel.World = newWorld;
 
                 WorldView worldView = gameBuilder.BuildWorldView(newWorld);
                 gameView.SetWorldView(worldView);
@@ -76,7 +76,7 @@ namespace EtherDuels.Game
 
                 WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
 
-                gameModel.GetWorld().AddWorldObject(explosion);
+                gameModel.World.AddWorldObject(explosion);
                 gameView.GetWorldView().AddWorldObjectView(explosionView);
             }
 
@@ -84,7 +84,7 @@ namespace EtherDuels.Game
 
         /* Creates a projectile and its fitting view */
         public void OnFire(Spaceship shooter)
-        {
+        { 
 
 
         }
