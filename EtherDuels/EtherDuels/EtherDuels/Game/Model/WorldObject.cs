@@ -85,5 +85,10 @@ namespace EtherDuels.Game.Model
         {
             this.velocity = velocity;
         }
+
+        //TODO: Properties
+        public object Radius { get; set; }
+
+        public Vector2 Position { get; set; }
     }
 }

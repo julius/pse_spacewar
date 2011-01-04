@@ -28,7 +28,7 @@ namespace EtherDuels.Game.Model
         /// <param name="frameState"></param>
         public override void Update(FrameState frameState)
         {
-            worldObjects = world.GetWorldObjects();
+            worldObjects = world.WorldObjects;
 
             UpdateGravity(frameState.GetGameTime());
             UpdatePositions(frameState.GetGameTime());
@@ -70,8 +70,8 @@ namespace EtherDuels.Game.Model
                 {
                     WorldObject object2 = worldObjects[j];
 
-                    float distance = Vector2.Distance(object1.GetPosition(), object2.GetPosition());
-                    if (distance < object1.GetRadius() + object2.GetRadius())
+                    float distance = Vector2.Distance(object1.Position, object2.Position);
+                    if (distance < object1.Radius + object2.Radius)
                     {
                         WorldObject[] collision = { object1, object2 };
                         collisions.Add(collision);

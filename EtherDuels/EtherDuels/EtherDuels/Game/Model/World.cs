@@ -9,14 +9,14 @@ namespace EtherDuels.Game.Model
     {
         List<WorldObject> worldObjects = new List<WorldObject>();
 
+        public WorldObject[] WorldObjects
+        {
+            get { return worldObjects.ToArray<WorldObject>(); }
+        }
+
         public void AddWorldObject(WorldObject worldObject)
         {
             worldObjects.Add(worldObject);
-        }
-
-        public WorldObject[] GetWorldObjects()
-        {
-            return worldObjects.ToArray<WorldObject>();
         }
 
         public void RemoveWorldObject(WorldObject worldObject)
