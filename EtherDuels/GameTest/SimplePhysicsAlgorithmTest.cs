@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.Xna.Framework;
 
+using Microsoft.Xna.Framework.Input;
 using Moq;
 
 namespace GameTest
@@ -19,6 +20,11 @@ namespace GameTest
 
 
         private TestContext testContextInstance;
+
+        private SimplePhysicsAlgorithm target;
+        private World world;
+        private Mock<CollisionHandler> mockCollisionHandler;
+        private FrameState frameState;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -66,43 +72,38 @@ namespace GameTest
         //
         #endregion
 
-
-        /// <summary>
-        ///A test for SimplePhysicsAlgorithm Constructor
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
-        public void SimplePhysicsAlgorithmConstructorTest()
+        [TestInitialize()]
+        public void Initialize()
         {
-            // TODO (Build Errors => I commented out some lines)
-            //SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor();
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            world = new World();
+            mockCollisionHandler = new Mock<CollisionHandler>();
+            frameState = new FrameState(null, new KeyboardState(null));
         }
 
         /// <summary>
-        ///A first simple Test for Update
+        /// Test of the collision detection
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
-        public void UpdateTest()
+        public void UpdateTest1()
         {
-            // TODO (Build Errors => I commented out some lines)
-            //WorldObject_Accessor ship1 = new Spaceship_Accessor();
-            //WorldObject_Accessor ship2 = new Spaceship_Accessor();
-            //ship1.SetPosition(new Vector2(0, 0));
-            //ship2.SetPosition(new Vector2(0, 0));
+            WorldObject object1 = new WorldObject();
+            object1.SetPosition(new Vector2(0.0f, 0.0f));
+            object1.SetRadius(1.0f);
 
-            //World_Accessor world = new World_Accessor();
-            //world.AddWorldObject(ship1);
-            //world.AddWorldObject(ship2);
+            WorldObject object2 = new WorldObject();
+            object2.SetPosition(new Vector2(1.0f, 1.0f));
+            object2.SetRadius(1.0f);
 
-            //var colHandMock = new Mock<CollisionHandler>();
-            //colHandMock.Setup(c => c.OnCollision(ship1.Target, ship2.Target));
+            world.AddWorldObject(object1);
+            world.AddWorldObject(object2);
 
-            //SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
-            //GameTime gameTime = null; // TODO: Initialize to an appropriate value
-            //target.Update(gameTime);
-            //Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            mockCollisionHandler.Setup(m => m.OnCollision(object1, object2));
+
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world);
+            target.Update(frameState);
+            target.Update(frameState);
+
+            mockCollisionHandler.Verify(m => m.OnCollision(object1, object2), Times.Exactly(1));
         }
     }
 }

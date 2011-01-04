@@ -79,11 +79,11 @@ namespace GameTest
             this.mockInputConfigurationRetriever = new Moq.Mock<InputConfigurationRetriever>();
             this.spaceship = new Spaceship();
 
-            mockInputConfigurationRetriever.Setup(b => b.GetFireKey()).Returns(Keys.Space);
-            mockInputConfigurationRetriever.Setup(b => b.GetForwardKey()).Returns(Keys.Up);
-            mockInputConfigurationRetriever.Setup(b => b.GetBackwardKey()).Returns(Keys.Down);
-            mockInputConfigurationRetriever.Setup(b => b.GetLeftKey()).Returns(Keys.Left);
-            mockInputConfigurationRetriever.Setup(b => b.GetRightKey()).Returns(Keys.Right);
+            mockInputConfigurationRetriever.Setup(b => b.FireKey).Returns(Keys.Space);
+            mockInputConfigurationRetriever.Setup(b => b.ForwardKey).Returns(Keys.Up);
+            mockInputConfigurationRetriever.Setup(b => b.BackwardKey).Returns(Keys.Down);
+            mockInputConfigurationRetriever.Setup(b => b.LeftKey).Returns(Keys.Left);
+            mockInputConfigurationRetriever.Setup(b => b.RightKey).Returns(Keys.Right);
         }
 
         /// <summary>

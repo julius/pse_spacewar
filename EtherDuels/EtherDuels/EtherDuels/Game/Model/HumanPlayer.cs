@@ -28,12 +28,12 @@ namespace EtherDuels.Game.Model
         /// <param name="frameState">frame specific state</param>
         public override void Update(FrameState frameState)
         {
-            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetFireKey()))
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.FireKey))
             {
                 this.playerHandler.OnFire(this.spaceship);
             }
 
-            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetForwardKey()))
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.ForwardKey))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
                 Vector2 velocity = this.spaceship.Velocity;
@@ -42,7 +42,7 @@ namespace EtherDuels.Game.Model
                 this.spaceship.Velocity = velocity;
             }
 
-            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetBackwardKey()))
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.BackwardKey))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * -0.01f;
                 Vector2 velocity = this.spaceship.Velocity;
@@ -51,13 +51,13 @@ namespace EtherDuels.Game.Model
                 this.spaceship.Velocity = velocity;
             }
 
-            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetLeftKey()))
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.LeftKey))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
                 this.spaceship.Rotation = this.spaceship.Rotation + (speed * -1f);
             }
 
-            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.GetRightKey()))
+            if (frameState.GetKeyboardState().IsKeyDown(this.inputConfigurationRetriever.RightKey))
             {
                 float speed = ((float)frameState.GetGameTime().ElapsedGameTime.TotalMilliseconds) * 0.01f;
                 this.spaceship.Rotation = this.spaceship.Rotation + (speed * 1f);
