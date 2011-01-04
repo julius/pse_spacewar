@@ -10,8 +10,12 @@ namespace EtherDuels.Game.Model
 {
     public class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
     {
-
         Configuration configuration;
+
+       /* public SimpleShortLifespanObjectFactory(Configuration configuration)
+        {
+            this.configuration = configuration;
+        } */
 
         public Explosion CreateExplosion(GameTime gameTime)
         {

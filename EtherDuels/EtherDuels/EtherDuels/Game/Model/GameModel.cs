@@ -8,17 +8,10 @@ namespace EtherDuels.Game.Model
 {
     public class GameModel
     {
-
-        ShortLifespanObjectFactory factory;
-        Physics physics;
-        Player[] players;
-        World world;
-
-        public World World
-        {
-            get { return world; }
-            set { world = value; }
-        }
+        private ShortLifespanObjectFactory factory;
+        private Physics physics;
+        private Player[] players;
+        private World world;
 
         public GameModel(ShortLifespanObjectFactory factory, Physics physics, Player[] players, World world)
         {
@@ -48,6 +41,10 @@ namespace EtherDuels.Game.Model
             physics.Update(frameState.GetGameTime());
         }
 
-
+        public World World
+        {
+            get { return world; }
+            set { world = value; }
+        }
     }
 }
