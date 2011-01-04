@@ -9,6 +9,9 @@ namespace EtherDuels.Game.Model
 {
     public class SimplePhysicsAlgorithm : Physics
     {
+        // TODO: find a suitable value
+        private static float MAX_VELOCITY = 100.0f;
+
         private CollisionHandler collisionHandler;
         private World world;
 
@@ -46,11 +49,21 @@ namespace EtherDuels.Game.Model
             }
         }
 
+        /// <summary>
+        /// Limits the velocity and updates the position of each worldObject.
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void UpdatePositions(GameTime gameTime)
         {
             foreach (WorldObject worldObject in worldObjects)
             {
-                
+                Vector2 velocity = worldObject.Velocity;
+                velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
+                velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
+
+                Vector2 postion = worldObject.Position;
+                postion.X += worldObject.Velocity.X * gameTime.ElapsedGameTime.Milliseconds;
+                postion.Y += worldObject.Velocity.Y * gameTime.ElapsedGameTime.Milliseconds;
             }
         }
 
