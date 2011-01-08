@@ -15,38 +15,21 @@ namespace EtherDuels.Game.Model
         private CollisionHandler collisionHandler;
         private World world;
 
-        private WorldObject[] worldObjects;
-        private WorldObject[][] oldCollisions = new WorldObject[0][];
-
         public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world)
         {
             this.collisionHandler = collisionHandler;
             this.world = world;
         }
 
-        /// <summary>
-        /// Updates gravity effects, calculates the new positions of all worldObjects 
-        /// and then reports all new collisions to the collisionHandler.
-        /// </summary>
-        /// <param name="frameState"></param>
-        public override void Update(FrameState frameState)
+        public override void Update(GameTime gameTime)
         {
             worldObjects = world.WorldObjects;
 
             UpdateGravity(frameState.GetGameTime());
             UpdatePositions(frameState.GetGameTime());
 
-            foreach (WorldObject[] collision in GetNewCollisions())
+            foreach (WorldObject worldObject in objects)
             {
-                collisionHandler.OnCollision(collision[0], collision[1]);
-            }
-        }
-
-        private void UpdateGravity(GameTime gameTime)
-        {
-            foreach (WorldObject worldObject in worldObjects)
-            {
-
             }
         }
 

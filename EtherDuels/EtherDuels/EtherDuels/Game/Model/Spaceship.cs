@@ -7,18 +7,12 @@ namespace EtherDuels.Game.Model
 {
     public class Spaceship : WorldObject
     {
-
         Weapon currentWeapon;
 
-        public Weapon GetCurrentWeapon()
+        public Weapon CurrentWeapon
         {
-            return currentWeapon;
+            get { return currentWeapon; }
+            set { currentWeapon = value; }
         }
-
-        public void SetCurrentWeapon(Weapon weapon)
-        {
-            this.currentWeapon = weapon;
-        }
-
     }
 }

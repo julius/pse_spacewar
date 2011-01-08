@@ -79,11 +79,11 @@ namespace GameTest
             this.mockInputConfigurationRetriever = new Moq.Mock<InputConfigurationRetriever>();
             this.spaceship = new Spaceship();
 
-            mockInputConfigurationRetriever.Setup(b => b.GetFireKey()).Returns(Keys.Space);
-            mockInputConfigurationRetriever.Setup(b => b.GetForwardKey()).Returns(Keys.Up);
-            mockInputConfigurationRetriever.Setup(b => b.GetBackwardKey()).Returns(Keys.Down);
-            mockInputConfigurationRetriever.Setup(b => b.GetLeftKey()).Returns(Keys.Left);
-            mockInputConfigurationRetriever.Setup(b => b.GetRightKey()).Returns(Keys.Right);
+            mockInputConfigurationRetriever.Setup(b => b.FireKey).Returns(Keys.Space);
+            mockInputConfigurationRetriever.Setup(b => b.ForwardKey).Returns(Keys.Up);
+            mockInputConfigurationRetriever.Setup(b => b.BackwardKey).Returns(Keys.Down);
+            mockInputConfigurationRetriever.Setup(b => b.LeftKey).Returns(Keys.Left);
+            mockInputConfigurationRetriever.Setup(b => b.RightKey).Returns(Keys.Right);
         }
 
         /// <summary>
@@ -118,12 +118,12 @@ namespace GameTest
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
 
-            spaceship.SetRotation(0);
-            spaceship.SetVelocity(new Vector2(0, 0));
+            spaceship.Rotation = 0;
+            spaceship.Velocity = new Vector2(0, 0);
 
             target.Update(frameState);
 
-            Assert.AreEqual(new Vector2(0f, -1f), spaceship.GetVeloctiy());
+            Assert.AreEqual(new Vector2(0f, -1f), spaceship.Velocity);
         }
 
         /// <summary>
@@ -139,13 +139,13 @@ namespace GameTest
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
 
-            spaceship.SetRotation((float)(270.0 * Math.PI / 180.0));
-            spaceship.SetVelocity(new Vector2(0, 0));
+            spaceship.Rotation = (float)(270.0 * Math.PI / 180.0);
+            spaceship.Velocity = new Vector2(0, 0);
 
             target.Update(frameState);
 
-            bool correctX = (spaceship.GetVeloctiy().X < -0.99) && (spaceship.GetVeloctiy().X > -1.001);
-            bool correctY = (spaceship.GetVeloctiy().Y > -0.001) && (spaceship.GetVeloctiy().Y < 0.001);
+            bool correctX = (spaceship.Velocity.X < -0.99) && (spaceship.Velocity.X > -1.001);
+            bool correctY = (spaceship.Velocity.Y > -0.001) && (spaceship.Velocity.Y < 0.001);
             Assert.AreEqual(true, correctX);
             Assert.AreEqual(true, correctY);
         }
@@ -163,12 +163,12 @@ namespace GameTest
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
 
-            spaceship.SetRotation(0);
-            spaceship.SetVelocity(new Vector2(0, 0));
+            spaceship.Rotation = 0;
+            spaceship.Velocity = new Vector2(0, 0);
 
             target.Update(frameState);
 
-            Assert.AreEqual(new Vector2(0f, 1f), spaceship.GetVeloctiy());
+            Assert.AreEqual(new Vector2(0f, 1f), spaceship.Velocity);
         }
 
         /// <summary>
@@ -184,13 +184,13 @@ namespace GameTest
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
 
-            spaceship.SetRotation((float)(270.0 * Math.PI / 180.0));
-            spaceship.SetVelocity(new Vector2(0, 0));
+            spaceship.Rotation = (float)(270.0 * Math.PI / 180.0);
+            spaceship.Velocity = new Vector2(0, 0);
 
             target.Update(frameState);
 
-            bool correctX = (spaceship.GetVeloctiy().X > 0.99) && (spaceship.GetVeloctiy().X < 1.001);
-            bool correctY = (spaceship.GetVeloctiy().Y > -0.001) && (spaceship.GetVeloctiy().Y < 0.001);
+            bool correctX = (spaceship.Velocity.X > 0.99) && (spaceship.Velocity.X < 1.001);
+            bool correctY = (spaceship.Velocity.Y > -0.001) && (spaceship.Velocity.Y < 0.001);
             Assert.AreEqual(true, correctX);
             Assert.AreEqual(true, correctY);
         }
@@ -208,11 +208,11 @@ namespace GameTest
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
 
-            spaceship.SetRotation(0);
+            spaceship.Rotation = 0;
 
             target.Update(frameState);
 
-            Assert.AreEqual(-1f, spaceship.GetRotation());
+            Assert.AreEqual(-1f, spaceship.Rotation);
         }
 
         /// <summary>
@@ -228,11 +228,11 @@ namespace GameTest
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 200));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
 
-            spaceship.SetRotation(0);
+            spaceship.Rotation = 0;
 
             target.Update(frameState);
 
-            Assert.AreEqual(2f, spaceship.GetRotation());
+            Assert.AreEqual(2f, spaceship.Rotation);
         }
     }
 }

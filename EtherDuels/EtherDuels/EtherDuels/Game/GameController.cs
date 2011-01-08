@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EtherDuels.Game.Model;
+using EtherDuels.Game.View;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
 {
@@ -11,6 +15,8 @@ namespace EtherDuels.Game
         private GameHandler gameHandler;
         private GameModel gameModel;
         private GameView gameView;
+        private GameTime gameTime;
+        private FrameState frameState;
 
         /* The constructor of GameController */
         public GameController(GameBuilder gameBuilder, GameHandler gameHandler)
@@ -39,7 +45,7 @@ namespace EtherDuels.Game
             if (gameModel != null)
             {
                 World newWorld = gameBuilder.BuildWorld();
-                gameModel.SetWorld(newWorld);
+                gameModel.World = newWorld;
 
                 WorldView worldView = gameBuilder.BuildWorldView(newWorld);
                 gameView.SetWorldView(worldView);
@@ -49,7 +55,7 @@ namespace EtherDuels.Game
         }
 
         /* Draws its subcomponents */
-        public void Draw(ViewPort viewPort, SpriteBatch spriteBatch)
+        public void Draw(Viewport viewPort, SpriteBatch spriteBatch)
         {
             if (gameView != null)
             {
@@ -63,22 +69,22 @@ namespace EtherDuels.Game
         {
             if (gameModel != null)
             {
-                Explosion explosion = gameModel.GetFactory.CreateExplosion();
+                Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
 
                 // TODO SetPosition
                 // TODO SetCreationTime
 
-                WorldObjectView explosionView = gameModel.GetFactory.CreateExplosionView(explosion);
+                WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
 
-                gameModel.GetWorld.AddWorldObject(explosion);
-                gameView.GetWorldView.AddWorldObjectView(explosionView);
+                gameModel.World.AddWorldObject(explosion);
+                gameView.GetWorldView().AddWorldObjectView(explosionView);
             }
 
         }
 
         /* Creates a projectile and its fitting view */
         public void OnFire(Spaceship shooter)
-        {
+        { 
 
 
         }
@@ -86,9 +92,10 @@ namespace EtherDuels.Game
         /* Updates the GameModel */
         public void Update(GameTime gameTime)
         {
+            this.gameTime = gameTime;
             if (gameModel != null)      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert
             {
-                gameModel.Update(gameTime);
+                gameModel.Update(frameState);
             }
         }
     }

@@ -16,35 +16,17 @@ namespace EtherDuels.Game.Model
         float rotation;
         Vector2 velocity;
 
-        public int GetAttack()
+        public int Attack
         {
-            return attack;
-        }
+            get { return attack; }
+            set { attack = value; }
+        }        
 
-        public void SetAttack(int attack)
+        public int Health
         {
-            this.attack = attack;
-        }
-
-        public int GetHealth()
-        {
-            return health;
-        }
-
-        public void SetHealth(int health)
-        {
-            this.health = health;
-        }
-
-        public float GetRotation()
-        {
-            return rotation;
-        }
-
-        public void SetRotation(float rotation)
-        {
-            this.rotation = rotation;
-        }
+            get { return health; }
+            set { health = value; }
+        }        
 
         public double Mass
         {

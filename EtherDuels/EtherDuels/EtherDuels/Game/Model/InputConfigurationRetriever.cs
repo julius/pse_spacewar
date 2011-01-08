@@ -8,7 +8,42 @@ namespace EtherDuels.Game.Model
 {
     public interface InputConfigurationRetriever
     {
-        /// <summary>
+        Keys ForwardKey
+        {
+            get;
+        }
+
+        Keys LeftKey
+        {
+            get;
+        }
+
+        Keys RightKey
+        {
+            get;
+        }
+
+        Keys FireKey
+        {
+            get;
+        }
+
+        Keys NextWeaponKey
+        {
+            get;
+        }
+
+        Keys PrevWeaponKey
+        {
+            get;
+        }
+
+        Keys BackwardKey
+        {
+            get;
+        }
+
+        /* /// <summary>
         /// Gets key for backward movement.
         /// </summary>
         /// <returns>The requested key.</returns>
@@ -48,6 +83,6 @@ namespace EtherDuels.Game.Model
         /// Gets key for selecting the previous weapon.
         /// </summary>
         /// <returns>The requested key.</returns>
-        Keys GetPrevWeaponKey();
+        Keys GetPrevWeaponKey(); */
     }
 }

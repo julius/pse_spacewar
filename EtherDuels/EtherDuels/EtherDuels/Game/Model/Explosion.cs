@@ -9,14 +9,10 @@ namespace EtherDuels.Game.Model
     {
         TimeSpan creationTime;
 
-        public TimeSpan GetCreationTime()
+        public TimeSpan CreationTime
         {
-            return creationTime;
-        }
-
-        public void SetCreationTime(TimeSpan creationTime)
-        {
-            this.creationTime = creationTime;
+            get { return creationTime; }
+            set { creationTime = value; }
         }
     }
 }
