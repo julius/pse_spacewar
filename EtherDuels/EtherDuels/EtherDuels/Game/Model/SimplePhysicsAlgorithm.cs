@@ -11,6 +11,7 @@ namespace EtherDuels.Game.Model
     {
         // TODO: find a suitable value
         private static float MAX_VELOCITY = 100.0f;
+        private static double G = 6.67428E-11;
 
         private CollisionHandler collisionHandler;
         private World world;
@@ -42,11 +43,28 @@ namespace EtherDuels.Game.Model
             }
         }
 
+        /// <summary>
+        /// Applies the gravity of the Planet to all other worldObjects and updates their velocities.
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void UpdateGravity(GameTime gameTime)
         {
             foreach (WorldObject worldObject in worldObjects)
             {
+                // f = m * a
+                // f = G * m / r^2
+                // m_object * a = G * m_planet / r^2
+                // a = (G * m_planet / r^2) / m_object
 
+                Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
+                    world.Planet.Position.Y - worldObject.Position.Y);
+                double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.Seconds;
+                // angle of the velocity
+                double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
+
+                Vector2 objVelocity = worldObject.Velocity;
+                objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
+                objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);
             }
         }
 
@@ -63,8 +81,8 @@ namespace EtherDuels.Game.Model
                 velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
 
                 Vector2 postion = worldObject.Position;
-                postion.X += worldObject.Velocity.X * gameTime.ElapsedGameTime.Milliseconds;
-                postion.Y += worldObject.Velocity.Y * gameTime.ElapsedGameTime.Milliseconds;
+                postion.X += worldObject.Velocity.X * gameTime.ElapsedGameTime.Seconds;
+                postion.Y += worldObject.Velocity.Y * gameTime.ElapsedGameTime.Seconds;
             }
         }
 

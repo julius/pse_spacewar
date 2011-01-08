@@ -23,7 +23,6 @@ namespace GameTest
         private TestContext testContextInstance;
 
         private SimplePhysicsAlgorithm target;
-        private World world;
         private Mock<CollisionHandler> mockCollisionHandler;
 
         /// <summary>
@@ -75,7 +74,6 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
-            world = new World(new List<WorldObject>());
             mockCollisionHandler = new Mock<CollisionHandler>();
         }
 
@@ -93,6 +91,7 @@ namespace GameTest
             object2.Position = new Vector2(1.0f, 1.0f);
             object2.Radius = 1.0f;
 
+            var world = new World(new List<WorldObject>(), null);
             world.AddWorldObject(object1);
             world.AddWorldObject(object2);
 

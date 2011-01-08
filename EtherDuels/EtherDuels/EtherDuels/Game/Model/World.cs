@@ -10,9 +10,12 @@ namespace EtherDuels.Game.Model
     {
         List<WorldObject> worldObjects = new List<WorldObject>();
 
-        public World(List<WorldObject> worldObjects)
+        private Planet planet;
+
+        public World(List<WorldObject> worldObjects, Planet planet)
         {
             this.worldObjects = worldObjects;
+            this.planet = planet;
         }
 
         public WorldObject[] WorldObjects
@@ -30,5 +33,9 @@ namespace EtherDuels.Game.Model
             worldObjects.Remove(worldObject);
         }
 
+        public Planet Planet
+        {
+            get { return planet; }
+        }
     }
 }
