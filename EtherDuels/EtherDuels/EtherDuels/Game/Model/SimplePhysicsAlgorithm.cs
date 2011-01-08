@@ -29,12 +29,12 @@ namespace EtherDuels.Game.Model
         /// and then reports all new collisions to the collisionHandler.
         /// </summary>
         /// <param name="frameState"></param>
-        public override void Update(FrameState frameState)
+        public override void Update(GameTime gameTime)
         {
             worldObjects = world.WorldObjects;
 
-            UpdateGravity(frameState.GetGameTime());
-            UpdatePositions(frameState.GetGameTime());
+            UpdateGravity(gameTime);
+            UpdatePositions(gameTime);
 
             foreach (WorldObject[] collision in GetNewCollisions())
             {
