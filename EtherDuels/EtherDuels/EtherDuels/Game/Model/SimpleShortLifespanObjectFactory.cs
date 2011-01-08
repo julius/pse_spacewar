@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EtherDuels.Game.View;
+using EtherDuels.Config;
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
     public class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
     {
-
         Configuration configuration;
+
+       /* public SimpleShortLifespanObjectFactory(Configuration configuration)
+        {
+            this.configuration = configuration;
+        } */
 
         public Explosion CreateExplosion(GameTime gameTime)
         {
             Explosion explosion = new Explosion();
-            explosion.SetCreationTime(gameTime.TotalGameTime);
+            explosion.CreationTime = gameTime.TotalGameTime;
             return explosion;
         }
 
@@ -24,8 +29,8 @@ namespace EtherDuels.Game.Model
             Projectile projectile = new Projectile();
             switch (weapon)
             {
-                case Weapon.Laser: projectile.SetAttack(5); break;
-                case Weapon.Rocket: projectile.SetAttack(10); break;
+                case Weapon.Laser: projectile.Attack = 5; break;
+                case Weapon.Rocket: projectile.Attack = 10; break;
             }
             return projectile;
         }

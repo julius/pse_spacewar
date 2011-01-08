@@ -5,8 +5,11 @@ using System.Text;
 
 namespace EtherDuels.Game.View
 {
-    public class ProjectileView
+    public class WorldView
     {
-        // TODO
+        public void AddWorldObjectView(WorldObjectView worldObjectView)
+        {
+            //TODO
+        }
     }
 }

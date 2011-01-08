@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace EtherDuels.Game.Model
 {
@@ -10,6 +11,13 @@ namespace EtherDuels.Game.Model
         List<WorldObject> worldObjects = new List<WorldObject>();
 
         public WorldObject[] WorldObjects
+
+        public World(List<WorldObject> worldObjects)
+        {
+            this.worldObjects = worldObjects;
+        }
+
+        public void AddWorldObject(WorldObject worldObject)
         {
             get { return worldObjects.ToArray<WorldObject>(); }
         }
