@@ -28,13 +28,6 @@ namespace EtherDuels.Game.Model
             set { health = value; }
         }        
 
-        
-        public float Radius
-        {
-            get { return radius; }
-            set { radius = value; }
-        }        
-
         public double Mass
         {
             get { return mass; }
