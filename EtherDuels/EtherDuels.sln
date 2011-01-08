@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Assets", "Assets\Assets.contentproj", "{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = EtherDuels.vsmdi
@@ -45,6 +47,12 @@ Global
 		{0A39CCC3-D3E0-4D1D-8E46-81F4DAB92487}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0A39CCC3-D3E0-4D1D-8E46-81F4DAB92487}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0A39CCC3-D3E0-4D1D-8E46-81F4DAB92487}.Release|x86.ActiveCfg = Release|Any CPU
+		{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

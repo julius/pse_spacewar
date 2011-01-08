@@ -47,7 +47,9 @@ namespace EtherDuels
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            ContentManager content = new ContentManager(Services, "Assets");
+            Texture2D textureStars = content.Load<Texture2D>("texture_stars");
+            //Model modelShip = content.Load<Model>("player_ship");
         }
 
         /// <summary>
