@@ -14,6 +14,6 @@ namespace EtherDuels.Game.Model
         private CollisionHandler collisionHandler;
         private World world;
 
-        abstract public void Update(FrameState frameState);
+        abstract public void Update(GameTime gameTime);
     }
 }
