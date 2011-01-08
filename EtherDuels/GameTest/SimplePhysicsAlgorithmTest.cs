@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 using Microsoft.Xna.Framework.Input;
 using Moq;
+using System.Collections.Generic;
 
 namespace GameTest
 {
@@ -24,7 +25,6 @@ namespace GameTest
         private SimplePhysicsAlgorithm target;
         private World world;
         private Mock<CollisionHandler> mockCollisionHandler;
-        private FrameState frameState;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -75,9 +75,8 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
-            world = new World();
+            world = new World(new List<WorldObject>());
             mockCollisionHandler = new Mock<CollisionHandler>();
-            frameState = new FrameState(null, new KeyboardState(null));
         }
 
         /// <summary>
@@ -100,8 +99,8 @@ namespace GameTest
             mockCollisionHandler.Setup(m => m.OnCollision(object1, object2));
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world);
-            target.Update(frameState);
-            target.Update(frameState);
+            target.Update(null);
+            target.Update(null);
 
             mockCollisionHandler.Verify(m => m.OnCollision(object1, object2), Times.Exactly(1));
         }
