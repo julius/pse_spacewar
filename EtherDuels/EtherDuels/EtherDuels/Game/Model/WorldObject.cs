@@ -28,17 +28,6 @@ namespace EtherDuels.Game.Model
             set { health = value; }
         }        
 
-        public double Mass
-        {
-            get { return mass; }
-            set { mass = value; }
-        }        
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
         
         public float Radius
         {
@@ -46,19 +35,28 @@ namespace EtherDuels.Game.Model
             set { radius = value; }
         }        
 
-        public float Rotation
+        public double Mass
         {
-            get { return rotation; }
-            set { rotation = value; }
-        }        
+            get { return mass; }
+            set { mass = value; }
+        }
 
-        public Vector2 Velocity
+        public float Radius
+        {
+            get { return radius; }
+            set { radius = value; }
+        }
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+        public Vector2 Velocity 
         {
             get { return velocity; }
             set { velocity = value; }
         }
-
-        //TODO: Properties
-        public object Radius { get; set; }
     }
 }
