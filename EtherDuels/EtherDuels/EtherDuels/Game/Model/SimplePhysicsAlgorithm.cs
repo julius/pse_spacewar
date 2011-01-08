@@ -9,8 +9,10 @@ namespace EtherDuels.Game.Model
 {
     public class SimplePhysicsAlgorithm : Physics
     {
-        // TODO: find a suitable value
-        private static float MAX_VELOCITY = 100.0f;
+        // speed of light in m/s, should be set to a more reasonable value
+        private static float MAX_VELOCITY = 299792458.0f;
+        // gravitational constant
+        private static double G = 6.67428E-11;
 
         private CollisionHandler collisionHandler;
         private World world;
@@ -42,11 +44,28 @@ namespace EtherDuels.Game.Model
             }
         }
 
+        /// <summary>
+        /// Applies the gravity of the Planet to all other worldObjects and updates their velocities.
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void UpdateGravity(GameTime gameTime)
         {
             foreach (WorldObject worldObject in worldObjects)
             {
+                // f = m * a
+                // f = G * m / r^2
+                // m_object * a = G * m_planet / r^2
+                // a = (G * m_planet / r^2) / m_object
 
+                Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
+                    world.Planet.Position.Y - worldObject.Position.Y);
+                double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.Seconds;
+                // angle of the velocity
+                double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
+
+                Vector2 objVelocity = worldObject.Velocity;
+                objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
+                objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);
             }
         }
 
@@ -58,13 +77,16 @@ namespace EtherDuels.Game.Model
         {
             foreach (WorldObject worldObject in worldObjects)
             {
+                // limit velocities
+                // TODO: check if the resulting velocity is higher than MAX_VELOCITY - does this make sense?
                 Vector2 velocity = worldObject.Velocity;
                 velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
                 velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
 
+                // calculate new positions
                 Vector2 postion = worldObject.Position;
-                postion.X += worldObject.Velocity.X * gameTime.ElapsedGameTime.Milliseconds;
-                postion.Y += worldObject.Velocity.Y * gameTime.ElapsedGameTime.Milliseconds;
+                postion.X += worldObject.Velocity.X * gameTime.ElapsedGameTime.Seconds;
+                postion.Y += worldObject.Velocity.Y * gameTime.ElapsedGameTime.Seconds;
             }
         }
 
@@ -92,7 +114,6 @@ namespace EtherDuels.Game.Model
                     }
                 }
             }
-
             return collisions.ToArray<WorldObject[]>();
         }
 
@@ -104,7 +125,6 @@ namespace EtherDuels.Game.Model
         {
             WorldObject[][] collisions = GetCollisions();
             List<WorldObject[]> filteredCollisions = new List<WorldObject[]>();
-
 
             foreach (WorldObject[] collision in collisions)
             {
@@ -119,17 +139,14 @@ namespace EtherDuels.Game.Model
                         break;
                     }
                 }
-
                 if (unique)
                 {
                     filteredCollisions.Add(collision);
                 }
             }
-
             oldCollisions = collisions;
 
             return filteredCollisions.ToArray<WorldObject[]>();
-        }
-                        
+        }                      
     }
 }
