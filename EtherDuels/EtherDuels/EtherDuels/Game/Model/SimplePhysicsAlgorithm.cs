@@ -46,6 +46,7 @@ namespace EtherDuels.Game.Model
         {
             foreach (WorldObject worldObject in worldObjects)
             {
+
             }
         }
 
