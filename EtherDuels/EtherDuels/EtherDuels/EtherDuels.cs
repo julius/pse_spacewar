@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using EtherDuels.Game.View;
+using EtherDuels.Game.Model;
 
 namespace EtherDuels
 {
@@ -38,6 +40,8 @@ namespace EtherDuels
             base.Initialize();
         }
 
+        GameView gameView;
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -49,7 +53,14 @@ namespace EtherDuels
 
             ContentManager content = new ContentManager(Services, "Assets");
             Texture2D textureStars = content.Load<Texture2D>("texture_stars");
-            //Model modelShip = content.Load<Model>("player_ship");
+            Model modelShip = content.Load<Model>("player_ship");
+
+            Spaceship ship = new Spaceship();
+            WorldObjectView shipView = new WorldObjectView(modelShip, ship);
+
+            this.gameView = new GameView();
+            this.gameView.WorldView = new WorldView(textureStars, null);
+            this.gameView.WorldView.AddWorldObjectView(shipView);
         }
 
         /// <summary>
@@ -85,7 +96,7 @@ namespace EtherDuels
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
 
             base.Draw(gameTime);
         }

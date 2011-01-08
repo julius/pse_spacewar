@@ -48,7 +48,7 @@ namespace EtherDuels.Game
                 gameModel.World = newWorld;
 
                 WorldView worldView = gameBuilder.BuildWorldView(newWorld);
-                gameView.SetWorldView(worldView);
+                gameView.WorldView = worldView;
             }
             /* TODO Soll hier ein else Zweig hin, der dann CreateGame aufruft oder nicht? */
 
@@ -77,7 +77,7 @@ namespace EtherDuels.Game
                 WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
 
                 gameModel.World.AddWorldObject(explosion);
-                gameView.GetWorldView().AddWorldObjectView(explosionView);
+                gameView.WorldView.AddWorldObjectView(explosionView);
             }
 
         }

@@ -9,22 +9,20 @@ namespace EtherDuels.Game.View
 {
     public class GameView
     {
-        WorldView worldView;
-        public void SetWorldView(WorldView worldView)
+        private GameModel gameModel;
+        private WorldView worldView;
+
+        public WorldView WorldView
         {
-            this.worldView = worldView;
+            get { return this.worldView; }
+            set { this.worldView = value; }
         }
 
-        public void Draw(Viewport viewPort, SpriteBatch spriteBatch)
+        public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
-            //TODO
-        }
+            // TODO draw HUD
 
-        public WorldView GetWorldView()
-        {
-            return worldView;
+            this.worldView.Draw(viewport, spriteBatch);
         }
-        
-        //TODO
     }
 }
