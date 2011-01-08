@@ -7,9 +7,9 @@ using System.Runtime.Serialization;
 using System.IO;
 
 
-namespace EtherDuels.Game
+namespace EtherDuels.Config
 {
-    class ConfigurationReader
+    public class ConfigurationReader
     {
         private BinaryFormatter binaryFormatter;
         private Stream stream;
