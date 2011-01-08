@@ -99,8 +99,8 @@ namespace GameTest
             mockCollisionHandler.Setup(m => m.OnCollision(object1, object2));
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world);
-            target.Update(null);
-            target.Update(null);
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
 
             mockCollisionHandler.Verify(m => m.OnCollision(object1, object2), Times.Exactly(1));
         }
