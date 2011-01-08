@@ -10,14 +10,12 @@ namespace EtherDuels.Game.Model
     {
         List<WorldObject> worldObjects = new List<WorldObject>();
 
-        public WorldObject[] WorldObjects
-
         public World(List<WorldObject> worldObjects)
         {
             this.worldObjects = worldObjects;
         }
 
-        public void AddWorldObject(WorldObject worldObject)
+        public WorldObject[] WorldObjects
         {
             get { return worldObjects.ToArray<WorldObject>(); }
         }
