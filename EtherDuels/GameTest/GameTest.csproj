@@ -60,6 +60,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationTest.cs" />
     <Compile Include="GameModelTest.cs" />
     <Compile Include="HumanPlayerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
