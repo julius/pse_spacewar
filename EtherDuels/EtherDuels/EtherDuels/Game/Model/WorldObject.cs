@@ -40,6 +40,12 @@ namespace EtherDuels.Game.Model
             set { radius = value; }
         }
 
+        public float Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
+
         public Vector2 Position
         {
             get { return position; }
