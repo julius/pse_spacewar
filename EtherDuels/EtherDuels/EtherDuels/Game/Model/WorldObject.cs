@@ -36,36 +36,6 @@ namespace EtherDuels.Game.Model
             this.health = health;
         }
 
-        public double GetMass()
-        {
-            return mass;
-        }
-
-        public void SetMass(double mass)
-        {
-            this.mass = mass;
-        }
-
-        public Vector2 GetPosition()
-        {
-            return position;
-        }
-
-        public void SetPosition(Vector2 position)
-        {
-            this.position = position;
-        }
-
-        public float GetRadius()
-        {
-            return radius;
-        }
-
-        public void SetRadius(float radius)
-        {
-            this.radius = radius;
-        }
-
         public float GetRotation()
         {
             return rotation;
@@ -76,18 +46,17 @@ namespace EtherDuels.Game.Model
             this.rotation = rotation;
         }
 
-        public Vector2 GetVeloctiy()
+        public double Mass
         {
-            return velocity;
+            get { return mass; }
+            set { mass = value; }
         }
 
-        public void SetVelocity(Vector2 velocity)
+        public float Radius
         {
-            this.velocity = velocity;
+            get { return radius; }
+            set { radius = value; }
         }
-
-        //TODO: Properties
-        public object Radius { get; set; }
 
         public Vector2 Position
         {
@@ -95,6 +64,10 @@ namespace EtherDuels.Game.Model
             set { position = value; }
         }
 
-        public Vector2 Velocity { get; set; }
+        public Vector2 Velocity 
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
     }
 }
