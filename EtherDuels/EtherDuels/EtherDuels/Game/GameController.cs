@@ -7,6 +7,14 @@ using EtherDuels.Game.View;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
+/**
+ * TODO
+ * 
+ * Kommentare sollten den ///-Standart einhalten
+ * Visual Studio hilft auch dabei. Einfach mit dem Cursor ueber die funktion gehen und /// eingeben
+ * 
+ */
+
 namespace EtherDuels.Game
 {
     public class GameController
