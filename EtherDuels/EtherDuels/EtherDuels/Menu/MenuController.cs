@@ -11,14 +11,12 @@ namespace EtherDuels.Menu
 {
     class MenuController
     {
-        private MenuBuilder menuBuilder;
         private MenuHandler menuHandler;
         private MenuModel menuModel;
         private MenuView menuView;
 
-        public MenuController(MenuBuilder menuBuilder, MenuHandler menuHandler, MenuModel menuModel, MenuView menuView)
+        public MenuController(MenuHandler menuHandler, MenuModel menuModel, MenuView menuView)
         {
-            this.menuBuilder = menuBuilder;
             this.menuHandler = menuHandler;
             this.menuModel = menuModel;
             this.menuView = menuView;
@@ -26,7 +24,7 @@ namespace EtherDuels.Menu
 
         public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
-            // TODO
+            this.menuView.Draw(viewport, spriteBatch);
         }
 
         public void Update(GameTime gameTime)

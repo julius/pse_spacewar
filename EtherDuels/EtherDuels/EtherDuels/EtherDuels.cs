@@ -10,16 +10,24 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using EtherDuels.Game.View;
 using EtherDuels.Game.Model;
+using EtherDuels.Menu;
+using EtherDuels.Game;
+using EtherDuels.Menu.Model;
+using EtherDuels.Menu.View;
 
 namespace EtherDuels
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class EtherDuels : Microsoft.Xna.Framework.Game
+    public class EtherDuels : Microsoft.Xna.Framework.Game, MenuHandler, GameHandler
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        private MenuController menuController;
+        private GameController gameController;
+        private ProgramState programState;
 
         public EtherDuels()
         {
@@ -51,6 +59,8 @@ namespace EtherDuels
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // Sample code to draw some models and stuff
+            // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
             Texture2D textureStars = content.Load<Texture2D>("texture_stars");
             Model modelShip = content.Load<Model>("player_ship");
@@ -61,6 +71,19 @@ namespace EtherDuels
             this.gameView = new GameView();
             this.gameView.WorldView = new WorldView(textureStars, null);
             this.gameView.WorldView.AddWorldObjectView(shipView);
+
+            // Build MenuController
+            MenuBuilder menuBuilder = new SimpleMenuBuilder();
+            MenuModel menuModel = menuBuilder.BuildModel();
+            MenuView menuView = menuBuilder.BuildView(menuModel);
+            this.menuController = new MenuController(this, menuModel, menuView);
+
+            // TODO: Build GameController
+
+            // Build Programstate
+            this.programState = new ProgramState();
+            programState.GameState = GameState.NoGame;
+            programState.MenuState = MenuState.InMenu;
         }
 
         /// <summary>
@@ -83,7 +106,17 @@ namespace EtherDuels
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            // Update GameController if necessary
+            if (this.programState.GameState != GameState.NoGame)
+            {
+                this.gameController.Update(gameTime);
+            }
+
+            // Update MenuController if necessary
+            if (this.programState.MenuState == MenuState.InMenu)
+            {
+                this.menuController.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -96,9 +129,52 @@ namespace EtherDuels
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
+            //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
+
+            // Draw GameController if necessary
+            if (this.programState.GameState != GameState.NoGame)
+            {
+                this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
+            }
+
+            // Draw MenuController if necessary
+            if (this.programState.MenuState == MenuState.InMenu)
+            {
+                this.menuController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
+            }
 
             base.Draw(gameTime);
+        }
+
+
+        /* === MenuHandler Methods === */
+
+        public void OnNewGame()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnQuitProgram()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnResumeGame()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /* === GameHandler Methods === */
+
+        public void OnGamePaused()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnGameEnded(int playerID, int points)
+        {
+            throw new NotImplementedException();
         }
     }
 }

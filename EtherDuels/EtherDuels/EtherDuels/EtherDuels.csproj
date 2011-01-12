@@ -150,6 +150,7 @@
     <Compile Include="Menu\View\MenuDialogView.cs" />
     <Compile Include="Menu\View\MenuItemView.cs" />
     <Compile Include="Menu\View\MenuView.cs" />
+    <Compile Include="ProgramState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
