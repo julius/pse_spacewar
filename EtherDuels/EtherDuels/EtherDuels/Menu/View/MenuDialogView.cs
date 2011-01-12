@@ -7,13 +7,24 @@ using EtherDuels.Menu.Model;
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Menu.View
-{
+{   
+    /// <summary>
+    /// Defines the view of a MenuDialog.
+    /// It contains a background and a list of MenuItemViews.
+    /// It also holds a reference to its MenuDialog to check it for changes.
+    /// </summary>
     class MenuDialogView
     {
         private Texture2D background;
         private MenuDialog menuDialog;
         private MenuItemView[] menuItemViews;
 
+        /// <summary>
+        /// Creates a new MenuDialogView object.
+        /// </summary>
+        /// <param name="menuItemViews">An array of its containing MenuItemViews.</param>
+        /// <param name="menuDialog">Its dedicated MenuDialog.</param>
+        /// <param name="background">Defines the background of this MenuDialog.</param>
         public MenuDialogView(MenuItemView[] menuItemViews, MenuDialog menuDialog, Texture2D background)
         {
             this.menuItemViews = menuItemViews;
@@ -21,6 +32,11 @@ namespace EtherDuels.Menu.View
             this.background = background;
         }
 
+        /// <summary>
+        /// Draws the MenuDialogView and all its subcomponents. 
+        /// </summary>
+        /// <param name="viewport">The used ViewPort.</param>
+        /// <param name="spriteBatch">The used SpriteBatch.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
             // do not draw if not active

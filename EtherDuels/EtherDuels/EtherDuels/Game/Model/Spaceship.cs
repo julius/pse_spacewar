@@ -5,6 +5,9 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
+    /// <summary>
+    /// Defines a spaceship.
+    /// </summary>
     public class Spaceship : WorldObject
     {
         Weapon currentWeapon;

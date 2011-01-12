@@ -7,7 +7,10 @@ using Microsoft.Xna.Framework;
 using EtherDuels.Game.Model;
 
 namespace EtherDuels.Game.View
-{
+{   
+    /// <summary>
+    /// Defines the view of a World.
+    /// </summary>
     public class WorldView
     {
         private Vector3 cameraPosition;
@@ -15,6 +18,11 @@ namespace EtherDuels.Game.View
         private List<WorldObjectView> worldObjectViews;
         private Texture2D background;
 
+        /// <summary>
+        /// Creates a new WorldView object.
+        /// </summary>
+        /// <param name="background">Defines the background of this world.</param>
+        /// <param name="world">The dedicated World to check it for changes.</param>
         public WorldView(Texture2D background, World world)
         {
             this.background = background;
@@ -23,11 +31,20 @@ namespace EtherDuels.Game.View
             this.worldObjectViews = new List<WorldObjectView>();
         }
 
+        /// <summary>
+        /// Adds a new WorldObjectView to the WorldView.
+        /// </summary>
+        /// <param name="worldObjectView">The worldObjectView, which has to be added.</param>
         public void AddWorldObjectView(WorldObjectView worldObjectView)
         {
             this.worldObjectViews.Add(worldObjectView);
         }
 
+        /// <summary>
+        /// Draws the WorldView and all its subcomponents.
+        /// </summary>
+        /// <param name="viewport">The used Viewport.</param>
+        /// <param name="spriteBatch">The used SpriteBatch.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);

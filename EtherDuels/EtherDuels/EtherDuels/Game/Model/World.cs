@@ -6,11 +6,20 @@ using System.Collections;
 
 namespace EtherDuels.Game.Model
 {
+    /// <summary>
+    /// Defines the world in a game.
+    /// </summary>
     public class World
     {
         private List<WorldObject> worldObjects;
         private Planet planet;
 
+        /// <summary>
+        /// Creates a new World object.
+        /// </summary>
+        /// <param name="worldObjects">A list of WorldObjects, the world 
+        /// contains in the beginning of a game.</param>
+        /// <param name="planet">The planet the ships circuit.</param>
         public World(WorldObject[] worldObjects, Planet planet)
         {
             this.worldObjects = new List<WorldObject>(worldObjects);
