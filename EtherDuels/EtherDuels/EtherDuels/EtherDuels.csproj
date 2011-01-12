@@ -115,7 +115,7 @@
     <Compile Include="Game\KeyboardConfiguration.cs" />
     <Compile Include="Game\Model\CollisionHandler.cs" />
     <Compile Include="Game\Model\Explosion.cs" />
-    <Compile Include="Game\Model\FrameState.cs" />
+    <Compile Include="FrameState.cs" />
     <Compile Include="Game\GameHandler.cs" />
     <Compile Include="Game\Model\GameBuilder.cs" />
     <Compile Include="Game\Model\KeyboardConfiguration.cs" />

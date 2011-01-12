@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace EtherDuels.Game.Model
+namespace EtherDuels
 {
     /// <summary>
     /// Holds State specific for one Frame
@@ -27,21 +27,19 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Gets the frame's time object
+        /// The frame's time object
         /// </summary>
-        /// <returns>The time object</returns>
-        public GameTime GetGameTime()
+        public GameTime GameTime
         {
-            return this.gameTime;
+            get { return this.gameTime; }
         }
 
         /// <summary>
-        /// Gets the frame's keyboard state
+        /// The frame's keyboard state
         /// </summary>
-        /// <returns>The keyboard state</returns>
-        public KeyboardState GetKeyboardState()
+        public KeyboardState KeyboardState
         {
-            return this.keyboardState;
+            get { return this.keyboardState; }
         }
     }
 }

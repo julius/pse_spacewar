@@ -20,7 +20,10 @@ namespace EtherDuels.Menu.View
 
         public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
-            // TODO
+            foreach (MenuDialogView menuDialogView in this.menuDialogViews)
+            {
+                menuDialogView.Draw(viewport, spriteBatch);
+            }
         }
     }
 }

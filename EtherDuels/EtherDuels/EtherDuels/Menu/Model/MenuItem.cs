@@ -7,8 +7,11 @@ namespace EtherDuels.Menu.Model
 {
     class MenuItem
     {
+        public delegate string TextProvider();
+        public delegate void ActionHandler(MenuItem menuItem);
+
         private ActionHandler actionHandler;
-        private DataProvider dataProvider;
+        private TextProvider textProvider;
         
         private bool selected;
         public bool Selected
@@ -19,18 +22,18 @@ namespace EtherDuels.Menu.Model
 
         public string Text
         {
-            get { return this.dataProvider.GetText(); }
+            get { return this.textProvider(); }
         }
 
-        public MenuItem(ActionHandler actionHandler, DataProvider dataProvider)
+        public MenuItem(ActionHandler actionHandler, TextProvider textProvider)
         {
             this.actionHandler = actionHandler;
-            this.dataProvider = dataProvider;
+            this.textProvider = textProvider;
         }
 
         public void Action()
         {
-            this.actionHandler.OnAction(this);
+            this.actionHandler(this);
         }
     }
 }
