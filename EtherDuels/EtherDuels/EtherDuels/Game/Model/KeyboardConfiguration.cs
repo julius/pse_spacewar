@@ -5,7 +5,10 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Game.Model
-{
+{   
+    /// <summary>
+    /// 
+    /// </summary>
     class KeyboardConfiguration : InputConfigurationRetriever
     {
         private Keys backwardKey;

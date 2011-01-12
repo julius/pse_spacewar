@@ -6,7 +6,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
-{
+{   
+    /// <summary>
+    /// Defines a concrete PhysicsAlgorithm.
+    /// It provides methods to update the WorldObjects positions depending on a simple
+    /// physics, which just contains gravity.
+    /// </summary>
     public class SimplePhysicsAlgorithm : Physics
     {
         // speed of light in m/s, should be set to a more reasonable value
@@ -20,6 +25,11 @@ namespace EtherDuels.Game.Model
         private WorldObject[] worldObjects;
         private WorldObject[][] oldCollisions = new WorldObject[0][];
 
+        /// <summary>
+        /// Creates a new SimplePhysicsAlgorithm object.
+        /// </summary>
+        /// <param name="collisionHandler">The assigned CollisionHandler, which is to inform.</param>
+        /// <param name="world">The assigned World, whose objects are to update.</param>
         public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world)
         {
             this.collisionHandler = collisionHandler;
@@ -30,7 +40,7 @@ namespace EtherDuels.Game.Model
         /// Updates gravity effects, calculates the new positions of all worldObjects 
         /// and then reports all new collisions to the collisionHandler.
         /// </summary>
-        /// <param name="frameState"></param>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             worldObjects = world.WorldObjects;
