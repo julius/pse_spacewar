@@ -4,24 +4,51 @@ using System.Linq;
 using System.Text;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EtherDuels.Menu
 {
     class SimpleMenuBuilder: MenuBuilder
     {
+        private MenuHandler menuHandler;
+        private SpriteFont spriteFont;
+        // TODO: configuration
+
+        public SimpleMenuBuilder(MenuHandler menuHandler, SpriteFont spriteFont)
+        {
+            this.menuHandler = menuHandler;
+            this.spriteFont = spriteFont;
+        }
+
         public MenuModel BuildModel()
         {
+            // build menu actions
+            MenuItem.ActionHandler actionStartGame = delegate(MenuItem menuItem)
+            {
+                this.menuHandler.OnNewGame();
+            };
+
+            MenuItem.ActionHandler actionResumeGame = delegate(MenuItem menuItem)
+            {
+                this.menuHandler.OnResumeGame();
+            };
+
+            MenuItem.ActionHandler actionQuitProgram = delegate(MenuItem menuItem)
+            {
+                this.menuHandler.OnQuitProgram();
+            };
+
             // Build Main Menu
-            MenuItem mainMenuStartGame = new MenuItem(null, null);
-            MenuItem mainMenuQuitProgram = new MenuItem(null, null);
+            MenuItem mainMenuStartGame = new MenuItem(actionStartGame, delegate() { return "Start Game"; });
+            MenuItem mainMenuQuitProgram = new MenuItem(actionQuitProgram, delegate() { return "Quit Program"; });
 
             MenuItem[] mainMenuItems = { mainMenuStartGame, mainMenuQuitProgram };
             MenuDialog mainMenu = new MenuDialog(mainMenuItems);
 
             // Build Pause Menu
-            MenuItem pauseMenuResumeGame = new MenuItem(null, null);
-            MenuItem pauseMenuStartNewGame = new MenuItem(null, null);
-            MenuItem pauseMenuQuitProgram = new MenuItem(null, null);
+            MenuItem pauseMenuResumeGame = new MenuItem(actionResumeGame, delegate() { return "Resume Game"; });
+            MenuItem pauseMenuStartNewGame = new MenuItem(actionStartGame, delegate() { return "Start new Game"; });
+            MenuItem pauseMenuQuitProgram = new MenuItem(actionQuitProgram, delegate() { return "Quit Program"; });
 
             MenuItem[] pauseMenuItems = { pauseMenuResumeGame, pauseMenuStartNewGame, pauseMenuQuitProgram };
             MenuDialog pauseMenu = new MenuDialog(mainMenuItems);
@@ -42,7 +69,7 @@ namespace EtherDuels.Menu
 
                 foreach (MenuItem menuItem in menuDialog.MenuItems)
                 {
-                    MenuItemView menuItemView = new MenuItemView(menuItem);
+                    MenuItemView menuItemView = new MenuItemView(menuItem, this.spriteFont);
                     menuItemViewList.Add(menuItemView);
                 }
 

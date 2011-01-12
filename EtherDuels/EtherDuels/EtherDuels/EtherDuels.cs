@@ -62,6 +62,7 @@ namespace EtherDuels
             // Sample code to draw some models and stuff
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
+            SpriteFont font = content.Load<SpriteFont>("NiceFont");
             Texture2D textureStars = content.Load<Texture2D>("texture_stars");
             Model modelShip = content.Load<Model>("player_ship");
 
@@ -73,10 +74,11 @@ namespace EtherDuels
             this.gameView.WorldView.AddWorldObjectView(shipView);
 
             // Build MenuController
-            MenuBuilder menuBuilder = new SimpleMenuBuilder();
+            MenuBuilder menuBuilder = new SimpleMenuBuilder(this, font);
             MenuModel menuModel = menuBuilder.BuildModel();
             MenuView menuView = menuBuilder.BuildView(menuModel);
             this.menuController = new MenuController(this, menuModel, menuView);
+            this.menuController.SetMainMenu();
 
             // TODO: Build GameController
 
@@ -106,6 +108,8 @@ namespace EtherDuels
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            FrameState frameState = new FrameState(gameTime, Keyboard.GetState());
+
             // Update GameController if necessary
             if (this.programState.GameState != GameState.NoGame)
             {
@@ -115,7 +119,7 @@ namespace EtherDuels
             // Update MenuController if necessary
             if (this.programState.MenuState == MenuState.InMenu)
             {
-                this.menuController.Update(gameTime);
+                this.menuController.Update(frameState);
             }
 
             base.Update(gameTime);
@@ -156,7 +160,7 @@ namespace EtherDuels
 
         public void OnQuitProgram()
         {
-            throw new NotImplementedException();
+            this.Exit();
         }
 
         public void OnResumeGame()

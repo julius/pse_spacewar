@@ -38,7 +38,7 @@ namespace EtherDuels.Game.Model
                 players[i].Update(frameState);
             }
 
-            physics.Update(frameState.GetGameTime());
+            physics.Update(frameState.GameTime);
         }
 
         public World World
