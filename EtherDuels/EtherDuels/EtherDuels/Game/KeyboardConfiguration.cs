@@ -9,12 +9,20 @@ using System.Runtime.Serialization;
 
 namespace EtherDuels.Game
 {
-    // KeyboardConfiguration has to be serializable as well as Configuration, 
+    //KeyboardConfiguration has to be serializable as well as Configuration, 
     // if Configuration is supposed to store KeyboardConfiguration as well if it is serialized
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable()]
     class KeyboardConfiguration : InputConfigurationRetriever
     {
         //Deserialization constructor.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="ctxt"></param>
         public KeyboardConfiguration(SerializationInfo info, StreamingContext ctxt)
         {
             this.backward   = (Keys)info.GetValue("backward", typeof(Keys));
@@ -27,6 +35,11 @@ namespace EtherDuels.Game
         }
 
         //Serialization function.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="ctxt"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("backward", backward);
@@ -39,7 +52,7 @@ namespace EtherDuels.Game
         }
 
         private Keys backward;
-        public Keys Backward
+           public Keys Backward
         {
             get { return backward; }
             set { backward = value; }
@@ -87,7 +100,11 @@ namespace EtherDuels.Game
             set { right = value; }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="secKeyConf"></param>
+        /// <returns></returns>
         public bool Equals(KeyboardConfiguration secKeyConf)
         {
             if (secKeyConf == null)
