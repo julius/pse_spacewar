@@ -31,11 +31,19 @@ namespace EtherDuels.Game.Model
             get { return worldObjects.ToArray<WorldObject>(); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="worldObject"></param>
         public void AddWorldObject(WorldObject worldObject)
         {
             worldObjects.Add(worldObject);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="worldObject"></param>
         public void RemoveWorldObject(WorldObject worldObject)
         {
             worldObjects.Remove(worldObject);

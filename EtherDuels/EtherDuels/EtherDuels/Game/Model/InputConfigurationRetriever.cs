@@ -5,7 +5,10 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Game.Model
-{
+{  
+    /// <summary>
+    /// Provides methods to retrieve the current InputConfiguration.
+    /// </summary>
     public interface InputConfigurationRetriever
     {
         Keys ForwardKey

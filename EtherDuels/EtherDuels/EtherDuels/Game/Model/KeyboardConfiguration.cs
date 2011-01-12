@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 namespace EtherDuels.Game.Model
 {   
     /// <summary>
-    /// 
+    /// Saves the current KeyboardConfiguration of a Player.
     /// </summary>
     class KeyboardConfiguration : InputConfigurationRetriever
     {

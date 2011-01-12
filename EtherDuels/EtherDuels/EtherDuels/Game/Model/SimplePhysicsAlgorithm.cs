@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Game.Model
 {   
     /// <summary>
-    /// Defines a concrete PhysicsAlgorithm.
+    /// Defines a concrete Physics.
     /// It provides methods to update the WorldObjects positions depending on a simple
     /// physics, which just contains gravity.
     /// </summary>
