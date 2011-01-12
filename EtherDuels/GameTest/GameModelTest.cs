@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Moq;
+using EtherDuels;
 
 namespace GameTest
 {
@@ -127,7 +128,7 @@ namespace GameTest
             {
                 mockPlayers[i].Verify(b => b.Update(mockFrameState.Object), Times.Exactly(1));
             }
-            mockPhysics.Verify(b => b.Update(mockFrameState.Object.GetGameTime()), Times.Exactly(1));
+            mockPhysics.Verify(b => b.Update(mockFrameState.Object.GameTime), Times.Exactly(1));
         }
 
         /*
