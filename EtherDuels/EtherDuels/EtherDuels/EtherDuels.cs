@@ -71,9 +71,9 @@ namespace EtherDuels
             Spaceship ship = new Spaceship();
             WorldObjectView shipView = new WorldObjectView(modelShip, ship);
 
-            this.gameView = new GameView();
-            this.gameView.WorldView = new WorldView(textureStars, null);
-            this.gameView.WorldView.AddWorldObjectView(shipView);
+            //this.gameView = new GameView();
+            //this.gameView.WorldView = new WorldView(textureStars, null);
+            //this.gameView.WorldView.AddWorldObjectView(shipView);
 
             // Build MenuController
             MenuBuilder menuBuilder = new SimpleMenuBuilder(this, font);
