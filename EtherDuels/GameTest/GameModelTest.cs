@@ -65,7 +65,8 @@ namespace GameTest
         #endregion
         private Mock<ShortLifespanObjectFactory> mockFactory;
         private Mock<Physics> mockPhysics;
-        private Player[] mockPlayers;
+        private HumanPlayer[] fakePlayers;
+        private Mock<HumanPlayer>[] mockPlayers;
         private Mock<World> mockWorld;
         private GameModel target;
 
@@ -80,22 +81,13 @@ namespace GameTest
             // create a random number of players for testing
             Random random = new Random();
             int nrOfPlayers = random.Next(0,10);
-            mockPlayers = new Player[nrOfPlayers];
+            mockPlayers = new Mock<HumanPlayer>[nrOfPlayers];
+            fakePlayers = new HumanPlayer[nrOfPlayers];
             for (int i = 0; i < nrOfPlayers; i++) {
-                mockPlayers[i] = new Moq.Mock<Player>().Object;
+                mockPlayers[i] = new Moq.Mock<HumanPlayer>();
+                fakePlayers[i] = mockPlayers[i].Object;
             }
         }
-
-        /* /// <summary>
-        ///A test for GameModel Constructor
-        ///</summary>
-        [TestMethod()]
-        public void GameModelConstructorTest()
-        {
-            
-            target = new GameModel(factory, physics, players, world);
-            Assert.Inconclusive("TODO: Implement code to verify target");
-        } */
 
         /// <summary>
         ///A test for GetFactory
@@ -103,7 +95,7 @@ namespace GameTest
         [TestMethod()]
         public void GetFactoryTest()
         {
-            target = new GameModel(mockFactory.Object, mockPhysics.Object, mockPlayers, mockWorld.Object);
+            target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
             ShortLifespanObjectFactory expected = mockFactory.Object;
             ShortLifespanObjectFactory actual = target.GetFactory();
             Assert.AreEqual(expected, actual);
@@ -115,40 +107,44 @@ namespace GameTest
         [TestMethod()]
         public void GetPlayersTest()
         {
-            target = new GameModel(mockFactory.Object, mockPhysics.Object, mockPlayers, mockWorld.Object);
-            Player[] expected = mockPlayers;
+            target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
+            Player[] expected = fakePlayers;
             Player[] actual = target.GetPlayers();
             Assert.AreEqual(expected, actual);
         }
 
-       /* /// <summary>
+        /// <summary>
         ///A test for Update
         ///</summary>
         [TestMethod()]
         public void UpdateTest()
         {
-            target = new GameModel(mockFactory.Object, mockPhysics.Object, mockPlayers, mockWorld.Object);
+            target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
             Mock<FrameState> mockFrameState = new Moq.Mock<FrameState>();
             target.Update(mockFrameState.Object);
 
-            for (int i = 0; i < mockPlayers.Length; i++) {
-                mockPlayers[i].
+            for (int i = 0; i < mockPlayers.Length; i++)
+            {
+                mockPlayers[i].Verify(b => b.Update(mockFrameState.Object), Times.Exactly(1));
+            }
             mockPhysics.Verify(b => b.Update(mockFrameState.Object.GetGameTime()), Times.Exactly(1));
         }
 
+        /*
         /// <summary>
         ///A test for World
         ///</summary>
         [TestMethod()]
         public void WorldTest()
         {
-            target = new GameModel(mockFactory.Object, mockPhysics.Object, mockPlayers, mockWorld.Object);
+            target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
             World expected = mockWorld.Object;
             World actual;
             target.World = expected;
             actual = target.World;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
-        } */
+        }
+        */
     }
 }
