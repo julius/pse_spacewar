@@ -1,22 +1,22 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using EtherDuels.Game.Model;
 using EtherDuels.Game.View;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-/**
- * TODO
- * 
- * Kommentare sollten den ///-Standart einhalten
- * Visual Studio hilft auch dabei. Einfach mit dem Cursor ueber die funktion gehen und /// eingeben
- * 
- */
 
 namespace EtherDuels.Game
-{
+{   
+    /// <summary>
+    /// The GameController is responsible for the communication between the GameModel and its GameView.
+    /// It creates new worlds and its views via a GameBuilder and can remove and add objects to them.
+    /// It also observes, if a game has ended or was paused, so it has to inform its GameHandler.
+    /// </summary>
     public class GameController
     {
         private GameBuilder gameBuilder;
@@ -25,8 +25,14 @@ namespace EtherDuels.Game
         private GameView gameView;
         private GameTime gameTime;
         private FrameState frameState;
+        
 
-        /* The constructor of GameController */
+
+        /// <summary>
+        /// Constructor of a GameController object.
+        /// </summary>
+        /// <param name="gameBuilder">Defines the GameBuilder the Controller uses.</param> 
+        /// <param name="gameHandler">Defines the GameHandler the Controller uses.</param> 
         public GameController(GameBuilder gameBuilder, GameHandler gameHandler)
         {
             this.gameBuilder = gameBuilder;
@@ -35,76 +41,100 @@ namespace EtherDuels.Game
             gameView = null;
         }
 
-        /* Creates a new Game together with a fitting GameView */
+       /// <summary>
+       /// Creates a new game using its dedicated GameBuilder.
+       /// A game consists of a model and its view.
+       /// A new game is just created, when there don't exist one yet.
+       /// </summary>
         public void CreateGame()
         {
-            if (gameModel == null)
-            {
-                gameModel = gameBuilder.BuildModel();
+            Debug.Assert(gameModel == null,"A gamemodel already exists");
+            
+            gameModel = gameBuilder.BuildModel();
 
-                gameView = gameBuilder.BuildView(gameModel);
-            }
+            gameView = gameBuilder.BuildView(gameModel);
+            
 
         }
 
-        /* Creates a new World together with a fitting WorldView*/
+        /// <summary>
+        /// Creates a new world using its dedicated GameBuilder.
+        /// A new world can just be created if there exists a gameModel already.
+        /// </summary>
         public void CreateWorld()
         {
-            if (gameModel != null)
-            {
-                World newWorld = gameBuilder.BuildWorld();
-                gameModel.World = newWorld;
+            Debug.Assert(gameModel != null, "No gamemodel exists");
+            
+            World newWorld = gameBuilder.BuildWorld();
+            gameModel.World = newWorld;
 
-                WorldView worldView = gameBuilder.BuildWorldView(newWorld);
-                gameView.WorldView = worldView;
-            }
-            /* TODO Soll hier ein else Zweig hin, der dann CreateGame aufruft oder nicht? */
+            WorldView worldView = gameBuilder.BuildWorldView(newWorld);
+            gameView.WorldView = worldView;
+          
 
         }
 
-        /* Draws its subcomponents */
+        /// <summary>
+        /// Draws the gameView and all its subcomponents.
+        /// </summary>
+        /// <param name="viewPort">Defines the Viewport, which is to use.</param>
+        /// <param name="spriteBatch">Defines the SpriteBatch, which is to use.</param>
         public void Draw(Viewport viewPort, SpriteBatch spriteBatch)
         {
-            if (gameView != null)
-            {
-                gameView.Draw(viewPort, spriteBatch);
-            }
-            /* TODO Soll hier ein else Zweig hin, der dann CreateGame aufruft oder nicht? */
+            Debug.Assert(gameView != null, "No gameview exists");
+            
+            gameView.Draw(viewPort, spriteBatch);
+            
+            
         }
 
-        /*  */
+        /// <summary>
+        /// Reacts to a collision that happend in the game depending on 
+        /// the type of the two assigned WorldObjects.
+        /// This method creates an explosion, reduces the health of the WorldObject, if necessary,
+        /// and checks, if one of the involved WorldObjects has to be removed from the world.
+        /// </summary>
+        /// <param name="collisionObject1">The first WorldObject, which was involved in the collision.</param>
+        /// <param name="collisionObject2">The second WorldObject, which was involved in the collision.</param>
         public void OnCollision(WorldObject collisionObject1, WorldObject collisionObject2)
         {
-            if (gameModel != null)
-            {
-                Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
 
-                // TODO SetPosition
-                // TODO SetCreationTime
+            Debug.Assert(gameModel != null);
 
-                WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
+            Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
+            
+            // TODO SetPosition
+            // TODO SetCreationTime
+            // TODO Health abziehen, überprüfen ob das Objekt noch lebensberechtigung hat, evtl gamehandler benachrichtigen
+            
+            WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
 
-                gameModel.World.AddWorldObject(explosion);
-                gameView.WorldView.AddWorldObjectView(explosionView);
-            }
+            gameModel.World.AddWorldObject(explosion);
+            gameView.WorldView.AddWorldObjectView(explosionView);
+            
 
         }
 
-        /* Creates a projectile and its fitting view */
+        /// <summary>
+        /// Creates a projectile an its fitting view. 
+        /// </summary>
+        /// <param name="shooter">The Spaceship, which fired a projectile.</param>
         public void OnFire(Spaceship shooter)
         { 
-
-
+            // TODO whole method.
         }
 
-        /* Updates the GameModel */
+        /// <summary>
+        /// Updates the GameModel and its subcomponents.
+        /// </summary>
+        /// <param name="gameTime">The time, which is passed since the last update.</param>
         public void Update(GameTime gameTime)
         {
             this.gameTime = gameTime;
-            if (gameModel != null)      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert
-            {
-                gameModel.Update(frameState);
-            }
+            Debug.Assert(gameModel != null, "No gamemodel exists");      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert--- Assertions sind besser, da das kein erwartetes Verhalten ist.
+            
+            gameModel.Update(frameState);
+            
         }
     }
 
