@@ -96,7 +96,7 @@ namespace GameTest
             mockPlayerHandler.Setup(b => b.OnFire(this.spaceship));
 
             this.target = new HumanPlayer(playerId, mockPlayerHandler.Object, mockInputConfigurationRetriever.Object);
-            this.target.SetSpaceship(this.spaceship);
+            this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Space };
             FrameState frameState = new FrameState(null, new KeyboardState(keys));
@@ -113,7 +113,7 @@ namespace GameTest
         public void UpdateAccelerationForward1Test()
         {
             this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
-            this.target.SetSpaceship(this.spaceship);
+            this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Up };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
@@ -134,7 +134,7 @@ namespace GameTest
         public void UpdateAccelerationForward2Test()
         {
             this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
-            this.target.SetSpaceship(this.spaceship);
+            this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Up };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
@@ -158,7 +158,7 @@ namespace GameTest
         public void UpdateAccelerationBackward1Test()
         {
             this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
-            this.target.SetSpaceship(this.spaceship);
+            this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Down };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
@@ -179,7 +179,7 @@ namespace GameTest
         public void UpdateAccelerationBackward2Test()
         {
             this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
-            this.target.SetSpaceship(this.spaceship);
+            this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Down };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
@@ -203,7 +203,7 @@ namespace GameTest
         public void UpdateRotateLeftTest()
         {
             this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
-            this.target.SetSpaceship(this.spaceship);
+            this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Left };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
@@ -223,7 +223,7 @@ namespace GameTest
         public void UpdateRotateRightTest()
         {
             this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
-            this.target.SetSpaceship(this.spaceship);
+            this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Right };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 200));

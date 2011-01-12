@@ -69,7 +69,6 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
-            mockWorldObjects = new Moq.Mock<List<WorldObject>>();
         }
 
         /// <summary>
@@ -78,12 +77,14 @@ namespace GameTest
         [TestMethod()]
         public void AddWorldObjectTest()
         {
-            List<WorldObject> fakeWorldObjects = mockWorldObjects.Object;
+            WorldObject[] worldObjects = new WorldObject[0];
             Planet planet = new Planet();
-            World target = new World(fakeWorldObjects, planet);
+
+            World target = new World(worldObjects, planet);
             WorldObject spaceship1 = new Spaceship();
             target.AddWorldObject(spaceship1);
-            Assert.IsTrue(fakeWorldObjects.Contains(spaceship1));
+
+            Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(spaceship1));
         }
 
         /// <summary>
@@ -92,13 +93,14 @@ namespace GameTest
         [TestMethod()]
         public void RemoveWorldObjectTest()
         {
-            List<WorldObject> fakeWorldObjects = mockWorldObjects.Object;
             Projectile projectile1 = new Projectile();
-            fakeWorldObjects.Add(projectile1);
+            WorldObject[] worldObjects = { projectile1 };
             Planet planet = new Planet();
-            World target = new World(fakeWorldObjects, planet);
+
+            World target = new World(worldObjects, planet);
             target.RemoveWorldObject(projectile1);
-            Assert.IsFalse(fakeWorldObjects.Contains(projectile1));
+
+            Assert.IsFalse((new List<WorldObject>(target.WorldObjects)).Contains(projectile1));
         }
     }
 }

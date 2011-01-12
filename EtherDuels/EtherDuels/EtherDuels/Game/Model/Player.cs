@@ -8,10 +8,36 @@ namespace EtherDuels.Game.Model
 {
     public abstract class Player
     {
-        protected int playerId;
         protected PlayerHandler playerHandler;
+
+        protected int playerId;
+        /// <summary>
+        /// The player's id
+        /// </summary>
+        public int PlayerId
+        {
+            get { return this.playerId; }
+        }
+
         protected int points = 0;
+        /// <summary>
+        /// The player's points
+        /// </summary>
+        public int Points
+        {
+            get { return this.points; }
+            set { this.points = value; }
+        }
+
         protected Spaceship spaceship;
+        /// <summary>
+        /// The player's Spaceship
+        /// </summary>
+        public Spaceship Spaceship
+        {
+            get { return this.spaceship; }
+            set { this.spaceship = value; }
+        }
 
         /// <summary>
         /// Creates a player.
@@ -22,51 +48,6 @@ namespace EtherDuels.Game.Model
         {
             this.playerId = playerId;
             this.playerHandler = playerHandler;
-        }
-
-        /// <summary>
-        /// Gets the ID of the player.
-        /// </summary>
-        /// <returns>The player's ID</returns>
-        public int GetPlayerId()
-        {
-            return this.playerId;
-        }
-
-        /// <summary>
-        /// Gets the points of the player.
-        /// </summary>
-        /// <returns>The player's points</returns>
-        public int GetPoints()
-        {
-            return this.points;
-        }
-
-        /// <summary>
-        /// Sets the points of the player.
-        /// </summary>
-        /// <param name="points">The player's points</param>
-        public void SetPoints(int points)
-        {
-            this.points = points;
-        }
-
-        /// <summary>
-        /// Gets the spaceship of the player.
-        /// </summary>
-        /// <returns>The player's spaceship.</returns>
-        public Spaceship GetSpaceship()
-        {
-            return this.spaceship;
-        }
-
-        /// <summary>
-        /// Sets the player's spaceship
-        /// </summary>
-        /// <param name="spaceship">The player's spaceship</param>
-        public void SetSpaceship(Spaceship spaceship)
-        {
-            this.spaceship = spaceship;
         }
 
         /// <summary>

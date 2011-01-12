@@ -117,8 +117,9 @@
     <Compile Include="Game\Model\Explosion.cs" />
     <Compile Include="FrameState.cs" />
     <Compile Include="Game\GameHandler.cs" />
-    <Compile Include="Game\Model\GameBuilder.cs" />
+    <Compile Include="Game\GameBuilder.cs" />
     <Compile Include="Game\Model\KeyboardConfiguration.cs" />
+    <Compile Include="Game\SimpleGameBuilder.cs" />
     <Compile Include="Game\View\GameView.cs" />
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\Model\HumanPlayer.cs" />

@@ -8,12 +8,12 @@ namespace EtherDuels.Game.Model
 {
     public class World
     {
-        private List<WorldObject> worldObjects = new List<WorldObject>();
+        private List<WorldObject> worldObjects;
         private Planet planet;
 
-        public World(List<WorldObject> worldObjects, Planet planet)
+        public World(WorldObject[] worldObjects, Planet planet)
         {
-            this.worldObjects = worldObjects;
+            this.worldObjects = new List<WorldObject>(worldObjects);
             this.planet = planet;
         }
 

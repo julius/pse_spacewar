@@ -17,7 +17,7 @@ namespace EtherDuels.Game
     /// It creates new worlds and its views via a GameBuilder and can remove and add objects to them.
     /// It also observes, if a game has ended or was paused, so it has to inform its GameHandler.
     /// </summary>
-    public class GameController
+    public class GameController: CollisionHandler, PlayerHandler
     {
         private GameBuilder gameBuilder;
         private GameHandler gameHandler;
@@ -37,8 +37,9 @@ namespace EtherDuels.Game
         {
             this.gameBuilder = gameBuilder;
             this.gameHandler = gameHandler;
-            gameModel = null;
-            gameView = null;
+
+            this.gameBuilder.CollisionHandler = this;
+            this.gameBuilder.PlayerHandler = this;
         }
 
        /// <summary>
@@ -48,30 +49,11 @@ namespace EtherDuels.Game
        /// </summary>
         public void CreateGame()
         {
-            Debug.Assert(gameModel == null,"A gamemodel already exists");
+            Debug.Assert(gameModel == null, "A gamemodel already exists");
             
             gameModel = gameBuilder.BuildModel();
 
             gameView = gameBuilder.BuildView(gameModel);
-            
-
-        }
-
-        /// <summary>
-        /// Creates a new world using its dedicated GameBuilder.
-        /// A new world can just be created if there exists a gameModel already.
-        /// </summary>
-        public void CreateWorld()
-        {
-            Debug.Assert(gameModel != null, "No gamemodel exists");
-            
-            World newWorld = gameBuilder.BuildWorld();
-            gameModel.World = newWorld;
-
-            WorldView worldView = gameBuilder.BuildWorldView(newWorld);
-            gameView.WorldView = worldView;
-          
-
         }
 
         /// <summary>
@@ -84,8 +66,6 @@ namespace EtherDuels.Game
             Debug.Assert(gameView != null, "No gameview exists");
             
             gameView.Draw(viewPort, spriteBatch);
-            
-            
         }
 
         /// <summary>
@@ -98,7 +78,6 @@ namespace EtherDuels.Game
         /// <param name="collisionObject2">The second WorldObject, which was involved in the collision.</param>
         public void OnCollision(WorldObject collisionObject1, WorldObject collisionObject2)
         {
-
             Debug.Assert(gameModel != null);
 
             Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
@@ -111,8 +90,6 @@ namespace EtherDuels.Game
 
             gameModel.World.AddWorldObject(explosion);
             gameView.WorldView.AddWorldObjectView(explosionView);
-            
-
         }
 
         /// <summary>
@@ -134,7 +111,6 @@ namespace EtherDuels.Game
             Debug.Assert(gameModel != null, "No gamemodel exists");      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert--- Assertions sind besser, da das kein erwartetes Verhalten ist.
             
             gameModel.Update(frameState);
-            
         }
     }
 

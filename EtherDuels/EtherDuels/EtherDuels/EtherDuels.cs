@@ -29,6 +29,10 @@ namespace EtherDuels
         private GameController gameController;
         private ProgramState programState;
 
+        GameView gameView; // <- remove this one later
+        private Game.Model.InputConfigurationRetriever inputConfigurationRetriever;
+
+
         public EtherDuels()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -47,8 +51,6 @@ namespace EtherDuels
 
             base.Initialize();
         }
-
-        GameView gameView;
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -81,6 +83,8 @@ namespace EtherDuels
             this.menuController.SetMainMenu();
 
             // TODO: Build GameController
+            GameBuilder gameBuilder = new SimpleGameBuilder(this.inputConfigurationRetriever);
+            this.gameController = new GameController(gameBuilder, this);
 
             // Build Programstate
             this.programState = new ProgramState();
@@ -155,7 +159,9 @@ namespace EtherDuels
 
         public void OnNewGame()
         {
-            throw new NotImplementedException();
+            this.gameController.CreateGame();
+            this.programState.GameState = GameState.InGame;
+            this.programState.MenuState = MenuState.NoMenu;
         }
 
         public void OnQuitProgram()
