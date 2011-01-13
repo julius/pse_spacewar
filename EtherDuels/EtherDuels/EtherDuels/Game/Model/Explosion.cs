@@ -12,6 +12,9 @@ namespace EtherDuels.Game.Model
     {
         TimeSpan creationTime;
 
+        /// <summary>
+        /// Gets and sets the creationtime of an explosion.
+        /// </summary>
         public TimeSpan CreationTime
         {
             get { return creationTime; }

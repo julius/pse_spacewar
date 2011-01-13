@@ -5,17 +5,20 @@ using System.Text;
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
-{
+{   
+    /// <summary>
+    /// Defines the reaction to the human players input.
+    /// </summary>
     public class HumanPlayer: Player
     {
         private InputConfigurationRetriever inputConfigurationRetriever;
 
         /// <summary>
-        /// Creates a Human Player
+        /// Creates a Human Player.
         /// </summary>
-        /// <param name="playerId">The player's ID</param>
-        /// <param name="playerHandler">The player's Handler</param>
-        /// <param name="inputConfigurationRetriever">The input configuration for the player</param>
+        /// <param name="playerId">The player's ID.</param>
+        /// <param name="playerHandler">The player's Handler.</param>
+        /// <param name="inputConfigurationRetriever">The input configuration for the player.</param>
         public HumanPlayer(int playerId, PlayerHandler playerHandler, InputConfigurationRetriever inputConfigurationRetriever): base(playerId, playerHandler)
         {
             this.inputConfigurationRetriever = inputConfigurationRetriever;
@@ -25,7 +28,7 @@ namespace EtherDuels.Game.Model
         /// Called for every frame of the game.
         /// Computes keyboard input and moves, shoots... accordingly.
         /// </summary>
-        /// <param name="frameState">frame specific state</param>
+        /// <param name="frameState">frame specific state.</param>
         public override void Update(FrameState frameState)
         {
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.FireKey))

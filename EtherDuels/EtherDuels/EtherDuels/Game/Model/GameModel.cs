@@ -63,6 +63,9 @@ namespace EtherDuels.Game.Model
             physics.Update(frameState.GameTime);
         }
 
+        /// <summary>
+        /// Gets and sets the World.
+        /// </summary>
         public World World
         {
             get { return world; }
