@@ -67,6 +67,7 @@ namespace EtherDuels
             SpriteFont font = content.Load<SpriteFont>("NiceFont");
             Texture2D textureStars = content.Load<Texture2D>("texture_stars");
             Model modelShip = content.Load<Model>("player_ship");
+            Model modelPlanet = content.Load<Model>("planet");
 
             // Spaceship ship = new Spaceship();
             // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
@@ -85,6 +86,8 @@ namespace EtherDuels
             // TODO: Build GameController
             GameBuilder gameBuilder = new SimpleGameBuilder(this.inputConfigurationRetriever);
             gameBuilder.Background = textureStars;
+            gameBuilder.SpaceshipModel = modelShip;
+            gameBuilder.PlanetModel = modelPlanet;
 
             this.gameController = new GameController(gameBuilder, this);
 
