@@ -26,15 +26,18 @@ namespace EtherDuels.Game.Model
             this.planet = planet;
         }
 
+        /// <summary>
+        /// Gets an array of all WordObjects that exists in the world at this moment.
+        /// </summary>
         public WorldObject[] WorldObjects
         {
             get { return worldObjects.ToArray<WorldObject>(); }
         }
 
         /// <summary>
-        /// 
+        /// Adds a WorldObject to the world.
         /// </summary>
-        /// <param name="worldObject"></param>
+        /// <param name="worldObject">The WorldObject, which is to add.</param>
         public void AddWorldObject(WorldObject worldObject)
         {
             if (worldObject == null)
@@ -46,9 +49,9 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// 
+        /// Removes a WorldObject from the world.
         /// </summary>
-        /// <param name="worldObject"></param>
+        /// <param name="worldObject">The WorldObject, which is to remove.</param>
         public void RemoveWorldObject(WorldObject worldObject)
         {
             if (worldObject == null)
@@ -59,6 +62,9 @@ namespace EtherDuels.Game.Model
             worldObjects.Remove(worldObject);
         }
 
+        /// <summary>
+        /// Gets the planet of the world.
+        /// </summary>
         public Planet Planet
         {
             get { return planet; }
