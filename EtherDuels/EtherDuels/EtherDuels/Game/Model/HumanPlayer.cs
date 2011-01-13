@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Game.Model
 {   
     /// <summary>
-    /// Defines the reaction to the human players input.
+    /// Defines the reaction to the human player's input.
     /// </summary>
     public class HumanPlayer: Player
     {

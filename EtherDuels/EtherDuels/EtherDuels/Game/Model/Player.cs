@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
+    /// <summary>
+    /// Defines a player in the game.
+    /// </summary>
     public abstract class Player
     {
         protected PlayerHandler playerHandler;
 
         protected int playerId;
         /// <summary>
-        /// The player's id
+        /// Gets the player's ID.
         /// </summary>
         public int PlayerId
         {
@@ -21,7 +25,7 @@ namespace EtherDuels.Game.Model
 
         protected int points = 0;
         /// <summary>
-        /// The player's points
+        /// Gets the player's points.
         /// </summary>
         public int Points
         {
@@ -31,7 +35,7 @@ namespace EtherDuels.Game.Model
 
         protected Spaceship spaceship;
         /// <summary>
-        /// The player's Spaceship
+        /// Gets the player's Spaceship.
         /// </summary>
         public Spaceship Spaceship
         {
@@ -42,8 +46,8 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Creates a player.
         /// </summary>
-        /// <param name="playerId">The player's ID</param>
-        /// <param name="playerHandler">The player's Handler</param>
+        /// <param name="playerId">The player's ID.</param>
+        /// <param name="playerHandler">The player's Handler.</param>
         public Player(int playerId, PlayerHandler playerHandler)
         {
             this.playerId = playerId;

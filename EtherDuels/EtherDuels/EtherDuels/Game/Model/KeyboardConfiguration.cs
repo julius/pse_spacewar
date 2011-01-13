@@ -1,10 +1,13 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Input;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace EtherDuels.Game.Model
@@ -51,6 +54,9 @@ namespace EtherDuels.Game.Model
             info.AddValue("right", right);
         }
 
+        /// <summary>
+        /// Gets and sets the key for backward movement.
+        /// </summary>
         private Keys backward;
            public Keys Backward
         {
@@ -58,6 +64,9 @@ namespace EtherDuels.Game.Model
             set { backward = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the key for firing a weapon.
+        /// </summary>
         private Keys fire;
         public Keys Fire
         {
@@ -65,6 +74,9 @@ namespace EtherDuels.Game.Model
             set { fire = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the key for forward movement.
+        /// </summary>
         private Keys forward;
         public Keys Forward
         {
@@ -72,6 +84,9 @@ namespace EtherDuels.Game.Model
             set { forward = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the key for turning to the left.
+        /// </summary>
         private Keys left;
         public Keys Left
         {
@@ -79,6 +94,9 @@ namespace EtherDuels.Game.Model
             set { left = value; }
         }
         
+        /// <summary>
+        /// Gets and sets the key for changing to the next weapon.
+        /// </summary>
         private Keys nextWeapon;
         public Keys NextWeapon
         {
@@ -86,6 +104,9 @@ namespace EtherDuels.Game.Model
             set { nextWeapon = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the key for changing to the previous weapon.
+        /// </summary>
         private Keys prevWeapon;
         public Keys PrevWeapon
         {
@@ -93,6 +114,9 @@ namespace EtherDuels.Game.Model
             set { prevWeapon = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the key for turning to the right.
+        /// </summary>
         private Keys right;
         public Keys Right
         {
@@ -101,10 +125,13 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// 
+        /// Checks if the assigned KeyboardConfiguration object is 
+        /// equal to this one.
+        /// Equal are the objects, if all keyboard shortcuts match with each other. 
         /// </summary>
-        /// <param name="secKeyConf"></param>
-        /// <returns></returns>
+        /// <param name="secKeyConf">The KeyboardConfiguration, which is to check for equality.</param>
+        /// <returns>true if all keyboard shortcuts are equal.
+        /// false otherwise.</returns>
         public bool Equals(KeyboardConfiguration secKeyConf)
         {
             if (secKeyConf == null)
