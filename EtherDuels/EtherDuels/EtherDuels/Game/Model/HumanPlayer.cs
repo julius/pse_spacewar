@@ -31,12 +31,12 @@ namespace EtherDuels.Game.Model
         /// <param name="frameState">frame specific state.</param>
         public override void Update(FrameState frameState)
         {
-            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.FireKey))
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Fire))
             {
                 this.playerHandler.OnFire(this.spaceship);
             }
 
-            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.ForwardKey))
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Forward))
             {
                 float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.01f;
                 Vector2 velocity = this.spaceship.Velocity;
@@ -45,7 +45,7 @@ namespace EtherDuels.Game.Model
                 this.spaceship.Velocity = velocity;
             }
 
-            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.BackwardKey))
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Backward))
             {
                 float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * -0.01f;
                 Vector2 velocity = this.spaceship.Velocity;
@@ -54,13 +54,13 @@ namespace EtherDuels.Game.Model
                 this.spaceship.Velocity = velocity;
             }
 
-            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.LeftKey))
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Left))
             {
                 float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.01f;
                 this.spaceship.Rotation = this.spaceship.Rotation + (speed * -1f);
             }
 
-            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.RightKey))
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Right))
             {
                 float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.01f;
                 this.spaceship.Rotation = this.spaceship.Rotation + (speed * 1f);

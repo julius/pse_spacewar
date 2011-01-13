@@ -23,7 +23,7 @@ namespace EtherDuels.Game
         }
 
         private Microsoft.Xna.Framework.Graphics.Model planetModel;
-        Microsoft.Xna.Framework.Graphics.Model PlanetModel
+        public Microsoft.Xna.Framework.Graphics.Model PlanetModel
         {
             set { this.planetModel = value; } 
         }

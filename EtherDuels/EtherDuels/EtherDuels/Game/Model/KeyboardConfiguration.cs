@@ -18,7 +18,7 @@ namespace EtherDuels.Game.Model
     /// Saves the current KeyboardConfiguration of a Player.
     /// </summary>
     [Serializable()]
-    class KeyboardConfiguration : InputConfigurationRetriever
+    public class KeyboardConfiguration : InputConfigurationRetriever
     {
         //Deserialization constructor.
         /// <summary>

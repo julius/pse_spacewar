@@ -18,7 +18,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets the key for forward movement.
         /// </summary>
-        Keys ForwardKey
+        Keys Forward
         {
             get;
         }
@@ -26,7 +26,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets the key for turning left.
         /// </summary>
-        Keys LeftKey
+        Keys Left
         {
             get;
         }
@@ -34,7 +34,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets the key for turning right.
         /// </summary>
-        Keys RightKey
+        Keys Right
         {
             get;
         }
@@ -42,7 +42,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets the key for firing a weapon.
         /// </summary>
-        Keys FireKey
+        Keys Fire
         {
             get;
         }
@@ -50,7 +50,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets the key for changing to the next weapon.
         /// </summary>
-        Keys NextWeaponKey
+        Keys NextWeapon
         {
             get;
         }
@@ -58,7 +58,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets the key for changing to the previous weapon.
         /// </summary>
-        Keys PrevWeaponKey
+        Keys PrevWeapon
         {
             get;
         }
@@ -66,7 +66,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets the key for backward movement.
         /// </summary>
-        Keys BackwardKey
+        Keys Backward
         {
             get;
         }

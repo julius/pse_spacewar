@@ -18,7 +18,7 @@ namespace EtherDuels.Config
 
         private KeyboardConfiguration[] keyConfigurations = new KeyboardConfiguration[2]; // fixed number of players, for now
 
-        /*
+        
         public KeyboardConfiguration GetKeyboardConfiguration(int playerID)
         {
             if (playerID < 1 || playerID > keyConfigurations.Length)
@@ -35,7 +35,7 @@ namespace EtherDuels.Config
                 return;
             }
             this.keyConfigurations[playerID] = keyConfiguration;
-        }*/
+        }
 
         private Stream stream;
 
