@@ -105,17 +105,26 @@ namespace EtherDuels.Game
 
             Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
             explosion.Position = explosionPoint;
+            WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
+
+            // adding the created Explosion to the Game
+            gameModel.World.AddWorldObject(explosion);
+            gameView.WorldView.AddWorldObjectView(explosionView);
 
             // reducing the health of the colliding objects
             collisionObject1.Health -= collisionObject2.Attack;
             collisionObject2.Health -= collisionObject1.Attack;
 
-            // überprüfen ob das Objekt noch lebensberechtigung hat, evtl gamehandler benachrichtigen
+            // checking whether the colliding objects are still "alive"
+            if (collisionObject1.Health <= 0)
+            {
+                gameModel.World.RemoveWorldObject(collisionObject1);
+                WorldObjectView[] worldObjectViews = gameView.WorldView.WorldObjectViews;
+            }
             
-            WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
+            
 
-            gameModel.World.AddWorldObject(explosion);
-            gameView.WorldView.AddWorldObjectView(explosionView);
+            
         }
 
         /// <summary>

@@ -16,6 +16,11 @@ namespace EtherDuels.Game.View
         private Vector3 cameraPosition;
         private World world;
         private List<WorldObjectView> worldObjectViews;
+
+        public WorldObjectView[] WorldObjectViews
+        {
+            get { return worldObjectViews.ToArray<WorldObjectView>(); }
+        }
         private Texture2D background;
 
         /// <summary>
@@ -38,6 +43,15 @@ namespace EtherDuels.Game.View
         public void AddWorldObjectView(WorldObjectView worldObjectView)
         {
             this.worldObjectViews.Add(worldObjectView);
+        }
+
+        /// <summary>
+        /// Removes the given WorldObjectView from the List of WorldObjectViews in the WorldView.
+        /// </summary>
+        /// <param name="worldObjectView">The worldObjectView which needs to be removed.</param>
+        public void RemoveWorldObjectView(WorldObjectView worldObjectView)
+        {
+            this.worldObjectViews.Remove(worldObjectView);
         }
 
         /// <summary>
