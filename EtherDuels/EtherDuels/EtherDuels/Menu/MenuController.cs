@@ -2,21 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EtherDuels.Menu.Model;
-using EtherDuels.Menu.View;
+
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using EtherDuels.Game.Model;
 using Microsoft.Xna.Framework.Input;
+
+using EtherDuels.Game.Model;
+using EtherDuels.Menu.Model;
+using EtherDuels.Menu.View;
 
 namespace EtherDuels.Menu
 {
+    /// <summary>
+    /// The MenuController is responsible for the communication between the MenuModel and its MenuView.
+    /// </summary>
     class MenuController
     {
         private MenuHandler menuHandler;
         private MenuModel menuModel;
         private MenuView menuView;
 
+        /// <summary>
+        /// Creates a new MenuController.
+        /// </summary>
+        /// <param name="menuHandler">The assigned MenuHandler.</param>
+        /// <param name="menuModel">The assigned MenuModel.</param>
+        /// <param name="menuView">The assigned MenuView.</param>
         public MenuController(MenuHandler menuHandler, MenuModel menuModel, MenuView menuView)
         {
             this.menuHandler = menuHandler;
@@ -24,6 +35,11 @@ namespace EtherDuels.Menu
             this.menuView = menuView;
         }
 
+        /// <summary>
+        /// Draws the MenuView and all its subcomponents.
+        /// </summary>
+        /// <param name="viewport">The used Viewport.</param>
+        /// <param name="spriteBatch">The used SpriteBatch.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
             this.menuView.Draw(viewport, spriteBatch);
@@ -32,6 +48,11 @@ namespace EtherDuels.Menu
         private bool isDownKeyDown = false;
         private bool isUpKeyDown = false;
         private bool isEnterKeyDown = false;
+
+        /// <summary>
+        /// Updates the menu.
+        /// </summary>
+        /// <param name="frameState">A state object.</param>
         public void Update(FrameState frameState)
         {
             if (frameState.KeyboardState.IsKeyDown(Keys.Down)) isDownKeyDown = true;
@@ -56,11 +77,17 @@ namespace EtherDuels.Menu
             }
         }
 
+        /// <summary>
+        /// Sets the mainmenu active.
+        /// </summary>
         public void SetMainMenu()
         {
             this.menuModel.SetMainMenu();
         }
 
+        /// <summary>
+        /// Sets the paused menu active.
+        /// </summary>
         public void SetPauseMenu()
         {
             this.menuModel.SetPauseMenu();

@@ -7,19 +7,31 @@ using EtherDuels.Menu.View;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace EtherDuels.Menu
-{
+{   
+    /// <summary>
+    /// Defines a concrete MenuBuilder.
+    /// </summary>
     class SimpleMenuBuilder: MenuBuilder
     {
         private MenuHandler menuHandler;
         private SpriteFont spriteFont;
         // TODO: configuration
 
+        /// <summary>
+        /// Creates a new SimpleMenuBuilder.
+        /// </summary>
+        /// <param name="menuHandler">The assigned MenuHandler.</param>
+        /// <param name="spriteFont">The used font.</param>
         public SimpleMenuBuilder(MenuHandler menuHandler, SpriteFont spriteFont)
         {
             this.menuHandler = menuHandler;
             this.spriteFont = spriteFont;
         }
 
+        /// <summary>
+        /// Creates an new MenuModel.
+        /// </summary>
+        /// <returns>The created MenuModel.</returns>
         public MenuModel BuildModel()
         {
             // build menu actions
@@ -59,6 +71,11 @@ namespace EtherDuels.Menu
             return menuModel;
         }
 
+        /// <summary>
+        /// Creates a new MenuView fittin gto the assigned MenuModel.
+        /// </summary>
+        /// <param name="menuModel">The assigned MenuModel.</param>
+        /// <returns>The created MenuView.</returns>
         public MenuView BuildView(MenuModel menuModel)
         {
             List<MenuDialogView> menuDialogViewList = new List<MenuDialogView>();
