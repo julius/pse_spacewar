@@ -12,6 +12,10 @@ namespace EtherDuels.Game.Model
     {
         Weapon currentWeapon;
 
+        /// <summary>
+        /// Gets and sets the current weapon the 
+        /// spaceship can fire.
+        /// </summary>
         public Weapon CurrentWeapon
         {
             get { return currentWeapon; }
