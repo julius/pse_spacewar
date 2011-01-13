@@ -5,7 +5,9 @@ using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
+
 using Microsoft.Xna.Framework.Input;
+
 using EtherDuels.Game.Model;
 
 

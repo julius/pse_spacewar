@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 using EtherDuels.Game.View;
 using EtherDuels.Game.Model;
 using EtherDuels.Menu;
@@ -18,7 +19,7 @@ using EtherDuels.Menu.View;
 namespace EtherDuels
 {
     /// <summary>
-    /// This is the main type for your game
+    /// This is the main type for your game.
     /// </summary>
     public class EtherDuels : Microsoft.Xna.Framework.Game, MenuHandler, GameHandler
     {
@@ -31,7 +32,6 @@ namespace EtherDuels
 
         GameView gameView; // <- remove this one later
         private Game.Model.InputConfigurationRetriever inputConfigurationRetriever;
-
 
         public EtherDuels()
         {
@@ -159,6 +159,9 @@ namespace EtherDuels
 
         /* === MenuHandler Methods === */
 
+        /// <summary>
+        /// Creates a new game.
+        /// </summary>
         public void OnNewGame()
         {
             this.gameController.CreateGame();
@@ -166,11 +169,17 @@ namespace EtherDuels
             this.programState.MenuState = MenuState.NoMenu;
         }
 
+        /// <summary>
+        /// Quits the program.
+        /// </summary>
         public void OnQuitProgram()
         {
             this.Exit();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void OnResumeGame()
         {
             throw new NotImplementedException();
