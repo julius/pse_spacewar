@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using Microsoft.Xna.Framework.Input;
-using EtherDuels.Game;
+using EtherDuels.Game.Model;
 
 
 namespace EtherDuels.Config

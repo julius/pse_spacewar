@@ -8,8 +8,8 @@ namespace EtherDuels.Config
 {
     interface ConfigurationRetriever
     {
-        //int GetDifficulty();
-        //int GetDifficultyAI();
-        //KeyboardConfiguration GetKeyboardConfiguration(int playerID);
+        int GetDifficulty();
+        int GetDifficultyAI();
+        KeyboardConfiguration GetKeyboardConfiguration(int playerID);
     }
 }
