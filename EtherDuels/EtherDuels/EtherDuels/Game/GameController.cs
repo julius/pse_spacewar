@@ -80,11 +80,37 @@ namespace EtherDuels.Game
         {
             Debug.Assert(gameModel != null);
 
+            // calculating the position of the explosion
+            Vector2 pos1 = collisionObject1.Position;
+            Vector2 pos2 = collisionObject2.Position;
+            float radius1 = collisionObject1.Radius;
+            float radius2 = collisionObject2.Radius;
+
+
+            Vector2 distance;
+            Vector2 radiusPoint1;
+            Vector2 radiusPoint2;
+            Vector2 explosionPoint;
+            distance.X = Math.Abs(pos2.X - pos1.X);
+            distance.Y = Math.Abs(pos2.Y - pos1.Y);
+            //TODO abfragen ob sich die radien überhaupt überschneiden?
+            double hypothenuseDistance = Math.Sqrt((double) (distance.X * distance.X + distance.Y * distance.Y));
+            double alpha = Math.Asin(distance.Y / hypothenuseDistance);
+            radiusPoint1.Y = (float) Math.Sin(alpha) * radius1;
+            radiusPoint1.X = (float) Math.Cos(alpha) * radius1;
+            radiusPoint2.Y = (float) Math.Sin(alpha) * radius2;
+            radiusPoint2.X = (float) Math.Cos(alpha) * radius2;
+            explosionPoint.X = (radiusPoint1.X + radiusPoint2.X) / 2;
+            explosionPoint.Y = (radiusPoint1.Y + radiusPoint2.Y) / 2;
+
             Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
-            
-            // TODO SetPosition
-            // TODO SetCreationTime
-            // TODO Health abziehen, überprüfen ob das Objekt noch lebensberechtigung hat, evtl gamehandler benachrichtigen
+            explosion.Position = explosionPoint;
+
+            // reducing the health of the colliding objects
+            collisionObject1.Health -= collisionObject2.Attack;
+            collisionObject2.Health -= collisionObject1.Attack;
+
+            // überprüfen ob das Objekt noch lebensberechtigung hat, evtl gamehandler benachrichtigen
             
             WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
 

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines a object in the world.
+    /// Defines an object in the world.
     /// </summary>
     public class WorldObject
     {
