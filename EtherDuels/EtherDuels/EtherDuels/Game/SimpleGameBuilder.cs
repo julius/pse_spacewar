@@ -4,11 +4,30 @@ using System.Linq;
 using System.Text;
 using EtherDuels.Game.Model;
 using EtherDuels.Game.View;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EtherDuels.Game
 {
     class SimpleGameBuilder: GameBuilder
     {
+        private Texture2D background;
+        public Texture2D Background
+        {
+            set { this.background = value; }
+        }
+
+        private Microsoft.Xna.Framework.Graphics.Model spaceshipModel;
+        public Microsoft.Xna.Framework.Graphics.Model SpaceshipModel
+        {
+            set { this.spaceshipModel = value; }
+        }
+
+        private Microsoft.Xna.Framework.Graphics.Model planetModel;
+        Microsoft.Xna.Framework.Graphics.Model PlanetModel
+        {
+            set { this.planetModel = value; } 
+        }
+
         private CollisionHandler collisionHandler;
         public CollisionHandler CollisionHandler
         {
@@ -51,7 +70,21 @@ namespace EtherDuels.Game
 
         public GameView BuildView(GameModel model)
         {
-            throw new NotImplementedException();
+            WorldView worldView = new WorldView(background, model.World);
+
+            foreach (WorldObject worldObject in model.World.WorldObjects)
+            {
+                if (worldObject is Spaceship)
+                {
+                    worldView.AddWorldObjectView(new WorldObjectView(spaceshipModel, worldObject));
+                }
+                else if (worldObject is Planet)
+                {
+                    worldView.AddWorldObjectView(new WorldObjectView(planetModel, worldObject));
+                }
+            }
+
+            return new GameView(model, worldView);
         }
     }
 }

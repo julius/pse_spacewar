@@ -68,8 +68,8 @@ namespace EtherDuels
             Texture2D textureStars = content.Load<Texture2D>("texture_stars");
             Model modelShip = content.Load<Model>("player_ship");
 
-            Spaceship ship = new Spaceship();
-            WorldObjectView shipView = new WorldObjectView(modelShip, ship);
+            // Spaceship ship = new Spaceship();
+            // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
 
             //this.gameView = new GameView();
             //this.gameView.WorldView = new WorldView(textureStars, null);
@@ -84,6 +84,8 @@ namespace EtherDuels
 
             // TODO: Build GameController
             GameBuilder gameBuilder = new SimpleGameBuilder(this.inputConfigurationRetriever);
+            gameBuilder.Background = textureStars;
+
             this.gameController = new GameController(gameBuilder, this);
 
             // Build Programstate
