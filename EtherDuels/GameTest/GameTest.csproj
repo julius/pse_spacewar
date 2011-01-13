@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationTest.cs" />
+    <Compile Include="GameControllerTest.cs" />
     <Compile Include="GameModelTest.cs" />
     <Compile Include="HumanPlayerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +72,10 @@
     <Shadow Include="Test References\EtherDuels.accessor" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Assets\Assets.contentproj">
+      <Project>{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}</Project>
+      <Name>Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EtherDuels\EtherDuels\EtherDuels.csproj">
       <Project>{B0ED64AD-3D6A-4C81-A109-1982C91E2346}</Project>
       <Name>EtherDuels</Name>
