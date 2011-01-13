@@ -4,20 +4,34 @@ using System.Linq;
 using System.Text;
 
 namespace EtherDuels.Menu.Model
-{
+{   
+    /// <summary>
+    /// 
+    /// </summary>
     class MenuModel
-    {
+    {   
         private MenuDialog[] menuDialogs;
+        
+        /// <summary>
+        /// Gets an array of all MenuDialogs, which are used by the menu.
+        /// </summary>
         public MenuDialog[] MenuDialogs
         {
             get { return this.menuDialogs; }
         }
 
+        /// <summary>
+        /// Creates a new MenuModel.
+        /// </summary>
+        /// <param name="menuDialogs">All MenuDialogs the MenuModel consists of.</param>
         public MenuModel(MenuDialog[] menuDialogs)
         {
             this.menuDialogs = menuDialogs;
         }
 
+        /// <summary>
+        /// Passes the action call to its selected MenuDialog.
+        /// </summary>
         public void Action()
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
@@ -26,6 +40,9 @@ namespace EtherDuels.Menu.Model
             this.menuDialogs[menuDialogIndex].Action();
         }
 
+        /// <summary>
+        /// Passes the down call to its selected MenuDialog.
+        /// </summary>
         public void Down()
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
@@ -34,6 +51,9 @@ namespace EtherDuels.Menu.Model
             this.menuDialogs[menuDialogIndex].Down();
         }
 
+        /// <summary>
+        /// Passes the up call to its selected MenuDialog.
+        /// </summary>
         public void Up()
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
