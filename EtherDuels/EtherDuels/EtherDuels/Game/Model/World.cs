@@ -17,8 +17,8 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Creates a new World object.
         /// </summary>
-        /// <param name="worldObjects">A list of WorldObjects, the world 
-        /// contains in the beginning of a game.</param>
+        /// <param name="worldObjects">A list of WorldObjects the world 
+        /// contains at the beginning of a game.</param>
         /// <param name="planet">The planet the ships circuit.</param>
         public World(WorldObject[] worldObjects, Planet planet)
         {
@@ -33,11 +33,21 @@ namespace EtherDuels.Game.Model
 
         public void AddWorldObject(WorldObject worldObject)
         {
+            if (worldObject == null)
+            {
+                throw new System.ArgumentException("Parameter cannot be null", "worldObject");
+            }
+
             worldObjects.Add(worldObject);
         }
 
         public void RemoveWorldObject(WorldObject worldObject)
         {
+            if (worldObject == null)
+            {
+                throw new System.ArgumentException("Parameter cannot be null", "worldObject");
+            }
+
             worldObjects.Remove(worldObject);
         }
 
