@@ -11,12 +11,12 @@ namespace EtherDuels.Game
     public interface GameHandler
     {
         /// <summary>
-        /// Defines the behaviour of the program if the game was paused.
+        /// Defines the behavior of the program if the game was paused.
         /// </summary>
         void OnGamePaused();
 
         /// <summary>
-        /// Defines the behaviour of the program if the game is ended. 
+        /// Defines the behavior of the program if the game is ended. 
         /// </summary>
         /// <param name="playerID">The playerID of the player who won.</param>
         /// <param name="points">The players points.</param>

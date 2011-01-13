@@ -4,22 +4,38 @@ using System.Linq;
 using System.Text;
 
 namespace EtherDuels.Menu.Model
-{
+{   
+    /// <summary>
+    /// Defines a MenuDialog.
+    /// </summary>
     class MenuDialog
     {
         private MenuItem[] menuItems;
+
+        /// <summary>
+        /// Gets an array of all MenuItems, the MenuDialog consists of.
+        /// </summary>
         public MenuItem[] MenuItems
         {
             get { return this.menuItems; }
         }
 
         private bool active;
+
+        /// <summary>
+        /// Gets and sets if the MenuDialog is active.
+        /// </summary>
         public bool Active
         {
             get { return this.active; }
             set { this.active = value; }
         }
 
+        /// <summary>
+        /// Creates a new MenuDialog.
+        /// </summary>
+        /// <param name="menuItems">An array of all MenuItems, 
+        /// the MenuDialog consists of. </param>
         public MenuDialog(MenuItem[] menuItems)
         {
             this.menuItems = menuItems;
@@ -29,6 +45,9 @@ namespace EtherDuels.Menu.Model
             if (menuItemIndex == -1) this.Down();
         }
 
+        /// <summary>
+        /// Passes the action call to its selected MenuItem.
+        /// </summary>
         public void Action()
         {
             int menuItemIndex = this.GetSelectedMenuItemIndex();
@@ -37,6 +56,9 @@ namespace EtherDuels.Menu.Model
             this.menuItems[menuItemIndex].Action();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Down()
         {
             int menuItemIndex = this.GetSelectedMenuItemIndex();
@@ -52,6 +74,9 @@ namespace EtherDuels.Menu.Model
             this.menuItems[menuItemIndex].Selected = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Up()
         {
             int menuItemIndex = this.GetSelectedMenuItemIndex();
