@@ -14,6 +14,11 @@ namespace EtherDuels.Game.View
     public class WorldObjectView
     {
         WorldObject worldObject;
+
+        public WorldObject WorldObject
+        {
+            get { return worldObject; }
+        }
         Microsoft.Xna.Framework.Graphics.Model model;
         /// <summary>
         /// Creates a new WorldObjectView object.
