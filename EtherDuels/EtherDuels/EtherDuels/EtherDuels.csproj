@@ -140,8 +140,6 @@
     <Compile Include="Menu\MenuBuilder.cs" />
     <Compile Include="Menu\MenuController.cs" />
     <Compile Include="Menu\MenuHandler.cs" />
-    <Compile Include="Menu\Model\ActionHandler.cs" />
-    <Compile Include="Menu\Model\DataProvider.cs" />
     <Compile Include="Menu\Model\MenuDialog.cs" />
     <Compile Include="Menu\Model\MenuItem.cs" />
     <Compile Include="Menu\Model\MenuModel.cs" />
