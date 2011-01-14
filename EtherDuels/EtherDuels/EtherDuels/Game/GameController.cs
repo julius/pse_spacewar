@@ -80,6 +80,16 @@ namespace EtherDuels.Game
         {
             Debug.Assert(gameModel != null);
 
+            /*
+             * TODO 
+             * 2 vorschlaege zur verbesserung:
+             * - WorldObjectView in jedem Draw() - Aufruf testen lassen, ob die Health vom Model <= 0 ist und wenn
+             *   nicht, dann die View aus der WorldView rausnehmen. Dazu bräuchten wir allerdings noch ein Interface
+             *   um den Zugriff von WorldObjectView auf WorldView zu lösen.
+             * - Liste von Modeln zu Views im Controller speichern, sodass bei OnCollision direkt die zugehörige View
+             *   gefunden werden kann. 
+             */
+
             // calculating the position of the explosion
             Vector2 pos1 = collisionObject1.Position;
             Vector2 pos2 = collisionObject2.Position;
@@ -104,7 +114,7 @@ namespace EtherDuels.Game
 
             // creating the Explosion
             Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
-            explosion.Position = explosionPoint;
+            explosion.Position = pos1 + explosionPoint; //TODO korrekt?
             WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
 
             // adding the created Explosion to the Game
@@ -183,8 +193,32 @@ namespace EtherDuels.Game
         /// </summary>
         /// <param name="shooter">The Spaceship, which fired a projectile.</param>
         public void OnFire(Spaceship shooter)
-        { 
-            // TODO whole method.
+        {
+            Vector2 position = shooter.Position;
+            Vector2 velocity = shooter.Velocity;
+            float rotation = shooter.Rotation;
+            float radius = shooter.Radius;
+            Vector2 projectilePosition;
+            Weapon weapon = shooter.CurrentWeapon;
+
+            // create the projectile and its view
+            Projectile projectile = gameModel.GetFactory().CreateProjectile(weapon);
+            WorldObjectView projectileView = gameModel.GetFactory().CreateProjectileview(weapon, projectile);
+
+            // set the projectile's rotation
+            projectile.Rotation = rotation;
+            
+            // calculate and set the projectile's position
+            projectilePosition.Y = (float) Math.Sin(90 - rotation);     //TODO Rotation als double im WorldObject speichern?
+            projectilePosition.X = (float) Math.Cos(90 - rotation);
+            projectile.Position = projectilePosition;
+
+            // add the spaceship's velocity to the projectile's velocity
+            projectile.Velocity += velocity;
+
+
+
+
         }
 
         /// <summary>
