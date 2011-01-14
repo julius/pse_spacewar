@@ -69,7 +69,7 @@ namespace EtherDuels.Game.Model
 
                 Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
                     world.Planet.Position.Y - worldObject.Position.Y);
-                double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.Seconds;
+                double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.TotalMilliseconds;
                 // angle of the velocity
                 double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
 
@@ -95,8 +95,16 @@ namespace EtherDuels.Game.Model
 
                 // calculate new positions
                 Vector2 postion = worldObject.Position;
-                postion.X += worldObject.Velocity.X * gameTime.ElapsedGameTime.Seconds;
-                postion.Y += worldObject.Velocity.Y * gameTime.ElapsedGameTime.Seconds;
+                postion.X += worldObject.Velocity.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+                postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+                
+                // torodial field
+                postion.X = postion.X > 3600 ? -3600 : postion.X;
+                postion.Y = postion.Y > 2400 ? -2400 : postion.Y;
+                postion.X = postion.X < -3600 ? 3600 : postion.X;
+                postion.Y = postion.Y < -2400 ? 2400 : postion.Y;
+
+                worldObject.Position = postion;
             }
         }
 

@@ -39,9 +39,9 @@ namespace EtherDuels.Game.View
         public void Draw(Viewport viewport, Vector3 cameraPosition)
         {
             Vector3 modelPosition = new Vector3(worldObject.Position.X, 0, worldObject.Position.Y);
-            float modelRotation = 0f; // gameTime.TotalGameTime.Milliseconds * 0.01f;
+           // float modelRotation = 0f; // gameTime.TotalGameTime.Milliseconds * 0.01f;
 
-            Matrix matrixWorld = Matrix.CreateRotationY(modelRotation) * Matrix.CreateTranslation(modelPosition);
+            Matrix matrixWorld = Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(modelPosition);
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
 

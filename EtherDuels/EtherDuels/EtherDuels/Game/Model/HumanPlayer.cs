@@ -39,7 +39,7 @@ namespace EtherDuels.Game.Model
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Forward))
             {
-                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.01f;
+                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.1f;
                 Vector2 velocity = this.spaceship.Velocity;
                 velocity.X += (float)Math.Sin(this.spaceship.Rotation) * speed;
                 velocity.Y -= (float)Math.Cos(this.spaceship.Rotation) * speed;
@@ -48,7 +48,7 @@ namespace EtherDuels.Game.Model
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Backward))
             {
-                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * -0.01f;
+                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * -0.1f;
                 Vector2 velocity = this.spaceship.Velocity;
                 velocity.X += (float)Math.Sin(this.spaceship.Rotation) * speed;
                 velocity.Y -= (float)Math.Cos(this.spaceship.Rotation) * speed;
