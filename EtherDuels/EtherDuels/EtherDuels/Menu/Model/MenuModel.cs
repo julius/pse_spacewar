@@ -6,7 +6,8 @@ using System.Text;
 namespace EtherDuels.Menu.Model
 {   
     /// <summary>
-    /// 
+    /// Defines the complete MenuModel.
+    /// It is the biggest component of the menu.
     /// </summary>
     class MenuModel
     {   

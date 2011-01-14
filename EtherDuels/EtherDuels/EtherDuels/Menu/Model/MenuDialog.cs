@@ -57,7 +57,8 @@ namespace EtherDuels.Menu.Model
         }
 
         /// <summary>
-        /// 
+        /// Moves the selectionof an item one MenuItem down. 
+        /// The previous selected MenuItem is unselected now. 
         /// </summary>
         public void Down()
         {
@@ -75,7 +76,8 @@ namespace EtherDuels.Menu.Model
         }
 
         /// <summary>
-        /// 
+        /// Moves the selection of an item one MenuItem up.
+        /// The previous selected MenuItem is unselected now.
         /// </summary>
         public void Up()
         {

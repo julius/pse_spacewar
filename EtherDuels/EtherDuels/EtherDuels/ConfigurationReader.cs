@@ -8,7 +8,10 @@ using System.IO;
 
 
 namespace EtherDuels.Config
-{
+{   
+    /// <summary>
+    /// Constructs a Configuration by deserializing a file.
+    /// </summary>
     public class ConfigurationReader
     {
         private BinaryFormatter binaryFormatter;
@@ -20,7 +23,14 @@ namespace EtherDuels.Config
             this.stream             = stream;
         }
 
-
+        /// <summary>
+        /// Creates a Configuration.
+        /// 
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="path">The file's directory.</param>
+        /// <returns></returns>
         public Configuration read(string path)
         {
             if (File.Exists(path))

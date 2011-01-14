@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 namespace EtherDuels
 {
     /// <summary>
-    /// Holds State specific for one Frame
+    /// Holds State specific for one Frame.
     /// </summary>
     public class FrameState
     {
@@ -16,10 +16,10 @@ namespace EtherDuels
         private KeyboardState keyboardState;
 
         /// <summary>
-        /// Initializes a FrameState object
+        /// Initializes a FrameState object.
         /// </summary>
-        /// <param name="gameTime">The frame's time object</param>
-        /// <param name="keyboardState">The frame's keyboard state</param>
+        /// <param name="gameTime">The frame's time object.</param>
+        /// <param name="keyboardState">The frame's keyboard state.</param>
         public FrameState(GameTime gameTime, KeyboardState keyboardState)
         {
             this.gameTime = gameTime;
@@ -27,7 +27,7 @@ namespace EtherDuels
         }
 
         /// <summary>
-        /// The frame's time object
+        /// The frame's time object.
         /// </summary>
         public GameTime GameTime
         {
@@ -35,7 +35,7 @@ namespace EtherDuels
         }
 
         /// <summary>
-        /// The frame's keyboard state
+        /// The frame's keyboard state.
         /// </summary>
         public KeyboardState KeyboardState
         {

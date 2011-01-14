@@ -22,10 +22,10 @@ namespace EtherDuels.Game.Model
     {
         //Deserialization constructor.
         /// <summary>
-        /// 
+        /// Creates a new Keyboradconfiguration.
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="ctxt"></param>
+        /// <param name="info">The SerializationInfo.</param>
+        /// <param name="ctxt">The StreamingContext.</param>
         public KeyboardConfiguration(SerializationInfo info, StreamingContext ctxt)
         {
             this.backward   = (Keys)info.GetValue("backward", typeof(Keys));
@@ -39,7 +39,7 @@ namespace EtherDuels.Game.Model
 
         //Serialization function.
         /// <summary>
-        /// 
+        ///  
         /// </summary>
         /// <param name="info"></param>
         /// <param name="ctxt"></param>
