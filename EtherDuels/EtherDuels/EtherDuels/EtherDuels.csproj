@@ -108,6 +108,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EtherDuels.cs" />
+    <Compile Include="Game\Configuration.cs" />
+    <Compile Include="Game\ConfigurationReader.cs" />
+    <Compile Include="Game\ConfigurationRetriever.cs" />
+    <Compile Include="Game\InputConfigurationRetriever.cs" />
+    <Compile Include="Game\KeyboardConfiguration.cs" />
     <Compile Include="Game\Model\CollisionHandler.cs" />
     <Compile Include="Game\Model\Explosion.cs" />
     <Compile Include="Game\Model\GameModel.cs" />
