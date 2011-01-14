@@ -5,7 +5,10 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    class Planet : WorldObject
+    /// <summary>
+    /// Defines a planet.
+    /// </summary>
+    public class Planet : WorldObject
     {
 
     }

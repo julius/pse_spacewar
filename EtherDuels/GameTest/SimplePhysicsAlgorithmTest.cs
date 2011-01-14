@@ -3,7 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.Xna.Framework;
 
+using Microsoft.Xna.Framework.Input;
 using Moq;
+using System.Collections.Generic;
 
 namespace GameTest
 {
@@ -19,6 +21,11 @@ namespace GameTest
 
 
         private TestContext testContextInstance;
+
+        private SimplePhysicsAlgorithm target;
+        private Mock<CollisionHandler> mockCollisionHandler;
+        private Planet planet;
+        private World world;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -66,41 +73,61 @@ namespace GameTest
         //
         #endregion
 
-
-        /// <summary>
-        ///A test for SimplePhysicsAlgorithm Constructor
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
-        public void SimplePhysicsAlgorithmConstructorTest()
+        [TestInitialize()]
+        public void Initialize()
         {
-            SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor();
-            Assert.Inconclusive("TODO: Implement code to verify target");
+            mockCollisionHandler = new Mock<CollisionHandler>();
+            planet = new Planet();
+            planet.Mass = 100000;
+            // asume 40.0 * 40.0 world, planet is in the center
+            planet.Position = new Vector2(20.0f, 20.0f);
+            planet.Velocity = new Vector2(0.0f, 0.0f);
+            world = new World(new WorldObject[0], planet);
         }
 
         /// <summary>
-        ///A first simple Test for Update
+        /// Test of the collision detection
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("EtherDuels.exe")]
-        public void UpdateTest()
+        public void UpdateTest1()
         {
-            WorldObject_Accessor ship1 = new Spaceship_Accessor();
-            WorldObject_Accessor ship2 = new Spaceship_Accessor();
-            ship1.SetPosition(new Vector2(0, 0));
-            ship2.SetPosition(new Vector2(0, 0));
+            WorldObject object1 = new WorldObject();
+            object1.Position = new Vector2(0.0f, 0.0f);
+            object1.Radius = 1.0f;
 
-            World_Accessor world = new World_Accessor();
-            world.AddWorldObject(ship1);
-            world.AddWorldObject(ship2);
+            WorldObject object2 = new WorldObject();
+            object2.Position = new Vector2(1.0f, 1.0f);
+            object2.Radius = 1.0f;
 
-            var colHandMock = new Mock<CollisionHandler>();
-            colHandMock.Setup(c => c.OnCollision(ship1.Target, ship2.Target));
+            world.AddWorldObject(object1);
+            world.AddWorldObject(object2);
 
-            SimplePhysicsAlgorithm_Accessor target = new SimplePhysicsAlgorithm_Accessor(); // TODO: Initialize to an appropriate value
-            GameTime gameTime = null; // TODO: Initialize to an appropriate value
-            target.Update(gameTime);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            mockCollisionHandler.Setup(m => m.OnCollision(object1, object2));
+
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world);
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
+
+            mockCollisionHandler.Verify(m => m.OnCollision(object1, object2), Times.Exactly(1));
+        }
+
+        /// <summary>
+        /// Test the speed limitation
+        /// </summary>
+        [TestMethod()]
+        public void UpdateTest2()
+        {
+            float MAX_VELOCITY = 299792458.0f;
+            WorldObject worldObject = new WorldObject();
+            worldObject.Position = new Vector2(0.0f, 0.0f);
+            worldObject.Velocity = new Vector2(MAX_VELOCITY + 5.0f, MAX_VELOCITY + 1.0f);
+
+            planet.Mass = 0.0;
+            world.AddWorldObject(worldObject);
+
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 0)));
+
+            Assert.IsTrue(worldObject.Velocity.X == MAX_VELOCITY && worldObject.Velocity.Y == MAX_VELOCITY);
         }
     }
 }

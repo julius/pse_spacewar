@@ -5,7 +5,10 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    class Projectile : WorldObject
+    /// <summary>
+    /// Defines a projectile.
+    /// </summary>
+    public class Projectile : WorldObject
     {
 
     }

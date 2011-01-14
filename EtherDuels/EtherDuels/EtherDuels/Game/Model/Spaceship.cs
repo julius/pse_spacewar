@@ -5,20 +5,21 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    class Spaceship : WorldObject
+    /// <summary>
+    /// Defines a spaceship.
+    /// </summary>
+    public class Spaceship : WorldObject
     {
-
         Weapon currentWeapon;
 
-        public Weapon GetCurrentWeapon()
+        /// <summary>
+        /// Gets and sets the current weapon the 
+        /// spaceship can fire.
+        /// </summary>
+        public Weapon CurrentWeapon
         {
-            return currentWeapon;
+            get { return currentWeapon; }
+            set { currentWeapon = value; }
         }
-
-        public void SetCurrentWeapon(Weapon weapon)
-        {
-            this.currentWeapon = weapon;
-        }
-
     }
 }

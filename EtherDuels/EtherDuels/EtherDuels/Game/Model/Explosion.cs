@@ -5,18 +5,20 @@ using System.Text;
 
 namespace EtherDuels.Game.Model
 {
-    class Explosion : WorldObject
+    /// <summary>
+    /// Defines an explosion in a game.
+    /// </summary>
+    public class Explosion : WorldObject
     {
         TimeSpan creationTime;
 
-        public TimeSpan GetCreationTime()
+        /// <summary>
+        /// Gets and sets the creationtime of an explosion.
+        /// </summary>
+        public TimeSpan CreationTime
         {
-            return creationTime;
-        }
-
-        public void SetCreationTime(TimeSpan creationTime)
-        {
-            this.creationTime = creationTime;
+            get { return creationTime; }
+            set { creationTime = value; }
         }
     }
 }

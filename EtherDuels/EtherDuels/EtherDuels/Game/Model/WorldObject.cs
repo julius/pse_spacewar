@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
-    class WorldObject
+    /// <summary>
+    /// Defines an object in the world.
+    /// </summary>
+    public class WorldObject
     {
         int attack;
         int health;
@@ -16,74 +20,67 @@ namespace EtherDuels.Game.Model
         float rotation;
         Vector2 velocity;
 
-        public int GetAttack()
+        /// <summary>
+        /// Gets and sets the attackpower of a WorldObject.
+        /// </summary>
+        public int Attack
         {
-            return attack;
+            get { return attack; }
+            set { attack = value; }
+        }        
+
+        /// <summary>
+        /// Gets and sets the health of a Worldobject.
+        /// </summary>
+        public int Health
+        {
+            get { return health; }
+            set { health = value; }
+        }        
+
+        /// <summary>
+        /// Gets and sets the mass of a WorldObject.
+        /// </summary>
+        public double Mass
+        {
+            get { return mass; }
+            set { mass = value; }
         }
 
-        public void SetAttack(int attack)
+        /// <summary>
+        /// Gets and sets the radius a WorldObject has.
+        /// </summary>
+        public float Radius
         {
-            this.attack = attack;
+            get { return radius; }
+            set { radius = value; }
         }
 
-        public int GetHealth()
+        /// <summary>
+        /// Gets and sets the rotation of a WorldObject.
+        /// </summary>
+        public float Rotation
         {
-            return health;
+            get { return rotation; }
+            set { rotation = value; }
         }
 
-        public void SetHealth(int health)
+        /// <summary>
+        /// Gets and sets the posizion of a WorldObject in the world.
+        /// </summary>
+        public Vector2 Position
         {
-            this.health = health;
+            get { return position; }
+            set { position = value; }
         }
 
-        public double GetMass()
+        /// <summary>
+        /// Gets and sets the velocity of a WorldObject.
+        /// </summary>
+        public Vector2 Velocity 
         {
-            return mass;
-        }
-
-        public void SetMass(double mass)
-        {
-            this.mass = mass;
-        }
-
-        public Vector2 GetPosition()
-        {
-            return position;
-        }
-
-        public void SetPosition(Vector2 position)
-        {
-            this.position = position;
-        }
-
-        public float GetRadius()
-        {
-            return radius;
-        }
-
-        public void SetRadius(float radius)
-        {
-            this.radius = radius;
-        }
-
-        public float GetRotation()
-        {
-            return rotation;
-        }
-
-        public void SetRotation(float rotation)
-        {
-            this.rotation = rotation;
-        }
-
-        public Vector2 Getveloctiy()
-        {
-            return velocity;
-        }
-
-        public void SetVelocity(Vector2 velocity)
-        {
-            this.velocity = velocity;
+            get { return velocity; }
+            set { velocity = value; }
         }
     }
 }

@@ -6,6 +6,7 @@ Wenn da was anderes bei rauskommt ist irgendwas falsch.
 Gutes Online Buch "Pro Git": http://progit.org/book/
 
 Aenderungen commiten und pushen
+> git checkout HEAD EtherDuels/EtherDuels.suo
 > git add .
 > git commit -a -m "bla bla bla"
 > git status
