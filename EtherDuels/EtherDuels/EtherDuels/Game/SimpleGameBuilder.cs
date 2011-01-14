@@ -40,11 +40,11 @@ namespace EtherDuels.Game
             set { this.playerHandler = value; }
         }
 
-        private Game.Model.InputConfigurationRetriever inputConfigurationRetriever;
+        private Configuration configuration;
 
-        public SimpleGameBuilder(Game.Model.InputConfigurationRetriever inputConfigurationRetriever)
+        public SimpleGameBuilder(Configuration configuration)
         {
-            this.inputConfigurationRetriever = inputConfigurationRetriever;
+            this.configuration = configuration;
         }
 
         public GameModel BuildModel()
@@ -54,8 +54,11 @@ namespace EtherDuels.Game
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
 
-            Player player1 = new HumanPlayer(1, this.playerHandler, this.inputConfigurationRetriever);
-            Player player2 = new HumanPlayer(2, this.playerHandler, this.inputConfigurationRetriever);
+            Player player1 = new HumanPlayer(1, this.playerHandler, this.configuration.GetKeyboardConfiguration(1));
+            Player player2 = new HumanPlayer(2, this.playerHandler, this.configuration.GetKeyboardConfiguration(2));
+
+            player1.Spaceship = spaceship1;
+            player2.Spaceship = spaceship2;
 
             List<Player> players = new List<Player>();      //TODO  edit Claudi: Hab das Array in eine Liste umgewandelt.
             players.Add(player1);

@@ -15,6 +15,7 @@ using EtherDuels.Menu;
 using EtherDuels.Game;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace EtherDuels
 {
@@ -76,6 +77,9 @@ namespace EtherDuels
             //this.gameView.WorldView = new WorldView(textureStars, null);
             //this.gameView.WorldView.AddWorldObjectView(shipView);
 
+            ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
+            Configuration configuration = configurationReader.read("config.cfg");
+
             // Build MenuController
             MenuBuilder menuBuilder = new SimpleMenuBuilder(this, font);
             MenuModel menuModel = menuBuilder.BuildModel();
@@ -84,7 +88,7 @@ namespace EtherDuels
             this.menuController.SetMainMenu();
 
             // TODO: Build GameController
-            GameBuilder gameBuilder = new SimpleGameBuilder(this.inputConfigurationRetriever);
+            GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
             gameBuilder.Background = textureStars;
             gameBuilder.SpaceshipModel = modelShip;
             gameBuilder.PlanetModel = modelPlanet;
@@ -122,7 +126,7 @@ namespace EtherDuels
             // Update GameController if necessary
             if (this.programState.GameState != GameState.NoGame)
             {
-                this.gameController.Update(gameTime);
+                this.gameController.Update(frameState);
             }
 
             // Update MenuController if necessary
