@@ -86,7 +86,6 @@ namespace EtherDuels.Game
             float radius1 = collisionObject1.Radius;
             float radius2 = collisionObject2.Radius;
 
-
             Vector2 distance;
             Vector2 radiusPoint1;
             Vector2 radiusPoint2;
@@ -103,6 +102,7 @@ namespace EtherDuels.Game
             explosionPoint.X = (radiusPoint1.X + radiusPoint2.X) / 2;
             explosionPoint.Y = (radiusPoint1.Y + radiusPoint2.Y) / 2;
 
+            // creating the Explosion
             Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
             explosion.Position = explosionPoint;
             WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
@@ -115,20 +115,71 @@ namespace EtherDuels.Game
             collisionObject1.Health -= collisionObject2.Attack;
             collisionObject2.Health -= collisionObject1.Attack;
 
-            // checking whether the colliding objects are still "alive"
-            if (collisionObject1.Health <= 0)
-            {
-                gameModel.World.RemoveWorldObject(collisionObject1);
-                WorldObjectView[] worldObjectViews = gameView.WorldView.WorldObjectViews;
-            }
-            
-            
+            /* checking whether the colliding objects are still "alive". Check the object with
+             * less health first to make the player with less health lose the game in case both
+             * spaceships died. */
+            WorldObjectView[] worldObjectViews = gameView.WorldView.WorldObjectViews;
 
-            
+            if (collisionObject1.Health <= collisionObject2.Health)
+            {
+                checkDeath(collisionObject1, worldObjectViews);
+                checkDeath(collisionObject2, worldObjectViews);
+            }
+            else
+            {
+                checkDeath(collisionObject2, worldObjectViews);
+                checkDeath(collisionObject1, worldObjectViews);
+            }
+        }
+
+        
+        private void checkDeath(WorldObject collisionObject, WorldObjectView[] worldObjectViews)
+        {
+            // If the object is dead, remove it and its view from the World and -View.
+            if (collisionObject.Health <= 0)    // --> object is dead
+            {
+                gameModel.World.RemoveWorldObject(collisionObject);
+                foreach (WorldObjectView worldObjectView in worldObjectViews)
+                {
+                    if (worldObjectView.WorldObject == collisionObject)
+                    {
+                        gameView.WorldView.RemoveWorldObjectView(worldObjectView);
+                        break;
+                    }
+                }
+
+                /* If the object is a spaceship, delete the according player from the players list
+                 * and check whether there was only two players left, meaning the other player has won 
+                 * the game. */
+                if (collisionObject is Spaceship)
+                {
+                    Player[] players = gameModel.Players;
+                    foreach (Player player in players)
+                    {
+                        if (player.Spaceship == collisionObject)
+                        {
+                            gameModel.RemovePlayer(player);
+                            // checking whether the game has ended and determining the winner 
+                            if (players.Length == 2)
+                            {
+                                if (players[0] == player)
+                                {
+                                    gameHandler.OnGameEnded(players[1].PlayerId, players[1].Points);    //TODO was passiert mit dem restlichen auszufuehrenden Code? Bleibt Datenmuell uebrig?
+                                }
+                                else
+                                {
+                                    gameHandler.OnGameEnded(players[0].PlayerId, players[0].Points);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }    
         }
 
         /// <summary>
-        /// Creates a projectile an its fitting view. 
+        /// Creates a projectile and its fitting view. 
         /// </summary>
         /// <param name="shooter">The Spaceship, which fired a projectile.</param>
         public void OnFire(Spaceship shooter)

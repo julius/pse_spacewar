@@ -57,7 +57,10 @@ namespace EtherDuels.Game
             Player player1 = new HumanPlayer(1, this.playerHandler, this.inputConfigurationRetriever);
             Player player2 = new HumanPlayer(2, this.playerHandler, this.inputConfigurationRetriever);
 
-            Player[] players = { player1, player2 };
+            List<Player> players = new List<Player>();      //TODO  edit Claudi: Hab das Array in eine Liste umgewandelt.
+            players.Add(player1);
+            players.Add(player2);
+
             WorldObject[] worldObjects = { planet, spaceship1, spaceship2 };
 
             // build game model

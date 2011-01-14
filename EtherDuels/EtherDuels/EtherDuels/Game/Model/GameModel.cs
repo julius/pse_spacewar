@@ -13,8 +13,17 @@ namespace EtherDuels.Game.Model
     {
         private ShortLifespanObjectFactory factory;
         private Physics physics;
-        private Player[] players;
+        private List<Player> players;
         private World world;
+        
+        /// <summary>
+        /// Returns an array of the assigned players.
+        /// </summary>
+        /// <returns>The assigned players</returns>
+        public Player[] Players
+        {
+            get { return players.ToArray<Player>(); }
+        }
 
         /// <summary>
         /// Creates a new GameModel object.
@@ -23,7 +32,7 @@ namespace EtherDuels.Game.Model
         /// <param name="physics">The assigned Physics to calculate new positions.</param>
         /// <param name="players">An array of all players.</param>
         /// <param name="world">The assigned World.</param>
-        public GameModel(ShortLifespanObjectFactory factory, Physics physics, Player[] players, World world)
+        public GameModel(ShortLifespanObjectFactory factory, Physics physics, List<Player> players, World world)
         {
             this.factory = factory;
             this.physics = physics;
@@ -40,13 +49,9 @@ namespace EtherDuels.Game.Model
             return factory;
         }
 
-        /// <summary>
-        /// Returns an array of the assigned players.
-        /// </summary>
-        /// <returns>The assigned players</returns>
-        public Player[] GetPlayers()
+        public void RemovePlayer(Player player)
         {
-            return players;
+            players.Remove(player);
         }
 
         /// <summary>
@@ -55,9 +60,9 @@ namespace EtherDuels.Game.Model
         /// <param name="frameState">A state object, which contains how much time is passed since the last update.</param>
         public void Update(FrameState frameState)
         {
-            for (int i = 0; i < players.Length; i++)
+            foreach (Player player in players)
             {
-                players[i].Update(frameState);
+                player.Update(frameState);
             }
 
             physics.Update(frameState.GameTime);
