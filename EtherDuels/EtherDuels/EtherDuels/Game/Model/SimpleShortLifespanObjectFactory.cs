@@ -98,7 +98,7 @@ namespace EtherDuels.Game.Model
         public WorldObjectView CreateExplosionView(Explosion explosion)
         {
             // TODO set correct 3D-Model for Explosion
-            WorldObjectView explosionView = new WorldObjectView(null, explosion);
+            WorldObjectView explosionView = new WorldObjectView(explosionModel, explosion);
             return explosionView;
         }
 
@@ -111,7 +111,7 @@ namespace EtherDuels.Game.Model
         public WorldObjectView CreateProjectileview(Weapon weapon, Projectile projectile)
         {
             // TODO set correct 3D-Model for Explosion
-            WorldObjectView projectileView = new WorldObjectView(null, projectile);
+            WorldObjectView projectileView = new WorldObjectView(projectileModel, projectile);
             return projectileView;
         }
     }
