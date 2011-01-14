@@ -24,6 +24,32 @@ namespace EtherDuels.Game.Model
             this.configuration = configuration;
         } */
 
+        private Microsoft.Xna.Framework.Graphics.Model explosionModel;
+        public Microsoft.Xna.Framework.Graphics.Model ExplosionModel
+        {
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                this.explosionModel = value;
+            }
+        }
+
+        private Microsoft.Xna.Framework.Graphics.Model projectileModel;
+        public Microsoft.Xna.Framework.Graphics.Model ProjectileModel
+        {
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                this.projectileModel = value;
+            }
+        }
+
         /// <summary>
         /// Creates a new explosion.
         /// </summary>

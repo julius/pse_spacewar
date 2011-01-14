@@ -16,7 +16,11 @@ namespace EtherDuels.Game.Model
     /// lifespan and their fitting views.s
     /// </summary>
     public interface ShortLifespanObjectFactory
-    {   
+    {
+
+        public Microsoft.Xna.Framework.Graphics.Model ExplosionModel { set; }
+        public Microsoft.Xna.Framework.Graphics.Model ProjectileModel { set; }
+
         /// <summary>
         /// Creates a new Explosion object.
         /// </summary>
