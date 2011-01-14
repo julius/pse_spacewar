@@ -209,14 +209,14 @@ namespace EtherDuels.Game
             projectile.Rotation = rotation;
             
             // calculate and set the projectile's position
-            projectilePosition.Y = (float) Math.Sin(90 - rotation);     //TODO Rotation als double im WorldObject speichern?
-            projectilePosition.X = (float) Math.Cos(90 - rotation);
+            // TODO nach verschiedenen Winkeln unterscheiden: 0-90, 91-180, 181-270, 271-360...
+            projectilePosition.Y = projectile.Radius + 1 + (float) Math.Sin(90 - rotation);     //TODO Rotation als double im WorldObject speichern?
+            projectilePosition.X = projectile.Radius + 1 + (float) Math.Cos(90 - rotation);
             projectile.Position = projectilePosition;
 
             // add the spaceship's velocity to the projectile's velocity
+            //TODO muss das überhaupt dazu addiert werden?
             projectile.Velocity += velocity;
-
-
 
 
         }

@@ -45,6 +45,7 @@ namespace EtherDuels.Game.Model
             Projectile projectile = new Projectile();
             switch (weapon)
             {
+                //TODO geeignete Anfangswerte!!!
                 case Weapon.Laser:
                     {
                         projectile.Attack = 5;
@@ -56,9 +57,17 @@ namespace EtherDuels.Game.Model
                         projectile.Position = new Vector2(0, 0);
                         break;
                     }
+                    
                 case Weapon.Rocket:
                     {
-                        projectile.Attack = 10; break;
+                        projectile.Attack = 10;
+                        projectile.Radius = 2;
+                        projectile.Velocity = new Vector2(1, 1);
+                        projectile.Mass = 10;
+                        projectile.Health = 100;
+                        projectile.Rotation = 0;
+                        projectile.Position = new Vector2(0, 0);
+                        break;
                     }
             }
             return projectile;
