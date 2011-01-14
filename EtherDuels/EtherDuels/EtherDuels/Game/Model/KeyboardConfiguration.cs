@@ -18,7 +18,7 @@ namespace EtherDuels.Game.Model
     /// Saves the current KeyboardConfiguration of a Player.
     /// </summary>
     [Serializable()]
-    public class KeyboardConfiguration : InputConfigurationRetriever
+    public class KeyboardConfiguration : Game.Model.InputConfigurationRetriever
     {
         //Deserialization constructor.
         /// <summary>
@@ -28,13 +28,17 @@ namespace EtherDuels.Game.Model
         /// <param name="ctxt">The StreamingContext.</param>
         public KeyboardConfiguration(SerializationInfo info, StreamingContext ctxt)
         {
-            this.backward   = (Keys)info.GetValue("backward", typeof(Keys));
-            this.fire       = (Keys)info.GetValue("fire", typeof(Keys));
-            this.forward    = (Keys)info.GetValue("forward", typeof(Keys));
-            this.left       = (Keys)info.GetValue("left", typeof(Keys));
+            this.backward = (Keys)info.GetValue("backward", typeof(Keys));
+            this.fire = (Keys)info.GetValue("fire", typeof(Keys));
+            this.forward = (Keys)info.GetValue("forward", typeof(Keys));
+            this.left = (Keys)info.GetValue("left", typeof(Keys));
             this.nextWeapon = (Keys)info.GetValue("nextWeapon", typeof(Keys));
             this.prevWeapon = (Keys)info.GetValue("prevWeapon", typeof(Keys));
-            this.right      = (Keys)info.GetValue("right", typeof(Keys));
+            this.right = (Keys)info.GetValue("right", typeof(Keys));
+        }
+
+        public KeyboardConfiguration()
+        {
         }
 
         //Serialization function.

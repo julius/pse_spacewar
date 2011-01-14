@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using Microsoft.Xna.Framework.Input;
+using EtherDuels.Game.Model;
 
 namespace EtherDuels.Game
 {
@@ -37,7 +38,12 @@ namespace EtherDuels.Game
             get { return path; }
             set { path = value; }
         }
-        
+
+        public Configuration()
+        {
+            keyConfigurations = new KeyboardConfiguration[10];
+        }
+
         //Deserialization constructor.
         public Configuration(SerializationInfo info, StreamingContext ctxt)
         {

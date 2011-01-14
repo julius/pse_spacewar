@@ -191,9 +191,9 @@ namespace EtherDuels.Game
         /// Updates the GameModel and its subcomponents.
         /// </summary>
         /// <param name="gameTime">The time, which is passed since the last update.</param>
-        public void Update(GameTime gameTime)
+        public void Update(FrameState frameState)
         {
-            this.gameTime = gameTime;
+            this.gameTime = frameState.GameTime;
             Debug.Assert(gameModel != null, "No gamemodel exists");      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert--- Assertions sind besser, da das kein erwartetes Verhalten ist.
             
             gameModel.Update(frameState);

@@ -19,7 +19,8 @@ namespace EtherDuels.Game.Model
         /// <param name="playerId">The player's ID.</param>
         /// <param name="playerHandler">The player's Handler.</param>
         /// <param name="inputConfigurationRetriever">The input configuration for the player.</param>
-        public HumanPlayer(int playerId, PlayerHandler playerHandler, InputConfigurationRetriever inputConfigurationRetriever): base(playerId, playerHandler)
+        public HumanPlayer(int playerId, PlayerHandler playerHandler, Game.Model.InputConfigurationRetriever inputConfigurationRetriever)
+            : base(playerId, playerHandler)
         {
             this.inputConfigurationRetriever = inputConfigurationRetriever;
         }
