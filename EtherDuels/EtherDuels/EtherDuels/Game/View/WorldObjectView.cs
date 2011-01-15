@@ -14,12 +14,13 @@ namespace EtherDuels.Game.View
     public class WorldObjectView
     {
         WorldObject worldObject;
+        Microsoft.Xna.Framework.Graphics.Model model;
 
         public WorldObject WorldObject
         {
             get { return worldObject; }
         }
-        Microsoft.Xna.Framework.Graphics.Model model;
+        
         /// <summary>
         /// Creates a new WorldObjectView object.
         /// </summary>
@@ -45,7 +46,24 @@ namespace EtherDuels.Game.View
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
 
+
+            Matrix[] transforms = new Matrix[model.Bones.Count];
+            model.CopyAbsoluteBoneTransformsTo(transforms);
+                        
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.EnableDefaultLighting();
+                    effect.World = matrixWorld;
+                    effect.View = matrixView;
+                    effect.Projection = matrixProjection;
+                }
+                mesh.Draw();
+            }
+
             this.model.Draw(matrixWorld, matrixView, matrixProjection);
+
         }
     }
 }

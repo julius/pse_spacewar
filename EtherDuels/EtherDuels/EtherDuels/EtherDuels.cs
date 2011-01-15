@@ -26,6 +26,7 @@ namespace EtherDuels
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
 
         private MenuController menuController;
         private GameController gameController;
@@ -49,6 +50,12 @@ namespace EtherDuels
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 1024;
+            graphics.IsFullScreen = false;
+            graphics.ApplyChanges();
+
+            Window.Title = "EtherDuels";
 
             base.Initialize();
         }
@@ -66,10 +73,11 @@ namespace EtherDuels
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
             SpriteFont font = content.Load<SpriteFont>("NiceFont");
-            Texture2D textureStars = content.Load<Texture2D>("texture_stars");
+            Texture2D textureStars = content.Load<Texture2D>("texture_space");
             Model modelShip = content.Load<Model>("spaceship_green");
             Model modelPlanet = content.Load<Model>("planet");
 
+         
             // Spaceship ship = new Spaceship();
             // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
 
@@ -145,7 +153,7 @@ namespace EtherDuels
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
 
             // Draw GameController if necessary
