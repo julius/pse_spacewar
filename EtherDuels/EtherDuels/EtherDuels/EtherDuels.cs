@@ -31,7 +31,7 @@ namespace EtherDuels
         private GameController gameController;
         private ProgramState programState;
 
-        GameView gameView; // <- remove this one later
+        GameView gameView; // TODO <- remove this one later
         private Game.Model.InputConfigurationRetriever inputConfigurationRetriever;
 
         public EtherDuels()
@@ -123,8 +123,17 @@ namespace EtherDuels
 
             FrameState frameState = new FrameState(gameTime, Keyboard.GetState());
 
+
+            /* TODO: edit claudi: bei gamePaused soll der doch nicht mehr den GameController updaten?
+             * sonst kriegen wir vor allem probleme mit den Keyboard-Abfragen. Bei Menü-Eintrag hoch
+             * würd sich dann das eine Raumschiff bewegen. */
+
             // Update GameController if necessary
-            if (this.programState.GameState != GameState.NoGame)
+            /*if (this.programState.GameState != GameState.NoGame)
+            {
+                this.gameController.Update(frameState);
+            }*/
+            if (this.programState.GameState == GameState.InGame)
             {
                 this.gameController.Update(frameState);
             }
@@ -197,7 +206,8 @@ namespace EtherDuels
 
         public void OnGamePaused()
         {
-            throw new NotImplementedException();
+            this.programState.GameState = GameState.GamePaused;
+            this.programState.MenuState = MenuState.InMenu;
         }
 
         public void OnGameEnded(int playerID, int points)

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EtherDuels.Game.Model;
+using EtherDuels.Game.Model; //TODO Zugriff genauer einschränken???????????
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework; // TODO wie kann man das reduzieren auf WorldObject?
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.View
 {   
@@ -32,7 +32,7 @@ namespace EtherDuels.Game.View
         }
 
         /// <summary>
-        /// Draws the WorldObjectView using the attributive model.
+        /// Draws the WorldObjectView using the according model.
         /// </summary>
         /// <param name="viewport">The used Viewport.</param>
         /// <param name="cameraPosition">The position of which the camera looks on the WorldObject. .</param>

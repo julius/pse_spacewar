@@ -1,7 +1,4 @@
-﻿
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +9,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Game.Model
 {
-    //KeyboardConfiguration has to be serializable as well as Configuration, 
-    // if Configuration is supposed to store KeyboardConfiguration as well if it is serialized
+    // KeyboardConfiguration has to be serializable as well as Configuration, 
+    // if Configuration is supposed to store KeyboardConfiguration as well as if it is serialized
     /// <summary>
     /// Saves the current KeyboardConfiguration of a Player.
     /// </summary>
@@ -39,6 +36,7 @@ namespace EtherDuels.Game.Model
 
         public KeyboardConfiguration()
         {
+            //TODO
         }
 
         //Serialization function.

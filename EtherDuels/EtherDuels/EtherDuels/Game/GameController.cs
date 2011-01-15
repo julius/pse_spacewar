@@ -8,6 +8,7 @@ using EtherDuels.Game.Model;
 using EtherDuels.Game.View;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace EtherDuels.Game
@@ -95,26 +96,55 @@ namespace EtherDuels.Game
             Vector2 pos2 = collisionObject2.Position;
             float radius1 = collisionObject1.Radius;
             float radius2 = collisionObject2.Radius;
+            Vector2 pos1DirectionVector;
+            Vector2 pos2DirectionVector;
 
             Vector2 distance;
             Vector2 radiusPoint1;
             Vector2 radiusPoint2;
             Vector2 explosionPoint;
-            distance.X = Math.Abs(pos2.X - pos1.X);
-            distance.Y = Math.Abs(pos2.Y - pos1.Y);
+            distance.X = pos2.X - pos1.X;
+            distance.Y = pos2.Y - pos1.Y;
+
+            // determining the direction in which the collision happend
+            // TODO geht bestimmt einfacher
+            if (distance.X >= 0)
+            {
+                pos1DirectionVector.X = 1;
+                pos2DirectionVector.X = -1;
+            }
+            else
+            {
+                pos1DirectionVector.X = -1;
+                pos2DirectionVector.X = 1;
+            }
+
+            if (distance.Y >= 0)
+            {
+                pos1DirectionVector.Y = 1;
+                pos2DirectionVector.Y = -1;
+            }
+            else
+            {
+                pos1DirectionVector.Y = -1;
+                pos2DirectionVector.Y = 1;
+            }
+
             //TODO abfragen ob sich die radien überhaupt überschneiden?
             double hypothenuseDistance = Math.Sqrt((double) (distance.X * distance.X + distance.Y * distance.Y));
             double alpha = Math.Asin(distance.Y / hypothenuseDistance);
-            radiusPoint1.Y = (float) Math.Sin(alpha) * radius1;
-            radiusPoint1.X = (float) Math.Cos(alpha) * radius1;
-            radiusPoint2.Y = (float) Math.Sin(alpha) * radius2;
-            radiusPoint2.X = (float) Math.Cos(alpha) * radius2;
+            // these points are calculated starting at (0, 0), so they are NOT the actual points yet.
+            radiusPoint1.Y = pos1DirectionVector.Y * (float) Math.Sin(alpha) * radius1;
+            radiusPoint1.X = pos1DirectionVector.X * (float) Math.Cos(alpha) * radius1;
+            radiusPoint2.Y = pos2DirectionVector.Y * (float) Math.Sin(alpha) * radius2;
+            radiusPoint2.X = pos2DirectionVector.X * (float) Math.Cos(alpha) * radius2;
             explosionPoint.X = (radiusPoint1.X + radiusPoint2.X) / 2;
             explosionPoint.Y = (radiusPoint1.Y + radiusPoint2.Y) / 2;
 
             // creating the Explosion
             Explosion explosion = gameModel.GetFactory().CreateExplosion(gameTime);
-            explosion.Position = pos1 + explosionPoint; //TODO korrekt?
+            // the eplosionPoint has to be added to position1 to get to the actual explosion point.
+            explosion.Position = pos1 + explosionPoint;
             WorldObjectView explosionView = gameModel.GetFactory().CreateExplosionView(explosion);
 
             // adding the created Explosion to the Game
@@ -208,17 +238,16 @@ namespace EtherDuels.Game
             // set the projectile's rotation
             projectile.Rotation = rotation;
             
-            // calculate and set the projectile's position
-            projectilePosition.Y = (float) Math.Sin(90 - rotation);     //TODO Rotation als double im WorldObject speichern?
-            projectilePosition.X = (float) Math.Cos(90 - rotation);
+            /* calculate and set the projectile's position. Sinus and Cosinus automatically calculate the
+             * right direction in which x and y have to be added. 
+             * The "1" has to be added to avoid an imidiate collision between the projectile and its shooter. */
+            projectilePosition.Y = position.Y + (float) Math.Sin(rotation) * (radius + projectile.Radius + 1);
+            projectilePosition.X = position.X + (float) Math.Cos(rotation) * (radius + projectile.Radius + 1);
             projectile.Position = projectilePosition;
 
             // add the spaceship's velocity to the projectile's velocity
+            // TODO wirklich nötig?
             projectile.Velocity += velocity;
-
-
-
-
         }
 
         /// <summary>
@@ -227,6 +256,13 @@ namespace EtherDuels.Game
         /// <param name="gameTime">The time, which is passed since the last update.</param>
         public void Update(FrameState frameState)
         {
+            /* TODO: hier lassen oder lieber in den HumanPlayer zu den anderen Keyboard-abfragen? 
+             * Dann koennte man es auch mit der config flexibel machen */
+            if (frameState.KeyboardState.IsKeyDown(Keys.Escape))
+            {
+                gameHandler.OnGamePaused();
+            }
+
             this.gameTime = frameState.GameTime;
             Debug.Assert(gameModel != null, "No gamemodel exists");      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert--- Assertions sind besser, da das kein erwartetes Verhalten ist.
             
