@@ -160,7 +160,7 @@ namespace EtherDuels.Game
              * spaceships died. */
             WorldObjectView[] worldObjectViews = gameView.WorldView.WorldObjectViews;
 
-            /* disabled for debugging
+            /* disabled for debugging */
             if (collisionObject1.Health <= collisionObject2.Health)
             {
                 checkDeath(collisionObject1, worldObjectViews);
@@ -170,7 +170,7 @@ namespace EtherDuels.Game
             {
                 checkDeath(collisionObject2, worldObjectViews);
                 checkDeath(collisionObject1, worldObjectViews);
-            }*/
+            } 
         }
 
         
@@ -241,6 +241,7 @@ namespace EtherDuels.Game
             // set the projectile's rotation
             projectile.Rotation = rotation;
             
+            //TODO korrekte position berechnen... rotation wert ist komisch. sollte 0-360 sein.
             /* calculate and set the projectile's position. Sinus and Cosinus automatically calculate the
              * right direction in which x and y have to be added. 
              * The "1" has to be added to avoid an imidiate collision between the projectile and its shooter. */
@@ -249,8 +250,10 @@ namespace EtherDuels.Game
             projectile.Position = projectilePosition;
 
             // add the spaceship's velocity to the projectile's velocity
-            // TODO wirklich nötig?
-            projectile.Velocity += velocity;
+            Vector2 projectileVelocity = projectile.Velocity;
+            projectileVelocity.X += velocity.X + (float)Math.Cos(rotation) * radius;
+            projectileVelocity.Y += velocity.Y + (float) Math.Sin(rotation) * radius;
+            projectile.Velocity = projectileVelocity;
         }
 
         /// <summary>

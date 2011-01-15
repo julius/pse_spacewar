@@ -89,24 +89,24 @@ namespace EtherDuels.Game.Model
                 case Weapon.Laser:
                     {
                         projectile.Attack = 5;
-                        projectile.Radius = 8;
-                        projectile.Velocity = new Vector2(10, 10);
+                        projectile.Radius = 20;
+                        projectile.Velocity = new Vector2(0, 0);
                         projectile.Mass = 10;
                         projectile.Health = 100;
                         projectile.Rotation = 0;
-                        projectile.Position = new Vector2(10, 10);
+                        projectile.Position = new Vector2(0, 0);
                         break;
                     }
                     
                 case Weapon.Rocket:
                     {
-                        projectile.Attack = 10;
-                        projectile.Radius = 8;
-                        projectile.Velocity = new Vector2(10, 10);
+                        projectile.Attack = 5;
+                        projectile.Radius = 20;
+                        projectile.Velocity = new Vector2(0, 0);
                         projectile.Mass = 10;
                         projectile.Health = 100;
                         projectile.Rotation = 0;
-                        projectile.Position = new Vector2(10, 10);
+                        projectile.Position = new Vector2(0, 0);
                         break;
                     }
             }

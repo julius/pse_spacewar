@@ -66,6 +66,7 @@ namespace EtherDuels.Game.Model
             {
                 float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.01f;
                 this.spaceship.Rotation = this.spaceship.Rotation + (speed * -1f);
+                System.Console.Write(spaceship.Rotation + "\n");
             }
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Right))
