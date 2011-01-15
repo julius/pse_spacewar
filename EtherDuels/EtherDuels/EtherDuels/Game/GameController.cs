@@ -90,7 +90,7 @@ namespace EtherDuels.Game
              * - Liste von Modeln zu Views im Controller speichern, sodass bei OnCollision direkt die zugehörige View
              *   gefunden werden kann. 
              */
-
+            
             // calculating the position of the explosion
             Vector2 pos1 = collisionObject1.Position;
             Vector2 pos2 = collisionObject2.Position;
@@ -160,6 +160,7 @@ namespace EtherDuels.Game
              * spaceships died. */
             WorldObjectView[] worldObjectViews = gameView.WorldView.WorldObjectViews;
 
+            /* disabled for debugging
             if (collisionObject1.Health <= collisionObject2.Health)
             {
                 checkDeath(collisionObject1, worldObjectViews);
@@ -169,7 +170,7 @@ namespace EtherDuels.Game
             {
                 checkDeath(collisionObject2, worldObjectViews);
                 checkDeath(collisionObject1, worldObjectViews);
-            }
+            }*/
         }
 
         
@@ -231,9 +232,11 @@ namespace EtherDuels.Game
             Vector2 projectilePosition;
             Weapon weapon = shooter.CurrentWeapon;
 
-            // create the projectile and its view
+            // create the projectile and its view and add them to the World/WorldView
             Projectile projectile = gameModel.GetFactory().CreateProjectile(weapon);
-            WorldObjectView projectileView = gameModel.GetFactory().CreateProjectileview(weapon, projectile);
+            WorldObjectView projectileView = gameModel.GetFactory().CreateProjectileView(weapon, projectile);
+            gameModel.World.AddWorldObject(projectile);
+            gameView.WorldView.AddWorldObjectView(projectileView);
 
             // set the projectile's rotation
             projectile.Rotation = rotation;

@@ -42,7 +42,7 @@ namespace EtherDuels.Menu.Model
         }
 
         /// <summary>
-        /// Gets the text, the MenuItem shows.
+        /// Gets the text the MenuItem shows.
         /// </summary>
         public string Text
         {

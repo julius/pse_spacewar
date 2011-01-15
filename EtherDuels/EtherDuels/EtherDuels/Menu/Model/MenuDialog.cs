@@ -40,7 +40,7 @@ namespace EtherDuels.Menu.Model
         {
             this.menuItems = menuItems;
 
-            // make sure a menuitem is selected
+            // make sure a menu item is selected
             int menuItemIndex = this.GetSelectedMenuItemIndex();
             if (menuItemIndex == -1) this.Down();
         }

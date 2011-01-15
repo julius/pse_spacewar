@@ -72,7 +72,7 @@ namespace EtherDuels.Menu
         }
 
         /// <summary>
-        /// Creates a new MenuView fittin gto the assigned MenuModel.
+        /// Creates a new MenuView fitting to the assigned MenuModel.
         /// </summary>
         /// <param name="menuModel">The assigned MenuModel.</param>
         /// <returns>The created MenuView.</returns>

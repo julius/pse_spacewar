@@ -28,6 +28,19 @@ namespace EtherDuels.Game
             set { this.planetModel = value; } 
         }
 
+        private Microsoft.Xna.Framework.Graphics.Model rocketModel;
+        public Microsoft.Xna.Framework.Graphics.Model RocketModel
+        {
+            set { rocketModel = value; }
+        }
+
+        private Microsoft.Xna.Framework.Graphics.Model explosionModel;
+        public Microsoft.Xna.Framework.Graphics.Model ExplosionModel
+        {
+            set { explosionModel = value; }
+        }
+        
+
         private CollisionHandler collisionHandler;
         public CollisionHandler CollisionHandler
         {
@@ -64,16 +77,27 @@ namespace EtherDuels.Game
             player2.Spaceship = spaceship2;
 
             player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(10, 10);
-            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(10, 10);
+            player1.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player1.Spaceship.Radius = 20;
+            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(10, 10);
 
-            List<Player> players = new List<Player>();      //TODO  edit Claudi: Hab das Array in eine Liste umgewandelt.
+            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(10, 10);
+            player2.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player2.Spaceship.Radius = 20;
+            player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(300, 300);
+
+            List<Player> players = new List<Player>();
             players.Add(player1);
             players.Add(player2);
 
             WorldObject[] worldObjects = { planet, spaceship1, spaceship2 };
 
-            // build game model
+            // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();
+            shortLifespanObjectFactory.RocketModel = rocketModel;
+            shortLifespanObjectFactory.ExplosionModel = explosionModel;
+
+            // build game model
             World world = new World(worldObjects, planet);
             Physics physics = new SimplePhysicsAlgorithm(this.collisionHandler, world);
             GameModel gameModel = new GameModel(shortLifespanObjectFactory, physics, players, world);
@@ -93,6 +117,10 @@ namespace EtherDuels.Game
                 else if (worldObject is Planet)
                 {
                     worldView.AddWorldObjectView(new WorldObjectView(planetModel, worldObject));
+                }
+                else if (worldObject is Projectile)
+                {
+                    worldView.AddWorldObjectView(new WorldObjectView(rocketModel, worldObject));
                 }
             }
 

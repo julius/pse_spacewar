@@ -67,8 +67,10 @@ namespace EtherDuels
             ContentManager content = new ContentManager(Services, "Assets");
             SpriteFont font = content.Load<SpriteFont>("NiceFont");
             Texture2D textureStars = content.Load<Texture2D>("texture_stars");
-            Model modelShip = content.Load<Model>("player_ship");
+            Model modelShip = content.Load<Model>("spaceship_green");
             Model modelPlanet = content.Load<Model>("planet");
+            Model modelRocket = content.Load<Model>("rocket");
+            Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
 
             // Spaceship ship = new Spaceship();
             // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
@@ -92,6 +94,8 @@ namespace EtherDuels
             gameBuilder.Background = textureStars;
             gameBuilder.SpaceshipModel = modelShip;
             gameBuilder.PlanetModel = modelPlanet;
+            gameBuilder.RocketModel = modelRocket;
+            gameBuilder.ExplosionModel = modelExplosion;
 
             this.gameController = new GameController(gameBuilder, this);
 
@@ -158,7 +162,7 @@ namespace EtherDuels
             //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
 
             // Draw GameController if necessary
-            if (this.programState.GameState != GameState.NoGame)
+            if (this.programState.GameState == GameState.InGame)
             {
                 this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
             }
@@ -206,13 +210,16 @@ namespace EtherDuels
 
         public void OnGamePaused()
         {
+            this.menuController.SetPauseMenu();
             this.programState.GameState = GameState.GamePaused;
             this.programState.MenuState = MenuState.InMenu;
         }
 
         public void OnGameEnded(int playerID, int points)
         {
-            throw new NotImplementedException();
+            this.menuController.SetMainMenu();
+            this.programState.GameState = GameState.NoGame;
+            this.programState.MenuState = MenuState.InMenu;
         }
     }
 }

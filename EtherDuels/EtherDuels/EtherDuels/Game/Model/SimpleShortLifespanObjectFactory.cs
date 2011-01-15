@@ -37,8 +37,8 @@ namespace EtherDuels.Game.Model
             }
         }
 
-        private Microsoft.Xna.Framework.Graphics.Model projectileModel;
-        public Microsoft.Xna.Framework.Graphics.Model ProjectileModel
+        private Microsoft.Xna.Framework.Graphics.Model rocketModel;
+        public Microsoft.Xna.Framework.Graphics.Model RocketModel
         {
             set
             {
@@ -46,10 +46,24 @@ namespace EtherDuels.Game.Model
                 {
                     throw new ArgumentNullException();
                 }
-                this.projectileModel = value;
+                this.rocketModel = value;
             }
         }
 
+        private Microsoft.Xna.Framework.Graphics.Model laserModel;
+        public Microsoft.Xna.Framework.Graphics.Model LaserModel
+        {
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                this.laserModel = value;
+            }
+        }
+
+        
         /// <summary>
         /// Creates a new explosion.
         /// </summary>
@@ -74,17 +88,24 @@ namespace EtherDuels.Game.Model
                 case Weapon.Laser:
                     {
                         projectile.Attack = 5;
-                        projectile.Radius = 2;
-                        projectile.Velocity = new Vector2(1, 1);
+                        projectile.Radius = 8;
+                        projectile.Velocity = new Vector2(10, 10);
                         projectile.Mass = 10;
                         projectile.Health = 100;
                         projectile.Rotation = 0;
-                        projectile.Position = new Vector2(0, 0);
+                        projectile.Position = new Vector2(10, 10);
                         break;
                     }
                 case Weapon.Rocket:
                     {
-                        projectile.Attack = 10; break;
+                        projectile.Attack = 10;
+                        projectile.Radius = 8;
+                        projectile.Velocity = new Vector2(10, 10);
+                        projectile.Mass = 10;
+                        projectile.Health = 100;
+                        projectile.Rotation = 0;
+                        projectile.Position = new Vector2(10, 10);
+                        break;
                     }
             }
             return projectile;
@@ -108,10 +129,22 @@ namespace EtherDuels.Game.Model
         /// <param name="weapon">The type of the weapon to define the projectiles look.</param>
         /// <param name="projectile">A Projectile object.</param>
         /// <returns>The created view fitting the assigned Projectile object.</returns>
-        public WorldObjectView CreateProjectileview(Weapon weapon, Projectile projectile)
+        public WorldObjectView CreateProjectileView(Weapon weapon, Projectile projectile)
         {
-            // TODO set correct 3D-Model for Explosion
-            WorldObjectView projectileView = new WorldObjectView(projectileModel, projectile);
+            WorldObjectView projectileView = null;
+            switch (weapon)
+            {
+                case Weapon.Laser:
+                    {
+                        projectileView = new WorldObjectView(laserModel, projectile);
+                        break;
+                    }
+                case Weapon.Rocket:
+                    {
+                        projectileView = new WorldObjectView(rocketModel, projectile);
+                        break;
+                    }
+            }
             return projectileView;
         }
     }
