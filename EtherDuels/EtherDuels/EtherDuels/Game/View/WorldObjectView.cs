@@ -58,6 +58,10 @@ namespace EtherDuels.Game.View
                     effect.World = matrixWorld;
                     effect.View = matrixView;
                     effect.Projection = matrixProjection;
+                    effect.PreferPerPixelLighting = true;
+
+                 
+                   
                 }
                 mesh.Draw();
             }

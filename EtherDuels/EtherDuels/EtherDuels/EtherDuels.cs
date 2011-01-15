@@ -156,6 +156,10 @@ namespace EtherDuels
             
             //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
 
+            this.spriteBatch.Begin();
+            
+            this.spriteBatch.End();
+
             // Draw GameController if necessary
             if (this.programState.GameState != GameState.NoGame)
             {
