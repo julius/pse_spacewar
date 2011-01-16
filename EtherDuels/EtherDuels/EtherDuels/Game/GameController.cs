@@ -49,11 +49,8 @@ namespace EtherDuels.Game
        /// A new game is just created, when there don't exist one yet.
        /// </summary>
         public void CreateGame()
-        {
-            Debug.Assert(gameModel == null, "A gamemodel already exists");
-            
+        {            
             gameModel = gameBuilder.BuildModel();
-
             gameView = gameBuilder.BuildView(gameModel);
         }
 
@@ -160,7 +157,7 @@ namespace EtherDuels.Game
              * spaceships died. */
             WorldObjectView[] worldObjectViews = gameView.WorldView.WorldObjectViews;
 
-            /* disabled for debugging */
+            
             if (collisionObject1.Health <= collisionObject2.Health)
             {
                 checkDeath(collisionObject1, worldObjectViews);
@@ -180,14 +177,15 @@ namespace EtherDuels.Game
             if (collisionObject.Health <= 0)    // --> object is dead
             {
                 gameModel.World.RemoveWorldObject(collisionObject);
-                foreach (WorldObjectView worldObjectView in worldObjectViews)
+                //TODO: brauch man nicht mehr wenn man das direkt in der WorldView entfernt.
+                /*foreach (WorldObjectView worldObjectView in worldObjectViews)
                 {
                     if (worldObjectView.WorldObject == collisionObject)
                     {
                         gameView.WorldView.RemoveWorldObjectView(worldObjectView);
                         break;
                     }
-                }
+                }*/
 
                 /* If the object is a spaceship, delete the according player from the players list
                  * and check whether there was only two players left, meaning the other player has won 
@@ -197,6 +195,7 @@ namespace EtherDuels.Game
                     Player[] players = gameModel.Players;
                     foreach (Player player in players)
                     {
+                        System.Console.Write(player.Spaceship + " \n" + collisionObject + "\n");
                         if (player.Spaceship == collisionObject)
                         {
                             gameModel.RemovePlayer(player);
@@ -213,7 +212,7 @@ namespace EtherDuels.Game
                                 }
                             }
                         }
-                        break;
+                        
                     }
                 }
             }    
@@ -251,8 +250,8 @@ namespace EtherDuels.Game
 
             // add the spaceship's velocity to the projectile's velocity
             Vector2 projectileVelocity = projectile.Velocity;
-            projectileVelocity.X += velocity.X + (float)Math.Cos(rotation) * radius;
-            projectileVelocity.Y += velocity.Y + (float) Math.Sin(rotation) * radius;
+            projectileVelocity.X += (float) Math.Sin(rotation) * 300;
+            projectileVelocity.Y -= (float) Math.Cos(rotation) * 300;
             projectile.Velocity = projectileVelocity;
         }
 

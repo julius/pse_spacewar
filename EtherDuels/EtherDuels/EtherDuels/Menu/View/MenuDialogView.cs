@@ -48,11 +48,13 @@ namespace EtherDuels.Menu.View
             spriteBatch.End();
             
             // draw items
-            Vector2 position = new Vector2(viewport.Width / 2, (viewport.Height - 200) / menuItemViews.Length);
+            //TODO: schoener machen
+            Vector2 position = new Vector2((viewport.Width / 2) - 100, 200);
+            int offset = ((viewport.Height - 400) / menuItemViews.Length);
             foreach (MenuItemView menuItemView in this.menuItemViews)
             {
                 menuItemView.Draw(position, spriteBatch);
-                position.Y += 30;
+                position.Y += offset;
             }
         }
     }

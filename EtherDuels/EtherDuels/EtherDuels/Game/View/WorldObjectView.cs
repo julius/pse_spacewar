@@ -45,6 +45,26 @@ namespace EtherDuels.Game.View
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
 
+
+
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.EnableDefaultLighting();
+                    effect.World = matrixWorld;
+                    effect.View = matrixView;
+                    effect.Projection = matrixProjection;
+
+                    effect.PreferPerPixelLighting = true;
+
+                    effect.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+                }
+
+                mesh.Draw();
+
+            }
+            
             this.model.Draw(matrixWorld, matrixView, matrixProjection);
         }
     }

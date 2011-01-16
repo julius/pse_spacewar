@@ -92,7 +92,7 @@ namespace EtherDuels.Game.Model
                         projectile.Radius = 20;
                         projectile.Velocity = new Vector2(0, 0);
                         projectile.Mass = 10;
-                        projectile.Health = 100;
+                        projectile.Health = 10;
                         projectile.Rotation = 0;
                         projectile.Position = new Vector2(0, 0);
                         break;
@@ -104,7 +104,7 @@ namespace EtherDuels.Game.Model
                         projectile.Radius = 20;
                         projectile.Velocity = new Vector2(0, 0);
                         projectile.Mass = 10;
-                        projectile.Health = 100;
+                        projectile.Health = 10;
                         projectile.Rotation = 0;
                         projectile.Position = new Vector2(0, 0);
                         break;

@@ -118,13 +118,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rocket.fbx">
-      <Name>rocket</Name>
+    <Compile Include="spaceship_green.fbx">
+      <Name>spaceship_green</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="spaceship_green.fbx">
-      <Name>spaceship_green</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spaceship_green.png">
+      <Name>texture_spaceship_green</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Rocket.fbx">
+      <Name>rocket</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -135,28 +144,75 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="spaceship_blue.png">
-      <Name>spaceship_blue</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="spaceship_green.png">
-      <Name>texture_spaceship_green</Name>
+      <Name>texture_spaceship_blue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="spaceship_orange.png">
-      <Name>spaceship_orange</Name>
+      <Name>texture_spaceship_orange</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="spaceship_red.png">
-      <Name>spaceship_red</Name>
+      <Name>texture_spaceship_red</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="spaceship_yellow.png">
-      <Name>spaceship_yellow</Name>
+      <Name>texture_spaceship_yellow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spaceship.fbx">
+      <Name>spaceship</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="red_planet.png">
+      <Name>texture_red_planet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="red_planet.fbx">
+      <Name>red_planet</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="earth.fbx">
+      <Name>earth</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="healthbar.png">
+      <Name>healthbar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="land_ocean_ice_cloud_2048.jpg">
+      <Name>land_ocean_ice_cloud_2048</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="smoke.png">
+      <Name>smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="space1.jpg">
+      <Name>texture_space</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

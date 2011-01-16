@@ -12,6 +12,8 @@ namespace EtherDuels.Game
     public interface GameBuilder
     {
         Texture2D Background { set; }
+        Texture2D Smoke { set; }
+        Texture2D HealthBar { set; }
         Microsoft.Xna.Framework.Graphics.Model SpaceshipModel { set; }
         Microsoft.Xna.Framework.Graphics.Model PlanetModel { set; }
         Microsoft.Xna.Framework.Graphics.Model RocketModel { set; }

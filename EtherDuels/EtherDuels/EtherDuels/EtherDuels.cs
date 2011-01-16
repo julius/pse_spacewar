@@ -40,8 +40,7 @@ namespace EtherDuels
             //TODO: richtige aufloesung finden
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 800;
-            graphics.ApplyChanges();
-            graphics.ToggleFullScreen();
+            graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
         }
@@ -72,9 +71,11 @@ namespace EtherDuels
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
             SpriteFont font = content.Load<SpriteFont>("NiceFont");
-            Texture2D textureStars = content.Load<Texture2D>("texture_stars");
+            Texture2D textureStars = content.Load<Texture2D>("texture_space");
+            Texture2D textureHealthBar = content.Load<Texture2D>("texture_stars");
+            Texture2D textureSmoke = content.Load<Texture2D>("texture_stars");
             Model modelShip = content.Load<Model>("spaceship_green");
-            Model modelPlanet = content.Load<Model>("planet");
+            Model modelPlanet = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
             

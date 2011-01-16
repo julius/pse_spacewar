@@ -16,6 +16,18 @@ namespace EtherDuels.Game
             set { this.background = value; }
         }
 
+        private Texture2D smoke;
+        public Texture2D Smoke
+        {
+            set { smoke = value; }
+        }
+
+        private Texture2D healthBar;
+        public Texture2D HealthBar
+        {
+            set { healthBar = value; }
+        }
+
         private Microsoft.Xna.Framework.Graphics.Model spaceshipModel;
         public Microsoft.Xna.Framework.Graphics.Model SpaceshipModel
         {
@@ -66,6 +78,7 @@ namespace EtherDuels.Game
             Planet planet = new Planet();
             planet.Mass = 100000;
             planet.Health = 1000000;
+            planet.Attack = 1000;
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
@@ -79,6 +92,7 @@ namespace EtherDuels.Game
 
             player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
             player1.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player1.Spaceship.Attack = 50;
             player1.Spaceship.Radius = 240;
             player1.Spaceship.Health = 100;
             player1.Spaceship.Rotation = 180;
@@ -86,6 +100,7 @@ namespace EtherDuels.Game
 
             player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
             player2.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player2.Spaceship.Attack = 50;
             player2.Spaceship.Radius = 240;
             player2.Spaceship.Health = 100;
             player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(2000, 1000);
@@ -111,6 +126,8 @@ namespace EtherDuels.Game
         public GameView BuildView(GameModel model)
         {
             WorldView worldView = new WorldView(background, model.World);
+            worldView.Smoke = smoke;
+            GameView gameView;
 
             foreach (WorldObject worldObject in model.World.WorldObjects)
             {
@@ -128,7 +145,10 @@ namespace EtherDuels.Game
                 }
             }
 
-            return new GameView(model, worldView);
+            gameView = new GameView(model, worldView);
+            gameView.HealthBar = healthBar;
+
+            return gameView;
         }
     }
 }

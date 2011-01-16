@@ -15,7 +15,7 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class SimplePhysicsAlgorithm : Physics
     {
-        // speed of light in m/s, should be set to a more reasonable value
+        // TODO: speed of light in m/s, should be set to a more reasonable value
         private static float MAX_VELOCITY = 299792458.0f;
         // gravitational constant
         private static double G = 6.67428E-11;
@@ -88,24 +88,34 @@ namespace EtherDuels.Game.Model
         {
             foreach (WorldObject worldObject in worldObjects)
             {
-                // limit velocities
-                // TODO: check if the resulting velocity is higher than MAX_VELOCITY - does this make sense?
-                Vector2 velocity = worldObject.Velocity;
-                velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
-                velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
+                if (worldObject is Explosion)
+                {   
+                    // deleting explosions after a certain amount of time
+                    if ((gameTime.TotalGameTime - (worldObject as Explosion).CreationTime) > new TimeSpan(0, 0, 1))
+                    {
+                        worldObject.Health = 0;
+                        world.RemoveWorldObject(worldObject);
+                    }
+                }
+                    // limit velocities
+                    // TODO: check if the resulting velocity is higher than MAX_VELOCITY - does this make sense?
+                    Vector2 velocity = worldObject.Velocity;
+                    velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
+                    velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
 
-                // calculate new positions
-                Vector2 postion = worldObject.Position;
-                postion.X += worldObject.Velocity.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
-                postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+                    // calculate new positions
+                    Vector2 postion = worldObject.Position;
+                    postion.X += worldObject.Velocity.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+                    postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+
+                    // torodial field
+                    postion.X = postion.X > 3600 ? -3600 : postion.X;
+                    postion.Y = postion.Y > 2400 ? -2400 : postion.Y;
+                    postion.X = postion.X < -3600 ? 3600 : postion.X;
+                    postion.Y = postion.Y < -2400 ? 2400 : postion.Y;
+
+                    worldObject.Position = postion;
                 
-                // torodial field
-                postion.X = postion.X > 3600 ? -3600 : postion.X;
-                postion.Y = postion.Y > 2400 ? -2400 : postion.Y;
-                postion.X = postion.X < -3600 ? 3600 : postion.X;
-                postion.Y = postion.Y < -2400 ? 2400 : postion.Y;
-
-                worldObject.Position = postion;
             }
         }
 
