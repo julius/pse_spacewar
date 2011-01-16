@@ -212,7 +212,6 @@ namespace EtherDuels.Game
                                 }
                             }
                         }
-                        
                     }
                 }
             }    

@@ -77,6 +77,7 @@ namespace EtherDuels
             Model modelShip = content.Load<Model>("spaceship_green");
             Model modelPlanet = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
+            Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
             
 
@@ -104,6 +105,7 @@ namespace EtherDuels
             gameBuilder.SpaceshipModel = modelShip;
             gameBuilder.PlanetModel = modelPlanet;
             gameBuilder.RocketModel = modelRocket;
+            gameBuilder.LaserModel = modelLaser;
             gameBuilder.ExplosionModel = modelExplosion;
 
             this.gameController = new GameController(gameBuilder, this);

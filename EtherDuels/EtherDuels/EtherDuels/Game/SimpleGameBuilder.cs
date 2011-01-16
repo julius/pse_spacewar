@@ -46,6 +46,12 @@ namespace EtherDuels.Game
             set { rocketModel = value; }
         }
 
+        private Microsoft.Xna.Framework.Graphics.Model laserModel;
+        public Microsoft.Xna.Framework.Graphics.Model LaserModel
+        {
+            set { laserModel = value; }
+        }
+
         private Microsoft.Xna.Framework.Graphics.Model explosionModel;
         public Microsoft.Xna.Framework.Graphics.Model ExplosionModel
         {
@@ -114,6 +120,7 @@ namespace EtherDuels.Game
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();
             shortLifespanObjectFactory.RocketModel = rocketModel;
+            shortLifespanObjectFactory.LaserModel = laserModel;
             shortLifespanObjectFactory.ExplosionModel = explosionModel;
 
             // build game model

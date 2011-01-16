@@ -17,6 +17,7 @@ namespace EtherDuels.Game
         Microsoft.Xna.Framework.Graphics.Model SpaceshipModel { set; }
         Microsoft.Xna.Framework.Graphics.Model PlanetModel { set; }
         Microsoft.Xna.Framework.Graphics.Model RocketModel { set; }
+        Microsoft.Xna.Framework.Graphics.Model LaserModel { set; }
         Microsoft.Xna.Framework.Graphics.Model ExplosionModel { set; }
         CollisionHandler CollisionHandler { set; }
         PlayerHandler PlayerHandler { set; }
