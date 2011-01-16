@@ -71,6 +71,7 @@ namespace EtherDuels
             Model modelPlanet = content.Load<Model>("planet");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+            
 
             // Spaceship ship = new Spaceship();
             // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
