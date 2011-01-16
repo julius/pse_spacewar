@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EtherDuels.Menu
 {   
@@ -11,7 +12,9 @@ namespace EtherDuels.Menu
     /// Provides methods to build a new menu.
     /// </summary>
     interface MenuBuilder
-    {   
+    {
+        Texture2D Background { set; }
+
         /// <summary>
         /// Creates a new MenuModel.
         /// </summary>

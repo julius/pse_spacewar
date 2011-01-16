@@ -37,6 +37,12 @@ namespace EtherDuels
         public EtherDuels()
         {
             graphics = new GraphicsDeviceManager(this);
+            //TODO: richtige aufloesung finden
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.ApplyChanges();
+            graphics.ToggleFullScreen();
+
             Content.RootDirectory = "Content";
         }
 
@@ -85,6 +91,7 @@ namespace EtherDuels
 
             // Build MenuController
             MenuBuilder menuBuilder = new SimpleMenuBuilder(this, font);
+            menuBuilder.Background = textureStars;
             MenuModel menuModel = menuBuilder.BuildModel();
             MenuView menuView = menuBuilder.BuildView(menuModel);
             this.menuController = new MenuController(this, menuModel, menuView);
@@ -203,7 +210,8 @@ namespace EtherDuels
         /// </summary>
         public void OnResumeGame()
         {
-            throw new NotImplementedException();
+            this.programState.GameState = GameState.InGame;
+            this.programState.MenuState = MenuState.NoMenu;
         }
 
 

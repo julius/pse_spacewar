@@ -65,6 +65,7 @@ namespace EtherDuels.Game
             // build game objects
             Planet planet = new Planet();
             planet.Mass = 100000;
+            planet.Health = 1000000;
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();

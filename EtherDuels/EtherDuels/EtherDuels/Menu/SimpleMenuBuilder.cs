@@ -16,6 +16,11 @@ namespace EtherDuels.Menu
     {
         private MenuHandler menuHandler;
         private SpriteFont spriteFont;
+        private Texture2D background;
+        public Texture2D Background
+        {
+            set { this.background = value; }
+        }
         Configuration configuration;
         // TODO: configuration
 
@@ -190,7 +195,7 @@ namespace EtherDuels.Menu
             MenuItem pauseMenuQuitProgram = new MenuItem(actionQuitProgram, delegate() { return "Quit Program"; });
 
             MenuItem[] pauseMenuItems = { pauseMenuResumeGame, pauseMenuStartNewGame, pauseMenuOptions, pauseMenuHelp, pauseMenuHighscore, pauseMenuQuitProgram };
-            MenuDialog pauseMenu = new MenuDialog(mainMenuItems);
+            MenuDialog pauseMenu = new MenuDialog(pauseMenuItems);
 
             // Build Options Menues
             MenuItem optionsMenuVolume = new MenuItem(actionVolume, delegate() { return "Volume"; });
@@ -275,7 +280,7 @@ namespace EtherDuels.Menu
                 }
 
                 // TODO: add background texture (3rd argument)
-                MenuDialogView menuDialogView = new MenuDialogView(menuItemViewList.ToArray(), menuDialog, null);
+                MenuDialogView menuDialogView = new MenuDialogView(menuItemViewList.ToArray(), menuDialog, background);
                 menuDialogViewList.Add(menuDialogView);
             }
 
