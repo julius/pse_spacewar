@@ -38,11 +38,6 @@ namespace EtherDuels
         public EtherDuels()
         {
             graphics = new GraphicsDeviceManager(this);
-            //TODO: richtige aufloesung finden
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.IsFullScreen = true;
-
             Content.RootDirectory = "Content";
         }
 
@@ -54,7 +49,6 @@ namespace EtherDuels
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
