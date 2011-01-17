@@ -66,16 +66,20 @@ namespace EtherDuels.Game.Model
                 // f = G * m / r^2
                 // m_object * a = G * m_planet / r^2
                 // a = (G * m_planet / r^2) / m_object
+                if (!(worldObject is Planet))
+                {
+                    Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X,
+                        world.Planet.Position.Y - worldObject.Position.Y);
+                    float length = distanceVector.Length() == 0.0f ? float.Epsilon : distanceVector.Length();
+                    double velocityDiff = ((G * world.Planet.Mass / (length * length)) / worldObject.Mass) * gameTime.ElapsedGameTime.Milliseconds * 0.001;
+                    // angle of the velocity
+                    double angle = Math.Asin(distanceVector.Y / length);
 
-                Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
-                    world.Planet.Position.Y - worldObject.Position.Y);
-                double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.TotalMilliseconds;
-                // angle of the velocity
-                double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
-
-                Vector2 objVelocity = worldObject.Velocity;
-                objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
-                objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);
+                    Vector2 velocity = worldObject.Velocity;
+                    velocity.X += (float)(Math.Cos(angle) * velocityDiff);
+                    velocity.Y += (float)(Math.Sin(angle) * velocityDiff);
+                    worldObject.Velocity = velocity;
+                }
             }
         }
 
@@ -95,8 +99,8 @@ namespace EtherDuels.Game.Model
 
                 // calculate new positions
                 Vector2 postion = worldObject.Position;
-                postion.X += worldObject.Velocity.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
-                postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+                postion.X += worldObject.Velocity.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f;
+                postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f;
                 
                 // torodial field
                 postion.X = postion.X > 3600 ? -3600 : postion.X;

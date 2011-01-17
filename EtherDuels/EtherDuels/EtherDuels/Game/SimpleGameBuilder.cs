@@ -51,20 +51,22 @@ namespace EtherDuels.Game
         {
             // build game objects
             Planet planet = new Planet();
-            planet.Mass = 100000;
+            planet.Mass = 1000000000000000000;
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
-            spaceship1.Mass = 1;
-            spaceship2.Mass = 1;
+            spaceship1.Mass = 10;
+            spaceship2.Mass = 10;
 
             Player player1 = new HumanPlayer(1, this.playerHandler, this.configuration.GetKeyboardConfiguration(1));
             Player player2 = new HumanPlayer(2, this.playerHandler, this.configuration.GetKeyboardConfiguration(2));
             player1.Spaceship = spaceship1;
             player2.Spaceship = spaceship2;
 
-            player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(10, 10);
-            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(10, 10);
+            player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
+            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
+            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(0, 1000);
+            player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(0, -1000);
 
             List<Player> players = new List<Player>();      //TODO  edit Claudi: Hab das Array in eine Liste umgewandelt.
             players.Add(player1);
