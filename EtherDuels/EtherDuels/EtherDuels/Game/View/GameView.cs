@@ -47,11 +47,12 @@ namespace EtherDuels.Game.View
         /// </summary>
         /// <param name="viewport">The used Viewport.</param>
         /// <param name="spriteBatch">The used SpriteBatch.</param>
-        public void Draw(Viewport viewport, SpriteBatch spriteBatch)
+        /// <param name="gameTime">The frame's time object.</param>
+        public void Draw(Viewport viewport, SpriteBatch spriteBatch, GameTime gameTime)
         {
             
             DrawHUD(viewport, spriteBatch);
-            this.worldView.Draw(viewport, spriteBatch);
+            this.worldView.Draw(viewport, spriteBatch, gameTime);
            
         }
 

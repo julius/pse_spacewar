@@ -66,7 +66,8 @@ namespace EtherDuels.Game.View
         /// </summary>
         /// <param name="viewport">The used Viewport.</param>
         /// <param name="spriteBatch">The used SpriteBatch.</param>
-        public void Draw(Viewport viewport, SpriteBatch spriteBatch)
+        /// <param name="gameTime">The frame's time object.</param>
+        public void Draw(Viewport viewport, SpriteBatch spriteBatch, GameTime gameTime)
         {
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
@@ -82,7 +83,7 @@ namespace EtherDuels.Game.View
                 }
                 else
                 {
-                    worldObjectView.Draw(viewport, this.cameraPosition);
+                    worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
                 }
             }
         }

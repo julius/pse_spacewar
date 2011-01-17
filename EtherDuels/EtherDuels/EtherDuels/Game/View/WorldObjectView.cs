@@ -37,7 +37,8 @@ namespace EtherDuels.Game.View
         /// </summary>
         /// <param name="viewport">The used Viewport.</param>
         /// <param name="cameraPosition">The position of which the camera looks on the WorldObject. .</param>
-        public void Draw(Viewport viewport, Vector3 cameraPosition)
+        /// <param name="gameTime">The frame's time object.</param>
+        public void Draw(Viewport viewport, Vector3 cameraPosition, GameTime gameTime)
         {
             Vector3 modelPosition = new Vector3(worldObject.Position.X, 0, worldObject.Position.Y);
            // float modelRotation = 0f; // gameTime.TotalGameTime.Milliseconds * 0.01f;
@@ -45,7 +46,6 @@ namespace EtherDuels.Game.View
             Matrix matrixWorld = Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(modelPosition);
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
-
 
             Matrix[] transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
@@ -65,7 +65,13 @@ namespace EtherDuels.Game.View
 
                 mesh.Draw();
             }
-            
+
+            if (this.worldObject is Explosion)
+            {
+                float scale = (float) (gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
+                matrixWorld = Matrix.CreateScale(scale * scale * 0.001f) * matrixWorld;
+            }
+
             this.model.Draw(matrixWorld, matrixView, matrixProjection);
         }
     }

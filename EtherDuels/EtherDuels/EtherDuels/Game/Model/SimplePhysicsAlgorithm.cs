@@ -91,7 +91,7 @@ namespace EtherDuels.Game.Model
                 if (worldObject is Explosion)
                 {   
                     // deleting explosions after a certain amount of time
-                    if ((gameTime.TotalGameTime - (worldObject as Explosion).CreationTime) > new TimeSpan(0, 0, 1))
+                    if ((gameTime.TotalGameTime.TotalMilliseconds - (worldObject as Explosion).CreationTime.TotalMilliseconds) > 100)
                     {
                         worldObject.Health = 0;
                         world.RemoveWorldObject(worldObject);

@@ -96,13 +96,13 @@ namespace EtherDuels.Game.Model
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Left))
             {
-                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.01f;
+                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.003f;
                 this.spaceship.Rotation = this.spaceship.Rotation + (speed * -1f);
             }
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Right))
             {
-                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.01f;
+                float speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.003f;
                 this.spaceship.Rotation = this.spaceship.Rotation + (speed * 1f);
             }
         }

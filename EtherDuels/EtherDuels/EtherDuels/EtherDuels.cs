@@ -182,7 +182,7 @@ namespace EtherDuels
             // Draw GameController if necessary
             if (this.programState.GameState == GameState.InGame)
             {
-                this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
+                this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch, gameTime);
             }
 
             // Draw MenuController if necessary

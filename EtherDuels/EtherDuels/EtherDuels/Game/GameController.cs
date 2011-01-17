@@ -58,11 +58,12 @@ namespace EtherDuels.Game
         /// </summary>
         /// <param name="viewPort">Defines the Viewport, which is to use.</param>
         /// <param name="spriteBatch">Defines the SpriteBatch, which is to use.</param>
-        public void Draw(Viewport viewPort, SpriteBatch spriteBatch)
+        /// <param name="gameTime">The frame's time object.</param>
+        public void Draw(Viewport viewPort, SpriteBatch spriteBatch, GameTime gameTime)
         {
             Debug.Assert(gameView != null, "No gameview exists");
             
-            gameView.Draw(viewPort, spriteBatch);
+            gameView.Draw(viewPort, spriteBatch, gameTime);
         }
 
         /// <summary>
