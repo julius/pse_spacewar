@@ -83,14 +83,14 @@ namespace EtherDuels.Game
         {
             // build game objects
             Planet planet = new Planet();
-            planet.Mass = 100000;
+            planet.Mass = 6E24;
             planet.Health = 1000000;
             planet.Attack = 1000;
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
-            spaceship1.Mass = 1;
-            spaceship2.Mass = 1;
+            spaceship1.Mass = 8000;
+            spaceship2.Mass = 8000;
 
             Player player1 = new HumanPlayer(1, this.playerHandler, this.configuration.GetKeyboardConfiguration(1));
             Player player2 = new HumanPlayer(2, this.playerHandler, this.configuration.GetKeyboardConfiguration(2));
@@ -102,8 +102,8 @@ namespace EtherDuels.Game
             player1.Spaceship.Attack = 50;
             player1.Spaceship.Radius = 240;
             player1.Spaceship.Health = 100;
-            player1.Spaceship.Rotation = 180;
-            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1000, 1000);
+            player1.Spaceship.Rotation = 4.7f;
+            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1000, 500);
 
             player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
             player2.Spaceship.CurrentWeapon = Weapon.Rocket;

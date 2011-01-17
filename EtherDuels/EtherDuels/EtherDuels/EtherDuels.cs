@@ -82,7 +82,6 @@ namespace EtherDuels
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
             
-
          
             // Spaceship ship = new Spaceship();
             // WorldObjectView shipView = new WorldObjectView(modelShip, ship);

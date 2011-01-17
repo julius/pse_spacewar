@@ -265,7 +265,7 @@ namespace EtherDuels.Menu
             MenuItem pauseMenuOptions = new MenuItem(actionPauseOptions, delegate() { return "Options"; });
             MenuItem pauseMenuHelp = new MenuItem(actionHelp, delegate() { return "Help"; });
             MenuItem pauseMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
-            MenuItem pauseMenuQuitProgram = new MenuItem(actionQuitProgram, delegate() { return "Quit Program"; });
+            MenuItem pauseMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });
 
             MenuItem[] pauseMenuItems = { pauseMenuResumeGame, pauseMenuStartNewGame, pauseMenuOptions, pauseMenuHelp, pauseMenuHighscore, pauseMenuQuitProgram };
             MenuDialog pauseMenu = new MenuDialog(pauseMenuItems);

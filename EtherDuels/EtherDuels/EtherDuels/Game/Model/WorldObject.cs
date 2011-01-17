@@ -14,7 +14,7 @@ namespace EtherDuels.Game.Model
     {
         int attack;
         int health;
-        double mass;
+        double mass;    // in kg
         Vector2 position;
         float radius;
         float rotation;

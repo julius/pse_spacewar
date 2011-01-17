@@ -48,6 +48,7 @@ namespace EtherDuels.Game.Model
 
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
+          
 
             foreach (WorldObject[] collision in GetNewCollisions())
             {
@@ -63,20 +64,31 @@ namespace EtherDuels.Game.Model
         {
             foreach (WorldObject worldObject in worldObjects)
             {
-                // f = m * a
-                // f = G * m / r^2
-                // m_object * a = G * m_planet / r^2
-                // a = (G * m_planet / r^2) / m_object
+                if (worldObject is Planet) { }
+                else
+                {
+                    // f = m * a
+                    // f = G * m / r^2
+                    // m_object * a = G * m_planet / r^2
+                    // a = (G * m_planet / r^2) / m_object
 
-                Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
-                    world.Planet.Position.Y - worldObject.Position.Y);
-                double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.TotalMilliseconds;
-                // angle of the velocity
-                double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
+                    /*Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
+                        world.Planet.Position.Y - worldObject.Position.Y);
+                    double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.TotalMilliseconds;
+                    // angle of the velocity
+                    double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
 
-                Vector2 objVelocity = worldObject.Velocity;
-                objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
-                objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);
+                    Vector2 objVelocity = worldObject.Velocity;
+                    objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
+                    objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);*/
+
+                    Vector2 distance = new Vector2(world.Planet.Position.X - worldObject.Position.X, world.Planet.Position.Y - worldObject.Position.Y);
+                    double gravity = (G * world.Planet.Mass * worldObject.Mass / distance.LengthSquared()) * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;   // in Newton * 0.1 milliseconds
+                    distance.Normalize();
+                    Vector2 velocityAddition = Vector2.Multiply(distance, (float)(gravity / 100000000000000));
+                    worldObject.Velocity += velocityAddition;
+                }
+                
             }
         }
 
@@ -102,6 +114,7 @@ namespace EtherDuels.Game.Model
                     Vector2 velocity = worldObject.Velocity;
                     velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
                     velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
+                    worldObject.Velocity = velocity;
 
                     // calculate new positions
                     Vector2 postion = worldObject.Position;
