@@ -5,6 +5,7 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
+
 namespace EtherDuels.Game.Model
 {   
     /// <summary>
@@ -44,6 +45,8 @@ namespace EtherDuels.Game.Model
         public override void Update(GameTime gameTime)
         {
             worldObjects = world.WorldObjects;
+
+            world.Planet.Rotation = world.Planet.Rotation + 0.0005f;
 
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
@@ -120,15 +123,27 @@ namespace EtherDuels.Game.Model
             {
                 WorldObject object1 = worldObjects[i];
 
-                for (int j = i + 1; j < worldObjects.GetLength(0); j += 1)
+                //TODO: edit claudi: explosionen sollen nicht kollidieren. hab das jetz ma provisorisch gemacht. gibs ein "is not"?
+                if (object1 is Explosion) { }
+                else
                 {
-                    WorldObject object2 = worldObjects[j];
 
-                    float distance = Vector2.Distance(object1.Position, object2.Position);
-                    if (distance < object1.Radius + object2.Radius)
-                    {
-                        WorldObject[] collision = { object1, object2 };
-                        collisions.Add(collision);
+                    for (int j = i + 1; j < worldObjects.GetLength(0); j += 1)
+                    {   
+                        WorldObject object2 = worldObjects[j];
+
+                        //TODO: edit claudi: hier auch
+                        if (object2 is Explosion) { }
+                        else
+                        {
+
+                            float distance = Vector2.Distance(object1.Position, object2.Position);
+                            if (distance < object1.Radius + object2.Radius)
+                            {
+                                WorldObject[] collision = { object1, object2 };
+                                collisions.Add(collision);
+                            }
+                        }
                     }
                 }
             }

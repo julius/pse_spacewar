@@ -16,12 +16,19 @@ namespace EtherDuels.Game.View
         private Vector3 cameraPosition;
         private World world;
         private List<WorldObjectView> worldObjectViews;
+        private Texture2D background;
+        private Texture2D smoke;
+
+        public Texture2D Smoke
+        {
+            set { smoke = value; }
+        }
+
 
         public WorldObjectView[] WorldObjectViews
         {
             get { return worldObjectViews.ToArray<WorldObjectView>(); }
         }
-        private Texture2D background;
 
         /// <summary>
         /// Creates a new WorldView object.
@@ -61,11 +68,10 @@ namespace EtherDuels.Game.View
         /// <param name="spriteBatch">The used SpriteBatch.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
-
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Draw(this.background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             spriteBatch.End();
-            
+
             foreach (WorldObjectView worldObjectView in this.worldObjectViews)
             {
                 worldObjectView.Draw(viewport, this.cameraPosition);

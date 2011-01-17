@@ -42,15 +42,19 @@ namespace EtherDuels.Menu.View
             // do not draw if not active
             if (!this.menuDialog.Active) return;
 
-            // TODO draw background
+            // TODO draw background. edit claudi: hab das jetz einfach mal so von WorldView uebernommen, ohne zu wissen was das zeugs bedeutet
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Draw(this.background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.End();
             
             // draw items
-            Vector2 position = new Vector2(100, 20);
-
+            //TODO: schoener machen
+            Vector2 position = new Vector2((viewport.Width / 2) - 100, 200);
+            int offset = ((viewport.Height - 400) / menuItemViews.Length);
             foreach (MenuItemView menuItemView in this.menuItemViews)
             {
                 menuItemView.Draw(position, spriteBatch);
-                position.Y += 30;
+                position.Y += offset;
             }
         }
     }

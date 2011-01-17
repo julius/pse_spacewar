@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EtherDuels.Game.Model;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using EtherDuels.Game.Model;
 
 namespace EtherDuels.Game.View
 {
@@ -14,6 +17,13 @@ namespace EtherDuels.Game.View
     {
         private GameModel gameModel;
         private WorldView worldView;
+        private Texture2D healthBar;
+        
+        public Texture2D HealthBar
+        {
+            set { healthBar = value; }
+        }
+
 
         /// <summary>
         /// Creates a new GameView object.
@@ -39,9 +49,22 @@ namespace EtherDuels.Game.View
         /// <param name="spriteBatch">The used SpriteBatch.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch)
         {
-            // TODO draw HUD
-
+            
+            DrawHUD(viewport, spriteBatch);
             this.worldView.Draw(viewport, spriteBatch);
+           
         }
+
+        private void DrawHUD(Viewport viewport, SpriteBatch spriteBatch)
+        {
+
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
+            // TODO draw HUD
+         
+
+           spriteBatch.End();
+        }
+
     }
 }

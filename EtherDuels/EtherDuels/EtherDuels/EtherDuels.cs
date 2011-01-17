@@ -26,18 +26,22 @@ namespace EtherDuels
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
 
         private MenuController menuController;
         private GameController gameController;
         private ProgramState programState;
 
-        GameView gameView; // <- remove this one later
+        GameView gameView; // TODO <- remove this one later
         private Game.Model.InputConfigurationRetriever inputConfigurationRetriever;
 
         public EtherDuels()
         {
             graphics = new GraphicsDeviceManager(this);
+            //TODO: richtige aufloesung finden
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.IsFullScreen = true;
+
             Content.RootDirectory = "Content";
         }
 
@@ -50,12 +54,6 @@ namespace EtherDuels
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 1024;
-            graphics.IsFullScreen = false;
-            graphics.ApplyChanges();
-
-            Window.Title = "EtherDuels";
 
             base.Initialize();
         }
@@ -73,11 +71,15 @@ namespace EtherDuels
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
             SpriteFont font = content.Load<SpriteFont>("NiceFont");
-            Texture2D textureStars = content.Load<Texture2D>("texture_space");
+            Texture2D textureStars = content.Load<Texture2D>("texture_stars");
+            Texture2D textureHealthBar = content.Load<Texture2D>("texture_healthbar");
+            Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
             Model modelShip = content.Load<Model>("spaceship_green");
-            Model modelPlanet = content.Load<Model>("planet");
+            Model modelPlanet = content.Load<Model>("planet_yellow_light");
+            Model modelRocket = content.Load<Model>("rocket");
+            Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+            
 
-         
             // Spaceship ship = new Spaceship();
             // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
 
@@ -90,6 +92,7 @@ namespace EtherDuels
 
             // Build MenuController
             MenuBuilder menuBuilder = new SimpleMenuBuilder(this, font);
+            menuBuilder.Background = textureStars;
             MenuModel menuModel = menuBuilder.BuildModel();
             MenuView menuView = menuBuilder.BuildView(menuModel);
             this.menuController = new MenuController(this, menuModel, menuView);
@@ -100,6 +103,8 @@ namespace EtherDuels
             gameBuilder.Background = textureStars;
             gameBuilder.SpaceshipModel = modelShip;
             gameBuilder.PlanetModel = modelPlanet;
+            gameBuilder.RocketModel = modelRocket;
+            gameBuilder.ExplosionModel = modelExplosion;
 
             this.gameController = new GameController(gameBuilder, this);
 
@@ -131,8 +136,17 @@ namespace EtherDuels
 
             FrameState frameState = new FrameState(gameTime, Keyboard.GetState());
 
+
+            /* TODO: edit claudi: bei gamePaused soll der doch nicht mehr den GameController updaten?
+             * sonst kriegen wir vor allem probleme mit den Keyboard-Abfragen. Bei Menü-Eintrag hoch
+             * würd sich dann das eine Raumschiff bewegen. */
+
             // Update GameController if necessary
-            if (this.programState.GameState != GameState.NoGame)
+            /*if (this.programState.GameState != GameState.NoGame)
+            {
+                this.gameController.Update(frameState);
+            }*/
+            if (this.programState.GameState == GameState.InGame)
             {
                 this.gameController.Update(frameState);
             }
@@ -153,15 +167,11 @@ namespace EtherDuels
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
             //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
 
-            this.spriteBatch.Begin();
-            
-            this.spriteBatch.End();
-
             // Draw GameController if necessary
-            if (this.programState.GameState != GameState.NoGame)
+            if (this.programState.GameState == GameState.InGame)
             {
                 this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
             }
@@ -201,7 +211,8 @@ namespace EtherDuels
         /// </summary>
         public void OnResumeGame()
         {
-            throw new NotImplementedException();
+            this.programState.GameState = GameState.InGame;
+            this.programState.MenuState = MenuState.NoMenu;
         }
 
 
@@ -209,12 +220,16 @@ namespace EtherDuels
 
         public void OnGamePaused()
         {
-            throw new NotImplementedException();
+            this.menuController.SetPauseMenu();
+            this.programState.GameState = GameState.GamePaused;
+            this.programState.MenuState = MenuState.InMenu;
         }
 
         public void OnGameEnded(int playerID, int points)
         {
-            throw new NotImplementedException();
+            this.menuController.SetMainMenu();
+            this.programState.GameState = GameState.NoGame;
+            this.programState.MenuState = MenuState.InMenu;
         }
     }
 }

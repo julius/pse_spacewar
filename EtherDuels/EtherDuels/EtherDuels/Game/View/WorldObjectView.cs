@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EtherDuels.Game.Model;
+using EtherDuels.Game.Model; //TODO Zugriff genauer einschränken???????????
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework; // TODO wie kann man das reduzieren auf WorldObject?
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.View
 {   
@@ -14,13 +14,12 @@ namespace EtherDuels.Game.View
     public class WorldObjectView
     {
         WorldObject worldObject;
-        Microsoft.Xna.Framework.Graphics.Model model;
 
         public WorldObject WorldObject
         {
             get { return worldObject; }
         }
-        
+        Microsoft.Xna.Framework.Graphics.Model model;
         /// <summary>
         /// Creates a new WorldObjectView object.
         /// </summary>
@@ -33,7 +32,7 @@ namespace EtherDuels.Game.View
         }
 
         /// <summary>
-        /// Draws the WorldObjectView using the attributive model.
+        /// Draws the WorldObjectView using the according model.
         /// </summary>
         /// <param name="viewport">The used Viewport.</param>
         /// <param name="cameraPosition">The position of which the camera looks on the WorldObject. .</param>
@@ -47,9 +46,7 @@ namespace EtherDuels.Game.View
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
 
 
-            Matrix[] transforms = new Matrix[model.Bones.Count];
-            model.CopyAbsoluteBoneTransformsTo(transforms);
-                        
+
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
@@ -58,16 +55,17 @@ namespace EtherDuels.Game.View
                     effect.World = matrixWorld;
                     effect.View = matrixView;
                     effect.Projection = matrixProjection;
+
                     effect.PreferPerPixelLighting = true;
 
-                 
-                   
+                    effect.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
                 }
+
                 mesh.Draw();
+
             }
-
+            
             this.model.Draw(matrixWorld, matrixView, matrixProjection);
-
         }
     }
 }

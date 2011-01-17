@@ -16,6 +16,18 @@ namespace EtherDuels.Game
             set { this.background = value; }
         }
 
+        private Texture2D smoke;
+        public Texture2D Smoke
+        {
+            set { smoke = value; }
+        }
+
+        private Texture2D healthBar;
+        public Texture2D HealthBar
+        {
+            set { healthBar = value; }
+        }
+
         private Microsoft.Xna.Framework.Graphics.Model spaceshipModel;
         public Microsoft.Xna.Framework.Graphics.Model SpaceshipModel
         {
@@ -27,6 +39,19 @@ namespace EtherDuels.Game
         {
             set { this.planetModel = value; } 
         }
+
+        private Microsoft.Xna.Framework.Graphics.Model rocketModel;
+        public Microsoft.Xna.Framework.Graphics.Model RocketModel
+        {
+            set { rocketModel = value; }
+        }
+
+        private Microsoft.Xna.Framework.Graphics.Model explosionModel;
+        public Microsoft.Xna.Framework.Graphics.Model ExplosionModel
+        {
+            set { explosionModel = value; }
+        }
+        
 
         private CollisionHandler collisionHandler;
         public CollisionHandler CollisionHandler
@@ -52,6 +77,7 @@ namespace EtherDuels.Game
             // build game objects
             Planet planet = new Planet();
             planet.Mass = 100000;
+            planet.Health = 1000000;
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
@@ -63,17 +89,31 @@ namespace EtherDuels.Game
             player1.Spaceship = spaceship1;
             player2.Spaceship = spaceship2;
 
-            player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(10, 10);
-            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(10, 10);
+            player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
+            player1.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player1.Spaceship.Radius = 240;
+            player1.Spaceship.Health = 100;
+            player1.Spaceship.Rotation = 180;
+            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1000, 1000);
 
-            List<Player> players = new List<Player>();      //TODO  edit Claudi: Hab das Array in eine Liste umgewandelt.
+            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
+            player2.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player2.Spaceship.Radius = 240;
+            player2.Spaceship.Health = 100;
+            player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(2000, 1000);
+
+            List<Player> players = new List<Player>();
             players.Add(player1);
             players.Add(player2);
 
             WorldObject[] worldObjects = { planet, spaceship1, spaceship2 };
 
-            // build game model
+            // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();
+            shortLifespanObjectFactory.RocketModel = rocketModel;
+            shortLifespanObjectFactory.ExplosionModel = explosionModel;
+
+            // build game model
             World world = new World(worldObjects, planet);
             Physics physics = new SimplePhysicsAlgorithm(this.collisionHandler, world);
             GameModel gameModel = new GameModel(shortLifespanObjectFactory, physics, players, world);
@@ -83,6 +123,8 @@ namespace EtherDuels.Game
         public GameView BuildView(GameModel model)
         {
             WorldView worldView = new WorldView(background, model.World);
+            worldView.Smoke = smoke;
+            GameView gameView;
 
             foreach (WorldObject worldObject in model.World.WorldObjects)
             {
@@ -94,9 +136,16 @@ namespace EtherDuels.Game
                 {
                     worldView.AddWorldObjectView(new WorldObjectView(planetModel, worldObject));
                 }
+                else if (worldObject is Projectile)
+                {
+                    worldView.AddWorldObjectView(new WorldObjectView(rocketModel, worldObject));
+                }
             }
 
-            return new GameView(model, worldView);
+            gameView = new GameView(model, worldView);
+            gameView.HealthBar = healthBar;
+
+            return gameView;
         }
     }
 }
