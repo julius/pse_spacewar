@@ -66,7 +66,7 @@ namespace EtherDuels.Game.View
                 mesh.Draw();
             }
             
-            //this.model.Draw(matrixWorld, matrixView, matrixProjection);
+            this.model.Draw(matrixWorld, matrixView, matrixProjection);
         }
     }
 }
