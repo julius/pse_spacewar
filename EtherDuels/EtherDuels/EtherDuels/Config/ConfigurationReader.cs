@@ -7,9 +7,7 @@ using System.Runtime.Serialization;
 using System.IO;
 using Microsoft.Xna.Framework.Input;
 
-using EtherDuels.Game.Model;
-
-namespace EtherDuels.Game
+namespace EtherDuels.Config
 {
     class ConfigurationReader
     {
@@ -27,7 +25,7 @@ namespace EtherDuels.Game
         {
             if (File.Exists(path))
             {
-                stream = File.Open("etherduels.conf", FileMode.Open);
+                stream = File.Open(path, FileMode.Open);
             }
             else
             {
@@ -54,8 +52,8 @@ namespace EtherDuels.Game
                 defaultConf.SetKeyboardConfiguration(1, defaultKeyConfPlayerA);
                 defaultConf.SetKeyboardConfiguration(2, defaultKeyConfPlayerB);
 
+                defaultConf.Path = path;
                 return defaultConf;
-                //throw new Exception("No config file found.");
             }
 
             if (binaryFormatter == null)
@@ -63,7 +61,9 @@ namespace EtherDuels.Game
                 binaryFormatter = new BinaryFormatter();
             }
 
-            return (Configuration)binaryFormatter.Deserialize(stream);
+            Configuration result = (Configuration)binaryFormatter.Deserialize(stream);
+            result.Path = path;
+            return result;
         }
     }
 }

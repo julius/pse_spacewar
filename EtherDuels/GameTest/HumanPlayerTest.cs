@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Moq;
 using EtherDuels;
+using EtherDuels.Config;
 
 namespace GameTest
 {

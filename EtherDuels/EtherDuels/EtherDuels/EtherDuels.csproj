@@ -107,24 +107,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
-    <Compile Include="ConfigurationReader.cs" />
-    <Compile Include="ConfigurationRetriever.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\ConfigurationRetriever.cs" />
     <Compile Include="EtherDuels.cs" />
-    <Compile Include="Game\Configuration.cs" />
-    <Compile Include="Game\ConfigurationReader.cs" />
-    <Compile Include="Game\Model\ConfigurationRetriever.cs" />
+    <Compile Include="Game\Configuration_DELETE_ME.cs" />
+    <Compile Include="Config\ConfigurationReader.cs" />
     <Compile Include="Game\Model\CollisionHandler.cs" />
     <Compile Include="Game\Model\Explosion.cs" />
     <Compile Include="FrameState.cs" />
     <Compile Include="Game\GameHandler.cs" />
     <Compile Include="Game\GameBuilder.cs" />
-    <Compile Include="Game\Model\KeyboardConfiguration.cs" />
+    <Compile Include="Config\KeyboardConfiguration.cs" />
     <Compile Include="Game\SimpleGameBuilder.cs" />
     <Compile Include="Game\View\GameView.cs" />
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\Model\HumanPlayer.cs" />
-    <Compile Include="Game\Model\InputConfigurationRetriever.cs" />
+    <Compile Include="Config\InputConfigurationRetriever.cs" />
     <Compile Include="Game\Model\GameModel.cs" />
     <Compile Include="Game\Model\Planet.cs" />
     <Compile Include="Game\Model\Player.cs" />

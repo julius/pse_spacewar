@@ -6,6 +6,9 @@ using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
 using Microsoft.Xna.Framework.Graphics;
 using EtherDuels.Config;
+using Microsoft.Xna.Framework.Input;
+using EtherDuels.Game.Model;
+using EtherDuels.Game;
 
 namespace EtherDuels.Menu
 {   
@@ -21,18 +24,24 @@ namespace EtherDuels.Menu
         {
             set { this.background = value; }
         }
+
         Configuration configuration;
-        // TODO: configuration
 
         /// <summary>
         /// Creates a new SimpleMenuBuilder.
         /// </summary>
         /// <param name="menuHandler">The assigned MenuHandler.</param>
         /// <param name="spriteFont">The used font.</param>
-        public SimpleMenuBuilder(MenuHandler menuHandler, SpriteFont spriteFont)
+        public SimpleMenuBuilder(MenuHandler menuHandler, Configuration configuration, SpriteFont spriteFont)
         {
             this.menuHandler = menuHandler;
+            this.configuration = configuration;
             this.spriteFont = spriteFont;
+        }
+
+        private string FormatKey(Keys key)
+        {
+            return key == Keys.None ? "Press a key" : key.ToString();
         }
 
         /// <summary>
@@ -42,8 +51,10 @@ namespace EtherDuels.Menu
         public MenuModel BuildModel()
         {
             MenuModel menuModel = new MenuModel();
+            KeyboardConfiguration kconf1 = this.configuration.GetKeyboardConfiguration(1);
+            KeyboardConfiguration kconf2 = this.configuration.GetKeyboardConfiguration(2);
 
-            // build menu actions
+            // Main Menu Actions
             MenuItem.ActionHandler actionStartGame = delegate(MenuItem menuItem)
             {
                 this.menuHandler.OnNewGame();
@@ -84,6 +95,7 @@ namespace EtherDuels.Menu
                 menuModel.SetActiveDialogByIndex(6);
             };
 
+            // Option Menu Actions
             MenuItem.ActionHandler actionVolume = delegate(MenuItem menuItem)
             {
                 menuModel.SetActiveDialogByIndex(7);
@@ -94,9 +106,14 @@ namespace EtherDuels.Menu
                 menuModel.SetActiveDialogByIndex(8);
             };
 
-            MenuItem.ActionHandler actionKeyboardConfiguration = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionKeyboardConfiguration1 = delegate(MenuItem menuItem)
             {
                 menuModel.SetActiveDialogByIndex(9);
+            };
+
+            MenuItem.ActionHandler actionKeyboardConfiguration2 = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(10);
             };
 
             MenuItem.ActionHandler actionReturnToMainMenu = delegate(MenuItem menuItem)
@@ -109,6 +126,7 @@ namespace EtherDuels.Menu
                 menuModel.SetPauseMenu();
             };
 
+            // Volume Menu Actions
             MenuItem.ActionHandler actionVolumeUp = delegate(MenuItem menuItem)
             {
                 //TODO: if (configuration.Volume <= 90) { configuration.Volume += 10; }
@@ -119,6 +137,8 @@ namespace EtherDuels.Menu
                 //TODO: if (configuration.Volume >= 10) { configuration.Volume -= 10; }
             };
 
+
+            // Difficulty Menu Actions
             MenuItem.ActionHandler actionDifficultyUp = delegate(MenuItem menuItem)
             {
                 if (configuration.Difficulty < 3)
@@ -140,39 +160,92 @@ namespace EtherDuels.Menu
                 menuModel.SetPreviousDialogActive();
             };
 
-            MenuItem.ActionHandler actionForwardKey = delegate(MenuItem menuItem)
+
+            // Keyboard Configuration Actions
+
+            MenuItem.ActionHandler actionForwardKey1 = delegate(MenuItem menuItem)
             {
-                // TODO: configuration.SetForwardKey();
+                kconf1.Forward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Forward = key; configuration.Save(); });
             };
 
-            MenuItem.ActionHandler actionBackwardKey = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionBackwardKey1 = delegate(MenuItem menuItem)
             {
-                // TODO: configuration.SetBackwardKey();
+                kconf1.Backward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Backward = key; configuration.Save(); });
             };
 
-            MenuItem.ActionHandler actionLeftKey = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionLeftKey1 = delegate(MenuItem menuItem)
             {
-                // TODO: configuration.SetLeftKey();
+                kconf1.Left = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Left = key; configuration.Save(); });
             };
 
-            MenuItem.ActionHandler actionRightKey = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionRightKey1 = delegate(MenuItem menuItem)
             {
-                // TODO: configuration.SetRightKey();
+                kconf1.Right = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Right = key; configuration.Save(); });
             };
 
-            MenuItem.ActionHandler actionFireKey = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionFireKey1 = delegate(MenuItem menuItem)
             {
-                // TODO: configuration.SetFireKey();
+                kconf1.Fire = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Fire = key; configuration.Save(); });
             };
 
-            MenuItem.ActionHandler actionNextWeaponKey = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionNextWeaponKey1 = delegate(MenuItem menuItem)
             {
-                // TODO: configuration.SetNextWeaponKey();
+                kconf1.NextWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.NextWeapon = key; configuration.Save(); });
             };
 
-            MenuItem.ActionHandler actionPrevWeaponKey = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionPrevWeaponKey1 = delegate(MenuItem menuItem)
             {
-                // TODO: configuration.SetPrevWeaponKey();
+                kconf1.PrevWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.PrevWeapon = key; configuration.Save(); });
+            };
+
+
+            MenuItem.ActionHandler actionForwardKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Forward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Forward = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionBackwardKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Backward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Backward = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionLeftKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Left = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Left = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionRightKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Right = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Right = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionFireKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Fire = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Fire = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionNextWeaponKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.NextWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.NextWeapon = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionPrevWeaponKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.PrevWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.PrevWeapon = key; configuration.Save(); });
             };
 
 
@@ -200,12 +273,13 @@ namespace EtherDuels.Menu
             // Build Options Menues
             MenuItem optionsMenuVolume = new MenuItem(actionVolume, delegate() { return "Volume"; });
             MenuItem optionsMenuDifficulty = new MenuItem(actionDifficulty, delegate() { return "Difficulty"; });
-            MenuItem optionsMenuKeyboardConfiguration = new MenuItem(actionKeyboardConfiguration, delegate() { return "Keyboard Configuration"; });
+            MenuItem optionsMenuKeyboardConfiguration1 = new MenuItem(actionKeyboardConfiguration1, delegate() { return "Player 1 Controls"; });
+            MenuItem optionsMenuKeyboardConfiguration2 = new MenuItem(actionKeyboardConfiguration2, delegate() { return "Player 2 Controls"; });
             MenuItem optionsMenuReturnToMainMenu = new MenuItem(actionReturnToMainMenu, delegate() { return "Return to Main Menu"; });
             MenuItem optionsMenuReturnToPauseMenu = new MenuItem(actionReturnToPauseMenu, delegate() { return "Return to Pause Menu"; });
 
-            MenuItem[] optionsMainMenuItems = { optionsMenuVolume, optionsMenuDifficulty, optionsMenuKeyboardConfiguration, optionsMenuReturnToMainMenu };
-            MenuItem[] optionsPauseMenuItems = { optionsMenuVolume, optionsMenuKeyboardConfiguration, optionsMenuReturnToPauseMenu };
+            MenuItem[] optionsMainMenuItems = { optionsMenuKeyboardConfiguration1, optionsMenuKeyboardConfiguration2, optionsMenuVolume, optionsMenuDifficulty, optionsMenuReturnToMainMenu };
+            MenuItem[] optionsPauseMenuItems = { optionsMenuKeyboardConfiguration1, optionsMenuKeyboardConfiguration2, optionsMenuVolume, optionsMenuReturnToPauseMenu };
             MenuDialog optionsMainMenu = new MenuDialog(optionsMainMenuItems);
             MenuDialog optionsPauseMenu = new MenuDialog(optionsPauseMenuItems);
 
@@ -224,17 +298,29 @@ namespace EtherDuels.Menu
             MenuDialog difficulty = new MenuDialog(difficultyMenuItems);
 
             // Build Keyboard Configuration Dialog
-            MenuItem keyConfigForwardKey = new MenuItem(actionForwardKey, delegate() { return "Forward"; });
-            MenuItem keyConfigBackwardKey = new MenuItem(actionBackwardKey, delegate() { return "Backward"; });
-            MenuItem keyConfigLeftKey = new MenuItem(actionLeftKey, delegate() { return "Left"; });
-            MenuItem keyConfigRightKey = new MenuItem(actionRightKey, delegate() { return "Right"; });
-            MenuItem keyConfigFireKey = new MenuItem(actionFireKey, delegate() { return "Fire"; });
-            MenuItem keyConfigNextWeaponKey = new MenuItem(actionNextWeaponKey, delegate() { return "Next Weapon"; });
-            MenuItem keyConfigPrevWeaponKey = new MenuItem(actionPrevWeaponKey, delegate() { return "Previous Weapon"; });
-            MenuItem keyConfigReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; }); 
-            MenuItem[] keyConfigItems = { keyConfigForwardKey, keyConfigBackwardKey, keyConfigLeftKey, keyConfigRightKey, keyConfigFireKey,
-                                            keyConfigNextWeaponKey, keyConfigPrevWeaponKey, keyConfigReturnToOptions };
-            MenuDialog keyConfig = new MenuDialog(keyConfigItems);
+            MenuItem keyConfig1ForwardKey = new MenuItem(actionForwardKey1, delegate() { return "Forward: " + FormatKey(kconf1.Forward); });
+            MenuItem keyConfig1BackwardKey = new MenuItem(actionBackwardKey1, delegate() { return "Backward: " + FormatKey(kconf1.Backward); });
+            MenuItem keyConfig1LeftKey = new MenuItem(actionLeftKey1, delegate() { return "Left: " + FormatKey(kconf1.Left); });
+            MenuItem keyConfig1RightKey = new MenuItem(actionRightKey1, delegate() { return "Right: " + FormatKey(kconf1.Right); });
+            MenuItem keyConfig1FireKey = new MenuItem(actionFireKey1, delegate() { return "Fire: " + FormatKey(kconf1.Fire); });
+            MenuItem keyConfig1NextWeaponKey = new MenuItem(actionNextWeaponKey1, delegate() { return "Next Weapon: " + FormatKey(kconf1.NextWeapon); });
+            MenuItem keyConfig1PrevWeaponKey = new MenuItem(actionPrevWeaponKey1, delegate() { return "Previous Weapon: " + FormatKey(kconf1.PrevWeapon); });
+            MenuItem keyConfig1ReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
+            MenuItem[] keyConfigItems1 = { keyConfig1ForwardKey, keyConfig1BackwardKey, keyConfig1LeftKey, keyConfig1RightKey, keyConfig1FireKey,
+                                            keyConfig1NextWeaponKey, keyConfig1PrevWeaponKey, keyConfig1ReturnToOptions };
+            MenuDialog keyConfig1 = new MenuDialog(keyConfigItems1);
+
+            MenuItem keyConfig2ForwardKey = new MenuItem(actionForwardKey2, delegate() { return "Forward: " + FormatKey(kconf2.Forward); });
+            MenuItem keyConfig2BackwardKey = new MenuItem(actionBackwardKey2, delegate() { return "Backward: " + FormatKey(kconf2.Backward); });
+            MenuItem keyConfig2LeftKey = new MenuItem(actionLeftKey2, delegate() { return "Left: " + FormatKey(kconf2.Left); });
+            MenuItem keyConfig2RightKey = new MenuItem(actionRightKey2, delegate() { return "Right: " + FormatKey(kconf2.Right); });
+            MenuItem keyConfig2FireKey = new MenuItem(actionFireKey2, delegate() { return "Fire: " + FormatKey(kconf2.Fire); });
+            MenuItem keyConfig2NextWeaponKey = new MenuItem(actionNextWeaponKey2, delegate() { return "Next Weapon: " + FormatKey(kconf2.NextWeapon); });
+            MenuItem keyConfig2PrevWeaponKey = new MenuItem(actionPrevWeaponKey2, delegate() { return "Previous Weapon: " + FormatKey(kconf2.PrevWeapon); });
+            MenuItem keyConfig2ReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
+            MenuItem[] keyConfigItems2 = { keyConfig2ForwardKey, keyConfig2BackwardKey, keyConfig2LeftKey, keyConfig2RightKey, keyConfig2FireKey,
+                                            keyConfig2NextWeaponKey, keyConfig2PrevWeaponKey, keyConfig2ReturnToOptions };
+            MenuDialog keyConfig2 = new MenuDialog(keyConfigItems2);
 
 
             // Build Help Dialog
@@ -255,7 +341,7 @@ namespace EtherDuels.Menu
 
             // Build Menu Model
             MenuDialog[] menuDialogs = { mainMenu, pauseMenu, optionsMainMenu, optionsPauseMenu, help, highscore, quitProgram,
-                                       volume, difficulty, keyConfig};
+                                       volume, difficulty, keyConfig1, keyConfig2};
             menuModel.MenuDialogs = menuDialogs;
             return menuModel;
         }

@@ -5,6 +5,7 @@ using System.Text;
 using EtherDuels.Game.Model;
 using EtherDuels.Game.View;
 using Microsoft.Xna.Framework.Graphics;
+using EtherDuels.Config;
 
 namespace EtherDuels.Game
 {

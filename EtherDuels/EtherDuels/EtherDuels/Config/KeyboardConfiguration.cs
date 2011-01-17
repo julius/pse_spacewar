@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace EtherDuels.Game.Model
+namespace EtherDuels.Config
 {
     // KeyboardConfiguration has to be serializable as well as Configuration, 
     // if Configuration is supposed to store KeyboardConfiguration as well as if it is serialized
@@ -15,7 +15,7 @@ namespace EtherDuels.Game.Model
     /// Saves the current KeyboardConfiguration of a Player.
     /// </summary>
     [Serializable()]
-    public class KeyboardConfiguration : Game.Model.InputConfigurationRetriever
+    public class KeyboardConfiguration : InputConfigurationRetriever
     {
         //Deserialization constructor.
         /// <summary>

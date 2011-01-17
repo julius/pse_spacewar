@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 
 
-namespace EtherDuels.Game.Model
+namespace EtherDuels.Config
 {  
     /// <summary>
     /// Provides methods to retrieve the current InputConfiguration.

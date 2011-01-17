@@ -65,6 +65,7 @@ namespace EtherDuels.Config
 
         public Configuration()
         {
+            keyConfigurations = new KeyboardConfiguration[10];
         }
 
         //Deserialization constructor.

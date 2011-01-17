@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Menu.Model
 {   
@@ -10,7 +11,9 @@ namespace EtherDuels.Menu.Model
     /// It is the biggest component of the menu.
     /// </summary>
     class MenuModel
-    {   
+    {
+        public delegate void KeySetter(Keys key);
+
         private MenuDialog[] menuDialogs;
         private int previousDialog = 0;
         
@@ -31,6 +34,24 @@ namespace EtherDuels.Menu.Model
         {
             // TODO ..?
         }
+
+        private KeySetter keyWaiter;
+        public bool IsWaitingForKey
+        {
+            get { return this.keyWaiter != null; }
+        }
+
+        public void WaitForKey(KeySetter keyWaiter)
+        {
+            this.keyWaiter = keyWaiter;
+        }
+
+        public void SetWaitingKey(Keys key)
+        {
+            this.keyWaiter(key);
+            this.keyWaiter = null;
+        }
+
 
         /// <summary>
         /// Passes the action call to its selected MenuDialog.

@@ -16,6 +16,7 @@ using EtherDuels.Game;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
 using System.Runtime.Serialization.Formatters.Binary;
+using EtherDuels.Config;
 
 namespace EtherDuels
 {
@@ -33,7 +34,7 @@ namespace EtherDuels
         private ProgramState programState;
 
         GameView gameView; // TODO <- remove this one later
-        private Game.Model.InputConfigurationRetriever inputConfigurationRetriever;
+        private InputConfigurationRetriever inputConfigurationRetriever;
 
         public EtherDuels()
         {
@@ -94,7 +95,7 @@ namespace EtherDuels
             Configuration configuration = configurationReader.read("config.cfg");
 
             // Build MenuController
-            MenuBuilder menuBuilder = new SimpleMenuBuilder(this, font);
+            MenuBuilder menuBuilder = new SimpleMenuBuilder(this, configuration, font);
             menuBuilder.Background = textureStars;
             MenuModel menuModel = menuBuilder.BuildModel();
             MenuView menuView = menuBuilder.BuildView(menuModel);
