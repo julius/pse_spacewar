@@ -110,7 +110,6 @@
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\ConfigurationRetriever.cs" />
     <Compile Include="EtherDuels.cs" />
-    <Compile Include="Game\Configuration_DELETE_ME.cs" />
     <Compile Include="Config\ConfigurationReader.cs" />
     <Compile Include="Game\Model\CollisionHandler.cs" />
     <Compile Include="Game\Model\Explosion.cs" />

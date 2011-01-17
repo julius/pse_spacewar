@@ -62,6 +62,7 @@ namespace EtherDuels.Config
             }
 
             Configuration result = (Configuration)binaryFormatter.Deserialize(stream);
+            stream.Close();
             result.Path = path;
             return result;
         }
