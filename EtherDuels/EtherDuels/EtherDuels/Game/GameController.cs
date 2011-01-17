@@ -223,34 +223,25 @@ namespace EtherDuels.Game
         /// <param name="shooter">The Spaceship, which fired a projectile.</param>
         public void OnFire(Spaceship shooter)
         {
-            Vector2 position = shooter.Position;
-            Vector2 velocity = shooter.Velocity;
-            float rotation = shooter.Rotation;
-            float radius = shooter.Radius;
-            Vector2 projectilePosition;
-            Weapon weapon = shooter.CurrentWeapon;
-
             // create the projectile and its view and add them to the World/WorldView
-            Projectile projectile = gameModel.GetFactory().CreateProjectile(weapon);
-            WorldObjectView projectileView = gameModel.GetFactory().CreateProjectileView(weapon, projectile);
+            Projectile projectile = gameModel.GetFactory().CreateProjectile(shooter.CurrentWeapon);
+            WorldObjectView projectileView = gameModel.GetFactory().CreateProjectileView(shooter.CurrentWeapon, projectile);
             gameModel.World.AddWorldObject(projectile);
             gameView.WorldView.AddWorldObjectView(projectileView);
 
             // set the projectile's rotation
-            projectile.Rotation = rotation;
+            projectile.Rotation = shooter.Rotation;
             
-            //TODO korrekte position berechnen... rotation wert ist komisch. sollte 0-360 sein.
-            /* calculate and set the projectile's position. Sinus and Cosinus automatically calculate the
-             * right direction in which x and y have to be added. 
-             * The "1" has to be added to avoid an imidiate collision between the projectile and its shooter. */
-            projectilePosition.Y = position.Y + (float) Math.Sin(rotation) * (radius + projectile.Radius + 1);
-            projectilePosition.X = position.X + (float) Math.Cos(rotation) * (radius + projectile.Radius + 1);
+            // calculate and set the projectile's position. 
+            Vector2 projectilePosition;
+            projectilePosition.X = shooter.Position.X + (float)Math.Sin(shooter.Rotation) * (shooter.Radius + projectile.Radius + 1);
+            projectilePosition.Y = shooter.Position.Y - (float)Math.Cos(shooter.Rotation) * (shooter.Radius + projectile.Radius + 1);
             projectile.Position = projectilePosition;
 
             // add the spaceship's velocity to the projectile's velocity
-            Vector2 projectileVelocity = projectile.Velocity;
-            projectileVelocity.X += (float) Math.Sin(rotation) * 300;
-            projectileVelocity.Y -= (float) Math.Cos(rotation) * 300;
+            Vector2 projectileVelocity = shooter.Velocity;
+            projectileVelocity.X += (float)Math.Sin(shooter.Rotation) * 300;
+            projectileVelocity.Y -= (float)Math.Cos(shooter.Rotation) * 300;
             projectile.Velocity = projectileVelocity;
         }
 
