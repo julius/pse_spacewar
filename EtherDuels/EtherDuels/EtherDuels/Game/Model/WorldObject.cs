@@ -20,6 +20,11 @@ namespace EtherDuels.Game.Model
         float rotation;
         Vector2 velocity;
 
+        public WorldObject()
+        {
+            health = 100;
+        }
+
         /// <summary>
         /// Gets and sets the attackpower of a WorldObject.
         /// </summary>

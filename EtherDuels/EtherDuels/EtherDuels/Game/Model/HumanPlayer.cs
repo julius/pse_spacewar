@@ -12,6 +12,9 @@ namespace EtherDuels.Game.Model
     public class HumanPlayer: Player
     {
         private InputConfigurationRetriever inputConfigurationRetriever;
+        private bool isFireKeyDown = false;
+        private bool isNextWeaponKeyDown = false;
+        private bool isPrevWeaponKeyDown = false;
 
         /// <summary>
         /// Creates a Human Player.
@@ -32,9 +35,44 @@ namespace EtherDuels.Game.Model
         /// <param name="frameState">frame specific state.</param>
         public override void Update(FrameState frameState)
         {
-            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Fire))
+            /*TODO: zumindest bei Fire sollte man vllt eher die isKeyUp benutzen, weil sonst Dauerfeuer geschieht und 
+             * sich die Projectile dann wahrscheinlich gegenseitig zerstören. */
+
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Fire)) isFireKeyDown = true;
+            if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.Fire) && isFireKeyDown)
             {
+                isFireKeyDown = false;
                 this.playerHandler.OnFire(this.spaceship);
+            }
+
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.NextWeapon)) isNextWeaponKeyDown = true;
+            if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.NextWeapon) && isNextWeaponKeyDown)
+            {
+                isNextWeaponKeyDown = false;
+                //TODO: erweiterbar machen! 
+                if (this.spaceship.CurrentWeapon == Weapon.Laser)
+                {
+                    this.spaceship.CurrentWeapon = Weapon.Rocket;
+                }
+                else
+                {
+                    this.spaceship.CurrentWeapon = Weapon.Laser;
+                }
+            }
+
+            if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.PrevWeapon)) isPrevWeaponKeyDown = true;
+            if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.PrevWeapon) && isPrevWeaponKeyDown)
+            {
+                isPrevWeaponKeyDown = false;
+                //TODO: erweiterbar machen! 
+                if (this.spaceship.CurrentWeapon == Weapon.Laser)
+                {
+                    this.spaceship.CurrentWeapon = Weapon.Rocket;
+                }
+                else
+                {
+                    this.spaceship.CurrentWeapon = Weapon.Laser;
+                }
             }
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Forward))

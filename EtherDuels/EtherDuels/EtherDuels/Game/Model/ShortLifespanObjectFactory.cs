@@ -19,7 +19,8 @@ namespace EtherDuels.Game.Model
     {
 
         Microsoft.Xna.Framework.Graphics.Model ExplosionModel { set; }
-        Microsoft.Xna.Framework.Graphics.Model ProjectileModel { set; }
+        Microsoft.Xna.Framework.Graphics.Model RocketModel { set; }
+        Microsoft.Xna.Framework.Graphics.Model LaserModel { set; }
 
         /// <summary>
         /// Creates a new Explosion object.
@@ -48,6 +49,6 @@ namespace EtherDuels.Game.Model
         /// <param name="weapon">The weapon, which shot the projectile to define the right model.</param>
         /// <param name="projectile">The Projectile object to check for position etc. .</param>
         /// <returns>The created WorldObjectView of a projectile.</returns>
-        WorldObjectView CreateProjectileview(Weapon weapon, Projectile projectile);
+        WorldObjectView CreateProjectileView(Weapon weapon, Projectile projectile);
     }
 }

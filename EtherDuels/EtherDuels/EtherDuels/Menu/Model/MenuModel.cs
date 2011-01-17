@@ -12,6 +12,7 @@ namespace EtherDuels.Menu.Model
     class MenuModel
     {   
         private MenuDialog[] menuDialogs;
+        private int previousDialog = 0;
         
         /// <summary>
         /// Gets an array of all MenuDialogs, which are used by the menu.
@@ -19,15 +20,16 @@ namespace EtherDuels.Menu.Model
         public MenuDialog[] MenuDialogs
         {
             get { return this.menuDialogs; }
+            set { this.menuDialogs = value; }
         }
 
         /// <summary>
         /// Creates a new MenuModel.
         /// </summary>
         /// <param name="menuDialogs">All MenuDialogs the MenuModel consists of.</param>
-        public MenuModel(MenuDialog[] menuDialogs)
+        public MenuModel()
         {
-            this.menuDialogs = menuDialogs;
+            // TODO ..?
         }
 
         /// <summary>
@@ -79,16 +81,22 @@ namespace EtherDuels.Menu.Model
             this.SetActiveDialogByIndex(1);
         }
 
-        private void SetActiveDialogByIndex(int index)
+        public void SetActiveDialogByIndex(int index)
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
 
             if (menuDialogIndex != -1)
             {
+                previousDialog = menuDialogIndex;
                 this.menuDialogs[menuDialogIndex].Active = false;
             }
 
             this.menuDialogs[index].Active = true;
+        }
+
+        public void SetPreviousDialogActive()
+        {
+            SetActiveDialogByIndex(previousDialog);
         }
 
         /// <summary>

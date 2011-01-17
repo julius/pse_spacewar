@@ -21,6 +21,9 @@ namespace EtherDuels.Menu
         private MenuHandler menuHandler;
         private MenuModel menuModel;
         private MenuView menuView;
+        private bool isDownKeyDown = false;
+        private bool isUpKeyDown = false;
+        private bool isEnterKeyDown = false;
 
         /// <summary>
         /// Creates a new MenuController.
@@ -44,10 +47,7 @@ namespace EtherDuels.Menu
         {
             this.menuView.Draw(viewport, spriteBatch);
         }
-
-        private bool isDownKeyDown = false;
-        private bool isUpKeyDown = false;
-        private bool isEnterKeyDown = false;
+        
 
         /// <summary>
         /// Updates the menu.

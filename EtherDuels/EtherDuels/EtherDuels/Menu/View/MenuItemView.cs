@@ -37,7 +37,7 @@ namespace EtherDuels.Menu.View
             Color color = Color.White;
             if (this.menuItem.Selected)
             {
-                color = Color.Red;
+                color = Color.Orange;
             }
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
