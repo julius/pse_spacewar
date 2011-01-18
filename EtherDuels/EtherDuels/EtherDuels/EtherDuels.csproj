@@ -111,6 +111,7 @@
     <Compile Include="Config\ConfigurationRetriever.cs" />
     <Compile Include="EtherDuels.cs" />
     <Compile Include="Config\ConfigurationReader.cs" />
+    <Compile Include="Game\GameAssets.cs" />
     <Compile Include="Game\Model\CollisionHandler.cs" />
     <Compile Include="Game\Model\Explosion.cs" />
     <Compile Include="FrameState.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Game\Model\SimplePhysicsAlgorithm.cs" />
     <Compile Include="Game\View\WorldObjectView.cs" />
     <Compile Include="Game\View\WorldView.cs" />
+    <Compile Include="Menu\MenuAssets.cs" />
     <Compile Include="Menu\MenuBuilder.cs" />
     <Compile Include="Menu\MenuController.cs" />
     <Compile Include="Menu\MenuHandler.cs" />

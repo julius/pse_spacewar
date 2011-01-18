@@ -17,13 +17,7 @@ namespace EtherDuels.Game.View
     {
         private GameModel gameModel;
         private WorldView worldView;
-        private Texture2D healthBar;
-        
-        public Texture2D HealthBar
-        {
-            set { healthBar = value; }
-        }
-
+        private GameAssets gameAssets = GameAssets.Instance;
 
         /// <summary>
         /// Creates a new GameView object.
@@ -61,7 +55,7 @@ namespace EtherDuels.Game.View
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            // TODO draw HUD
+            // TODO draw HUD with gameAssets.HealthBar;
          
 
            spriteBatch.End();

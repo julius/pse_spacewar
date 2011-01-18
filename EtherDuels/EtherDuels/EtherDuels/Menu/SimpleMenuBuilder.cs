@@ -18,25 +18,17 @@ namespace EtherDuels.Menu
     class SimpleMenuBuilder: MenuBuilder
     {
         private MenuHandler menuHandler;
-        private SpriteFont spriteFont;
-        private Texture2D background;
-        public Texture2D Background
-        {
-            set { this.background = value; }
-        }
-
-        Configuration configuration;
+        private Configuration configuration;
 
         /// <summary>
         /// Creates a new SimpleMenuBuilder.
         /// </summary>
         /// <param name="menuHandler">The assigned MenuHandler.</param>
         /// <param name="spriteFont">The used font.</param>
-        public SimpleMenuBuilder(MenuHandler menuHandler, Configuration configuration, SpriteFont spriteFont)
+        public SimpleMenuBuilder(MenuHandler menuHandler, Configuration configuration)
         {
             this.menuHandler = menuHandler;
             this.configuration = configuration;
-            this.spriteFont = spriteFont;
         }
 
         private string FormatKey(Keys key)
@@ -361,12 +353,12 @@ namespace EtherDuels.Menu
 
                 foreach (MenuItem menuItem in menuDialog.MenuItems)
                 {
-                    MenuItemView menuItemView = new MenuItemView(menuItem, this.spriteFont);
+                    MenuItemView menuItemView = new MenuItemView(menuItem);
                     menuItemViewList.Add(menuItemView);
                 }
 
                 // TODO: add background texture (3rd argument)
-                MenuDialogView menuDialogView = new MenuDialogView(menuItemViewList.ToArray(), menuDialog, background);
+                MenuDialogView menuDialogView = new MenuDialogView(menuItemViewList.ToArray(), menuDialog);
                 menuDialogViewList.Add(menuDialogView);
             }
 

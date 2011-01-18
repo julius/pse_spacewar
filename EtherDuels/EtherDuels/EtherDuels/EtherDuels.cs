@@ -72,16 +72,33 @@ namespace EtherDuels
             // Sample code to draw some models and stuff
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
-            SpriteFont font = content.Load<SpriteFont>("NiceFont");
+            SpriteFont menuFont = content.Load<SpriteFont>("NiceFont");
             Texture2D textureStars = content.Load<Texture2D>("texture_space");
             Texture2D textureHealthBar = content.Load<Texture2D>("texture_stars");
             Texture2D textureSmoke = content.Load<Texture2D>("texture_stars");
-            Model modelShip = content.Load<Model>("spaceship_green");
+            Model modelSpaceship = content.Load<Model>("spaceship_green");
             Model modelPlanet = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
             
+            // Build Asset classes
+            MenuAssets menuAssets = MenuAssets.Instance;
+            GameAssets gameAssets = GameAssets.Instance;
+
+            // Load content into the asset classes
+            menuAssets.MenuFont = menuFont;
+            menuAssets.TextureBackground = textureStars;
+
+            gameAssets.TextureHealthBar = textureHealthBar;
+            gameAssets.TextureSmoke = textureSmoke;
+            gameAssets.TextureBackground = textureStars;
+            gameAssets.ModelSpaceship = modelSpaceship;
+            gameAssets.ModelPlanet = modelPlanet;
+            gameAssets.ModelRocket = modelRocket;
+            gameAssets.ModelLaser = modelLaser;
+            gameAssets.ModelExplosion = modelExplosion;
+           
          
             // Spaceship ship = new Spaceship();
             // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
@@ -94,8 +111,7 @@ namespace EtherDuels
             Configuration configuration = configurationReader.read("config.cfg");
 
             // Build MenuController
-            MenuBuilder menuBuilder = new SimpleMenuBuilder(this, configuration, font);
-            menuBuilder.Background = textureStars;
+            MenuBuilder menuBuilder = new SimpleMenuBuilder(this, configuration);
             MenuModel menuModel = menuBuilder.BuildModel();
             MenuView menuView = menuBuilder.BuildView(menuModel);
             this.menuController = new MenuController(this, menuModel, menuView);
@@ -103,12 +119,6 @@ namespace EtherDuels
 
             // TODO: Build GameController
             GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
-            gameBuilder.Background = textureStars;
-            gameBuilder.SpaceshipModel = modelShip;
-            gameBuilder.PlanetModel = modelPlanet;
-            gameBuilder.RocketModel = modelRocket;
-            gameBuilder.LaserModel = modelLaser;
-            gameBuilder.ExplosionModel = modelExplosion;
 
             this.gameController = new GameController(gameBuilder, this);
 

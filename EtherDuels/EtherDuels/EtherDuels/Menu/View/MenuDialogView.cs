@@ -15,9 +15,9 @@ namespace EtherDuels.Menu.View
     /// </summary>
     class MenuDialogView
     {
-        private Texture2D background;
         private MenuDialog menuDialog;
         private MenuItemView[] menuItemViews;
+        private MenuAssets menuAssets = MenuAssets.Instance;
 
         /// <summary>
         /// Creates a new MenuDialogView object.
@@ -25,11 +25,10 @@ namespace EtherDuels.Menu.View
         /// <param name="menuItemViews">An array of its containing MenuItemViews.</param>
         /// <param name="menuDialog">Its dedicated MenuDialog.</param>
         /// <param name="background">Defines the background of this MenuDialog.</param>
-        public MenuDialogView(MenuItemView[] menuItemViews, MenuDialog menuDialog, Texture2D background)
+        public MenuDialogView(MenuItemView[] menuItemViews, MenuDialog menuDialog)
         {
             this.menuItemViews = menuItemViews;
             this.menuDialog = menuDialog;
-            this.background = background;
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace EtherDuels.Menu.View
 
             // TODO draw background. edit claudi: hab das jetz einfach mal so von WorldView uebernommen, ohne zu wissen was das zeugs bedeutet
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            spriteBatch.Draw(this.background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.Draw(menuAssets.TextureBackground, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             spriteBatch.End();
             
             // draw items

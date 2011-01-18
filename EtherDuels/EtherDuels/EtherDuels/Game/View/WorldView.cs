@@ -16,14 +16,8 @@ namespace EtherDuels.Game.View
         private Vector3 cameraPosition;
         private World world;
         private List<WorldObjectView> worldObjectViews;
-        private Texture2D background;
-        private Texture2D smoke;
-
-        public Texture2D Smoke
-        {
-            set { smoke = value; }
-        }
-
+        private Texture2D background;   //TODO: müsste eigentlich auch weg, aber dann muss auch der Konstruktor und damit der Entwurf geändert werden.
+        private GameAssets gameAssets = GameAssets.Instance;
 
         public WorldObjectView[] WorldObjectViews
         {

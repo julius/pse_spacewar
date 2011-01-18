@@ -14,17 +14,16 @@ namespace EtherDuels.Menu.View
     class MenuItemView
     {
         private MenuItem menuItem;
-        private SpriteFont font;
+        private MenuAssets menuAssets = MenuAssets.Instance;
 
         /// <summary>
         /// Creates a MenuItemView object for its dedicated MenuItem.
         /// </summary>
         /// <param name="menuItem">Defines the dedicated MenuItem, to check it for changes.</param>
         /// <param name="font">Defines the used font. </param>
-        public MenuItemView(MenuItem menuItem, SpriteFont font)
+        public MenuItemView(MenuItem menuItem)
         {
             this.menuItem = menuItem;
-            this.font = font;
         }
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace EtherDuels.Menu.View
             }
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            spriteBatch.DrawString(this.font, this.menuItem.Text, position, color);
+            spriteBatch.DrawString(menuAssets.MenuFont, this.menuItem.Text, position, color);
             spriteBatch.End();
         }
     }

@@ -13,8 +13,6 @@ namespace EtherDuels.Menu
     /// </summary>
     interface MenuBuilder
     {
-        Texture2D Background { set; }
-
         /// <summary>
         /// Creates a new MenuModel.
         /// </summary>
