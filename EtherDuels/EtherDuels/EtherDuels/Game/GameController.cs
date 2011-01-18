@@ -250,8 +250,8 @@ namespace EtherDuels.Game
 
             // add the spaceship's velocity to the projectile's velocity
             Vector2 projectileVelocity = shooter.Velocity;
-            projectileVelocity.X += (float)Math.Sin(shooter.Rotation) * 300;
-            projectileVelocity.Y -= (float)Math.Cos(shooter.Rotation) * 300;
+            projectileVelocity.X += (float)Math.Sin(shooter.Rotation) * 200;
+            projectileVelocity.Y -= (float)Math.Cos(shooter.Rotation) * 200;
             projectile.Velocity = projectileVelocity;
         }
 

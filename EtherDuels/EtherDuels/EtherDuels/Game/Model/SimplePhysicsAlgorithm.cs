@@ -57,38 +57,44 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Applies the gravity of the Planet to all other worldObjects and updates their velocities.
+        /// Applies the gravity of the planets and spaceships to all other worldObjects and updates their velocities.
         /// </summary>
         /// <param name="gameTime"></param>
         private void UpdateGravity(GameTime gameTime)
         {
-            foreach (WorldObject worldObject in worldObjects)
+            //TODO: funktioniert bisher nur wenn der Planet als erstes in der liste steht. Das korrigier ich aber noch.
+            for (int i = 0; i < worldObjects.Length; i++)
             {
-                if (worldObject is Planet) { }
-                else
+                if (worldObjects[i] is Planet || worldObjects[i] is Spaceship)
                 {
-                    // f = m * a
-                    // f = G * m / r^2
-                    // m_object * a = G * m_planet / r^2
-                    // a = (G * m_planet / r^2) / m_object
+                    for (int j = i + 1; j < worldObjects.Length; j++)
+                    {
+                        Vector2 distance = new Vector2(worldObjects[i].Position.X - worldObjects[j].Position.X, worldObjects[i].Position.Y - worldObjects[j].Position.Y);
+                        double gravity = (G * worldObjects[i].Mass * worldObjects[j].Mass / distance.LengthSquared()) * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;   // in Newton * 0.1 milliseconds
+                        distance.Normalize();
+                        Vector2 velocityAddition = Vector2.Multiply(distance, (float)(gravity / 100000000000000));
+                        worldObjects[j].Velocity += velocityAddition;
 
-                    /*Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
-                        world.Planet.Position.Y - worldObject.Position.Y);
-                    double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.TotalMilliseconds;
-                    // angle of the velocity
-                    double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
 
-                    Vector2 objVelocity = worldObject.Velocity;
-                    objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
-                    objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);*/
+                        // TODO: === old code => delete? ===
 
-                    Vector2 distance = new Vector2(world.Planet.Position.X - worldObject.Position.X, world.Planet.Position.Y - worldObject.Position.Y);
-                    double gravity = (G * world.Planet.Mass * worldObject.Mass / distance.LengthSquared()) * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;   // in Newton * 0.1 milliseconds
-                    distance.Normalize();
-                    Vector2 velocityAddition = Vector2.Multiply(distance, (float)(gravity / 100000000000000));
-                    worldObject.Velocity += velocityAddition;
-                }
-                
+                        // f = m * a
+                        // f = G * m / r^2
+                        // m_object * a = G * m_planet / r^2
+                        // a = (G * m_planet / r^2) / m_object
+
+                        /*Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
+                            world.Planet.Position.Y - worldObject.Position.Y);
+                        double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.TotalMilliseconds;
+                        // angle of the velocity
+                        double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
+
+                        Vector2 objVelocity = worldObject.Velocity;
+                        objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
+                        objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);*/
+
+                    }
+                }                
             }
         }
 
