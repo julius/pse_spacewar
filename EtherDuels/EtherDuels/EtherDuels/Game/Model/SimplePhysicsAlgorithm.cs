@@ -16,9 +16,12 @@ namespace EtherDuels.Game.Model
     public class SimplePhysicsAlgorithm : Physics
     {
         // TODO: speed of light in m/s, should be set to a more reasonable value
+        // TODO: static oder const für konstanten?
         private static float MAX_VELOCITY = 299792458.0f;
-        // gravitational constant
-        private static double G = 6.67428E-11;
+        // G: gravitational constant
+        private static double G = 6.67428E-11;  // in m^3/kg/s^2
+        // N: normalisation factor, to downsize the dimensions of the universe to those of our game
+        private static float N = 100000;        // must NOT be 0!!
 
         private CollisionHandler collisionHandler;
         private World world;
@@ -67,32 +70,38 @@ namespace EtherDuels.Game.Model
             {
                 if (worldObjects[i] is Planet || worldObjects[i] is Spaceship)
                 {
-                    for (int j = i + 1; j < worldObjects.Length; j++)
+                    for (int j = 0; j < worldObjects.Length; j++)
                     {
+                        /* 
+                         * physics annotation: 
+                         * m: meter
+                         * s: seconds
+                         * kg: kilogram
+                         * 
+                         * F: gravitational force in Newton = kg * m / s^2
+                         * G: gravitational constant in m^3 / kg / s^2
+                         * mass1: mass of the first object in kg
+                         * mass2: mass of the second object in kg
+                         * a : acceleration in m / s^2
+                         * r: distance vector between the two objects
+                         * v: velocity vector
+                         * t: time in seconds
+                         * 
+                         * F = G * mass1 * mass2 / r^2
+                         * F = a * mass2 => a = F / mass2 = G * mass1 / r^2
+                         * v = a * t in m / s
+                         */
+
                         Vector2 distance = new Vector2(worldObjects[i].Position.X - worldObjects[j].Position.X, worldObjects[i].Position.Y - worldObjects[j].Position.Y);
-                        double gravity = (G * worldObjects[i].Mass * worldObjects[j].Mass / distance.LengthSquared()) * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;   // in Newton * 0.1 milliseconds
-                        distance.Normalize();
-                        Vector2 velocityAddition = Vector2.Multiply(distance, (float)(gravity / 100000000000000));
-                        worldObjects[j].Velocity += velocityAddition;
-
-
-                        // TODO: === old code => delete? ===
-
-                        // f = m * a
-                        // f = G * m / r^2
-                        // m_object * a = G * m_planet / r^2
-                        // a = (G * m_planet / r^2) / m_object
-
-                        /*Vector2 distanceVector = new Vector2(world.Planet.Position.X - worldObject.Position.X, 
-                            world.Planet.Position.Y - worldObject.Position.Y);
-                        double velocityDiff = ((G * world.Planet.Mass / distanceVector.LengthSquared()) / worldObject.Mass) * gameTime.ElapsedGameTime.TotalMilliseconds;
-                        // angle of the velocity
-                        double angle = Math.Asin(distanceVector.Y / distanceVector.Length());
-
-                        Vector2 objVelocity = worldObject.Velocity;
-                        objVelocity.X += (float) (Math.Cos(angle) * velocityDiff);
-                        objVelocity.Y += (float)(Math.Sin(angle) * velocityDiff);*/
-
+                        // avoid dividing by zero(meaning the two objects are either the same or already collided)
+                        if (distance.Length() != 0)
+                        {
+                            float acceleration = ((float)(G * worldObjects[i].Mass / distance.LengthSquared()));
+                            distance.Normalize();
+                            Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
+                            Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                            worldObjects[j].Velocity += Vector2.Divide(velocityVector, N);
+                        }
                     }
                 }                
             }

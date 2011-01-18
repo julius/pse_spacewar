@@ -69,7 +69,7 @@ namespace EtherDuels.Game
             players.Add(player1);
             players.Add(player2);
 
-            WorldObject[] worldObjects = { planet, spaceship1, spaceship2 };
+            WorldObject[] worldObjects = {  spaceship1, planet, spaceship2 };
 
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();
