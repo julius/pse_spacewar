@@ -74,8 +74,8 @@ namespace EtherDuels
             ContentManager content = new ContentManager(Services, "Assets");
             SpriteFont menuFont = content.Load<SpriteFont>("NiceFont");
             Texture2D textureStars = content.Load<Texture2D>("texture_space");
-            Texture2D textureHealthBar = content.Load<Texture2D>("texture_stars");
-            Texture2D textureSmoke = content.Load<Texture2D>("texture_stars");
+            Texture2D textureHealthBar = content.Load<Texture2D>("texture_healthbar");
+            Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
             Model modelSpaceship = content.Load<Model>("spaceship_green");
             Model modelPlanet = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
@@ -98,6 +98,7 @@ namespace EtherDuels
             gameAssets.ModelRocket = modelRocket;
             gameAssets.ModelLaser = modelLaser;
             gameAssets.ModelExplosion = modelExplosion;
+            gameAssets.HudFont = menuFont;
            
          
             // Spaceship ship = new Spaceship();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+
 using EtherDuels.Game.Model;
 
 namespace EtherDuels.Game.View
@@ -77,6 +78,10 @@ namespace EtherDuels.Game.View
                 }
                 else
                 {
+                    if (worldObjectView.WorldObject is Planet)
+                    {
+                        //Draw planet?
+                    }
                     worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
                 }
             }

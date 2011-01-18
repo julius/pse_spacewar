@@ -207,7 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="healthbar.png">
-      <Name>healthbar</Name>
+      <Name>texture_healthbar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -217,7 +217,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="smoke.png">
-      <Name>smoke</Name>
+      <Name>texture_smoke</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -6,6 +6,7 @@ using EtherDuels.Game.Model;
 using EtherDuels.Game.View;
 using Microsoft.Xna.Framework.Graphics;
 using EtherDuels.Config;
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
 {
@@ -39,7 +40,7 @@ namespace EtherDuels.Game
             planet.Mass = 6E24;
             planet.Health = 1000000;
             planet.Attack = 1000;
-            planet.Radius = 300;
+            planet.Radius = 300;            
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
@@ -69,7 +70,7 @@ namespace EtherDuels.Game
             players.Add(player1);
             players.Add(player2);
 
-            WorldObject[] worldObjects = {  spaceship1, planet, spaceship2 };
+            WorldObject[] worldObjects = {  spaceship1, planet, spaceship2};
 
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();

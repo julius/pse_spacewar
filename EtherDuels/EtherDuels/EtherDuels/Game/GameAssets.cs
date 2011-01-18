@@ -18,8 +18,14 @@ namespace EtherDuels.Game
             {
                 return instance;
             }
-        }      
-        
+        }
+
+        private SpriteFont hudFont;
+        public SpriteFont HudFont
+        {
+            get { return hudFont; }
+            set { hudFont = value; }
+        }
 
         private Texture2D textureHealthBar;
         public Texture2D TextureHealthBar
