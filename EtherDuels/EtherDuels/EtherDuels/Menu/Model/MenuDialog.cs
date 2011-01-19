@@ -73,6 +73,8 @@ namespace EtherDuels.Menu.Model
             if (menuItemIndex >= this.menuItems.Length) menuItemIndex = 0;
 
             this.menuItems[menuItemIndex].Selected = true;
+            if (this.menuItems[menuItemIndex].IsStaticText)
+                this.Down();
         }
 
         /// <summary>
@@ -92,6 +94,8 @@ namespace EtherDuels.Menu.Model
             if (menuItemIndex < 0) menuItemIndex = this.menuItems.Length - 1;
 
             this.menuItems[menuItemIndex].Selected = true;
+            if (this.menuItems[menuItemIndex].IsStaticText)
+                this.Up();
         }
 
         /// <summary>

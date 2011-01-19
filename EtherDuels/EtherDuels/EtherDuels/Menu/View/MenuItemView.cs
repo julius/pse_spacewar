@@ -38,6 +38,10 @@ namespace EtherDuels.Menu.View
             {
                 color = Color.Orange;
             }
+            if (this.menuItem.IsStaticText)
+            {
+                color = Color.LightGray;
+            }
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.DrawString(menuAssets.MenuFont, this.menuItem.Text, position, color);

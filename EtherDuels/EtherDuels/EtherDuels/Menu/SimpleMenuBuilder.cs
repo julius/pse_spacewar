@@ -314,6 +314,8 @@ namespace EtherDuels.Menu
             MenuDialog difficulty = new MenuDialog(difficultyMenuItems);
 
             // Build Keyboard Configuration Dialog
+            MenuItem keyConfigInfo = new MenuItem(null, delegate() { return "Press Enter to change controls"; });
+
             MenuItem keyConfig1ForwardKey = new MenuItem(actionForwardKey1, delegate() { return "Forward: " + FormatKey(kconf1.Forward); });
             MenuItem keyConfig1BackwardKey = new MenuItem(actionBackwardKey1, delegate() { return "Backward: " + FormatKey(kconf1.Backward); });
             MenuItem keyConfig1LeftKey = new MenuItem(actionLeftKey1, delegate() { return "Left: " + FormatKey(kconf1.Left); });
@@ -322,7 +324,7 @@ namespace EtherDuels.Menu
             MenuItem keyConfig1NextWeaponKey = new MenuItem(actionNextWeaponKey1, delegate() { return "Next Weapon: " + FormatKey(kconf1.NextWeapon); });
             MenuItem keyConfig1PrevWeaponKey = new MenuItem(actionPrevWeaponKey1, delegate() { return "Previous Weapon: " + FormatKey(kconf1.PrevWeapon); });
             MenuItem keyConfig1ReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
-            MenuItem[] keyConfigItems1 = { keyConfig1ForwardKey, keyConfig1BackwardKey, keyConfig1LeftKey, keyConfig1RightKey, keyConfig1FireKey,
+            MenuItem[] keyConfigItems1 = { keyConfigInfo, keyConfig1ForwardKey, keyConfig1BackwardKey, keyConfig1LeftKey, keyConfig1RightKey, keyConfig1FireKey,
                                             keyConfig1NextWeaponKey, keyConfig1PrevWeaponKey, keyConfig1ReturnToOptions };
             MenuDialog keyConfig1 = new MenuDialog(keyConfigItems1);
 
@@ -334,7 +336,7 @@ namespace EtherDuels.Menu
             MenuItem keyConfig2NextWeaponKey = new MenuItem(actionNextWeaponKey2, delegate() { return "Next Weapon: " + FormatKey(kconf2.NextWeapon); });
             MenuItem keyConfig2PrevWeaponKey = new MenuItem(actionPrevWeaponKey2, delegate() { return "Previous Weapon: " + FormatKey(kconf2.PrevWeapon); });
             MenuItem keyConfig2ReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
-            MenuItem[] keyConfigItems2 = { keyConfig2ForwardKey, keyConfig2BackwardKey, keyConfig2LeftKey, keyConfig2RightKey, keyConfig2FireKey,
+            MenuItem[] keyConfigItems2 = { keyConfigInfo, keyConfig2ForwardKey, keyConfig2BackwardKey, keyConfig2LeftKey, keyConfig2RightKey, keyConfig2FireKey,
                                             keyConfig2NextWeaponKey, keyConfig2PrevWeaponKey, keyConfig2ReturnToOptions };
             MenuDialog keyConfig2 = new MenuDialog(keyConfigItems2);
 
@@ -350,14 +352,21 @@ namespace EtherDuels.Menu
             MenuDialog highscore = new MenuDialog(highscoreItems);
 
             // Build Quit Program Dialog
+            MenuItem quitProgramQuestion = new MenuItem(null, delegate() { return "Really Quit ?"; });
             MenuItem quitProgramYes = new MenuItem(actionQuitProgram, delegate() { return "Yes"; });
             MenuItem quitProgramNo = new MenuItem(actionReturn, delegate() { return "No"; });
-            MenuItem[] quitProgramItems = { quitProgramYes, quitProgramNo };
+            MenuItem[] quitProgramItems = { quitProgramQuestion, quitProgramYes, quitProgramNo };
             MenuDialog quitProgram = new MenuDialog(quitProgramItems);
+
+            // Build Game Ended Dialog
+            MenuItem gameEndedInfo = new MenuItem(null, delegate() { return "Player " + menuModel.WinningPlayerID + " wins !"; });
+            MenuItem gameEndedReturnToMainMenu = new MenuItem(actionReturnToMainMenu, delegate() { return "Return to Main Menu"; });
+            MenuItem[] gameEndedItems = { gameEndedInfo, gameEndedReturnToMainMenu };
+            MenuDialog gameEnded = new MenuDialog(gameEndedItems);
 
             // Build Menu Model
             MenuDialog[] menuDialogs = { mainMenu, pauseMenu, optionsMainMenu, optionsPauseMenu, help, highscore, quitProgram,
-                                       volume, difficulty, keyConfig1, keyConfig2};
+                                       volume, difficulty, keyConfig1, keyConfig2, gameEnded};
             menuModel.MenuDialogs = menuDialogs;
             return menuModel;
         }

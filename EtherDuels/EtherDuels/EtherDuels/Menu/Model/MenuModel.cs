@@ -102,6 +102,21 @@ namespace EtherDuels.Menu.Model
             this.SetActiveDialogByIndex(1);
         }
 
+        /// <summary>
+        /// Sets the end game menu active.
+        /// </summary>
+        /// <param name="playerID">Id of the wining player.</param>
+        public void SetGameEndedMenu(int playerID)
+        {
+            this.winningPlayerID = playerID;
+            this.SetActiveDialogByIndex(11);
+        }
+
+        private int winningPlayerID;
+        public int WinningPlayerID {
+            get { return this.winningPlayerID; }
+        }
+
         public void SetActiveDialogByIndex(int index)
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();

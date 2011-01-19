@@ -30,8 +30,17 @@ namespace EtherDuels.Menu.Model
             this.actionHandler = actionHandler;
             this.textProvider = textProvider;
         }
-        
-        
+
+
+        /// <summary>
+        /// Gets if the MenuItem is static text.
+        /// A MenuItem is static text, when it has no ActionHandler
+        /// </summary>
+        public bool IsStaticText
+        {
+            get { return this.actionHandler == null; }
+        }
+
         /// <summary>
         /// Gets and sets if the MenuItem is selected.
         /// </summary>
