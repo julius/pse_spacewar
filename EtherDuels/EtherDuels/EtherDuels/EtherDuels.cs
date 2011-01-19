@@ -17,6 +17,7 @@ using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
 using System.Runtime.Serialization.Formatters.Binary;
 using EtherDuels.Config;
+using EtherDuels.Ruby;
 
 namespace EtherDuels
 {
@@ -121,8 +122,9 @@ namespace EtherDuels
             this.menuController = new MenuController(this, menuModel, menuView);
             this.menuController.SetMainMenu();
 
-            // TODO: Build GameController
-            GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
+            // Build GameController
+            //GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
+            GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
 
             this.gameController = new GameController(gameBuilder, this);
 
