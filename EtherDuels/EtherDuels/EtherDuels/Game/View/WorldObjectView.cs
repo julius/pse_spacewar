@@ -76,7 +76,7 @@ namespace EtherDuels.Game.View
                     effect.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
                     effect.DiffuseColor = new Vector3(0.8f);
-                    effect.AmbientLightColor = new Vector3(0.3f);
+                    effect.AmbientLightColor = new Vector3(0.7f, 0.5f, 0.7f);
                 }
 
                 mesh.Draw();

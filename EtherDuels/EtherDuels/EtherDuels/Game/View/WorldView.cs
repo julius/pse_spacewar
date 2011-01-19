@@ -78,13 +78,11 @@ namespace EtherDuels.Game.View
                 }
                 else
                 {
-                    if (worldObjectView.WorldObject is Planet)
-                    {
-                        //Draw planet?
-                    }
-                    worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
+                   worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
                 }
             }
+
+           
         }
     }
 }
