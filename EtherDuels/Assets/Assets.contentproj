@@ -180,20 +180,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="red_planet.png">
-      <Name>texture_red_planet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="spaceship.fbx">
       <Name>spaceship</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="red_planet.fbx">
-      <Name>red_planet</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
