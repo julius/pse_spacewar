@@ -57,14 +57,14 @@ namespace EtherDuels.Game
             player1.Spaceship.Attack = 50;
             player1.Spaceship.Radius = 240;
             player1.Spaceship.Health = 100;
-            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1000, 500);
+            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(-1900, 200);
 
             player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
             player2.Spaceship.CurrentWeapon = Weapon.Rocket;
             player2.Spaceship.Attack = 50;
             player2.Spaceship.Radius = 240;
             player2.Spaceship.Health = 100;
-            player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1400, 500);
+            player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1900, 200);
 
             List<Player> players = new List<Player>();
             players.Add(player1);

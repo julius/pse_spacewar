@@ -138,10 +138,10 @@ namespace EtherDuels.Game.Model
                     postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
 
                     // torodial field
-                    postion.X = postion.X > 3600 ? -3600 : postion.X;
-                    postion.Y = postion.Y > 2400 ? -2400 : postion.Y;
-                    postion.X = postion.X < -3600 ? 3600 : postion.X;
-                    postion.Y = postion.Y < -2400 ? 2400 : postion.Y;
+                    postion.X = postion.X > 3300 ? -2800 : postion.X;
+                    postion.Y = postion.Y > 2400 ? -2000 : postion.Y;
+                    postion.X = postion.X < -3300 ? 2800 : postion.X;
+                    postion.Y = postion.Y < -2400 ? 2000 : postion.Y;
 
                     worldObject.Position = postion;
                 
