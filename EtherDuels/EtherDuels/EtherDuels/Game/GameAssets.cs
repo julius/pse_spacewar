@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
 {
@@ -48,12 +49,24 @@ namespace EtherDuels.Game
             set { textureBackground = value; }
         }
 
-        private Microsoft.Xna.Framework.Graphics.Model modelSpaceship;
-        public Microsoft.Xna.Framework.Graphics.Model ModelSpaceship
+        private Dictionary<Color, Microsoft.Xna.Framework.Graphics.Model> modelsSpaceship = new Dictionary<Color, Microsoft.Xna.Framework.Graphics.Model>();
+        public Microsoft.Xna.Framework.Graphics.Model GetColoredSpaceship(Color color)
         {
-            get { return modelSpaceship; }
-            set { modelSpaceship = value; }
+            Microsoft.Xna.Framework.Graphics.Model model;
+            modelsSpaceship.TryGetValue(color, out model);
+            return model;
         }
+        public void SetColoredSpaceship(Color color, Microsoft.Xna.Framework.Graphics.Model model)
+        {
+            modelsSpaceship.Add(color, model);
+        }
+
+        //private Microsoft.Xna.Framework.Graphics.Model modelSpaceship;
+        //public Microsoft.Xna.Framework.Graphics.Model ModelSpaceship
+        //{
+        //    get { return modelSpaceship; }
+        //    set { modelSpaceship = value; }
+        //}
 
         private Microsoft.Xna.Framework.Graphics.Model modelRocket;
         public Microsoft.Xna.Framework.Graphics.Model ModelRocket

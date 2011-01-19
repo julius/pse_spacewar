@@ -96,7 +96,7 @@ namespace GameTest
         {
             mockPlayerHandler.Setup(b => b.OnFire(this.spaceship));
 
-            this.target = new HumanPlayer(playerId, mockPlayerHandler.Object, mockInputConfigurationRetriever.Object);
+            this.target = new HumanPlayer(playerId, mockPlayerHandler.Object, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Space };
@@ -113,7 +113,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateAccelerationForward1Test()
         {
-            this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Up };
@@ -134,7 +134,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateAccelerationForward2Test()
         {
-            this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Up };
@@ -158,7 +158,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateAccelerationBackward1Test()
         {
-            this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Down };
@@ -179,7 +179,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateAccelerationBackward2Test()
         {
-            this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Down };
@@ -203,7 +203,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateRotateLeftTest()
         {
-            this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Left };
@@ -223,7 +223,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateRotateRightTest()
         {
-            this.target = new HumanPlayer(playerId, null, mockInputConfigurationRetriever.Object);
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Right };

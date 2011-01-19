@@ -47,8 +47,8 @@ namespace EtherDuels.Game
             spaceship1.Mass = 8000;
             spaceship2.Mass = 8000;
 
-            Player player1 = new HumanPlayer(1, this.playerHandler, this.configuration.GetKeyboardConfiguration(1));
-            Player player2 = new HumanPlayer(2, this.playerHandler, this.configuration.GetKeyboardConfiguration(2));
+            Player player1 = new HumanPlayer(1, this.playerHandler, Color.Green, this.configuration.GetKeyboardConfiguration(1));
+            Player player2 = new HumanPlayer(2, this.playerHandler, Color.OrangeRed, this.configuration.GetKeyboardConfiguration(2));
             player1.Spaceship = spaceship1;
             player2.Spaceship = spaceship2;
 
@@ -94,7 +94,9 @@ namespace EtherDuels.Game
             {
                 if (worldObject is Spaceship)
                 {
-                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.ModelSpaceship, worldObject));
+                    Player player = GetPlayerOfSpaceship(model, (Spaceship)worldObject);
+                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetColoredSpaceship(player.PlayerColor), worldObject));
+                    //worldView.AddWorldObjectView(new WorldObjectView(gameAssets.ModelSpaceship, worldObject));
                 }
                 else if (worldObject is Planet)
                 {
@@ -109,6 +111,18 @@ namespace EtherDuels.Game
             gameView = new GameView(model, worldView);
 
             return gameView;
+        }
+
+        private Player GetPlayerOfSpaceship(GameModel gameModel, Spaceship spaceship)
+        {
+            foreach (Player player in gameModel.Players)
+            {
+                if (player.Spaceship == spaceship)
+                {
+                    return player;
+                }
+            }
+            return null;
         }
     }
 }

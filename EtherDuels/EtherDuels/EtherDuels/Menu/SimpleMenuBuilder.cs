@@ -248,7 +248,13 @@ namespace EtherDuels.Menu
             MenuItem mainMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
             MenuItem mainMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });
 
-            MenuItem[] mainMenuItems = { mainMenuStartGame, mainMenuOptions, mainMenuHelp, mainMenuHighscore, mainMenuQuitProgram };
+            MenuItem[] mainMenuItems = { 
+                                           mainMenuStartGame, 
+                                           mainMenuOptions, 
+                                           //mainMenuHelp, 
+                                           //mainMenuHighscore, 
+                                           mainMenuQuitProgram 
+                                       };
             MenuDialog mainMenu = new MenuDialog(mainMenuItems);
 
             // Build Pause Menu
@@ -259,7 +265,14 @@ namespace EtherDuels.Menu
             MenuItem pauseMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
             MenuItem pauseMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });
 
-            MenuItem[] pauseMenuItems = { pauseMenuResumeGame, pauseMenuStartNewGame, pauseMenuOptions, pauseMenuHelp, pauseMenuHighscore, pauseMenuQuitProgram };
+            MenuItem[] pauseMenuItems = { 
+                                            pauseMenuResumeGame, 
+                                            pauseMenuStartNewGame, 
+                                            pauseMenuOptions, 
+                                            //pauseMenuHelp, 
+                                            //pauseMenuHighscore, 
+                                            pauseMenuQuitProgram 
+                                        };
             MenuDialog pauseMenu = new MenuDialog(pauseMenuItems);
 
             // Build Options Menues
@@ -270,8 +283,19 @@ namespace EtherDuels.Menu
             MenuItem optionsMenuReturnToMainMenu = new MenuItem(actionReturnToMainMenu, delegate() { return "Return to Main Menu"; });
             MenuItem optionsMenuReturnToPauseMenu = new MenuItem(actionReturnToPauseMenu, delegate() { return "Return to Pause Menu"; });
 
-            MenuItem[] optionsMainMenuItems = { optionsMenuKeyboardConfiguration1, optionsMenuKeyboardConfiguration2, optionsMenuVolume, optionsMenuDifficulty, optionsMenuReturnToMainMenu };
-            MenuItem[] optionsPauseMenuItems = { optionsMenuKeyboardConfiguration1, optionsMenuKeyboardConfiguration2, optionsMenuVolume, optionsMenuReturnToPauseMenu };
+            MenuItem[] optionsMainMenuItems = { 
+                                                  optionsMenuKeyboardConfiguration1, 
+                                                  optionsMenuKeyboardConfiguration2, 
+                                                  //optionsMenuVolume, 
+                                                  //optionsMenuDifficulty, 
+                                                  optionsMenuReturnToMainMenu 
+                                              };
+            MenuItem[] optionsPauseMenuItems = { 
+                                                   optionsMenuKeyboardConfiguration1, 
+                                                   optionsMenuKeyboardConfiguration2, 
+                                                   //optionsMenuVolume, 
+                                                   optionsMenuReturnToPauseMenu 
+                                               };
             MenuDialog optionsMainMenu = new MenuDialog(optionsMainMenuItems);
             MenuDialog optionsPauseMenu = new MenuDialog(optionsPauseMenuItems);
 

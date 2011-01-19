@@ -43,15 +43,25 @@ namespace EtherDuels.Game.Model
             set { this.spaceship = value; }
         }
 
+        protected Color playerColor;
+        /// <summary>
+        /// Gets the player's Color.
+        /// </summary>
+        public Color PlayerColor
+        {
+            get { return this.playerColor; }
+        }
+
         /// <summary>
         /// Creates a player.
         /// </summary>
         /// <param name="playerId">The player's ID.</param>
         /// <param name="playerHandler">The player's Handler.</param>
-        public Player(int playerId, PlayerHandler playerHandler)
+        public Player(int playerId, PlayerHandler playerHandler, Color playerColor)
         {
             this.playerId = playerId;
             this.playerHandler = playerHandler;
+            this.playerColor = playerColor;
         }
 
         /// <summary>
