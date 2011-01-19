@@ -79,7 +79,7 @@ namespace EtherDuels
             Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
             Model modelSpaceshipGreen = content.Load<Model>("spaceship_green");
             Model modelSpaceshipOrange = content.Load<Model>("spaceship_red"); // the orange one looks green ^^
-            Model modelPlanet = content.Load<Model>("earth");
+            Model modelPlanet = content.Load<Model>("planet_red");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen

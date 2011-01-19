@@ -54,7 +54,7 @@ namespace EtherDuels.Game.Model
 
             foreach (Planet planet in world.Planets)
             {
-                planet.Rotation += 0.005f;
+                planet.Rotation += 0.0005f;
             }
 
             foreach (WorldObject[] collision in GetNewCollisions())
