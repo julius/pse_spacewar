@@ -112,6 +112,7 @@
     <Compile Include="EtherDuels.cs" />
     <Compile Include="Config\ConfigurationReader.cs" />
     <Compile Include="Game\GameAssets.cs" />
+    <Compile Include="Game\Model\AIPlayer.cs" />
     <Compile Include="Game\Model\CollisionHandler.cs" />
     <Compile Include="Game\Model\Explosion.cs" />
     <Compile Include="FrameState.cs" />
