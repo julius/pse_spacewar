@@ -43,7 +43,6 @@ namespace EtherDuels.Ruby
             ScriptEngine scriptEngine = IronRuby.Ruby.CreateEngine();
             ScriptScope scriptScope = scriptEngine.CreateScope();
             scriptScope.SetVariable("level", levelBuilder);
-
             try
             {
                 ScriptSource source = scriptEngine.CreateScriptSourceFromFile(this.path);

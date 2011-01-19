@@ -31,6 +31,11 @@ namespace EtherDuels.Ruby
             get { return this.worldObjectList.ToArray(); }
         }
 
+        public Vector2 Vector(float x, float y)
+        {
+            return new Vector2(x, y);
+        }
+
         public Planet AddPlanet()
         {
             Planet planet = new Planet();
