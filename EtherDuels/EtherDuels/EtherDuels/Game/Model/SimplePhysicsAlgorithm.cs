@@ -161,17 +161,14 @@ namespace EtherDuels.Game.Model
                 WorldObject object1 = worldObjects[i];
 
                 //TODO: edit claudi: explosionen sollen nicht kollidieren. hab das jetz ma provisorisch gemacht. gibs ein "is not"?
-                if (object1 is Explosion) { }
-                else
+                if (!(object1 is Explosion))
                 {
-
                     for (int j = i + 1; j < worldObjects.GetLength(0); j += 1)
                     {   
                         WorldObject object2 = worldObjects[j];
 
                         //TODO: edit claudi: hier auch
-                        if (object2 is Explosion) { }
-                        else
+                        if (!(object2 is Explosion))
                         {
 
                             float distance = Vector2.Distance(object1.Position, object2.Position);
