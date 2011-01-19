@@ -230,20 +230,31 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="planet_blue.fbx">
-      <Name>planet_blue</Name>
+    <Compile Include="mars.fbx">
+      <Name>mars</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="planet_red.fbx">
-      <Name>planet_red</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="mars.jpg">
+      <Name>texture_mars</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="moon.fbx">
+      <Name>moon</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="planet_yellow.fbx">
-      <Name>planet_yellow</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MoonMap2_2500x1250.jpg">
+      <Name>texture_moon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
