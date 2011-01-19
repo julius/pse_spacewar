@@ -15,6 +15,7 @@ namespace EtherDuels.Game.View
     {
         WorldObject worldObject;
         Microsoft.Xna.Framework.Graphics.Model model;
+        private float angle = 0;
 
         public WorldObject WorldObject
         {
@@ -47,6 +48,18 @@ namespace EtherDuels.Game.View
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
 
+            if (this.worldObject is Explosion)
+            {
+                float scale = (float)(gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
+                matrixWorld = Matrix.CreateScale(scale * scale * 0.001f) * matrixWorld;
+            }
+
+            if (this.worldObject is Planet)
+            {
+                angle += 0.0005f;
+                matrixWorld = Matrix.CreateRotationZ(3 * angle);
+            }
+
             Matrix[] transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
                         
@@ -69,11 +82,7 @@ namespace EtherDuels.Game.View
                 mesh.Draw();
             }
 
-            if (this.worldObject is Explosion)
-            {
-                float scale = (float) (gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
-                matrixWorld = Matrix.CreateScale(scale * scale * 0.001f) * matrixWorld;
-            }
+         
 
             this.model.Draw(matrixWorld, matrixView, matrixProjection);
         }
