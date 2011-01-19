@@ -51,8 +51,11 @@ namespace EtherDuels.Game.Model
 
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
-            //TODO: Planet-Getter wird noch entfernt. muss man dann alle worldObjects nach (is Planet) durchgehen.
-            world.Planet.Rotation += 0.005f;
+
+            foreach (Planet planet in world.Planets)
+            {
+                planet.Rotation += 0.005f;
+            }
 
             foreach (WorldObject[] collision in GetNewCollisions())
             {

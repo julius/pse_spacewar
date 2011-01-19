@@ -12,18 +12,15 @@ namespace EtherDuels.Game.Model
     public class World
     {
         private List<WorldObject> worldObjects;
-        private Planet planet;
 
         /// <summary>
         /// Creates a new World object.
         /// </summary>
         /// <param name="worldObjects">A list of WorldObjects the world 
         /// contains at the beginning of a game.</param>
-        /// <param name="planet">The planet the ships circuit.</param>
-        public World(WorldObject[] worldObjects, Planet planet)
+        public World(WorldObject[] worldObjects)
         {
             this.worldObjects = new List<WorldObject>(worldObjects);
-            this.planet = planet;
         }
 
         /// <summary>
@@ -63,11 +60,22 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Gets the planet of the world.
+        /// Gets all WorldObjects which are planets
         /// </summary>
-        public Planet Planet
+        public Planet[] Planets
         {
-            get { return planet; }
+            get
+            {
+                List<Planet> planets = new List<Planet>();
+                foreach (WorldObject worldObject in this.worldObjects)
+                {
+                    if (worldObject is Planet)
+                    {
+                        planets.Add((Planet)worldObject);
+                    }
+                }
+                return planets.ToArray();
+            }
         }
     }
 }

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EtherDuels.Game;
 using EtherDuels.Game.Model;
-using EtherDuels.Game.View;
-using Microsoft.Xna.Framework.Graphics;
 using EtherDuels.Config;
 using Microsoft.Xna.Framework;
+using EtherDuels.Game.View;
+using Microsoft.Scripting.Hosting;
 
-namespace EtherDuels.Game
+namespace EtherDuels.Ruby
 {
-    class SimpleGameBuilder: GameBuilder
-    {    
+    class RubyGameBuilder: GameBuilder
+    {
         private GameAssets gameAssets = GameAssets.Instance;
 
         private CollisionHandler collisionHandler;
@@ -27,50 +28,33 @@ namespace EtherDuels.Game
         }
 
         private Configuration configuration;
+        private string path;
 
-        public SimpleGameBuilder(Configuration configuration)
+        public RubyGameBuilder(string path, Configuration configuration)
         {
+            this.path = path;
             this.configuration = configuration;
         }
 
         public GameModel BuildModel()
         {
             // build game objects
-            Planet planet = new Planet();
-            planet.Mass = 6E24;
-            planet.Health = 1000000;
-            planet.Attack = 1000;
-            planet.Radius = 300;            
+            LevelBuilder levelBuilder = new LevelBuilder(this.configuration, this.playerHandler);
+            ScriptEngine scriptEngine = IronRuby.Ruby.CreateEngine();
+            ScriptScope scriptScope = scriptEngine.CreateScope();
+            scriptScope.SetVariable("level", levelBuilder);
 
-            Spaceship spaceship1 = new Spaceship();
-            Spaceship spaceship2 = new Spaceship();
-            spaceship1.Mass = 8000;
-            spaceship2.Mass = 8000;
-
-            Player player1 = new HumanPlayer(1, this.playerHandler, Color.Green, this.configuration.GetKeyboardConfiguration(1));
-            Player player2 = new HumanPlayer(2, this.playerHandler, Color.OrangeRed, this.configuration.GetKeyboardConfiguration(2));
-            player1.Spaceship = spaceship1;
-            player2.Spaceship = spaceship2;
-
-            player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
-            player1.Spaceship.CurrentWeapon = Weapon.Rocket;
-            player1.Spaceship.Attack = 50;
-            player1.Spaceship.Radius = 240;
-            player1.Spaceship.Health = 100;
-            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(-1900, 200);
-
-            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
-            player2.Spaceship.CurrentWeapon = Weapon.Rocket;
-            player2.Spaceship.Attack = 50;
-            player2.Spaceship.Radius = 240;
-            player2.Spaceship.Health = 100;
-            player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1900, 200);
-
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-
-            WorldObject[] worldObjects = {  spaceship1, planet, spaceship2};
+            try
+            {
+                ScriptSource source = scriptEngine.CreateScriptSourceFromFile(this.path);
+                source.Compile();
+                source.Execute(scriptScope);
+            }
+            catch (Exception e)
+            {
+                string errorMessage = "[" + this.path + "]\nError: " + e.Message;
+                System.Windows.Forms.MessageBox.Show(errorMessage);
+            }
 
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();
@@ -79,9 +63,9 @@ namespace EtherDuels.Game
             shortLifespanObjectFactory.ExplosionModel = gameAssets.ModelExplosion;
 
             // build game model
-            World world = new World(worldObjects);
+            World world = new World(levelBuilder.WorldObjects);
             Physics physics = new SimplePhysicsAlgorithm(this.collisionHandler, world);
-            GameModel gameModel = new GameModel(shortLifespanObjectFactory, physics, players, world);
+            GameModel gameModel = new GameModel(shortLifespanObjectFactory, physics, levelBuilder.Players, world);
             return gameModel;
         }
 

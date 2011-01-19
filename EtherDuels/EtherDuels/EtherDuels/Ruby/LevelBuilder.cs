@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using EtherDuels.Game.Model;
+using Microsoft.Xna.Framework;
+using EtherDuels.Config;
+
+namespace EtherDuels.Ruby
+{
+    class LevelBuilder
+    {
+        private List<WorldObject> worldObjectList = new List<WorldObject>();
+        private List<Player> players = new List<Player>();
+        private PlayerHandler playerHandler;
+        private Configuration configuration;
+
+        public LevelBuilder(Configuration configuration, PlayerHandler playerHandler)
+        {
+            this.configuration = configuration;
+            this.playerHandler = playerHandler;
+        }
+
+        public List<Player> Players
+        {
+            get { return this.players; }
+        }
+
+        public WorldObject[] WorldObjects
+        {
+            get { return this.worldObjectList.ToArray(); }
+        }
+
+        public Planet AddPlanet()
+        {
+            Planet planet = new Planet();
+            planet.Mass = 6E24;
+            planet.Health = 1000000;
+            planet.Attack = 1000;
+            planet.Radius = 300;
+            this.worldObjectList.Add(planet);
+
+            return planet;
+        }
+
+        public Player AddPlayer1()
+        {
+            Spaceship spaceship = new Spaceship();
+            spaceship.Mass = 8000;
+            this.worldObjectList.Add(spaceship);
+
+            Player player = new HumanPlayer(1, this.playerHandler, Color.Green, this.configuration.GetKeyboardConfiguration(1));
+            player.Spaceship = spaceship;
+
+            player.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
+            player.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player.Spaceship.Attack = 50;
+            player.Spaceship.Radius = 240;
+            player.Spaceship.Health = 100;
+            player.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(-1900, 200);
+            this.players.Add(player);
+
+            return player;
+        }
+
+        public Player AddPlayer2()
+        {
+            Spaceship spaceship = new Spaceship();
+            spaceship.Mass = 8000;
+            this.worldObjectList.Add(spaceship);
+
+            Player player = new HumanPlayer(2, this.playerHandler, Color.OrangeRed, this.configuration.GetKeyboardConfiguration(2));
+            player.Spaceship = spaceship;
+
+            player.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
+            player.Spaceship.CurrentWeapon = Weapon.Rocket;
+            player.Spaceship.Attack = 50;
+            player.Spaceship.Radius = 240;
+            player.Spaceship.Health = 100;
+            player.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1900, 200);
+            this.players.Add(player);
+
+            return player;
+        }
+    }
+}

@@ -82,7 +82,7 @@ namespace GameTest
             // asume 40.0 * 40.0 world, planet is in the center
             planet.Position = new Vector2(20.0f, 20.0f);
             planet.Velocity = new Vector2(0.0f, 0.0f);
-            world = new World(new WorldObject[0], planet);
+            world = new World(new WorldObject[0]);
         }
 
         /// <summary>
