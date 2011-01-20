@@ -82,7 +82,7 @@ namespace EtherDuels
             Model modelPlanet = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
-            Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+            Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
 
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
             SoundEffect soundLaser = content.Load<SoundEffect>("sound_laser");
@@ -90,8 +90,7 @@ namespace EtherDuels
             SoundEffect soundMenuClick = content.Load<SoundEffect>("sound_menuClick");
             Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
 
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(soundtrack);
+            
             
             // Build Asset classes
             MenuAssets menuAssets = MenuAssets.Instance;
@@ -143,6 +142,11 @@ namespace EtherDuels
             this.programState = new ProgramState();
             programState.GameState = GameState.NoGame;
             programState.MenuState = MenuState.InMenu;
+
+            //play background music
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(soundtrack);
+            MediaPlayer.Volume = 50; //TODO: von config abhängig machen
         }
 
         /// <summary>
@@ -152,6 +156,7 @@ namespace EtherDuels
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+           
         }
 
         /// <summary>

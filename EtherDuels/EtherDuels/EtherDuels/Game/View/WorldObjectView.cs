@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EtherDuels.Game.Model; //TODO Zugriff genauer einschränken???????????
+using EtherDuels.Game.Model; 
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -51,7 +51,7 @@ namespace EtherDuels.Game.View
             if (this.worldObject is Explosion)
             {
                 float scale = (float)(gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
-                matrixWorld = Matrix.CreateScale(scale * scale * 0.001f) * matrixWorld;
+                matrixWorld = Matrix.CreateScale(scale * scale * 0.0004f) * matrixWorld;
             }
 
             if (this.worldObject is Planet)
