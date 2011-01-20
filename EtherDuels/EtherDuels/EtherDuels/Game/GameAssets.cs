@@ -11,8 +11,6 @@ namespace EtherDuels.Game
     {
         private static readonly GameAssets instance = new GameAssets();
 
-        private GameAssets() { }
-
         public static GameAssets Instance
         {
             get
@@ -20,6 +18,13 @@ namespace EtherDuels.Game
                 return instance;
             }
         }
+
+        private GameAssets() { }
+
+        // G: gravitational constant
+        public static double G = 6.67428E-11;  // in m^3/kg/s^2
+        // N: normalisation factor, to downsize the dimensions of the universe to those of our game
+        public static float N = 100000;        // must NOT be 0!!
 
         private SpriteFont hudFont;
         public SpriteFont HudFont

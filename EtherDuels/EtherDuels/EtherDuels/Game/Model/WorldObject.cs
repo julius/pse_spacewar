@@ -20,13 +20,20 @@ namespace EtherDuels.Game.Model
         float rotation;
         Vector2 velocity;
 
+        // default constructor
         public WorldObject()
         {
-            health = 100;
+            this.attack = 10;
+            this.health = 100;
+            this.Mass = 1;
+            this.position = new Vector2(0, 0);
+            this.radius = 10;
+            this.rotation = 0;
+            this.velocity = new Vector2(0, 0);
         }
 
         /// <summary>
-        /// Gets and sets the attackpower of a WorldObject.
+        /// Gets and sets the attack of a WorldObject.
         /// </summary>
         public int Attack
         {

@@ -18,11 +18,6 @@ namespace EtherDuels.Game.Model
         // TODO: speed of light in m/s, should be set to a more reasonable value
         // TODO: static oder const für konstanten?
         private static float MAX_VELOCITY = 299792458.0f;
-        // G: gravitational constant
-        private static double G = 6.67428E-11;  // in m^3/kg/s^2
-        // N: normalisation factor, to downsize the dimensions of the universe to those of our game
-        private static float N = 100000;        // must NOT be 0!!
-
         private CollisionHandler collisionHandler;
         private World world;
 
@@ -51,8 +46,6 @@ namespace EtherDuels.Game.Model
 
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
-
-            System.Console.Write(Math.Sqrt(6E24 * G / 1000));
 
             foreach (Planet planet in world.Planets)
             {
@@ -106,11 +99,11 @@ namespace EtherDuels.Game.Model
                             // avoid dividing by zero(meaning the two objects are either the same or already collided)
                             if (distance.Length() != 0)
                             {
-                                float acceleration = ((float)(G * worldObjects[i].Mass / distance.LengthSquared()));
+                                float acceleration = ((float)(GameAssets.G * worldObjects[i].Mass / distance.LengthSquared()));
                                 distance.Normalize();
                                 Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
                                 Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, N);
+                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N);
                             }
                         }
                     }

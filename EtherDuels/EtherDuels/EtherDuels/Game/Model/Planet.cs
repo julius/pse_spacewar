@@ -14,6 +14,8 @@ namespace EtherDuels.Game.Model
         {
             isFlexible = false;
             this.Health = 1000000;
+            this.Attack = 1000000;
+            this.Mass = 6E24;
         }
 
         private bool isFlexible;

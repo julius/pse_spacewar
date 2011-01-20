@@ -13,7 +13,6 @@ namespace EtherDuels.Game
     class SimpleGameBuilder: GameBuilder
     {    
         private GameAssets gameAssets = GameAssets.Instance;
-        private static double G = 6.67428E-11;
 
         private CollisionHandler collisionHandler;
         public CollisionHandler CollisionHandler
@@ -38,8 +37,6 @@ namespace EtherDuels.Game
         {
             // build game objects
             Planet planet = new Planet();
-            planet.Mass = 6E24;
-            planet.Attack = 1000;
             planet.Radius = 300;
 
             // build planet in orbit
@@ -47,41 +44,27 @@ namespace EtherDuels.Game
             
             Planet planet2 = new Planet();
             planet2.IsFlexible = true;
-            planet2.Mass = 6E24;
             planet2.Position = new Vector2(distance, 0);
             // calculate velocity needed to circuit in orbit
-            int planet2Velocity = (int) Math.Round(Math.Sqrt(planet.Mass * G / distance / 100000000), 2);
+            int planet2Velocity = (int) Math.Round(Math.Sqrt(planet.Mass * GameAssets.G / distance / (GameAssets.N * 1000)), 2);
             planet2.Velocity = new Vector2(0, planet2Velocity);
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
-            spaceship1.Mass = 8000;
-            spaceship2.Mass = 8000;
 
             Player player1 = new HumanPlayer(1, this.playerHandler, Color.Green, this.configuration.GetKeyboardConfiguration(1));
             Player player2 = new HumanPlayer(2, this.playerHandler, Color.OrangeRed, this.configuration.GetKeyboardConfiguration(2));
             player1.Spaceship = spaceship1;
             player2.Spaceship = spaceship2;
 
-            player1.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
-            player1.Spaceship.CurrentWeapon = Weapon.Rocket;
-            player1.Spaceship.Attack = 50;
-            player1.Spaceship.Radius = 240;
-            player1.Spaceship.Health = 100;
-            player1.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(-1900, 200);
-
-            player2.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
-            player2.Spaceship.CurrentWeapon = Weapon.Rocket;
-            player2.Spaceship.Attack = 50;
-            player2.Spaceship.Radius = 240;
-            player2.Spaceship.Health = 100;
-            player2.Spaceship.Position = new Microsoft.Xna.Framework.Vector2(1900, 200);
+            player1.Spaceship.Position = new Vector2(-1900, 200);
+            player2.Spaceship.Position = new Vector2(1900, 200);
 
             List<Player> players = new List<Player>();
             players.Add(player1);
             players.Add(player2);
 
-            WorldObject[] worldObjects = { planet, planet2, spaceship1, spaceship2};
+            WorldObject[] worldObjects = {planet, planet2, spaceship1, spaceship2};
 
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();

@@ -12,6 +12,16 @@ namespace EtherDuels.Game.Model
     {
         Weapon currentWeapon;
 
+        public Spaceship()
+        {
+            this.Mass = 8000;
+            this.Attack = 100;
+            this.Radius = 240;
+            this.Health = 100;
+            this.Rotation = 0;
+            this.CurrentWeapon = Weapon.Rocket;
+        }
+
         /// <summary>
         /// Gets and sets the current weapon the 
         /// spaceship can fire.
