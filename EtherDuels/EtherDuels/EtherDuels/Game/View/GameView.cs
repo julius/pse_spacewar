@@ -44,7 +44,6 @@ namespace EtherDuels.Game.View
         /// <param name="gameTime">The frame's time object.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
            
             this.worldView.Draw(viewport, spriteBatch, gameTime);
             DrawHUD(viewport, spriteBatch);

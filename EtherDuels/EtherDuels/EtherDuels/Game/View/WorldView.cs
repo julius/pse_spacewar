@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
 
 using EtherDuels.Game.Model;
@@ -19,6 +20,7 @@ namespace EtherDuels.Game.View
         private List<WorldObjectView> worldObjectViews;
         private Texture2D background;   //TODO: müsste eigentlich auch weg, aber dann muss auch der Konstruktor und damit der Entwurf geändert werden.
         private GameAssets gameAssets = GameAssets.Instance;
+        
 
         public WorldObjectView[] WorldObjectViews
         {
@@ -36,6 +38,7 @@ namespace EtherDuels.Game.View
             this.world = world;
             this.cameraPosition = new Vector3(0.0f, 5000.0f, 1000.0f);
             this.worldObjectViews = new List<WorldObjectView>();
+           
         }
 
         /// <summary>
@@ -69,6 +72,8 @@ namespace EtherDuels.Game.View
             spriteBatch.Draw(this.background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             spriteBatch.End();
 
+           
+            
             foreach (WorldObjectView worldObjectView in this.worldObjectViews.ToArray())
             {
                 //TODO: vllt nicht so schoen direkt auf das attribut zuzugreifen
@@ -78,6 +83,11 @@ namespace EtherDuels.Game.View
                 }
                 else
                 {
+                    if (worldObjectView.WorldObject is Explosion)
+                    {
+                       gameAssets.SoundExplosion.Play();
+                    }
+
                    worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
                 }
             }

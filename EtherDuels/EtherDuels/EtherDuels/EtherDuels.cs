@@ -33,9 +33,9 @@ namespace EtherDuels
         private MenuController menuController;
         private GameController gameController;
         private ProgramState programState;
-
-        GameView gameView; // TODO <- remove this one later
-        private InputConfigurationRetriever inputConfigurationRetriever;
+        
+                
+       
 
         public EtherDuels()
         {
@@ -83,6 +83,12 @@ namespace EtherDuels
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+
+            SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
+            Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(soundtrack);
             
             // Build Asset classes
             MenuAssets menuAssets = MenuAssets.Instance;
@@ -102,16 +108,12 @@ namespace EtherDuels
             gameAssets.ModelRocket = modelRocket;
             gameAssets.ModelLaser = modelLaser;
             gameAssets.ModelExplosion = modelExplosion;
+            gameAssets.SoundExplosion = soundExplosion;
+            gameAssets.Soundtrack = soundtrack;
             gameAssets.HudFont = menuFont;
            
          
-            // Spaceship ship = new Spaceship();
-            // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
-
-            //this.gameView = new GameView();
-            //this.gameView.WorldView = new WorldView(textureStars, null);
-            //this.gameView.WorldView.AddWorldObjectView(shipView);
-
+            
             ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
             Configuration configuration = configurationReader.read("config.cfg");
 
@@ -156,16 +158,8 @@ namespace EtherDuels
 
             FrameState frameState = new FrameState(gameTime, Keyboard.GetState());
 
-
-            /* TODO: edit claudi: bei gamePaused soll der doch nicht mehr den GameController updaten?
-             * sonst kriegen wir vor allem probleme mit den Keyboard-Abfragen. Bei Menü-Eintrag hoch
-             * würd sich dann das eine Raumschiff bewegen. */
-
-            // Update GameController if necessary
-            /*if (this.programState.GameState != GameState.NoGame)
-            {
-                this.gameController.Update(frameState);
-            }*/
+          
+            
             if (this.programState.GameState == GameState.InGame)
             {
                 this.gameController.Update(frameState);
@@ -187,13 +181,8 @@ namespace EtherDuels
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
-
-            this.spriteBatch.Begin();
-            
-            this.spriteBatch.End();
-
+                     
+                      
             // Draw GameController if necessary
             if (this.programState.GameState == GameState.InGame)
             {

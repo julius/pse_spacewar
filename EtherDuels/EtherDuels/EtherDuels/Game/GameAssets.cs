@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
@@ -19,6 +21,20 @@ namespace EtherDuels.Game
             {
                 return instance;
             }
+        }
+
+        private Song soundtrack;
+        public Song Soundtrack
+        {
+            get { return soundtrack; }
+            set { soundtrack = value; }
+        }
+
+        private SoundEffect soundExplosion;
+        public SoundEffect SoundExplosion
+        {
+            get { return soundExplosion; }
+            set { soundExplosion = value; }
         }
 
         private SpriteFont hudFont;
