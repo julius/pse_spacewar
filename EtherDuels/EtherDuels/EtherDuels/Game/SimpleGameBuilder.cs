@@ -71,10 +71,10 @@ namespace EtherDuels.Game
             shortLifespanObjectFactory.RocketModel = gameAssets.ModelRocket;
             shortLifespanObjectFactory.LaserModel = gameAssets.ModelLaser;
             shortLifespanObjectFactory.ExplosionModel = gameAssets.ModelExplosion;
-
+            
             // build game model
             World world = new World(worldObjects);
-            Physics physics = new SimplePhysicsAlgorithm(this.collisionHandler, world);
+            Physics physics = new SimplePhysicsAlgorithm(this.collisionHandler, world, configuration);
             GameModel gameModel = new GameModel(shortLifespanObjectFactory, physics, players, world);
             return gameModel;
         }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
+using EtherDuels.Config;
 
 
 namespace EtherDuels.Game.Model
@@ -19,6 +19,7 @@ namespace EtherDuels.Game.Model
         // TODO: static oder const für konstanten?
         private static float MAX_VELOCITY = 299792458.0f;
         private CollisionHandler collisionHandler;
+        private ConfigurationRetriever configRetriever;
         private World world;
 
         private WorldObject[] worldObjects;
@@ -29,10 +30,11 @@ namespace EtherDuels.Game.Model
         /// </summary>
         /// <param name="collisionHandler">The assigned CollisionHandler, which is to inform.</param>
         /// <param name="world">The assigned World, whose objects are to update.</param>
-        public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world)
+        public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world, ConfigurationRetriever configRetriever)
         {
             this.collisionHandler = collisionHandler;
             this.world = world;
+            this.configRetriever = configRetriever;
         }
 
         /// <summary>
@@ -47,10 +49,10 @@ namespace EtherDuels.Game.Model
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
 
+
             foreach (Planet planet in world.Planets)
             {
                 planet.Rotation += 0.005f;
-                System.Console.Write(planet.Position + "\n");
             }
 
             foreach (WorldObject[] collision in GetNewCollisions())
@@ -103,7 +105,7 @@ namespace EtherDuels.Game.Model
                                 distance.Normalize();
                                 Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
                                 Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N);
+                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N * configRetriever.Difficulty);
                             }
                         }
                     }

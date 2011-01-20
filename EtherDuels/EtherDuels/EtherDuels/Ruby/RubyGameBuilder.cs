@@ -63,7 +63,7 @@ namespace EtherDuels.Ruby
 
             // build game model
             World world = new World(levelBuilder.WorldObjects);
-            Physics physics = new SimplePhysicsAlgorithm(this.collisionHandler, world);
+            Physics physics = new SimplePhysicsAlgorithm(this.collisionHandler, world, configuration);
             GameModel gameModel = new GameModel(shortLifespanObjectFactory, physics, levelBuilder.Players, world);
             return gameModel;
         }

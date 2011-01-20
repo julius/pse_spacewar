@@ -131,20 +131,9 @@ namespace EtherDuels.Menu
 
 
             // Difficulty Menu Actions
-            MenuItem.ActionHandler actionDifficultyUp = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionChangeDifficulty = delegate(MenuItem menuItem)
             {
-                if (configuration.Difficulty < 3)
-                {
-                    configuration.Difficulty += 1;
-                }
-            };
-
-            MenuItem.ActionHandler actionDifficultyDown = delegate(MenuItem menuItem)
-            {
-                if (configuration.Difficulty > 0)
-                {
-                    configuration.Difficulty -= 1;
-                }
+                configuration.Difficulty = (configuration.Difficulty * 10) % 999;
             };
 
             MenuItem.ActionHandler actionReturn = delegate(MenuItem menuItem)
@@ -287,13 +276,13 @@ namespace EtherDuels.Menu
                                                   optionsMenuKeyboardConfiguration1, 
                                                   optionsMenuKeyboardConfiguration2, 
                                                   //optionsMenuVolume, 
-                                                  //optionsMenuDifficulty, 
+                                                  optionsMenuDifficulty, 
                                                   optionsMenuReturnToMainMenu 
                                               };
             MenuItem[] optionsPauseMenuItems = { 
                                                    optionsMenuKeyboardConfiguration1, 
                                                    optionsMenuKeyboardConfiguration2, 
-                                                   //optionsMenuVolume, 
+                                                   //optionsMenuVolume,
                                                    optionsMenuReturnToPauseMenu 
                                                };
             MenuDialog optionsMainMenu = new MenuDialog(optionsMainMenuItems);
@@ -307,10 +296,22 @@ namespace EtherDuels.Menu
             MenuDialog volume = new MenuDialog(volumeMenuItems);
 
             // Build Difficulty Dialog
-            MenuItem difficultyUp = new MenuItem(actionDifficultyUp, delegate() { return "Difficulty +"; });
-            MenuItem difficultyDown = new MenuItem(actionDifficultyDown, delegate() { return "Difficulty -"; });
+            MenuItem difficultyInfo = new MenuItem(null, delegate() { return "Press Enter to change difficulty"; });
+
+            MenuItem difficultyValue = new MenuItem(actionChangeDifficulty, delegate() 
+            { 
+                string difficultyText = "";
+                switch (configuration.Difficulty)
+                {
+                    case 1: difficultyText = "hard"; break;
+                    case 10: difficultyText = "medium"; break;
+                    case 100: difficultyText = "easy"; break;
+                }
+                return "Difficulty: " + difficultyText; 
+            });
+
             MenuItem difficultyReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
-            MenuItem[] difficultyMenuItems = { difficultyUp, difficultyDown, difficultyReturnToOptions };
+            MenuItem[] difficultyMenuItems = { difficultyInfo, difficultyValue, difficultyReturnToOptions };
             MenuDialog difficulty = new MenuDialog(difficultyMenuItems);
 
             // Build Keyboard Configuration Dialog
@@ -390,7 +391,6 @@ namespace EtherDuels.Menu
                     menuItemViewList.Add(menuItemView);
                 }
 
-                // TODO: add background texture (3rd argument)
                 MenuDialogView menuDialogView = new MenuDialogView(menuItemViewList.ToArray(), menuDialog);
                 menuDialogViewList.Add(menuDialogView);
             }
