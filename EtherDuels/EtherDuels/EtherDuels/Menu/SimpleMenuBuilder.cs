@@ -240,7 +240,7 @@ namespace EtherDuels.Menu
             MenuItem[] mainMenuItems = { 
                                            mainMenuStartGame, 
                                            mainMenuOptions, 
-                                           //mainMenuHelp, 
+                                           mainMenuHelp, 
                                            //mainMenuHighscore, 
                                            mainMenuQuitProgram 
                                        };
@@ -258,7 +258,7 @@ namespace EtherDuels.Menu
                                             pauseMenuResumeGame, 
                                             pauseMenuStartNewGame, 
                                             pauseMenuOptions, 
-                                            //pauseMenuHelp, 
+                                            pauseMenuHelp, 
                                             //pauseMenuHighscore, 
                                             pauseMenuQuitProgram 
                                         };
@@ -299,16 +299,16 @@ namespace EtherDuels.Menu
             MenuItem difficultyInfo = new MenuItem(null, delegate() { return "Press Enter to change difficulty"; });
 
             MenuItem difficultyValue = new MenuItem(actionChangeDifficulty, delegate() 
-            { 
-                string difficultyText = "";
-                switch (configuration.Difficulty)
-                {
-                    case 1: difficultyText = "hard"; break;
-                    case 10: difficultyText = "medium"; break;
-                    case 100: difficultyText = "easy"; break;
-                }
-                return "Difficulty: " + difficultyText; 
-            });
+                { 
+                    string difficultyText = "";
+                    switch (configuration.Difficulty)
+                    {
+                        case 1: difficultyText = "hard"; break;
+                        case 10: difficultyText = "medium"; break;
+                        case 100: difficultyText = "easy"; break;
+                    }
+                    return "Difficulty: " + difficultyText; 
+                });
 
             MenuItem difficultyReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
             MenuItem[] difficultyMenuItems = { difficultyInfo, difficultyValue, difficultyReturnToOptions };
@@ -343,8 +343,26 @@ namespace EtherDuels.Menu
 
 
             // Build Help Dialog
+            //TODO: funzt so nicht, weil menuItem nicht als so groß geplant ist. Aber das andere is extrem haesslich
+            /* MenuItem helpInfo = new MenuItem(null, delegate() 
+                {
+                    return  "Welcome to EtherDuels! \n\n " + 
+                            "In this 2-player game, you try to shoot each other in space until one spaceship is destroyed. \n" + 
+                            "There are two types of weapons available: \n" +
+                            "- Laser:  speed: 350; health: 5; attack:5 \n" +
+                            "- Rocket: speed: 200; health: 10; attack; 10 \n" +
+                            "Have fun and beware of the gravitation! \n";
+                });*/
+            MenuItem helpInfo1 = new MenuItem(null, delegate() { return "Welcome to EtherDuels!"; });
+            MenuItem helpInfo2 = new MenuItem(null, delegate() { return "In this game, you try to shoot each other"; });
+            MenuItem helpInfo3 = new MenuItem(null, delegate() { return "in space until one spaceship is destroyed."; });
+            MenuItem helpInfo4 = new MenuItem(null, delegate() { return "There are two types of weapons available:"; });
+            MenuItem helpInfo5 = new MenuItem(null, delegate() { return "- Laser:  speed: 350; health: 5; attack:5"; });
+            MenuItem helpInfo6 = new MenuItem(null, delegate() { return "- Rocket: speed: 200; health: 10; attack; 10"; });
+            MenuItem helpInfo7 = new MenuItem(null, delegate() { return "Have fun and beware of the gravitation!"; });
+
             MenuItem helpReturn = new MenuItem(actionReturn, delegate() { return "Return to Main Menu"; });
-            MenuItem[] helpItems = { helpReturn };
+            MenuItem[] helpItems = { helpInfo1, helpInfo2, helpInfo3, helpInfo4, helpInfo5, helpInfo6, helpInfo7, helpReturn };
             MenuDialog help = new MenuDialog(helpItems);
 
             // Build Highscore Dialog
@@ -353,7 +371,7 @@ namespace EtherDuels.Menu
             MenuDialog highscore = new MenuDialog(highscoreItems);
 
             // Build Quit Program Dialog
-            MenuItem quitProgramQuestion = new MenuItem(null, delegate() { return "Really Quit ?"; });
+            MenuItem quitProgramQuestion = new MenuItem(null, delegate() { return "Do you really want to quit ?"; });
             MenuItem quitProgramYes = new MenuItem(actionQuitProgram, delegate() { return "Yes"; });
             MenuItem quitProgramNo = new MenuItem(actionReturn, delegate() { return "No"; });
             MenuItem[] quitProgramItems = { quitProgramQuestion, quitProgramYes, quitProgramNo };
