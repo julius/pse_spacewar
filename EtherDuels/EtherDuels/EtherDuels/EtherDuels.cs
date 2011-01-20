@@ -87,6 +87,7 @@ namespace EtherDuels
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
             SoundEffect soundLaser = content.Load<SoundEffect>("sound_laser");
             SoundEffect soundRocket = content.Load<SoundEffect>("sound_rocket");
+            SoundEffect soundMenuClick = content.Load<SoundEffect>("sound_menuClick");
             Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
 
             MediaPlayer.IsRepeating = true;
@@ -99,6 +100,8 @@ namespace EtherDuels
             // Load content into the asset classes
             menuAssets.MenuFont = menuFont;
             menuAssets.TextureBackground = textureStars;
+
+            menuAssets.SoundMenuClick = soundMenuClick;
 
             gameAssets.TextureHealthBar = textureHealthBar;
             gameAssets.TextureSmoke = textureSmoke;
