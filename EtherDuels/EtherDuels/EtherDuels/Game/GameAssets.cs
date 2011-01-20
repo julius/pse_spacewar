@@ -30,6 +30,20 @@ namespace EtherDuels.Game
             set { soundtrack = value; }
         }
 
+        private SoundEffect soundRocket;
+        public SoundEffect SoundRocket
+        {
+            get { return soundRocket; }
+            set { soundRocket = value; }
+        }
+
+        private SoundEffect soundLaser;
+        public SoundEffect SoundLaser
+        {
+            get { return soundLaser; }
+            set { soundLaser = value; }
+        }
+
         private SoundEffect soundExplosion;
         public SoundEffect SoundExplosion
         {

@@ -85,6 +85,8 @@ namespace EtherDuels
             Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
 
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
+            SoundEffect soundLaser = content.Load<SoundEffect>("sound_laser");
+            SoundEffect soundRocket = content.Load<SoundEffect>("sound_rocket");
             Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
 
             MediaPlayer.IsRepeating = true;
@@ -101,15 +103,19 @@ namespace EtherDuels
             gameAssets.TextureHealthBar = textureHealthBar;
             gameAssets.TextureSmoke = textureSmoke;
             gameAssets.TextureBackground = textureStars;
-            //gameAssets.ModelSpaceship = modelSpaceship;
+          
             gameAssets.SetColoredSpaceship(Color.Green, modelSpaceshipGreen);
             gameAssets.SetColoredSpaceship(Color.OrangeRed, modelSpaceshipOrange);
             gameAssets.ModelPlanet = modelPlanet;
             gameAssets.ModelRocket = modelRocket;
             gameAssets.ModelLaser = modelLaser;
             gameAssets.ModelExplosion = modelExplosion;
+
             gameAssets.SoundExplosion = soundExplosion;
+            gameAssets.SoundLaser = soundLaser;
+            gameAssets.SoundRocket = soundRocket;
             gameAssets.Soundtrack = soundtrack;
+
             gameAssets.HudFont = menuFont;
            
          

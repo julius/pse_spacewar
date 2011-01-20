@@ -83,11 +83,7 @@ namespace EtherDuels.Game.View
                 }
                 else
                 {
-                    if (worldObjectView.WorldObject is Explosion)
-                    {
-                       gameAssets.SoundExplosion.Play();
-                    }
-
+                                    
                    worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
                 }
             }

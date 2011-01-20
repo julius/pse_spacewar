@@ -73,6 +73,8 @@ namespace EtherDuels.Game.Model
         {
             Explosion explosion = new Explosion();
             explosion.CreationTime = gameTime.TotalGameTime;
+
+            GameAssets.Instance.SoundExplosion.Play();
             return explosion;
         }
         /// <summary>
@@ -95,6 +97,7 @@ namespace EtherDuels.Game.Model
                         projectile.Health = 10;
                         projectile.Rotation = 0;
                         projectile.Position = new Vector2(0, 0);
+                        GameAssets.Instance.SoundLaser.Play();
                         break;
                     }
                     
@@ -107,6 +110,7 @@ namespace EtherDuels.Game.Model
                         projectile.Health = 10;
                         projectile.Rotation = 0;
                         projectile.Position = new Vector2(0, 0);
+                        GameAssets.Instance.SoundRocket.Play();
                         break;
                     }
             }
