@@ -95,16 +95,20 @@ namespace EtherDuels.Game.Model
                          * F = a * mass2 => a = F / mass2 = G * mass1 / r^2
                          * v = a * t in m / s
                          */
-
-                        Vector2 distance = new Vector2(worldObjects[i].Position.X - worldObjects[j].Position.X, worldObjects[i].Position.Y - worldObjects[j].Position.Y);
-                        // avoid dividing by zero(meaning the two objects are either the same or already collided)
-                        if (distance.Length() != 0)
+                        
+                        // planets should not be influenced by gravity
+                        if (!(worldObjects[j] is Planet))
                         {
-                            float acceleration = ((float)(G * worldObjects[i].Mass / distance.LengthSquared()));
-                            distance.Normalize();
-                            Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
-                            Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                            worldObjects[j].Velocity += Vector2.Divide(velocityVector, N);
+                            Vector2 distance = new Vector2(worldObjects[i].Position.X - worldObjects[j].Position.X, worldObjects[i].Position.Y - worldObjects[j].Position.Y);
+                            // avoid dividing by zero(meaning the two objects are either the same or already collided)
+                            if (distance.Length() != 0)
+                            {
+                                float acceleration = ((float)(G * worldObjects[i].Mass / distance.LengthSquared()));
+                                distance.Normalize();
+                                Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
+                                Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, N);
+                            }
                         }
                     }
                 }                
