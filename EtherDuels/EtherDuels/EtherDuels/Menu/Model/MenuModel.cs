@@ -61,6 +61,7 @@ namespace EtherDuels.Menu.Model
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
 
+            MenuAssets.Instance.SoundMenuClick.CreateInstance().Play();
             this.menuDialogs[menuDialogIndex].Action();
         }
 
