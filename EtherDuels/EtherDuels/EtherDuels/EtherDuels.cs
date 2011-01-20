@@ -79,7 +79,7 @@ namespace EtherDuels
             Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
             Model modelSpaceshipGreen = content.Load<Model>("spaceship_green");
             Model modelSpaceshipOrange = content.Load<Model>("spaceship_orange"); 
-            Model modelPlanet = content.Load<Model>("earth");
+            Model modelPlanet = content.Load<Model>("mars");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
@@ -89,6 +89,8 @@ namespace EtherDuels
             SoundEffect soundRocket = content.Load<SoundEffect>("sound_rocket");
             SoundEffect soundMenuClick = content.Load<SoundEffect>("sound_menuClick");
             Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
+
+            SoundEffect.MasterVolume = 1.0f;
 
             
             
