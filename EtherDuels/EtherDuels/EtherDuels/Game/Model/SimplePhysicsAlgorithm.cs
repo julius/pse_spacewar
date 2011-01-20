@@ -52,9 +52,12 @@ namespace EtherDuels.Game.Model
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
 
+            System.Console.Write(Math.Sqrt(6E24 * G / 1000));
+
             foreach (Planet planet in world.Planets)
             {
                 planet.Rotation += 0.005f;
+                System.Console.Write(planet.Position + "\n");
             }
 
             foreach (WorldObject[] collision in GetNewCollisions())
@@ -96,8 +99,8 @@ namespace EtherDuels.Game.Model
                          * v = a * t in m / s
                          */
                         
-                        // planets should not be influenced by gravity
-                        if (!(worldObjects[j] is Planet))
+                        // planets should not be influenced by gravity if they are not set to flexible
+                        if (!(worldObjects[j] is Planet && (worldObjects[j] as Planet).IsFlexible == false))
                         {
                             Vector2 distance = new Vector2(worldObjects[i].Position.X - worldObjects[j].Position.X, worldObjects[i].Position.Y - worldObjects[j].Position.Y);
                             // avoid dividing by zero(meaning the two objects are either the same or already collided)

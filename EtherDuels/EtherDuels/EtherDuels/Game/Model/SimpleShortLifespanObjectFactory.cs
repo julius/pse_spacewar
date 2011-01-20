@@ -93,6 +93,7 @@ namespace EtherDuels.Game.Model
                         projectile.Health = 5;
                         projectile.Rotation = 0;
                         projectile.Position = new Vector2(0, 0);
+                        projectile.Weapon = Weapon.Laser;
                         break;
                     }
                     
@@ -105,6 +106,7 @@ namespace EtherDuels.Game.Model
                         projectile.Health = 10;
                         projectile.Rotation = 0;
                         projectile.Position = new Vector2(0, 0);
+                        projectile.Weapon = Weapon.Rocket;
                         break;
                     }
             }

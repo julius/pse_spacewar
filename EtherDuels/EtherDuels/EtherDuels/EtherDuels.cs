@@ -123,8 +123,8 @@ namespace EtherDuels
             this.menuController.SetMainMenu();
 
             // Build GameController
-            //GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
-            GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
+            GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
+            //GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
 
             this.gameController = new GameController(gameBuilder, this);
 

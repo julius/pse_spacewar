@@ -10,6 +10,17 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class Planet : WorldObject
     {
+        public Planet()
+        {
+            isFlexible = false;
+            this.Health = 1000000;
+        }
 
+        private bool isFlexible;
+        public bool IsFlexible
+        {
+            get { return isFlexible; }
+            set { isFlexible = value; }
+        }
     }
 }

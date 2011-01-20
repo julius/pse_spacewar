@@ -13,6 +13,7 @@ namespace EtherDuels.Game
     class SimpleGameBuilder: GameBuilder
     {    
         private GameAssets gameAssets = GameAssets.Instance;
+        private static double G = 6.67428E-11;
 
         private CollisionHandler collisionHandler;
         public CollisionHandler CollisionHandler
@@ -38,9 +39,19 @@ namespace EtherDuels.Game
             // build game objects
             Planet planet = new Planet();
             planet.Mass = 6E24;
-            planet.Health = 1000000;
             planet.Attack = 1000;
-            planet.Radius = 300;            
+            planet.Radius = 300;
+
+            // build planet in orbit
+            int distance = 800;
+            
+            Planet planet2 = new Planet();
+            planet2.IsFlexible = true;
+            planet2.Mass = 6E24;
+            planet2.Position = new Vector2(distance, 0);
+            // calculate velocity needed to circuit in orbit
+            int planet2Velocity = (int) Math.Round(Math.Sqrt(planet.Mass * G / distance / 100000000), 2);
+            planet2.Velocity = new Vector2(0, planet2Velocity);
 
             Spaceship spaceship1 = new Spaceship();
             Spaceship spaceship2 = new Spaceship();
@@ -70,7 +81,7 @@ namespace EtherDuels.Game
             players.Add(player1);
             players.Add(player2);
 
-            WorldObject[] worldObjects = {  spaceship1, planet, spaceship2};
+            WorldObject[] worldObjects = { planet, planet2, spaceship1, spaceship2};
 
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();

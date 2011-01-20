@@ -10,6 +10,11 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class Projectile : WorldObject
     {
-
+        private Weapon weapon;
+        public Weapon Weapon
+        {
+            get { return weapon; }
+            set { weapon = value; }
+        }
     }
 }
