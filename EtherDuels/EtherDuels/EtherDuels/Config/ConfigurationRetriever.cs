@@ -9,7 +9,7 @@ namespace EtherDuels.Config
     /// <summary>
     /// Provides methods to retrieve information of the Configuration.
     /// </summary>
-    interface ConfigurationRetriever
+    public interface ConfigurationRetriever
     {   
         /// <summary>
         /// Gets the difficulty of the game.

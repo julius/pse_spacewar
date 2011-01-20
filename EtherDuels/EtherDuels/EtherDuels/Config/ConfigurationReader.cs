@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Config
 {
-    class ConfigurationReader
+    public class ConfigurationReader
     {
         private BinaryFormatter binaryFormatter;
         private Stream stream;
@@ -51,6 +51,7 @@ namespace EtherDuels.Config
 
                 defaultConf.SetKeyboardConfiguration(1, defaultKeyConfPlayerA);
                 defaultConf.SetKeyboardConfiguration(2, defaultKeyConfPlayerB);
+                defaultConf.Difficulty = 1;
 
                 defaultConf.Path = path;
                 return defaultConf;

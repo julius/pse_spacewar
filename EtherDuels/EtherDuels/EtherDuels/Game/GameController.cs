@@ -248,10 +248,18 @@ namespace EtherDuels.Game
             projectilePosition.Y = shooter.Position.Y - (float)Math.Cos(shooter.Rotation) * (shooter.Radius + projectile.Radius + 1);
             projectile.Position = projectilePosition;
 
+            //
+            int velocityFactor = 100;
+            switch (shooter.CurrentWeapon) 
+            {
+                case Weapon.Laser: { velocityFactor = 350; break; }
+                case Weapon.Rocket: { velocityFactor = 200; break; }
+            }
+            
             // add the spaceship's velocity to the projectile's velocity
             Vector2 projectileVelocity = shooter.Velocity;
-            projectileVelocity.X += (float)Math.Sin(shooter.Rotation) * 200;
-            projectileVelocity.Y -= (float)Math.Cos(shooter.Rotation) * 200;
+            projectileVelocity.X += (float)Math.Sin(shooter.Rotation) * velocityFactor;
+            projectileVelocity.Y -= (float)Math.Cos(shooter.Rotation) * velocityFactor;
             projectile.Velocity = projectileVelocity;
 
         }

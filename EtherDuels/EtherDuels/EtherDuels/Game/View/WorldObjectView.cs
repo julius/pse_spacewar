@@ -51,6 +51,7 @@ namespace EtherDuels.Game.View
             if (this.worldObject is Explosion)
             {
                 float scale = (float)(gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
+
                 matrixWorld = Matrix.CreateScale(scale * scale * 0.0004f) * matrixWorld;
             }
 
@@ -59,6 +60,7 @@ namespace EtherDuels.Game.View
                 angle += 0.0003f;
                 matrixWorld = Matrix.CreateRotationZ(3 * angle) * Matrix.CreateRotationX(angle);
             }
+
 
             Matrix[] transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
@@ -82,7 +84,7 @@ namespace EtherDuels.Game.View
                 mesh.Draw();
             }
 
-         
+
 
             this.model.Draw(matrixWorld, matrixView, matrixProjection);
         }

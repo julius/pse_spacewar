@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
-
 using EtherDuels.Game.View;
 using EtherDuels.Config;
 
@@ -87,30 +85,23 @@ namespace EtherDuels.Game.Model
             Projectile projectile = new Projectile();
             switch (weapon)
             {
-                //TODO geeignete Anfangswerte!!!
                 case Weapon.Laser:
                     {
                         projectile.Attack = 5;
-                        projectile.Radius = 20;
-                        projectile.Velocity = new Vector2(0, 0);
-                        projectile.Mass = 8000;
-                        projectile.Health = 10;
-                        projectile.Rotation = 0;
-                        projectile.Position = new Vector2(0, 0);
+                        projectile.Health = 5;
+                        projectile.Weapon = Weapon.Laser;
                         GameAssets.Instance.SoundLaser.CreateInstance().Play();
+
                         break;
                     }
                     
                 case Weapon.Rocket:
                     {
-                        projectile.Attack = 5;
-                        projectile.Radius = 20;
-                        projectile.Velocity = new Vector2(0, 0);
-                        projectile.Mass = 8000;
+                        projectile.Attack = 10;
                         projectile.Health = 10;
-                        projectile.Rotation = 0;
-                        projectile.Position = new Vector2(0, 0);
+                        projectile.Weapon = Weapon.Rocket;
                         GameAssets.Instance.SoundRocket.CreateInstance().Play();
+
                         break;
                     }
             }

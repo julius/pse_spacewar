@@ -18,7 +18,7 @@ namespace GameTest
     [TestClass()]
     public class SimplePhysicsAlgorithmTest
     {
-
+        /*
 
         private TestContext testContextInstance;
 
@@ -129,5 +129,6 @@ namespace GameTest
 
             Assert.IsTrue(worldObject.Velocity.X == MAX_VELOCITY && worldObject.Velocity.Y == MAX_VELOCITY);
         }
+         */
     }
 }

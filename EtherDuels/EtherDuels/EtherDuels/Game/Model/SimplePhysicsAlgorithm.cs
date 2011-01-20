@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
+using EtherDuels.Config;
 
 
 namespace EtherDuels.Game.Model
@@ -18,12 +18,8 @@ namespace EtherDuels.Game.Model
         // TODO: speed of light in m/s, should be set to a more reasonable value
         // TODO: static oder const für konstanten?
         private static float MAX_VELOCITY = 299792458.0f;
-        // G: gravitational constant
-        private static double G = 6.67428E-11;  // in m^3/kg/s^2
-        // N: normalisation factor, to downsize the dimensions of the universe to those of our game
-        private static float N = 100000;        // must NOT be 0!!
-
         private CollisionHandler collisionHandler;
+        private ConfigurationRetriever configRetriever;
         private World world;
 
         private WorldObject[] worldObjects;
@@ -34,10 +30,11 @@ namespace EtherDuels.Game.Model
         /// </summary>
         /// <param name="collisionHandler">The assigned CollisionHandler, which is to inform.</param>
         /// <param name="world">The assigned World, whose objects are to update.</param>
-        public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world)
+        public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world, ConfigurationRetriever configRetriever)
         {
             this.collisionHandler = collisionHandler;
             this.world = world;
+            this.configRetriever = configRetriever;
         }
 
         /// <summary>
@@ -51,6 +48,7 @@ namespace EtherDuels.Game.Model
 
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
+
 
             foreach (Planet planet in world.Planets)
             {
@@ -95,16 +93,20 @@ namespace EtherDuels.Game.Model
                          * F = a * mass2 => a = F / mass2 = G * mass1 / r^2
                          * v = a * t in m / s
                          */
-
-                        Vector2 distance = new Vector2(worldObjects[i].Position.X - worldObjects[j].Position.X, worldObjects[i].Position.Y - worldObjects[j].Position.Y);
-                        // avoid dividing by zero(meaning the two objects are either the same or already collided)
-                        if (distance.Length() != 0)
+                        
+                        // planets should not be influenced by gravity if they are not set to flexible
+                        if (!(worldObjects[j] is Planet && (worldObjects[j] as Planet).IsFlexible == false))
                         {
-                            float acceleration = ((float)(G * worldObjects[i].Mass / distance.LengthSquared()));
-                            distance.Normalize();
-                            Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
-                            Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                            worldObjects[j].Velocity += Vector2.Divide(velocityVector, N);
+                            Vector2 distance = new Vector2(worldObjects[i].Position.X - worldObjects[j].Position.X, worldObjects[i].Position.Y - worldObjects[j].Position.Y);
+                            // avoid dividing by zero(meaning the two objects are either the same or already collided)
+                            if (distance.Length() != 0)
+                            {
+                                float acceleration = ((float)(GameAssets.G * worldObjects[i].Mass / distance.LengthSquared()));
+                                distance.Normalize();
+                                Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
+                                Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N * configRetriever.Difficulty);
+                            }
                         }
                     }
                 }                
