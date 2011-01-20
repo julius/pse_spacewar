@@ -261,6 +261,7 @@ namespace EtherDuels.Game
             projectileVelocity.X += (float)Math.Sin(shooter.Rotation) * velocityFactor;
             projectileVelocity.Y -= (float)Math.Cos(shooter.Rotation) * velocityFactor;
             projectile.Velocity = projectileVelocity;
+
         }
 
         /// <summary>

@@ -71,6 +71,8 @@ namespace EtherDuels.Game.Model
         {
             Explosion explosion = new Explosion();
             explosion.CreationTime = gameTime.TotalGameTime;
+
+            GameAssets.Instance.SoundExplosion.CreateInstance().Play();
             return explosion;
         }
         /// <summary>
@@ -88,6 +90,8 @@ namespace EtherDuels.Game.Model
                         projectile.Attack = 5;
                         projectile.Health = 5;
                         projectile.Weapon = Weapon.Laser;
+                        GameAssets.Instance.SoundLaser.CreateInstance().Play();
+
                         break;
                     }
                     
@@ -96,6 +100,8 @@ namespace EtherDuels.Game.Model
                         projectile.Attack = 10;
                         projectile.Health = 10;
                         projectile.Weapon = Weapon.Rocket;
+                        GameAssets.Instance.SoundRocket.CreateInstance().Play();
+
                         break;
                     }
             }
@@ -109,7 +115,7 @@ namespace EtherDuels.Game.Model
         /// <returns>The created view fitting to the assigned Explosion object.</returns>
         public WorldObjectView CreateExplosionView(Explosion explosion)
         {
-            // TODO set correct 3D-Model for Explosion
+           
             WorldObjectView explosionView = new WorldObjectView(explosionModel, explosion);
             return explosionView;
         }

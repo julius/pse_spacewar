@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
@@ -19,12 +21,42 @@ namespace EtherDuels.Game
             }
         }
 
+
+        private Song soundtrack;
+        public Song Soundtrack
+        {
+            get { return soundtrack; }
+            set { soundtrack = value; }
+        }
+
+        private SoundEffect soundRocket;
+        public SoundEffect SoundRocket
+        {
+            get { return soundRocket; }
+            set { soundRocket = value; }
+        }
+
+        private SoundEffect soundLaser;
+        public SoundEffect SoundLaser
+        {
+            get { return soundLaser; }
+            set { soundLaser = value; }
+        }
+
+        private SoundEffect soundExplosion;
+        public SoundEffect SoundExplosion
+        {
+            get { return soundExplosion; }
+            set { soundExplosion = value; }
+        }
+
         private GameAssets() { }
 
         // G: gravitational constant
         public static double G = 6.67428E-11;  // in m^3/kg/s^2
         // N: normalisation factor, to downsize the dimensions of the universe to those of our game
         public static float N = 100000;        // must NOT be 0!!
+
 
         private SpriteFont hudFont;
         public SpriteFont HudFont

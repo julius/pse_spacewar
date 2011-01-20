@@ -33,9 +33,9 @@ namespace EtherDuels
         private MenuController menuController;
         private GameController gameController;
         private ProgramState programState;
-
-        GameView gameView; // TODO <- remove this one later
-        private InputConfigurationRetriever inputConfigurationRetriever;
+        
+                
+       
 
         public EtherDuels()
         {
@@ -78,11 +78,21 @@ namespace EtherDuels
             Texture2D textureHealthBar = content.Load<Texture2D>("texture_healthbar");
             Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
             Model modelSpaceshipGreen = content.Load<Model>("spaceship_green");
-            Model modelSpaceshipOrange = content.Load<Model>("spaceship_red"); // the orange one looks green ^^
-            Model modelPlanet = content.Load<Model>("earth");
+            Model modelSpaceshipOrange = content.Load<Model>("spaceship_orange"); 
+            Model modelPlanet = content.Load<Model>("mars");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
-            Model modelExplosion = content.Load<Model>("planet");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+            Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+
+            SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
+            SoundEffect soundLaser = content.Load<SoundEffect>("sound_laser");
+            SoundEffect soundRocket = content.Load<SoundEffect>("sound_rocket");
+            SoundEffect soundMenuClick = content.Load<SoundEffect>("sound_menuClick");
+            Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
+
+            SoundEffect.MasterVolume = 1.0f;
+
+            
             
             // Build Asset classes
             MenuAssets menuAssets = MenuAssets.Instance;
@@ -92,26 +102,28 @@ namespace EtherDuels
             menuAssets.MenuFont = menuFont;
             menuAssets.TextureBackground = textureStars;
 
+            menuAssets.SoundMenuClick = soundMenuClick;
+
             gameAssets.TextureHealthBar = textureHealthBar;
             gameAssets.TextureSmoke = textureSmoke;
             gameAssets.TextureBackground = textureStars;
-            //gameAssets.ModelSpaceship = modelSpaceship;
+          
             gameAssets.SetColoredSpaceship(Color.Green, modelSpaceshipGreen);
             gameAssets.SetColoredSpaceship(Color.OrangeRed, modelSpaceshipOrange);
             gameAssets.ModelPlanet = modelPlanet;
             gameAssets.ModelRocket = modelRocket;
             gameAssets.ModelLaser = modelLaser;
             gameAssets.ModelExplosion = modelExplosion;
+
+            gameAssets.SoundExplosion = soundExplosion;
+            gameAssets.SoundLaser = soundLaser;
+            gameAssets.SoundRocket = soundRocket;
+            gameAssets.Soundtrack = soundtrack;
+
             gameAssets.HudFont = menuFont;
            
          
-            // Spaceship ship = new Spaceship();
-            // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
-
-            //this.gameView = new GameView();
-            //this.gameView.WorldView = new WorldView(textureStars, null);
-            //this.gameView.WorldView.AddWorldObjectView(shipView);
-
+            
             ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
             Configuration configuration = configurationReader.read("config.cfg");
 
@@ -132,6 +144,11 @@ namespace EtherDuels
             this.programState = new ProgramState();
             programState.GameState = GameState.NoGame;
             programState.MenuState = MenuState.InMenu;
+
+            //play background music
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(soundtrack);
+            MediaPlayer.Volume = 50; //TODO: von config abhängig machen
         }
 
         /// <summary>
@@ -141,6 +158,7 @@ namespace EtherDuels
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+           
         }
 
         /// <summary>
@@ -156,16 +174,8 @@ namespace EtherDuels
 
             FrameState frameState = new FrameState(gameTime, Keyboard.GetState());
 
-
-            /* TODO: edit claudi: bei gamePaused soll der doch nicht mehr den GameController updaten?
-             * sonst kriegen wir vor allem probleme mit den Keyboard-Abfragen. Bei Menü-Eintrag hoch
-             * würd sich dann das eine Raumschiff bewegen. */
-
-            // Update GameController if necessary
-            /*if (this.programState.GameState != GameState.NoGame)
-            {
-                this.gameController.Update(frameState);
-            }*/
+          
+            
             if (this.programState.GameState == GameState.InGame)
             {
                 this.gameController.Update(frameState);
@@ -187,13 +197,8 @@ namespace EtherDuels
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
-
-            this.spriteBatch.Begin();
-            
-            this.spriteBatch.End();
-
+                     
+                      
             // Draw GameController if necessary
             if (this.programState.GameState == GameState.InGame)
             {

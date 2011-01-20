@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EtherDuels.Game.Model; //TODO Zugriff genauer einschränken???????????
+using EtherDuels.Game.Model; 
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -15,6 +15,7 @@ namespace EtherDuels.Game.View
     {
         WorldObject worldObject;
         Microsoft.Xna.Framework.Graphics.Model model;
+        private float angle = 0;
 
         public WorldObject WorldObject
         {
@@ -50,10 +51,16 @@ namespace EtherDuels.Game.View
             if (this.worldObject is Explosion)
             {
                 float scale = (float)(gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
-                matrixWorld = Matrix.CreateScale(scale * scale * 0.001f) * matrixWorld;
+
+                matrixWorld = Matrix.CreateScale(scale * scale * 0.0004f) * matrixWorld;
             }
 
-           
+            if (this.worldObject is Planet)
+            {
+                angle += 0.0003f;
+                matrixWorld = Matrix.CreateRotationZ(3 * angle) * Matrix.CreateRotationX(angle);
+            }
+
 
             Matrix[] transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
@@ -69,12 +76,15 @@ namespace EtherDuels.Game.View
                     effect.PreferPerPixelLighting = true;
 
                     effect.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+                    effect.DiffuseColor = new Vector3(0.8f);
+                    effect.AmbientLightColor = new Vector3(0.7f, 0.5f, 0.7f);
                 }
 
                 mesh.Draw();
             }
 
-            
+
 
             this.model.Draw(matrixWorld, matrixView, matrixProjection);
         }
