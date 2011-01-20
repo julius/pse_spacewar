@@ -62,11 +62,11 @@ namespace EtherDuels.Game.View
             }
 
 
-            Matrix[] transforms = new Matrix[model.Bones.Count];
-            model.CopyAbsoluteBoneTransformsTo(transforms);
-                        
-            foreach (ModelMesh mesh in model.Meshes)
-            {
+             Matrix[] transforms = new Matrix[model.Bones.Count];
+             model.CopyAbsoluteBoneTransformsTo(transforms);
+
+             foreach (ModelMesh mesh in model.Meshes)
+             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
@@ -82,11 +82,10 @@ namespace EtherDuels.Game.View
                 }
 
                 mesh.Draw();
-            }
+             }
 
-
-
-            this.model.Draw(matrixWorld, matrixView, matrixProjection);
+             this.model.Draw(matrixWorld, matrixView, matrixProjection); 
+            
         }
     }
 }

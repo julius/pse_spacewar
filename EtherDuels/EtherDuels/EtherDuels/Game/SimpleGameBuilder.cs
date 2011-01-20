@@ -53,7 +53,7 @@ namespace EtherDuels.Game
             Spaceship spaceship2 = new Spaceship();
 
             Player player1 = new HumanPlayer(1, this.playerHandler, Color.Green, this.configuration.GetKeyboardConfiguration(1));
-            Player player2 = new HumanPlayer(2, this.playerHandler, Color.Orange, this.configuration.GetKeyboardConfiguration(2));
+            Player player2 = new HumanPlayer(2, this.playerHandler, Color.OrangeRed, this.configuration.GetKeyboardConfiguration(2));
             player1.Spaceship = spaceship1;
             player2.Spaceship = spaceship2;
 
