@@ -36,6 +36,7 @@ namespace EtherDuels.Game.View
         {
             this.background = background;
             this.world = world;
+            //TODO: zweites argument auf 7000 setzen, torodiales spielfeld anpassen
             this.cameraPosition = new Vector3(0.0f, 5000.0f, 1000.0f);
             this.worldObjectViews = new List<WorldObjectView>();
         }

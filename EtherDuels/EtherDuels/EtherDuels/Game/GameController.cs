@@ -76,6 +76,8 @@ namespace EtherDuels.Game
         {
             Debug.Assert(gameModel != null);
 
+            System.Console.Write(collisionObject1 + " mit " + collisionObject2 + "\n");
+
             Vector2 posExplosion;
             Vector2 deltaPos;
 
@@ -131,68 +133,6 @@ namespace EtherDuels.Game
                 checkDeath(collisionObject2, worldObjectViews);
                 checkDeath(collisionObject1, worldObjectViews);
             } 
-
-            /* === TODO: old code => delete !! === */
-
- //           /*
- //* TODO 
- //* 2 vorschlaege zur verbesserung:
- //* - WorldObjectView in jedem Draw() - Aufruf testen lassen, ob die Health vom Model <= 0 ist und wenn
- //*   nicht, dann die View aus der WorldView rausnehmen. Dazu bräuchten wir allerdings noch ein Interface
- //*   um den Zugriff von WorldObjectView auf WorldView zu lösen.
- //* - Liste von Modeln zu Views im Controller speichern, sodass bei OnCollision direkt die zugehörige View
- //*   gefunden werden kann. 
- //*/
-
- //           // calculating the position of the explosion
- //           Vector2 pos1 = collisionObject1.Position;
- //           Vector2 pos2 = collisionObject2.Position;
- //           float radius1 = collisionObject1.Radius;
- //           float radius2 = collisionObject2.Radius;
- //           Vector2 pos1DirectionVector;
- //           Vector2 pos2DirectionVector;
-
- //           Vector2 distance;
- //           Vector2 radiusPoint1;
- //           Vector2 radiusPoint2;
- //           Vector2 explosionPoint;
- //           distance.X = pos2.X - pos1.X;
- //           distance.Y = pos2.Y - pos1.Y;
-
- //           // determining the direction in which the collision happend
- //           // TODO geht bestimmt einfacher
- //           if (distance.X >= 0)
- //           {
- //               pos1DirectionVector.X = 1;
- //               pos2DirectionVector.X = -1;
- //           }
- //           else
- //           {
- //               pos1DirectionVector.X = -1;
- //               pos2DirectionVector.X = 1;
- //           }
-
- //           if (distance.Y >= 0)
- //           {
- //               pos1DirectionVector.Y = 1;
- //               pos2DirectionVector.Y = -1;
- //           }
- //           else
- //           {
- //               pos1DirectionVector.Y = -1;
- //               pos2DirectionVector.Y = 1;
- //           }
-
- //           //TODO abfragen ob sich die radien überhaupt überschneiden?
- //           double hypothenuseDistance = Math.Sqrt((double)(distance.X * distance.X + distance.Y * distance.Y));
- //           double alpha = Math.Asin(distance.Y / hypothenuseDistance);
- //           // these points are calculated starting at (0, 0), so they are NOT the actual points yet.
- //           radiusPoint1.Y = pos1DirectionVector.Y * (float)Math.Sin(alpha) * radius1;
- //           radiusPoint1.X = pos1DirectionVector.X * (float)Math.Cos(alpha) * radius1;
- //           radiusPoint2.Y = pos2DirectionVector.Y * (float)Math.Sin(alpha) * radius2;
- //           radiusPoint2.X = pos2DirectionVector.X * (float)Math.Cos(alpha) * radius2;
- //           explosionPoint.X = (radiusPoint1.X + radiusPoint2.X) / 2;
- //           explosionPoint.Y = (radiusPoint1.Y + radiusPoint2.Y) / 2;
         }
 
         

@@ -44,26 +44,28 @@ namespace EtherDuels.Game.View
             
             Vector3 modelPosition = new Vector3(worldObject.Position.X, 0, worldObject.Position.Y);
            // float modelRotation = 0f; // gameTime.TotalGameTime.Milliseconds * 0.01f;
+            Matrix matrixWorld = Matrix.CreateScale(1.0f);
+            if (this.worldObject is Planet)
+            {
+                if ((worldObject as Planet).IsFlexible == false)
+                {
+                    angle += 0.0003f;
+                    matrixWorld = Matrix.CreateRotationZ(3 * angle) * Matrix.CreateRotationX(angle) * matrixWorld;
+                }
+                matrixWorld *= Matrix.CreateScale(this.worldObject.Radius / 100 * 0.4f) * matrixWorld;
+            }
+            matrixWorld *= Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(modelPosition);
 
-            Matrix matrixWorld = Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(modelPosition);
+            //TODO: matrizen als konstanten in die klasse machen.. verändern sich nicht.?
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
-
+            
             if (this.worldObject is Explosion)
             {
                 float scale = (float)(gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
 
                 matrixWorld = Matrix.CreateScale(scale * scale * 0.0004f) * matrixWorld;
             }
-
-            if (this.worldObject is Planet && (worldObject as Planet).IsFlexible == false)
-            {
-                angle += 0.0003f;
-                matrixWorld = Matrix.CreateRotationZ(3 * angle) * Matrix.CreateRotationX(angle)
-                             * Matrix.CreateScale(this.worldObject.Radius / 100 * 0.4f) * matrixWorld;
-                                
-            }
-
          
              Matrix[] transforms = new Matrix[model.Bones.Count];
              model.CopyAbsoluteBoneTransformsTo(transforms);

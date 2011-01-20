@@ -53,7 +53,6 @@ namespace EtherDuels.Game.Model
             foreach (Planet planet in world.Planets)
             {
                 planet.Rotation += 0.0005f;
-                System.Console.Write(planet.Health);
             }
 
             foreach (WorldObject[] collision in GetNewCollisions())
@@ -68,7 +67,6 @@ namespace EtherDuels.Game.Model
         /// <param name="gameTime"></param>
         private void UpdateGravity(GameTime gameTime)
         {
-            //TODO: funktioniert bisher nur wenn der Planet als erstes in der liste steht. Das korrigier ich aber noch.
             for (int i = 0; i < worldObjects.Length; i++)
             {
                 if (worldObjects[i] is Planet || worldObjects[i] is Spaceship)
@@ -165,19 +163,13 @@ namespace EtherDuels.Game.Model
             for (int i = 0; i < worldObjects.GetLength(0); i += 1)
             {
                 WorldObject object1 = worldObjects[i];
-
-             
                 if (!(object1 is Explosion))
                 {
-
                     for (int j = i + 1; j < worldObjects.GetLength(0); j += 1)
                     {   
                         WorldObject object2 = worldObjects[j];
-
-                        
                         if (!(object2 is Explosion))
                         {
-
                             float distance = Vector2.Distance(object1.Position, object2.Position);
                             if (distance < object1.Radius + object2.Radius)
                             {

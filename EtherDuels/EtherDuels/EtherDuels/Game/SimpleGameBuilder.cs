@@ -40,7 +40,7 @@ namespace EtherDuels.Game
             planet.Radius = 300;
 
             // build planet in orbit
-            int distance = 800;
+            int distance = 1200;
             
             Planet planet2 = new Planet();
             planet2.Radius = 82;

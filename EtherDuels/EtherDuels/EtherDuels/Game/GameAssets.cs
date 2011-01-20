@@ -27,7 +27,7 @@ namespace EtherDuels.Game
         // G: gravitational constant
         public static double G = 6.67428E-11;  // in m^3/kg/s^2
         // N: normalisation factor, to downsize the dimensions of the universe to those of our game
-        public static float N = 100000;        // must NOT be 0!!
+        public static float N = 300000;        // must NOT be 0!!
 
 
         private Song soundtrack;
