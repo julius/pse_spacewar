@@ -43,7 +43,7 @@ namespace EtherDuels.Game
             int distance = 800;
             
             Planet planet2 = new Planet();
-            planet2.IsFlexible = true;
+            planet2.IsFlexible = true;           
             planet2.Position = new Vector2(distance, 0);
             // calculate velocity needed to circuit in orbit
             int planet2Velocity = (int) Math.Round(Math.Sqrt(planet.Mass * GameAssets.G / distance / (GameAssets.N * 1000)), 2);

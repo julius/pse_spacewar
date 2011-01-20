@@ -58,10 +58,12 @@ namespace EtherDuels.Game.View
             if (this.worldObject is Planet)
             {
                 angle += 0.0003f;
-                matrixWorld = Matrix.CreateRotationZ(3 * angle) * Matrix.CreateRotationX(angle);
+                matrixWorld = Matrix.CreateRotationZ(3 * angle) * Matrix.CreateRotationX(angle)
+                             * Matrix.CreateScale(this.worldObject.Radius / 100 * 0.4f) * matrixWorld;
+                                
             }
 
-
+         
              Matrix[] transforms = new Matrix[model.Bones.Count];
              model.CopyAbsoluteBoneTransformsTo(transforms);
 
