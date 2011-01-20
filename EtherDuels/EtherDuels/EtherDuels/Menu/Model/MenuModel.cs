@@ -16,7 +16,17 @@ namespace EtherDuels.Menu.Model
 
         private MenuDialog[] menuDialogs;
         private int previousDialog = 0;
-        
+        private int winningPlayerID;
+        public int WinningPlayerID
+        {
+            get { return this.winningPlayerID; }
+        }
+
+        private int winningPlayerPoints;
+        public int WinningPlayerPoints
+        {
+            get { return winningPlayerPoints; }
+        }
         /// <summary>
         /// Gets an array of all MenuDialogs, which are used by the menu.
         /// </summary>
@@ -106,16 +116,14 @@ namespace EtherDuels.Menu.Model
         /// Sets the end game menu active.
         /// </summary>
         /// <param name="playerID">Id of the wining player.</param>
-        public void SetGameEndedMenu(int playerID)
+        public void SetGameEndedMenu(int playerID, int points)
         {
             this.winningPlayerID = playerID;
-            this.SetActiveDialogByIndex(11);
+            this.winningPlayerPoints = points;
+            this.SetActiveDialogByIndex(5);
         }
 
-        private int winningPlayerID;
-        public int WinningPlayerID {
-            get { return this.winningPlayerID; }
-        }
+        
 
         public void SetActiveDialogByIndex(int index)
         {

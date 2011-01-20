@@ -19,6 +19,7 @@ namespace EtherDuels.Menu
     {
         private MenuHandler menuHandler;
         private Configuration configuration;
+        private string name = "";
 
         /// <summary>
         /// Creates a new SimpleMenuBuilder.
@@ -141,6 +142,12 @@ namespace EtherDuels.Menu
                 menuModel.SetPreviousDialogActive();
             };
 
+            // Highscore Actions
+
+            MenuItem.ActionHandler actionEnterHighscore = delegate(MenuItem menuItem)
+            {
+                menuModel.WaitForKey(delegate(Keys key) { name += FormatKey(key);});
+            };
 
             // Keyboard Configuration Actions
 
@@ -366,8 +373,13 @@ namespace EtherDuels.Menu
             MenuDialog help = new MenuDialog(helpItems);
 
             // Build Highscore Dialog
+            MenuItem highscoreInfo = new MenuItem(null, delegate() { return "Highscore"; });
+            MenuItem highscoreSpot1 = new MenuItem(null, delegate() { return "Player1: " + "10000"; });
+            MenuItem highscoreSpot2 = new MenuItem(actionEnterHighscore, delegate() { return name + ": " + menuModel.WinningPlayerPoints; });
+            
+
             MenuItem highscoreReturn = new MenuItem(actionReturn, delegate() { return "Return to Main Menu"; });
-            MenuItem[] highscoreItems = { highscoreReturn };
+            MenuItem[] highscoreItems = { highscoreInfo, highscoreSpot1, highscoreSpot2, highscoreReturn };
             MenuDialog highscore = new MenuDialog(highscoreItems);
 
             // Build Quit Program Dialog

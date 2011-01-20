@@ -251,7 +251,7 @@ namespace EtherDuels
 
         public void OnGameEnded(int playerID, int points)
         {
-            this.menuController.SetGameEndedMenu(playerID);
+            this.menuController.SetGameEndedMenu(playerID, points);
             this.programState.GameState = GameState.NoGame;
             this.programState.MenuState = MenuState.InMenu;
         }
