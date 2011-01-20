@@ -72,6 +72,7 @@ namespace EtherDuels.Ruby
         {
             WorldView worldView = new WorldView(gameAssets.TextureBackground, model.World);
             GameView gameView;
+            int i = 0; // to count the planets in the worldobject list
 
             foreach (WorldObject worldObject in model.World.WorldObjects)
             {
@@ -83,7 +84,8 @@ namespace EtherDuels.Ruby
                 }
                 else if (worldObject is Planet)
                 {
-                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.ModelPlanet, worldObject));
+                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetModelPlanets()[i], worldObject));
+                    i++;
                 }
                 else if (worldObject is Projectile)
                 {

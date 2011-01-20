@@ -21,6 +21,14 @@ namespace EtherDuels.Game
             }
         }
 
+        // private constructor
+        private GameAssets() { }
+
+        // G: gravitational constant
+        public static double G = 6.67428E-11;  // in m^3/kg/s^2
+        // N: normalisation factor, to downsize the dimensions of the universe to those of our game
+        public static float N = 100000;        // must NOT be 0!!
+
 
         private Song soundtrack;
         public Song Soundtrack
@@ -49,14 +57,6 @@ namespace EtherDuels.Game
             get { return soundExplosion; }
             set { soundExplosion = value; }
         }
-
-        private GameAssets() { }
-
-        // G: gravitational constant
-        public static double G = 6.67428E-11;  // in m^3/kg/s^2
-        // N: normalisation factor, to downsize the dimensions of the universe to those of our game
-        public static float N = 100000;        // must NOT be 0!!
-
 
         private SpriteFont hudFont;
         public SpriteFont HudFont
@@ -98,6 +98,18 @@ namespace EtherDuels.Game
             modelsSpaceship.Add(color, model);
         }
 
+        private List<Microsoft.Xna.Framework.Graphics.Model> modelPlanets = new List<Microsoft.Xna.Framework.Graphics.Model>();
+        public void AddModelPlanet(Microsoft.Xna.Framework.Graphics.Model modelPlanet)
+        {
+            modelPlanets.Add(modelPlanet);
+        }
+
+        public Microsoft.Xna.Framework.Graphics.Model[] GetModelPlanets()
+        {
+            return modelPlanets.ToArray();
+        }
+
+
         //private Microsoft.Xna.Framework.Graphics.Model modelSpaceship;
         //public Microsoft.Xna.Framework.Graphics.Model ModelSpaceship
         //{
@@ -126,11 +138,5 @@ namespace EtherDuels.Game
             set { modelExplosion = value; }
         }
 
-        private Microsoft.Xna.Framework.Graphics.Model modelPlanet;
-        public Microsoft.Xna.Framework.Graphics.Model ModelPlanet
-        {
-            get { return modelPlanet; }
-            set { modelPlanet = value; }
-        }
     }
 }

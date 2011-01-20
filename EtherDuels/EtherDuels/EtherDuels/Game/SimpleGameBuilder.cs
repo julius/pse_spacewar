@@ -84,6 +84,7 @@ namespace EtherDuels.Game
         {
             WorldView worldView = new WorldView(gameAssets.TextureBackground, model.World);
             GameView gameView;
+            int i = 0; // to count the planets in the list of world objects
 
             foreach (WorldObject worldObject in model.World.WorldObjects)
             {
@@ -95,7 +96,8 @@ namespace EtherDuels.Game
                 }
                 else if (worldObject is Planet)
                 {
-                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.ModelPlanet, worldObject));
+                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetModelPlanets()[i], worldObject));
+                    i++;
                 }
                 else if (worldObject is Projectile)
                 {

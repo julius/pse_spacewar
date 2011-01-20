@@ -2230,7 +2230,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "4638.jpg"
-		RelativeFilename: "4638.jpg"
+		RelativeFilename: ".\4638.jpg"
 	}
 	Texture: "Texture::4638.jpg", "TextureVideoClip" {
 		Type: "TextureVideoClip"

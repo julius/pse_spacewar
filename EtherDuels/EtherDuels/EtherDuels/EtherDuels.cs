@@ -79,7 +79,8 @@ namespace EtherDuels
             Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
             Model modelSpaceshipGreen = content.Load<Model>("spaceship_green");
             Model modelSpaceshipOrange = content.Load<Model>("spaceship_orange"); 
-            Model modelPlanet = content.Load<Model>("moon");
+            Model modelMoon = content.Load<Model>("moon");
+            Model modelEarth = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
@@ -110,7 +111,8 @@ namespace EtherDuels
           
             gameAssets.SetColoredSpaceship(Color.Green, modelSpaceshipGreen);
             gameAssets.SetColoredSpaceship(Color.Orange, modelSpaceshipOrange);
-            gameAssets.ModelPlanet = modelPlanet;
+            gameAssets.AddModelPlanet(modelEarth);
+            gameAssets.AddModelPlanet(modelMoon);
             gameAssets.ModelRocket = modelRocket;
             gameAssets.ModelLaser = modelLaser;
             gameAssets.ModelExplosion = modelExplosion;

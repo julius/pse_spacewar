@@ -74,7 +74,7 @@ namespace EtherDuels.Ruby
             spaceship.Mass = 8000;
             this.worldObjectList.Add(spaceship);
 
-            Player player = new HumanPlayer(2, this.playerHandler, Color.OrangeRed, this.configuration.GetKeyboardConfiguration(2));
+            Player player = new HumanPlayer(2, this.playerHandler, Color.Orange, this.configuration.GetKeyboardConfiguration(2));
             player.Spaceship = spaceship;
 
             player.Spaceship.Velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
