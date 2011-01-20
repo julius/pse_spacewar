@@ -9,6 +9,8 @@ using EtherDuels.Config;
 using Microsoft.Xna.Framework.Input;
 using EtherDuels.Game.Model;
 using EtherDuels.Game;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace EtherDuels.Menu
 {   
@@ -120,16 +122,29 @@ namespace EtherDuels.Menu
             };
 
             // Volume Menu Actions
-            MenuItem.ActionHandler actionVolumeUp = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionChangeMusicVolume = delegate(MenuItem menuItem)
             {
-                //TODO: if (configuration.Volume <= 90) { configuration.Volume += 10; }
+                if (MediaPlayer.Volume >= 1.0f)
+                {
+                    MediaPlayer.Volume = 0;
+                }
+                else
+                {
+                    MediaPlayer.Volume = (MediaPlayer.Volume + 0.2f);
+                }                
             };
 
-            MenuItem.ActionHandler actionVolumeDown = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionChangeEffectVolume = delegate(MenuItem menuItem)
             {
-                //TODO: if (configuration.Volume >= 10) { configuration.Volume -= 10; }
+                if (SoundEffect.MasterVolume >= 1.0f)
+                {
+                    SoundEffect.MasterVolume = 0;
+                }
+                else
+                {
+                    SoundEffect.MasterVolume = (SoundEffect.MasterVolume + 0.2f);
+                }                
             };
-
 
             // Difficulty Menu Actions
             MenuItem.ActionHandler actionChangeDifficulty = delegate(MenuItem menuItem)
@@ -282,24 +297,26 @@ namespace EtherDuels.Menu
             MenuItem[] optionsMainMenuItems = { 
                                                   optionsMenuKeyboardConfiguration1, 
                                                   optionsMenuKeyboardConfiguration2, 
-                                                  //optionsMenuVolume, 
+                                                  optionsMenuVolume, 
                                                   optionsMenuDifficulty, 
                                                   optionsMenuReturnToMainMenu 
                                               };
             MenuItem[] optionsPauseMenuItems = { 
                                                    optionsMenuKeyboardConfiguration1, 
                                                    optionsMenuKeyboardConfiguration2, 
-                                                   //optionsMenuVolume,
+                                                   optionsMenuVolume,
                                                    optionsMenuReturnToPauseMenu 
                                                };
             MenuDialog optionsMainMenu = new MenuDialog(optionsMainMenuItems);
             MenuDialog optionsPauseMenu = new MenuDialog(optionsPauseMenuItems);
 
             // Build Volume Dialog
-            MenuItem volumeUp = new MenuItem(actionVolumeUp, delegate() { return "Volume +"; });
-            MenuItem volumeDown = new MenuItem(actionVolumeDown, delegate() { return "Volume -"; });
+            MenuItem volumeInfo = new MenuItem(null, delegate() { return "Press Enter to change volume"; });
+
+            MenuItem volumeMusicValue = new MenuItem(actionChangeMusicVolume, delegate() { return "Music Volume: " + MediaPlayer.Volume; });
+            MenuItem volumeEffectValue = new MenuItem(actionChangeEffectVolume, delegate() { return "Soundeffect Volume: " + SoundEffect.MasterVolume; });
             MenuItem volumeReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
-            MenuItem[] volumeMenuItems = { volumeUp, volumeDown, volumeReturnToOptions };
+            MenuItem[] volumeMenuItems = { volumeInfo, volumeMusicValue, volumeEffectValue, volumeReturnToOptions };
             MenuDialog volume = new MenuDialog(volumeMenuItems);
 
             // Build Difficulty Dialog

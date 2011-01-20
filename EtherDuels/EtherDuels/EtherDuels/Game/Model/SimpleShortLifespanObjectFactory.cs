@@ -15,13 +15,9 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
     {
-        Configuration configuration;
+        private GameAssets gameAssets = GameAssets.Instance;
 
-       /* public SimpleShortLifespanObjectFactory(Configuration configuration)
-        {
-            this.configuration = configuration;
-        } */
-
+        /* TODO: hatte das irgendjemand aus besonderem grund eingefügt oder kann das weg?
         private Microsoft.Xna.Framework.Graphics.Model explosionModel;
         public Microsoft.Xna.Framework.Graphics.Model ExplosionModel
         {
@@ -59,7 +55,7 @@ namespace EtherDuels.Game.Model
                 }
                 this.laserModel = value;
             }
-        }
+        }*/
 
         
         /// <summary>
@@ -71,8 +67,7 @@ namespace EtherDuels.Game.Model
         {
             Explosion explosion = new Explosion();
             explosion.CreationTime = gameTime.TotalGameTime;
-
-            GameAssets.Instance.SoundExplosion.CreateInstance().Play();
+            gameAssets.SoundExplosion.CreateInstance().Play();
             return explosion;
         }
         /// <summary>
@@ -90,8 +85,7 @@ namespace EtherDuels.Game.Model
                         projectile.Attack = 5;
                         projectile.Health = 5;
                         projectile.Weapon = Weapon.Laser;
-                        GameAssets.Instance.SoundLaser.CreateInstance().Play();
-
+                        gameAssets.SoundLaser.CreateInstance().Play();
                         break;
                     }
                     
@@ -100,8 +94,7 @@ namespace EtherDuels.Game.Model
                         projectile.Attack = 10;
                         projectile.Health = 10;
                         projectile.Weapon = Weapon.Rocket;
-                        GameAssets.Instance.SoundRocket.CreateInstance().Play();
-
+                        gameAssets.SoundRocket.CreateInstance().Play();
                         break;
                     }
             }
@@ -115,8 +108,7 @@ namespace EtherDuels.Game.Model
         /// <returns>The created view fitting to the assigned Explosion object.</returns>
         public WorldObjectView CreateExplosionView(Explosion explosion)
         {
-           
-            WorldObjectView explosionView = new WorldObjectView(explosionModel, explosion);
+            WorldObjectView explosionView = new WorldObjectView(gameAssets.ModelExplosion, explosion);
             return explosionView;
         }
 
@@ -133,12 +125,12 @@ namespace EtherDuels.Game.Model
             {
                 case Weapon.Laser:
                     {
-                        projectileView = new WorldObjectView(laserModel, projectile);
+                        projectileView = new WorldObjectView(gameAssets.ModelLaser, projectile);
                         break;
                     }
                 case Weapon.Rocket:
                     {
-                        projectileView = new WorldObjectView(rocketModel, projectile);
+                        projectileView = new WorldObjectView(gameAssets.ModelRocket, projectile);
                         break;
                     }
             }
