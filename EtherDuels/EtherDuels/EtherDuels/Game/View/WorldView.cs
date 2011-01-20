@@ -38,7 +38,6 @@ namespace EtherDuels.Game.View
             this.world = world;
             this.cameraPosition = new Vector3(0.0f, 5000.0f, 1000.0f);
             this.worldObjectViews = new List<WorldObjectView>();
-           
         }
 
         /// <summary>
@@ -67,12 +66,9 @@ namespace EtherDuels.Game.View
         /// <param name="gameTime">The frame's time object.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch, GameTime gameTime)
         {
-
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Draw(this.background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             spriteBatch.End();
-
-           
             
             foreach (WorldObjectView worldObjectView in this.worldObjectViews.ToArray())
             {
@@ -83,8 +79,7 @@ namespace EtherDuels.Game.View
                 }
                 else
                 {
-                                    
-                   worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
+                    worldObjectView.Draw(viewport, this.cameraPosition, gameTime);
                 }
             }
 

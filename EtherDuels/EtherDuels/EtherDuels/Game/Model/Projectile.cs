@@ -20,6 +20,13 @@ namespace EtherDuels.Game.Model
             this.Velocity = new Vector2(0,0);
         }
 
+        private Spaceship shooter;
+        public Spaceship Shooter
+        {
+            get { return shooter; }
+            set { shooter = value; }
+        }
+
         private Weapon weapon;
         public Weapon Weapon
         {

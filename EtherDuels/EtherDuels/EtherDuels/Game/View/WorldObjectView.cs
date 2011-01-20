@@ -41,6 +41,7 @@ namespace EtherDuels.Game.View
         /// <param name="gameTime">The frame's time object.</param>
         public void Draw(Viewport viewport, Vector3 cameraPosition, GameTime gameTime)
         {
+            
             Vector3 modelPosition = new Vector3(worldObject.Position.X, 0, worldObject.Position.Y);
            // float modelRotation = 0f; // gameTime.TotalGameTime.Milliseconds * 0.01f;
 
@@ -55,7 +56,7 @@ namespace EtherDuels.Game.View
                 matrixWorld = Matrix.CreateScale(scale * scale * 0.0004f) * matrixWorld;
             }
 
-            if (this.worldObject is Planet)
+            if (this.worldObject is Planet && (worldObject as Planet).IsFlexible == false)
             {
                 angle += 0.0003f;
                 matrixWorld = Matrix.CreateRotationZ(3 * angle) * Matrix.CreateRotationX(angle);

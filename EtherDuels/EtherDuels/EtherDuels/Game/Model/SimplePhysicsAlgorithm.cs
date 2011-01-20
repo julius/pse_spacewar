@@ -53,6 +53,7 @@ namespace EtherDuels.Game.Model
             foreach (Planet planet in world.Planets)
             {
                 planet.Rotation += 0.0005f;
+                System.Console.Write(planet.Health);
             }
 
             foreach (WorldObject[] collision in GetNewCollisions())

@@ -25,8 +25,6 @@ namespace EtherDuels.Game
         private GameModel gameModel;
         private GameView gameView;
         private GameTime gameTime;
-        
-
 
         /// <summary>
         /// Constructor of a GameController object.
@@ -100,11 +98,28 @@ namespace EtherDuels.Game
             collisionObject1.Health -= collisionObject2.Attack;
             collisionObject2.Health -= collisionObject1.Attack;
 
+            // calculating the points
+            /*if (collisionObject1 is Spaceship && collisionObject2 is Projectile)
+            {
+                foreach (Player player in gameModel.Players) 
+                {
+                    if (collisionObject1 == player.Spaceship)
+                    {
+                        if ((collisionObject2 as Projectile).Shooter == collisionObject1)
+                        {
+                            player.Points -= collisionObject2.Attack;
+                        } else {*/
+
+
+                            
+
+
+
+
             /* checking whether the colliding objects are still "alive". Check the object with
              * less health first to make the player with less health lose the game in case both
              * spaceships died. */
             WorldObjectView[] worldObjectViews = gameView.WorldView.WorldObjectViews;
-
             
             if (collisionObject1.Health <= collisionObject2.Health)
             {
@@ -241,6 +256,7 @@ namespace EtherDuels.Game
 
             // set the projectile's rotation
             projectile.Rotation = shooter.Rotation;
+            projectile.Shooter = shooter;
             
             // calculate and set the projectile's position. 
             Vector2 projectilePosition;

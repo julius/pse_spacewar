@@ -43,6 +43,7 @@ namespace EtherDuels.Game
             int distance = 800;
             
             Planet planet2 = new Planet();
+            planet2.Radius = 82;
             planet2.IsFlexible = true;
             planet2.Position = new Vector2(distance, 0);
             // calculate velocity needed to circuit in orbit
