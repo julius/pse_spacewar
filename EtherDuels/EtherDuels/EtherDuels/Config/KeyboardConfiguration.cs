@@ -33,17 +33,18 @@ namespace EtherDuels.Config
             this.right = (Keys)info.GetValue("right", typeof(Keys));
         }
 
+        /// <summary>
+        /// Creates a new KeyboardConfiguration.
+        /// </summary>
         public KeyboardConfiguration()
         {
         }
 
-        // Serialization function.
-        //TODO: kommentar vervollstaendigen
         /// <summary>
-        ///  
+        /// Adds all important values to the SerializationInfo.
         /// </summary>
-        /// <param name="info">The SerializationInfo.</param>
-        /// <param name="ctxt">The StreamingContext</param>
+        /// <param name="info">The assigned SerializationInfo.</param>
+        /// <param name="ctxt">The assigned StreamingContext.</param>
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("backward", backward);

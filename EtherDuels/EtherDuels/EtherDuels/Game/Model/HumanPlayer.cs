@@ -16,6 +16,9 @@ namespace EtherDuels.Game.Model
         private bool isFireKeyDown = false;
         private bool isNextWeaponKeyDown = false;
         private bool isPrevWeaponKeyDown = false;
+        private Weapon[] weapons = (Weapon[]) Enum.GetValues(typeof(Weapon));
+        // for iterating through the weapons array.
+        private int i = 0;
 
         /// <summary>
         /// Creates a HumanPlayer.
@@ -47,28 +50,16 @@ namespace EtherDuels.Game.Model
             if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.NextWeapon) && isNextWeaponKeyDown)
             {
                 isNextWeaponKeyDown = false;
-                if (this.spaceship.CurrentWeapon == Weapon.Laser)
-                {
-                    this.spaceship.CurrentWeapon = Weapon.Rocket;
-                }
-                else
-                {
-                    this.spaceship.CurrentWeapon = Weapon.Laser;
-                }
+                i++;
+                this.spaceship.CurrentWeapon = weapons[i % weapons.Length];    
             }
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.PrevWeapon)) isPrevWeaponKeyDown = true;
             if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.PrevWeapon) && isPrevWeaponKeyDown)
             {
                 isPrevWeaponKeyDown = false;
-                if (this.spaceship.CurrentWeapon == Weapon.Laser)
-                {
-                    this.spaceship.CurrentWeapon = Weapon.Rocket;
-                }
-                else
-                {
-                    this.spaceship.CurrentWeapon = Weapon.Laser;
-                }
+                i--;
+                this.spaceship.CurrentWeapon = weapons[i % weapons.Length];                             
             }
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Forward))

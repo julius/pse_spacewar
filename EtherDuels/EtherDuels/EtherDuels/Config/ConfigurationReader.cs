@@ -9,18 +9,31 @@ using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Config
 {
+    /// <summary>
+    /// The ConfigurationReader imports the saved configuration file specified by its path.
+    /// </summary>
     public class ConfigurationReader
     {
         private BinaryFormatter binaryFormatter;
         private Stream stream;
 
+        /// <summary>
+        /// Creates a new ConfigurationReader.
+        /// </summary>
+        /// <param name="binForm">The BinaryFormatter needed to build the Configuration from the file.</param>
+        /// <param name="stream">The Stream for streaming the file.</param>
         public ConfigurationReader(BinaryFormatter binForm, Stream stream)
         {
             this.binaryFormatter    = binForm;
             this.stream             = stream;
         }
 
-
+        /// <summary>
+        /// This method reads the Configuration file from the specified path and creates the adequate Configuration object.
+        /// If the path does not exist, a default Configuration will be constructed.
+        /// </summary>
+        /// <param name="path">The specified path to read from.</param>
+        /// <returns>Returns the created Configuration object.</returns>
         public Configuration read(string path)
         {
             if (File.Exists(path))

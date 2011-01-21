@@ -5,9 +5,7 @@ using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
-
 using Microsoft.Xna.Framework.Input;
-
 using EtherDuels.Game.Model;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
@@ -15,35 +13,29 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace EtherDuels.Config
 {
+    /// <summary>
+    /// The Configuration provides all the settings needed for the game and the menu.
+    /// It saves personal settings in a file.
+    /// </summary>
     [Serializable()]
     public class Configuration : ConfigurationRetriever, ISerializable
     {
         private BinaryFormatter binaryFormatter;
-
         private KeyboardConfiguration[] keyConfigurations = new KeyboardConfiguration[2]; // fixed number of players, for now
-
-        
-        public KeyboardConfiguration GetKeyboardConfiguration(int playerID)
-        {
-            if (playerID < 1 || playerID > keyConfigurations.Length)
-            {
-                return null;
-            }
-            return keyConfigurations[playerID];
-        }
-
-        public void SetKeyboardConfiguration(int playerID, KeyboardConfiguration keyConfiguration)
-        {
-            if (playerID < 1 || playerID > keyConfigurations.Length)
-            {
-                return;
-            }
-            this.keyConfigurations[playerID] = keyConfiguration;
-        }
-
         private Stream stream;
 
+        /// <summary>
+        /// Constructor which initializes the KeyboardConfiguration Array. Currently, fixed sized of 10 players.
+        /// </summary>
+        public Configuration()
+        {
+            keyConfigurations = new KeyboardConfiguration[10];
+        }
+
         private float volumeMusic;
+        /// <summary>
+        /// Gets and sets the volume of the music in the game.
+        /// </summary>
         public float VolumeMusic
         {
             get { return this.volumeMusic; }
@@ -55,6 +47,9 @@ namespace EtherDuels.Config
         }
 
         private float volumeEffects;
+        /// <summary>
+        ///  Gets and sets the volume of the sound effects.
+        /// </summary>
         public float VolumeEffects
         {
             get { return this.volumeEffects; }
@@ -65,7 +60,11 @@ namespace EtherDuels.Config
             }
         }
 
+
         private int difficulty;
+        /// <summary>
+        /// Gets and sets the difficulty level.
+        /// </summary>
         public int Difficulty
         {
             get { return difficulty; }
@@ -73,6 +72,9 @@ namespace EtherDuels.Config
         }
 
         private int difficulty_AI;
+        /// <summary>
+        /// Gets and sets the difficulty level of the AI Player.
+        /// </summary>
         public int Difficulty_AI
         {
             get { return difficulty_AI; }
@@ -81,18 +83,21 @@ namespace EtherDuels.Config
 
 
         private string path;
+        /// <summary>
+        /// Gets and sets the path to read the configuration file from.
+        /// </summary>
         public string Path
         {
             get { return path; }
             set { path = value; }
         }
+        
 
-        public Configuration()
-        {
-            keyConfigurations = new KeyboardConfiguration[10];
-        }
-
-        //Deserialization constructor.
+        /// <summary>
+        /// Creates a new Configuration.
+        /// </summary>
+        /// <param name="info">Info on how to serialize this class.</param>
+        /// <param name="ctxt">The assigned StreamingContext.</param>
         public Configuration(SerializationInfo info, StreamingContext ctxt)
         {
             this.difficulty = (int)info.GetValue("difficulty", typeof(int));
@@ -103,7 +108,11 @@ namespace EtherDuels.Config
             this.VolumeEffects = (float)info.GetValue("volumeEffects", typeof(float));
         }
 
-        //Serialization function.
+        /// <summary>
+        /// Adds all important values to the SerializationInfo.
+        /// </summary>
+        /// <param name="info">The assigned SerializationInfo.</param>
+        /// <param name="ctxt">The assigned StreamingContext.</param>
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("difficulty", difficulty);
@@ -113,6 +122,37 @@ namespace EtherDuels.Config
             info.AddValue("volumeEffects", volumeEffects);
         }
 
+        /// <summary>
+        /// Returns the KeyboardConfiguration of the specified player.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <returns>The KeyboardConfiguration of the specified player. Returns null if player is non-existent.</returns>
+        public KeyboardConfiguration GetKeyboardConfiguration(int playerID)
+        {
+            if (playerID < 1 || playerID > keyConfigurations.Length)
+            {
+                return null;
+            }
+            return keyConfigurations[playerID];
+        }
+
+        /// <summary>
+        /// Sets the KeyboardConfiguration for the specified player.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="keyConfiguration">The KeyboardConfiguration of the specified player.</param>
+        public void SetKeyboardConfiguration(int playerID, KeyboardConfiguration keyConfiguration)
+        {
+            if (playerID < 1 || playerID > keyConfigurations.Length)
+            {
+                return;
+            }
+            this.keyConfigurations[playerID] = keyConfiguration;
+        }
+
+        /// <summary>
+        /// Saves the current Configuration to a file.
+        /// </summary>
         public void Save()
         {
             if (this.path == null)
@@ -150,44 +190,82 @@ namespace EtherDuels.Config
             stream.Close();
         }
 
+        /// <summary>
+        /// Sets the backward key for the player specified by the playerID.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="key">The new key which needs to be assigned.</param>
         public void SetBackwardKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].Backward = key;
         }
 
+        /// <summary>
+        /// Sets the fire key for the player specified by the playerID.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="key">The new key which needs to be assigned.</param>
         public void SetFireKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].Fire = key;
         }
 
+        /// <summary>
+        /// Sets the forward key for the player specified by the playerID.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="key">The new key which needs to be assigned.</param>
         public void SetForwardKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].Forward = key;
         }
 
+        /// <summary>
+        /// Sets the turn-left key for the player specified by the playerID.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="key">The new key which needs to be assigned.</param>
         public void SetLeftKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].Left = key;
         }
 
+        /// <summary>
+        /// Sets the next-weapon key for the player specified by the playerID.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="key">The new key which needs to be assigned.</param>
         public void SetNextWeaponKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].NextWeapon = key;
         }
 
-
+        /// <summary>
+        /// Sets the prev-weapon key for the player specified by the playerID.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="key">The new key which needs to be assigned.</param>
         public void SetPrevWeaponKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].PrevWeapon = key;
         }
 
+        /// <summary>
+        /// Sets the turn-right key for the player specified by the playerID.
+        /// </summary>
+        /// <param name="playerID">The ID which specifies the player.</param>
+        /// <param name="key">The new key which needs to be assigned.</param>
         public void SetRightKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].Right = key;
         }
 
-        // required by test class
-        // if-blocks aligned for superior visibility not chained in one large if for marginally better performance
+        /// <summary>
+        /// Checks if the assigned Configuration object is equal to this one.
+        /// Objects are defined equal if all the respective settings match with each other. 
+        /// </summary>
+        /// <param name="secKeyConf">The Configuration which needs to be checked for equality.</param>
+        /// <returns>true if all respective settings are equal. false otherwise.</returns>
         public bool Equals(Configuration secConf)
         {
             if (secConf == null)

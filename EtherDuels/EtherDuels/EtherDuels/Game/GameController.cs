@@ -25,6 +25,8 @@ namespace EtherDuels.Game
         private GameModel gameModel;
         private GameView gameView;
         private GameTime gameTime;
+        private const int velocityLaser = 400;
+        private const int velocityRocket = 200;
 
         /// <summary>
         /// Constructor of a GameController object.
@@ -175,8 +177,8 @@ namespace EtherDuels.Game
             int velocityFactor = 100;
             switch (shooter.CurrentWeapon) 
             {
-                case Weapon.Laser: { velocityFactor = 350; break; }
-                case Weapon.Rocket: { velocityFactor = 200; break; }
+                case Weapon.Laser: { velocityFactor = velocityLaser; break; }
+                case Weapon.Rocket: { velocityFactor = velocityRocket; break; }
             }
             
             // add the spaceship's velocity to the projectile's velocity

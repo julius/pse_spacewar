@@ -86,7 +86,8 @@ namespace EtherDuels
             Model modelEarth = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
-            Model modelExplosion = content.Load<Model>("explosion");  
+            Model modelExplosion = content.Load<Model>("explosion");
+
 
             // Sound effects
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");

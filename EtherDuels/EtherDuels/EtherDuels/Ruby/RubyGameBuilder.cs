@@ -120,7 +120,7 @@ namespace EtherDuels.Ruby
                 }
                 else if (worldObject is Planet)
                 {
-                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetModelPlanets()[i], worldObject));
+                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetModelPlanets()[i % gameAssets.GetModelPlanets().Length], worldObject));
                     i++;
                 }
                 else if (worldObject is Projectile)

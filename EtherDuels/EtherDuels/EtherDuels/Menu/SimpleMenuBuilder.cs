@@ -358,7 +358,7 @@ namespace EtherDuels.Menu
             MenuItem helpInfo2 = new MenuItem(null, delegate() { return "In this game, you try to shoot each other"; });
             MenuItem helpInfo3 = new MenuItem(null, delegate() { return "in space until one spaceship is destroyed."; });
             MenuItem helpInfo4 = new MenuItem(null, delegate() { return "There are two types of weapons available:"; });
-            MenuItem helpInfo5 = new MenuItem(null, delegate() { return "- Laser:  speed: 350; health: 5; attack:5"; });
+            MenuItem helpInfo5 = new MenuItem(null, delegate() { return "- Laser:  speed: 400; health: 5; attack:5"; });
             MenuItem helpInfo6 = new MenuItem(null, delegate() { return "- Rocket: speed: 200; health: 10; attack; 10"; });
             MenuItem helpInfo7 = new MenuItem(null, delegate() { return "Have fun and beware of the gravitation!"; });
 
