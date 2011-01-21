@@ -153,7 +153,6 @@ namespace EtherDuels
             // play background music
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(soundtrack);
-            MediaPlayer.Volume = 1.0f;
         }
 
         /// <summary>

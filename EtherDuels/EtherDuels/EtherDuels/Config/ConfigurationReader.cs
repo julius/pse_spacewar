@@ -53,6 +53,9 @@ namespace EtherDuels.Config
                 defaultConf.SetKeyboardConfiguration(2, defaultKeyConfPlayerB);
                 defaultConf.Difficulty = 1;
 
+                defaultConf.VolumeMusic = 1.0f;
+                defaultConf.VolumeEffects = 1.0f;
+
                 defaultConf.Path = path;
                 return defaultConf;
             }
