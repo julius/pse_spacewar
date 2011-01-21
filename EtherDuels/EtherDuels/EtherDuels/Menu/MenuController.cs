@@ -107,10 +107,9 @@ namespace EtherDuels.Menu
         /// Sets the end game menu active.
         /// </summary>
         /// <param name="playerID">Id of the wining player.</param>
-        /// <param name="points">Points of the wining player.</param>
-        public void SetGameEndedMenu(int playerID, int points)
+        public void SetGameEndedMenu(int playerID)
         {
-            this.menuModel.SetGameEndedMenu(playerID, points);
+            this.menuModel.SetGameEndedMenu(playerID);
         }
     }
 }

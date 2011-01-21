@@ -279,10 +279,9 @@ namespace EtherDuels
         /// Returns to the main menu and ends the current game.
         /// </summary>
         /// <param name="playerID">The ID of the winning player.</param>
-        /// <param name="points">The points of the winning player.</param>
-        public void OnGameEnded(int playerID, int points)
+        public void OnGameEnded(int playerID)
         {
-            this.menuController.SetGameEndedMenu(playerID, points);
+            this.menuController.SetGameEndedMenu(playerID);
             this.programState.GameState = GameState.GameEnded;
             this.programState.MenuState = MenuState.NoMenu;
         }
