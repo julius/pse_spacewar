@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -145,10 +145,10 @@ namespace EtherDuels.Game.Model
 
                 // torodial field
                 //TODO: flexibler. sollte sich nach den in EtherDuels festgelegten groessen richten.
-                postion.X = postion.X > 3300 ? -2800 : postion.X;
-                postion.Y = postion.Y > 2400 ? -2000 : postion.Y;
-                postion.X = postion.X < -3300 ? 2800 : postion.X;
-                postion.Y = postion.Y < -2400 ? 2000 : postion.Y;
+                postion.X = postion.X > 3700 ? -3300 : postion.X;
+                postion.Y = postion.Y > 3000 ? -2600 : postion.Y;
+                postion.X = postion.X < -3700 ? 3300 : postion.X;
+                postion.Y = postion.Y < -3000 ? 2600 : postion.Y;
                 
                 worldObject.Position = postion;
             }
