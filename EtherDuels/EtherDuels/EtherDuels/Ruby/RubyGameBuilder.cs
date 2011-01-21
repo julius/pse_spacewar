@@ -37,6 +37,18 @@ namespace EtherDuels.Ruby
             this.configuration = configuration;
         }
 
+        class RubyPhysic
+        {
+            public double G;
+            public float N;
+
+            public RubyPhysic(double G, float N)
+            {
+                this.G = G;
+                this.N = N;
+            }
+        }
+
         public GameModel BuildModel()
         {
             // build game objects
@@ -44,6 +56,7 @@ namespace EtherDuels.Ruby
             ScriptEngine scriptEngine = IronRuby.Ruby.CreateEngine();
             ScriptScope scriptScope = scriptEngine.CreateScope();
             scriptScope.SetVariable("level", levelBuilder);
+            scriptScope.SetVariable("physic", new RubyPhysic(GameAssets.G, GameAssets.N));
             try
             {
                 ScriptSource source = scriptEngine.CreateScriptSourceFromFile(this.path);

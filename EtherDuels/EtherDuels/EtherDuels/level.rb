@@ -9,9 +9,16 @@ planet2 = level.add_planet()
 #planet.mass = 1
 #planet.health = 10
 #planet.position = level.vector(2000, 2000)
-#player1.spaceship.position = level.vector(0, 0)
 #player1.spaceship.rotation = 10
+player1.spaceship.position = level.vector(-1900, 0)
+player2.spaceship.position = level.vector(+1900, 0)
 
-planet1.position = level.vector(2000, -1500)
-planet1.mass = 1E24
-planet2.position = level.vector(-2000, 1500)
+planet1.radius = 300
+
+distance = 700
+
+planet2.radius = 82
+planet2.is_flexible = true
+planet2.position = level.vector(distance, 0)
+planet2.velocity = level.vector(0, Math.sqrt(planet1.mass * physic.G / distance / (physic.N * 1000)))
+
