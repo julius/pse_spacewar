@@ -21,8 +21,6 @@ namespace EtherDuels.Menu
     {
         private MenuHandler menuHandler;
         private Configuration configuration;
-        //TODO: nur benötigt für highscore. löschen falls keine highscore.
-        private string name = "";
 
         /// <summary>
         /// Creates a new SimpleMenuBuilder.
@@ -80,36 +78,30 @@ namespace EtherDuels.Menu
                 menuModel.SetActiveDialogByIndex(4);
             };
 
-            //TODO: rausnehmen falls keine highscore. Indizes anpassen!
-            MenuItem.ActionHandler actionHighscore = delegate(MenuItem menuItem)
-            {
-                menuModel.SetActiveDialogByIndex(5);
-            };
-
             MenuItem.ActionHandler actionQuit = delegate(MenuItem menuItem)
             {
-                menuModel.SetActiveDialogByIndex(6);
+                menuModel.SetActiveDialogByIndex(5);
             };
 
             // Option menu ActionHandlers
             MenuItem.ActionHandler actionVolume = delegate(MenuItem menuItem)
             {
-                menuModel.SetActiveDialogByIndex(7);
+                menuModel.SetActiveDialogByIndex(6);
             };
 
             MenuItem.ActionHandler actionDifficulty = delegate(MenuItem menuItem)
             {
-                menuModel.SetActiveDialogByIndex(8);
+                menuModel.SetActiveDialogByIndex(7);
             };
 
             MenuItem.ActionHandler actionKeyboardConfiguration1 = delegate(MenuItem menuItem)
             {
-                menuModel.SetActiveDialogByIndex(9);
+                menuModel.SetActiveDialogByIndex(8);
             };
 
             MenuItem.ActionHandler actionKeyboardConfiguration2 = delegate(MenuItem menuItem)
             {
-                menuModel.SetActiveDialogByIndex(10);
+                menuModel.SetActiveDialogByIndex(9);
             };
 
             MenuItem.ActionHandler actionReturnToMainMenu = delegate(MenuItem menuItem)
@@ -156,13 +148,6 @@ namespace EtherDuels.Menu
             MenuItem.ActionHandler actionReturn = delegate(MenuItem menuItem)
             {
                 menuModel.SetPreviousDialogActive();
-            };
-
-            // Highscore ActionHandlers
-            //TODO: rausnehmen falls keine highscore
-            MenuItem.ActionHandler actionEnterHighscore = delegate(MenuItem menuItem)
-            {
-                menuModel.WaitForKey(delegate(Keys key) { name += FormatKey(key);});
             };
 
             // Keyboard Configuration ActionHandlers
@@ -256,16 +241,14 @@ namespace EtherDuels.Menu
 
             // Build main menu
             MenuItem mainMenuStartGame = new MenuItem(actionStartGame, delegate() { return "Start Game"; });
-           MenuItem mainMenuOptions = new MenuItem(actionMainOptions, delegate() { return "Options"; });
+            MenuItem mainMenuOptions = new MenuItem(actionMainOptions, delegate() { return "Options"; });
             MenuItem mainMenuHelp = new MenuItem(actionHelp, delegate() { return "Help"; });
-            MenuItem mainMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
             MenuItem mainMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });
 
             MenuItem[] mainMenuItems = { 
                                            mainMenuStartGame, 
                                            mainMenuOptions, 
                                            mainMenuHelp, 
-                                           //TODO: mainMenuHighscore, 
                                            mainMenuQuitProgram 
                                        };
             MenuDialog mainMenu = new MenuDialog(mainMenuItems);
@@ -275,7 +258,6 @@ namespace EtherDuels.Menu
             MenuItem pauseMenuStartNewGame = new MenuItem(actionStartGame, delegate() { return "Start new Game"; });
             MenuItem pauseMenuOptions = new MenuItem(actionPauseOptions, delegate() { return "Options"; });
             MenuItem pauseMenuHelp = new MenuItem(actionHelp, delegate() { return "Help"; });
-            MenuItem pauseMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
             MenuItem pauseMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });
 
             MenuItem[] pauseMenuItems = { 
@@ -283,7 +265,6 @@ namespace EtherDuels.Menu
                                             pauseMenuStartNewGame, 
                                             pauseMenuOptions, 
                                             pauseMenuHelp, 
-                                            //TODO: pauseMenuHighscore, 
                                             pauseMenuQuitProgram 
                                         };
             MenuDialog pauseMenu = new MenuDialog(pauseMenuItems);
@@ -392,24 +373,6 @@ namespace EtherDuels.Menu
             MenuItem[] helpItems = { helpInfo1, helpInfo2, helpInfo3, helpInfo4, helpInfo5, helpInfo6, helpInfo7, helpReturn };
             MenuDialog help = new MenuDialog(helpItems);
 
-            // Build highscore dialog
-            /*TODO: ich hab leider keinen plan wie man sachen in die config schmeisst oder rausholt(also mit datei und so).
-             * Hier muesste man halt einfach in die Spot-Items die eintraege laden, die schon in der highscore stehen. der
-             * neue eintrag wird ja an menuModel uebergeben. checken ob points > spot1, wenn nicht ob > spot2 usw.
-             * bei der actionEnterHighscore muesste man noch korrigieren. Das soll x Zeichen(ruhig feste anzahl, z.b. 7) aus
-             * der tastaur einlesen. irgendwie tuts immer nur eins trotz schleife.
-             * Julius, wenn du das fertig machen wuerdest, wuerd ich mich am Freitag mittag dransetzen das Punktesystem im 
-             * GameController zu implementieren. Hab mir schon was ueberlegt, das waer auf jeden fall machbar.
-             * */
-            MenuItem highscoreInfo = new MenuItem(null, delegate() { return "Highscore"; });
-            MenuItem highscoreSpot1 = new MenuItem(null, delegate() { return "Player1: " + "10000"; });
-            MenuItem highscoreSpot2 = new MenuItem(actionEnterHighscore, delegate() { return name + ": " + menuModel.WinningPlayerPoints; });
-            
-
-            MenuItem highscoreReturn = new MenuItem(actionReturn, delegate() { return "Return to Main Menu"; });
-            MenuItem[] highscoreItems = { highscoreInfo, highscoreSpot1, highscoreSpot2, highscoreReturn };
-            MenuDialog highscore = new MenuDialog(highscoreItems);
-
             // Build quit program dialog
             MenuItem quitProgramQuestion = new MenuItem(null, delegate() { return "Do you really want to quit ?"; });
             MenuItem quitProgramYes = new MenuItem(actionQuitProgram, delegate() { return "Yes"; });
@@ -424,7 +387,7 @@ namespace EtherDuels.Menu
             MenuDialog gameEnded = new MenuDialog(gameEndedItems);
 
             // Build menu model
-            MenuDialog[] menuDialogs = { mainMenu, pauseMenu, optionsMainMenu, optionsPauseMenu, help, highscore, quitProgram,
+            MenuDialog[] menuDialogs = { mainMenu, pauseMenu, optionsMainMenu, optionsPauseMenu, help, quitProgram,
                                        volume, difficulty, keyConfig1, keyConfig2, gameEnded};
             menuModel.MenuDialogs = menuDialogs;
 
