@@ -13,8 +13,8 @@ namespace EtherDuels.Game.View
     /// </summary>
     public class WorldObjectView
     {
-        WorldObject worldObject;
-        Microsoft.Xna.Framework.Graphics.Model model;
+        private WorldObject worldObject;
+        private Microsoft.Xna.Framework.Graphics.Model model;
         private float angle = 0;
 
         /// <summary>

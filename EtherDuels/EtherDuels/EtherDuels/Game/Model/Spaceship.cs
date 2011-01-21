@@ -10,7 +10,7 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class Spaceship : WorldObject
     {
-        Weapon currentWeapon;
+        private Weapon currentWeapon;
 
         /// <summary>
         /// The constructor of a spaceship which sets a couple of default values.
