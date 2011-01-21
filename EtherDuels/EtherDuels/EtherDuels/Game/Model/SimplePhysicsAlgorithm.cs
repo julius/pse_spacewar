@@ -69,10 +69,7 @@ namespace EtherDuels.Game.Model
 
        
 
-        /// <summary>
-        /// Applies the gravity of the planets and spaceships to all other world objects and updates their velocities.
-        /// </summary>
-        /// <param name="gameTime">The GameTime which contains how much time has passed since the last update.</param>
+        // Applies the gravity of the planets and spaceships to all other world objects and updates their velocities.
         private void UpdateGravity(GameTime gameTime)
         {
             for (int i = 0; i < worldObjects.Length; i++)
@@ -120,10 +117,7 @@ namespace EtherDuels.Game.Model
             }
         }
 
-        /// <summary>
-        /// Limits the total velocity and updates the position of each worldObject.
-        /// </summary>
-        /// <param name="gameTime">The GameTime which contains how much time has passed since the last update.</param>
+        // Limits the total velocity and updates the position of each worldObject.
         private void UpdatePositions(GameTime gameTime)
         {
             foreach (WorldObject worldObject in worldObjects)
@@ -160,9 +154,8 @@ namespace EtherDuels.Game.Model
             }
         }
 
-        /// <summary>
-        /// Applies the effect that a changed difficulty level has on world objects.
-        /// </summary>
+        
+        // Applies the effect that a changed difficulty level has on world objects.
         private void UpdateDifficulty()
         {
             /* A new difficulty level means stronger/weaker gravity. For most world objects this effect
@@ -203,10 +196,7 @@ namespace EtherDuels.Game.Model
             }
         }
 
-        /// <summary>
-        /// Detects all current collisions.
-        /// </summary>
-        /// <returns>All current collisions.</returns>
+        // Detects all current collisions.
         private WorldObject[][] GetCollisions()
         {
             List<WorldObject[]> collisions = new List<WorldObject[]>();
@@ -234,10 +224,7 @@ namespace EtherDuels.Game.Model
             return collisions.ToArray<WorldObject[]>();
         }
 
-        /// <summary>
-        /// Filters the new collisions.
-        /// </summary>
-        /// <returns>All new collisions.</returns>
+        // Filters the new collisions.
         private WorldObject[][] GetNewCollisions()
         {
             WorldObject[][] collisions = GetCollisions();

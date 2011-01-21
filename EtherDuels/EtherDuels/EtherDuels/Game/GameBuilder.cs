@@ -9,12 +9,32 @@ using EtherDuels.Game.Model;
 
 namespace EtherDuels.Game
 {
-    //TODO: kommentieren
+    /// <summary>
+    /// Provides methods to build a new game.
+    /// </summary>
     public interface GameBuilder
     {
+        /// <summary>
+        /// Sets the assigned CollisionHandler.
+        /// </summary>
         CollisionHandler CollisionHandler { set; }
+
+        /// <summary>
+        /// Sets the assigned PlayerHandler.
+        /// </summary>
         PlayerHandler PlayerHandler { set; }
+
+        /// <summary>
+        /// Creates a new GameModel.
+        /// </summary>
+        /// <returns>The created GameModel.</returns>
         GameModel BuildModel();
+
+        /// <summary>
+        /// Creates a new GameView.
+        /// </summary>
+        /// <param name="menuModel">The assigned GameModel.</param>
+        /// <returns>The created GameView.</returns>
         GameView BuildView(GameModel model);
     }
 }
