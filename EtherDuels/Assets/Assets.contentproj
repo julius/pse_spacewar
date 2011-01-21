@@ -55,33 +55,13 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="planet.fbx">
-      <Name>planet</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="player_ship.fbx">
-      <Name>player_ship</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="laser_blast.png">
+    <None Include="laser_blast.png">
       <Name>texture_laser_blast</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="planet.png">
-      <Name>texture_planet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="player_ship.png">
-      <Name>texture_player_ship</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
     <Compile Include="stars.png">
       <Name>texture_stars</Name>
       <Importer>TextureImporter</Importer>
@@ -125,11 +105,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="spaceship_green.png">
+    <None Include="spaceship_green.png">
       <Name>texture_spaceship_green</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Rocket.fbx">
@@ -139,28 +119,28 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rocket.png">
+    <None Include="Rocket.png">
       <Name>texture_rocket</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="spaceship_blue.png">
+    <None Include="spaceship_blue.png">
       <Name>texture_spaceship_blue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="spaceship_orange.png">
+    </None>
+    <None Include="spaceship_orange.png">
       <Name>texture_spaceship_orange</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="spaceship_red.png">
+    </None>
+    <None Include="spaceship_red.png">
       <Name>texture_spaceship_red</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
     <Compile Include="spaceship_yellow.png">
       <Name>texture_spaceship_yellow</Name>
       <Importer>TextureImporter</Importer>
@@ -199,11 +179,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="land_ocean_ice_cloud_2048.jpg">
+    <None Include="land_ocean_ice_cloud_2048.jpg">
       <Name>land_ocean_ice_cloud_2048</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
     <Compile Include="smoke.png">
       <Name>texture_smoke</Name>
       <Importer>TextureImporter</Importer>
@@ -237,11 +217,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mars.jpg">
+    <None Include="mars.jpg">
       <Name>texture_mars</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="moon.fbx">
@@ -251,11 +231,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MoonMap2_2500x1250.jpg">
+    <None Include="MoonMap2_2500x1250.jpg">
       <Name>texture_moon</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="explosion.wav">
@@ -300,11 +280,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="4638.jpg">
+    <None Include="4638.jpg">
       <Name>texture_explosion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="explosion.fbx">
