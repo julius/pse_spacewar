@@ -14,9 +14,7 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class SimplePhysicsAlgorithm : Physics
     {
-        // TODO: speed of light in m/s, should be set to a more reasonable value
-        // TODO: static oder const für konstanten?
-        private static float MAX_VELOCITY = 299792458.0f;
+        private const float MAX_VELOCITY = 299792458.0f;
         private CollisionHandler collisionHandler;
         private ConfigurationRetriever configRetriever;
         private World world;
@@ -131,12 +129,15 @@ namespace EtherDuels.Game.Model
                         world.RemoveWorldObject(worldObject);
                     }
                 }
+
                 // limit velocities
-                // TODO: check if the resulting velocity is higher than MAX_VELOCITY - does this make sense?
                 Vector2 velocity = worldObject.Velocity;
-                velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
-                velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
-                worldObject.Velocity = velocity;
+                if (velocity.Length() > MAX_VELOCITY)
+                {
+                    velocity.Normalize();
+                    velocity *= MAX_VELOCITY;
+                    worldObject.Velocity = velocity;
+                }
 
                 // calculate new positions
                 Vector2 postion = worldObject.Position;
@@ -144,7 +145,6 @@ namespace EtherDuels.Game.Model
                 postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
 
                 // torodial field
-                //TODO: flexibler. sollte sich nach den in EtherDuels festgelegten groessen richten.
                 postion.X = postion.X > 3700 ? -3300 : postion.X;
                 postion.Y = postion.Y > 3000 ? -2600 : postion.Y;
                 postion.X = postion.X < -3700 ? 3300 : postion.X;

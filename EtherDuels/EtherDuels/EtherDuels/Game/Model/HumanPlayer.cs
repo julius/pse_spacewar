@@ -47,7 +47,6 @@ namespace EtherDuels.Game.Model
             if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.NextWeapon) && isNextWeaponKeyDown)
             {
                 isNextWeaponKeyDown = false;
-                //TODO: erweiterbar machen für mehr waffen! 
                 if (this.spaceship.CurrentWeapon == Weapon.Laser)
                 {
                     this.spaceship.CurrentWeapon = Weapon.Rocket;
@@ -62,7 +61,6 @@ namespace EtherDuels.Game.Model
             if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.PrevWeapon) && isPrevWeaponKeyDown)
             {
                 isPrevWeaponKeyDown = false;
-                //TODO: erweiterbar machen für mehr waffen! 
                 if (this.spaceship.CurrentWeapon == Weapon.Laser)
                 {
                     this.spaceship.CurrentWeapon = Weapon.Rocket;

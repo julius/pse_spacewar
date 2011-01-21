@@ -137,8 +137,6 @@ namespace EtherDuels.Config
             if (secKeyConf == null)
                 return false;
 
-            //TODO: kommentar verwirrend
-            // all the same
             if (this.backward != secKeyConf.backward
                 || this.fire != secKeyConf.fire
                 || this.forward != secKeyConf.forward

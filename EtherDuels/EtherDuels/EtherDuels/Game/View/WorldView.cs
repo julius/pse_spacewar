@@ -32,7 +32,6 @@ namespace EtherDuels.Game.View
         public WorldView(World world)
         {
             this.world = world;
-            //TODO: zweites argument auf 7000 setzen, torodiales spielfeld anpassen
             this.cameraPosition = new Vector3(0.0f, 7000.0f, 1000.0f);
             this.worldObjectViews = new List<WorldObjectView>();
         }
@@ -69,7 +68,6 @@ namespace EtherDuels.Game.View
             
             foreach (WorldObjectView worldObjectView in this.worldObjectViews.ToArray())
             {
-                //TODO: vllt nicht so schoen direkt auf das attribut zuzugreifen
                 if (worldObjectView.WorldObject.Health <= 0)
                 {
                     RemoveWorldObjectView(worldObjectView);

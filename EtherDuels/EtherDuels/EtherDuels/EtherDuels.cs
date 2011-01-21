@@ -51,8 +51,7 @@ namespace EtherDuels
         {
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
-            //TODO: fullscreen true setzen?
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             Window.Title = "EtherDuels";

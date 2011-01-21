@@ -46,7 +46,6 @@ namespace EtherDuels.Game.View
         public void Draw(Viewport viewport, Vector3 cameraPosition, GameTime gameTime)
         {
             Vector3 modelPosition = new Vector3(worldObject.Position.X, 0, worldObject.Position.Y);
-           // float modelRotation = 0f; // gameTime.TotalGameTime.Milliseconds * 0.01f;
             Matrix matrixWorld = Matrix.CreateScale(1.0f);
             if (this.worldObject is Planet)
             {
@@ -59,7 +58,6 @@ namespace EtherDuels.Game.View
             }
             matrixWorld *= Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(modelPosition);
 
-            //TODO: matrizen als konstanten in die klasse machen hat Tobi gesagt.. verändern sich nicht.?
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
             
@@ -81,9 +79,7 @@ namespace EtherDuels.Game.View
                     effect.View = matrixView;
                     effect.Projection = matrixProjection;
                     effect.PreferPerPixelLighting = true;
-
                     effect.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-
                     effect.DiffuseColor = new Vector3(0.8f);
                     effect.AmbientLightColor = new Vector3(0.7f, 0.5f, 0.7f);
                 }
