@@ -12,7 +12,7 @@ namespace EtherDuels.Game.Model
     public class Spaceship : WorldObject
     {
         private static float MAX_VELOCITY = 300.0f;
-        Weapon currentWeapon;
+        private Weapon currentWeapon;
 
         /// <summary>
         /// The constructor of a spaceship which sets a couple of default values.
