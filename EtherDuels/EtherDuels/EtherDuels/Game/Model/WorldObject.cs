@@ -12,13 +12,13 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class WorldObject
     {
-        int attack;
-        int health;
-        double mass;    // in kg
-        Vector2 position;
-        float radius;
-        float rotation;
-        Vector2 velocity;
+        private int attack;
+        private int health;
+        private double mass;    // in kg
+        private Vector2 position;
+        private float radius;
+        private float rotation;
+        protected Vector2 velocity;
 
         // default constructor
         public WorldObject()
@@ -89,7 +89,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Gets and sets the velocity of a WorldObject.
         /// </summary>
-        public Vector2 Velocity 
+        public virtual Vector2 Velocity 
         {
             get { return velocity; }
             set { velocity = value; }
