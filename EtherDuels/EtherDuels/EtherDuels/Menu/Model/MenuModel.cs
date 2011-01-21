@@ -117,7 +117,7 @@ namespace EtherDuels.Menu.Model
         {
             this.winningPlayerID = playerID;
             this.winningPlayerPoints = points;
-            this.SetActiveDialogByIndex(5);
+            this.SetActiveDialogByIndex(11);
         }
 
         /// <summary>
