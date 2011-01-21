@@ -8,7 +8,10 @@ using EtherDuels.Config;
 
 namespace EtherDuels.Ruby
 {
-    //TODO: julius kommentieren!
+    /// <summary>
+    /// API class for the Ruby scripting environment.
+    /// Has methods which help to build a level.
+    /// </summary>
     class LevelBuilder
     {
         private List<WorldObject> worldObjectList = new List<WorldObject>();
@@ -16,27 +19,50 @@ namespace EtherDuels.Ruby
         private PlayerHandler playerHandler;
         private Configuration configuration;
 
+        /// <summary>
+        /// Build new LevelBuilder
+        /// </summary>
+        /// <param name="configuration">Configuration of the Program</param>
+        /// <param name="playerHandler">Handler for players</param>
         public LevelBuilder(Configuration configuration, PlayerHandler playerHandler)
         {
             this.configuration = configuration;
             this.playerHandler = playerHandler;
         }
 
+        /// <summary>
+        /// List of Players for the Level
+        /// </summary>
         public List<Player> Players
         {
             get { return this.players; }
         }
 
+
+        /// <summary>
+        /// Lists of WorldObjects for the level
+        /// </summary>
         public WorldObject[] WorldObjects
         {
             get { return this.worldObjectList.ToArray(); }
         }
 
+
+        /// <summary>
+        /// Creates a new Vector2
+        /// </summary>
+        /// <param name="x">X-Value of the Vector</param>
+        /// <param name="y">Y-Value of the Vector</param>
+        /// <returns>The requested Vector</returns>
         public Vector2 Vector(float x, float y)
         {
             return new Vector2(x, y);
         }
 
+        /// <summary>
+        /// Adds a planet to the level
+        /// </summary>
+        /// <returns>The added planet</returns>
         public Planet AddPlanet()
         {
             Planet planet = new Planet();
@@ -49,6 +75,10 @@ namespace EtherDuels.Ruby
             return planet;
         }
 
+        /// <summary>
+        /// Adds a player, with ID 1
+        /// </summary>
+        /// <returns>The added player</returns>
         public Player AddPlayer1()
         {
             Spaceship spaceship = new Spaceship();
@@ -69,6 +99,10 @@ namespace EtherDuels.Ruby
             return player;
         }
 
+        /// <summary>
+        /// Adds a player, with ID 2
+        /// </summary>
+        /// <returns>The added player</returns>
         public Player AddPlayer2()
         {
             Spaceship spaceship = new Spaceship();
