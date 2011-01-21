@@ -9,6 +9,8 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 
 using EtherDuels.Game.Model;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 
 namespace EtherDuels.Config
@@ -40,6 +42,28 @@ namespace EtherDuels.Config
         }
 
         private Stream stream;
+
+        private float volumeMusic;
+        public float VolumeMusic
+        {
+            get { return this.volumeMusic; }
+            set
+            {
+                this.volumeMusic = value;
+                MediaPlayer.Volume = value;
+            }
+        }
+
+        private float volumeEffects;
+        public float VolumeEffects
+        {
+            get { return this.volumeEffects; }
+            set
+            {
+                this.volumeEffects = value;
+                SoundEffect.MasterVolume = value;
+            }
+        }
 
         private int difficulty;
         public int Difficulty
@@ -74,6 +98,9 @@ namespace EtherDuels.Config
             this.difficulty = (int)info.GetValue("difficulty", typeof(int));
             this.difficulty_AI = (int)info.GetValue("difficulty_AI", typeof(int));
             keyConfigurations = (KeyboardConfiguration[])info.GetValue("keyConfigurations", typeof(KeyboardConfiguration[]));
+
+            this.VolumeMusic = (float)info.GetValue("volumeMusic", typeof(float));
+            this.VolumeEffects = (float)info.GetValue("volumeEffects", typeof(float));
         }
 
         //Serialization function.
@@ -82,6 +109,8 @@ namespace EtherDuels.Config
             info.AddValue("difficulty", difficulty);
             info.AddValue("difficulty_AI", difficulty_AI);
             info.AddValue("keyConfigurations", keyConfigurations);
+            info.AddValue("volumeMusic", volumeMusic);
+            info.AddValue("volumeEffects", volumeEffects);
         }
 
         public void Save()

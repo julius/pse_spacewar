@@ -125,32 +125,35 @@ namespace EtherDuels.Menu
             // Volume menu ActionHandlers
             MenuItem.ActionHandler actionChangeMusicVolume = delegate(MenuItem menuItem)
             {
-                if (MediaPlayer.Volume >= 1.0f)
+                if (configuration.VolumeMusic >= 1.0f)
                 {
-                    MediaPlayer.Volume = 0;
+                    configuration.VolumeMusic = 0;
                 }
                 else
                 {
-                    MediaPlayer.Volume = (MediaPlayer.Volume + 0.2f);
+                    configuration.VolumeMusic = (configuration.VolumeMusic + 0.2f);
                 }                
+                configuration.Save();
             };
 
             MenuItem.ActionHandler actionChangeEffectVolume = delegate(MenuItem menuItem)
             {
-                if (SoundEffect.MasterVolume >= 1.0f)
+                if (configuration.VolumeEffects >= 1.0f)
                 {
-                    SoundEffect.MasterVolume = 0;
+                    configuration.VolumeEffects = 0;
                 }
                 else
                 {
-                    SoundEffect.MasterVolume = (SoundEffect.MasterVolume + 0.2f);
+                    configuration.VolumeEffects = (configuration.VolumeEffects + 0.2f);
                 }                
+                configuration.Save();
             };
 
             // Difficulty menu ActionHandlers
             MenuItem.ActionHandler actionChangeDifficulty = delegate(MenuItem menuItem)
             {
                 configuration.Difficulty = (configuration.Difficulty * 10) % 999;
+                configuration.Save();
             };
 
             MenuItem.ActionHandler actionReturn = delegate(MenuItem menuItem)

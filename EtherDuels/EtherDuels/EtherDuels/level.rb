@@ -13,10 +13,12 @@ planet2 = level.add_planet()
 player1.spaceship.position = level.vector(-1900, 0)
 player2.spaceship.position = level.vector(+1900, 0)
 
+planet1.health = 150
 planet1.radius = 300
 
 distance = 700
 
+planet2.health = 10
 planet2.radius = 82
 planet2.is_flexible = true
 planet2.position = level.vector(distance, 0)
