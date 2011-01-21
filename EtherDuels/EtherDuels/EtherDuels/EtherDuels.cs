@@ -22,21 +22,19 @@ using EtherDuels.Ruby;
 namespace EtherDuels
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// This is the main class for the game. It defines the highest layer in the class structure.
     /// </summary>
     public class EtherDuels : Microsoft.Xna.Framework.Game, MenuHandler, GameHandler
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
-
         private MenuController menuController;
         private GameController gameController;
         private ProgramState programState;
-        
-                
-       
 
+        /// <summary>
+        /// Creates a new instance of EtherDuels. Only one is needed for the game.
+        /// </summary>
         public EtherDuels()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -44,15 +42,16 @@ namespace EtherDuels
         }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// Allows the game to perform any initialization it needs before starting to run.
         /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
+        /// related content. Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
+            //TODO: fullscreen true setzen?
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
 
@@ -62,21 +61,25 @@ namespace EtherDuels
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        /// LoadContent will be called once per game and it loads all the content needed for the game.
         /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //TODO: was soll das heissen?
             // Sample code to draw some models and stuff
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
+
             SpriteFont menuFont = content.Load<SpriteFont>("NiceFont");
+
             Texture2D textureStars = content.Load<Texture2D>("texture_space");
             Texture2D textureHealthBar = content.Load<Texture2D>("texture_healthbar");
             Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
+
+            // Models
             Model modelSpaceshipGreen = content.Load<Model>("spaceship_green");
             Model modelSpaceshipOrange = content.Load<Model>("spaceship_orange"); 
             Model modelMoon = content.Load<Model>("moon");
@@ -85,6 +88,7 @@ namespace EtherDuels
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
 
+            // Sound effects
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
             SoundEffect soundLaser = content.Load<SoundEffect>("sound_laser");
             SoundEffect soundRocket = content.Load<SoundEffect>("sound_rocket");

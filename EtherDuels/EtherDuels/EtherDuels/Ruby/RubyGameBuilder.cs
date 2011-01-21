@@ -11,6 +11,7 @@ using Microsoft.Scripting.Hosting;
 
 namespace EtherDuels.Ruby
 {
+    //TODO: julius kommentieren
     class RubyGameBuilder: GameBuilder
     {
         private GameAssets gameAssets = GameAssets.Instance;

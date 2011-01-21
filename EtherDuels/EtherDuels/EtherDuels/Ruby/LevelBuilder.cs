@@ -8,6 +8,7 @@ using EtherDuels.Config;
 
 namespace EtherDuels.Ruby
 {
+    //TODO: julius kommentieren!
     class LevelBuilder
     {
         private List<WorldObject> worldObjectList = new List<WorldObject>();

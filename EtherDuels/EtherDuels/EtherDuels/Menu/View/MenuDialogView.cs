@@ -9,9 +9,8 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Menu.View
 {   
     /// <summary>
-    /// Defines the view of a MenuDialog.
-    /// It contains a background and a list of MenuItemViews.
-    /// It also holds a reference to its MenuDialog to check it for changes.
+    /// Defines the view of a MenuDialog. It contains a list of MenuItemViews.
+    /// It draws the associated MenuDialog only if that is currently active.
     /// </summary>
     class MenuDialogView
     {
@@ -22,9 +21,8 @@ namespace EtherDuels.Menu.View
         /// <summary>
         /// Creates a new MenuDialogView object.
         /// </summary>
-        /// <param name="menuItemViews">An array of its containing MenuItemViews.</param>
-        /// <param name="menuDialog">Its dedicated MenuDialog.</param>
-        /// <param name="background">Defines the background of this MenuDialog.</param>
+        /// <param name="menuItemViews">An array of MenuItemViews.</param>
+        /// <param name="menuDialog">The dedicated MenuDialog.</param>
         public MenuDialogView(MenuItemView[] menuItemViews, MenuDialog menuDialog)
         {
             this.menuItemViews = menuItemViews;
@@ -41,7 +39,6 @@ namespace EtherDuels.Menu.View
             // do not draw if not active
             if (!this.menuDialog.Active) return;
 
-            // TODO draw background. edit claudi: hab das jetz einfach mal so von WorldView uebernommen, ohne zu wissen was das zeugs bedeutet
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Draw(menuAssets.TextureBackground, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             spriteBatch.End();

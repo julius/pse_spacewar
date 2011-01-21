@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace EtherDuels.Menu.View
 {   
     /// <summary>
-    /// Defines the view of one MenuItem.
+    /// Defines the view of a MenuItem.
     /// </summary>
     class MenuItemView
     {
@@ -19,8 +19,7 @@ namespace EtherDuels.Menu.View
         /// <summary>
         /// Creates a MenuItemView object for its dedicated MenuItem.
         /// </summary>
-        /// <param name="menuItem">Defines the dedicated MenuItem, to check it for changes.</param>
-        /// <param name="font">Defines the used font. </param>
+        /// <param name="menuItem">Defines the dedicated MenuItem to check it for changes.</param>
         public MenuItemView(MenuItem menuItem)
         {
             this.menuItem = menuItem;

@@ -17,6 +17,9 @@ namespace EtherDuels.Game
     {
         private static readonly GameAssets instance = new GameAssets();
 
+        // private constructor
+        private GameAssets() { }
+
         /// <summary>
         /// Returns the only instance of this class.
         /// </summary>
@@ -26,10 +29,7 @@ namespace EtherDuels.Game
             {
                 return instance;
             }
-        }
-
-        // private constructor
-        private GameAssets() { }
+        }        
 
         // G: gravitational constant
         public static double G = 6.67428E-11;  // in m^3/kg/s^2

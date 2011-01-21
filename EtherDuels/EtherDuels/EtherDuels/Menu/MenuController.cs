@@ -14,7 +14,7 @@ using EtherDuels.Menu.View;
 namespace EtherDuels.Menu
 {
     /// <summary>
-    /// The MenuController is responsible for the communication between the MenuModel and its MenuView.
+    /// The MenuController is responsible for the communication between MenuModel, MenuView and EtherDuels.
     /// </summary>
     class MenuController
     {
@@ -47,12 +47,11 @@ namespace EtherDuels.Menu
         {
             this.menuView.Draw(viewport, spriteBatch);
         }
-        
 
         /// <summary>
-        /// Updates the menu.
+        /// Updates the menu logic.
         /// </summary>
-        /// <param name="frameState">A state object.</param>
+        /// <param name="frameState">A frame state object.</param>
         public void Update(FrameState frameState)
         {
             if (this.menuModel.IsWaitingForKey)
@@ -89,7 +88,7 @@ namespace EtherDuels.Menu
         }
 
         /// <summary>
-        /// Sets the mainmenu active.
+        /// Sets the main menu active.
         /// </summary>
         public void SetMainMenu()
         {
@@ -97,7 +96,7 @@ namespace EtherDuels.Menu
         }
 
         /// <summary>
-        /// Sets the paused menu active.
+        /// Sets the pause menu active.
         /// </summary>
         public void SetPauseMenu()
         {
@@ -108,6 +107,7 @@ namespace EtherDuels.Menu
         /// Sets the end game menu active.
         /// </summary>
         /// <param name="playerID">Id of the wining player.</param>
+        /// <param name="points">Points of the wining player.</param>
         public void SetGameEndedMenu(int playerID, int points)
         {
             this.menuModel.SetGameEndedMenu(playerID, points);

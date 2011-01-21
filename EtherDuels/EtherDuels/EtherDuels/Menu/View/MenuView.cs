@@ -8,9 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace EtherDuels.Menu.View
 {   
     /// <summary>
-    /// Defines the view of a MenuModel.
-    /// It contains a list of menudialogviews and knows its model
-    /// to check it for changes.
+    /// The MenuView is responsible for drawing the menu and all its subcomponents.
+    /// It contains a list of menuDialogViews of which only one at a time can be active.
     /// </summary>
     class MenuView
     {
