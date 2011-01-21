@@ -354,16 +354,6 @@ namespace EtherDuels.Menu
 
 
             // Build help dialog
-            //TODO: funzt so nicht, weil menuItem nicht als so groß geplant ist. Aber das andere is extrem haesslich
-            /* MenuItem helpInfo = new MenuItem(null, delegate() 
-                {
-                    return  "Welcome to EtherDuels! \n\n " + 
-                            "In this 2-player game, you try to shoot each other in space until one spaceship is destroyed. \n" + 
-                            "There are two types of weapons available: \n" +
-                            "- Laser:  speed: 350; health: 5; attack:5 \n" +
-                            "- Rocket: speed: 200; health: 10; attack; 10 \n" +
-                            "Have fun and beware of the gravitation! \n";
-                });*/
             MenuItem helpInfo1 = new MenuItem(null, delegate() { return "Welcome to EtherDuels!"; });
             MenuItem helpInfo2 = new MenuItem(null, delegate() { return "In this game, you try to shoot each other"; });
             MenuItem helpInfo3 = new MenuItem(null, delegate() { return "in space until one spaceship is destroyed."; });

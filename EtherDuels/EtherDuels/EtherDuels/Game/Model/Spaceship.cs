@@ -11,7 +11,7 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class Spaceship : WorldObject
     {
-        private static float MAX_VELOCITY = 300.0f;
+        private const float MAX_VELOCITY = 1000.0f;
         private Weapon currentWeapon;
 
         /// <summary>

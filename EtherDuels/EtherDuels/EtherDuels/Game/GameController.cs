@@ -171,7 +171,6 @@ namespace EtherDuels.Game
             projectilePosition.X = shooter.Position.X + (float)Math.Sin(shooter.Rotation) * (shooter.Radius + projectile.Radius + 1);
             projectilePosition.Y = shooter.Position.Y - (float)Math.Cos(shooter.Rotation) * (shooter.Radius + projectile.Radius + 1);
             projectile.Position = projectilePosition;
-
            
             int velocityFactor = 100;
             switch (shooter.CurrentWeapon) 
@@ -194,8 +193,6 @@ namespace EtherDuels.Game
         /// <param name="gameTime">The time, which has passed since the last update.</param>
         public void Update(FrameState frameState)
         {
-            /* TODO: hier lassen oder lieber in den HumanPlayer zu den anderen Keyboard-abfragen? 
-             * Dann koennte man es auch mit der config flexibel machen */
             if (frameState.KeyboardState.IsKeyDown(Keys.Escape))
             {
                 gameHandler.OnGamePaused();
