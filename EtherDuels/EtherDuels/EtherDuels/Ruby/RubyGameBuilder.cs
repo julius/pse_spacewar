@@ -11,18 +11,26 @@ using Microsoft.Scripting.Hosting;
 
 namespace EtherDuels.Ruby
 {
-    //TODO: julius kommentieren
+    /// <summary>
+    /// Builds Game using a Ruby script
+    /// </summary>
     class RubyGameBuilder: GameBuilder
     {
         private GameAssets gameAssets = GameAssets.Instance;
 
         private CollisionHandler collisionHandler;
+        /// <summary>
+        /// CollisionHandler for the game
+        /// </summary>
         public CollisionHandler CollisionHandler
         {
             set { this.collisionHandler = value; }
         }
 
         private PlayerHandler playerHandler;
+        /// <summary>
+        /// PlayerHandler for the Game
+        /// </summary>
         public PlayerHandler PlayerHandler
         {
             set { this.playerHandler = value; }
@@ -31,12 +39,20 @@ namespace EtherDuels.Ruby
         private Configuration configuration;
         private string path;
 
+        /// <summary>
+        /// Creates new RubyGameBuilder
+        /// </summary>
+        /// <param name="path">Path to the Ruby Script</param>
+        /// <param name="configuration">Configuration of the program</param>
         public RubyGameBuilder(string path, Configuration configuration)
         {
             this.path = path;
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Class encapsulating some Constants
+        /// </summary>
         class RubyPhysic
         {
             public double G;
@@ -49,6 +65,10 @@ namespace EtherDuels.Ruby
             }
         }
 
+        /// <summary>
+        /// Builds a new game using the ruby script
+        /// </summary>
+        /// <returns>The new Game</returns>
         public GameModel BuildModel()
         {
             // build game objects
@@ -79,6 +99,11 @@ namespace EtherDuels.Ruby
             return gameModel;
         }
 
+        /// <summary>
+        /// Builds Views for a given game
+        /// </summary>
+        /// <param name="model">The game</param>
+        /// <returns>The requested GameView</returns>
         public GameView BuildView(GameModel model)
         {
             WorldView worldView = new WorldView(model.World);
