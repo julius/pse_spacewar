@@ -138,11 +138,11 @@ namespace EtherDuels
             this.menuController.SetMainMenu();
 
             // Build GameBuilder and GameController
-            GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
+            //GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
             /* this code can be used to build levels from files:
              * you may replace it with the code line above.
              * */
-            // GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
+            GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
 
             this.gameController = new GameController(gameBuilder, this);
 
@@ -190,6 +190,23 @@ namespace EtherDuels
                 this.menuController.Update(frameState);
             }
 
+            if (this.programState.GameState == GameState.GameEnded)
+            {
+                if (this.programState.GameEndTime == TimeSpan.Zero)
+                {
+                    this.programState.GameEndTime = gameTime.TotalGameTime;
+                }
+                else
+                {
+                    if (gameTime.TotalGameTime.TotalMilliseconds - this.programState.GameEndTime.TotalMilliseconds > 1000)
+                    {
+                        this.programState.GameEndTime = TimeSpan.Zero;
+                        this.programState.GameState = GameState.NoGame;
+                        this.programState.MenuState = MenuState.InMenu;
+                    }
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -202,7 +219,7 @@ namespace EtherDuels
             GraphicsDevice.Clear(Color.CornflowerBlue);
                       
             // Draw GameController if necessary
-            if (this.programState.GameState == GameState.InGame)
+            if (this.programState.GameState == GameState.InGame || this.programState.GameState == GameState.GameEnded)
             {
                 this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch, gameTime);
             }
@@ -267,8 +284,8 @@ namespace EtherDuels
         public void OnGameEnded(int playerID, int points)
         {
             this.menuController.SetGameEndedMenu(playerID, points);
-            this.programState.GameState = GameState.NoGame;
-            this.programState.MenuState = MenuState.InMenu;
+            this.programState.GameState = GameState.GameEnded;
+            this.programState.MenuState = MenuState.NoMenu;
         }
     }
 }

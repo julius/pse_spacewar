@@ -5,11 +5,24 @@ using System.Text;
 
 namespace EtherDuels.Menu
 {
-    //TODO: kommentieren
+    /// <summary>
+    /// Provides methods to communicate with a higher layer of the game.
+    /// </summary>
     interface MenuHandler
     {
+        /// <summary>
+        /// Creates a new game.
+        /// </summary>
         void OnNewGame();
+
+        /// <summary>
+        /// Quits the program.
+        /// </summary>
         void OnQuitProgram();
+
+        /// <summary>
+        /// Resumes the game.
+        /// </summary>
         void OnResumeGame();
     }
 }

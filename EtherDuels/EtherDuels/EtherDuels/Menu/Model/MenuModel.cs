@@ -36,19 +36,30 @@ namespace EtherDuels.Menu.Model
         }
 
         private KeySetter keyWaiter;
-        //TODO: julius kommentieren
+
+        /// <summary>
+        /// When true, the menu is waiting for a single key.
+        /// Used for changing keyboard controls of players.
+        /// </summary>
         public bool IsWaitingForKey
         {
             get { return this.keyWaiter != null; }
         }
 
-        //TODO: julius kommentieren
+        /// <summary>
+        /// Makes the menu wait for a single key to be pressed.
+        /// </summary>
+        /// <param name="keyWaiter">Delegate which is called when a key is finally pressed.</param>
         public void WaitForKey(KeySetter keyWaiter)
         {
             this.keyWaiter = keyWaiter;
         }
 
-        //TODO: julius kommentieren
+        /// <summary>
+        /// Is called to give the menu the key, it is waiting for.
+        /// See WaitForKey(..)
+        /// </summary>
+        /// <param name="key">Key which is pressed</param>
         public void SetWaitingKey(Keys key)
         {
             this.keyWaiter(key);
