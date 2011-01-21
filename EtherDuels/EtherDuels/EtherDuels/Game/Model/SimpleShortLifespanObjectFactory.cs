@@ -9,18 +9,18 @@ using EtherDuels.Config;
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines a concrete ShortLifespanFactory.
-    /// It provides methods to create WorldObject with a limited lifespan 
+    /// Defines a simple ShortLifespanObjectFactory.
+    /// It provides methods to create world objects with a limited lifespan 
     /// and its fitting views.
     /// </summary>
     public class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
     {
         private GameAssets gameAssets = GameAssets.Instance;
-            
+
         /// <summary>
-        /// Creates a new explosion.
+        /// Creates a new Explosion object.
         /// </summary>
-        /// <param name="gameTime">The time the explosion was created.</param>
+        /// <param name="gameTime">The GameTime which defines the explosion's creation time.</param>
         /// <returns>The created Explosion object.</returns>
         public Explosion CreateExplosion(GameTime gameTime)
         {
@@ -29,10 +29,11 @@ namespace EtherDuels.Game.Model
             gameAssets.SoundExplosion.CreateInstance().Play();
             return explosion;
         }
+
         /// <summary>
-        /// Creates a new projectile.
+        /// Creates a new Projectile object.
         /// </summary>
-        /// <param name="weapon">The type of the weapon to define a projectiles attackpower.</param>
+        /// <param name="weapon">The weapon which shot the projectile.</param>
         /// <returns>The created Projectile object.</returns>
         public Projectile CreateProjectile(Weapon weapon)
         {
@@ -61,10 +62,10 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Creates a new view for an explosion.
+        /// Creates a new WorldObjectView of an explosion.
         /// </summary>
-        /// <param name="explosion">An Explosion object.</param>
-        /// <returns>The created view fitting to the assigned Explosion object.</returns>
+        /// <param name="explosion">The Explosion object needed to create the accordant view.</param>
+        /// <returns>The created WorldObjectView of an explosion.</returns>
         public WorldObjectView CreateExplosionView(Explosion explosion)
         {
             WorldObjectView explosionView = new WorldObjectView(gameAssets.ModelExplosion, explosion);
@@ -72,11 +73,11 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Creates a new view for a projectile.
+        /// Creates a new WorldObjectView of a projectile.
         /// </summary>
-        /// <param name="weapon">The type of the weapon to define the projectiles look.</param>
-        /// <param name="projectile">A Projectile object.</param>
-        /// <returns>The created view fitting the assigned Projectile object.</returns>
+        /// <param name="weapon">The weapon which shot the projectile.</param>
+        /// <param name="projectile">The Projectile object needed to create the accordant view.</param>
+        /// <returns>The created WorldObjectView of a projectile.</returns>
         public WorldObjectView CreateProjectileView(Weapon weapon, Projectile projectile)
         {
             WorldObjectView projectileView = null;

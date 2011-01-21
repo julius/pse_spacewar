@@ -8,15 +8,16 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines a player in the game.
+    /// Defines an abstract player in the game.
     /// </summary>
     public abstract class Player
     {
         protected PlayerHandler playerHandler;
 
         protected int playerId;
+
         /// <summary>
-        /// Gets the player's ID.
+        /// Returns the player's ID.
         /// </summary>
         public int PlayerId
         {
@@ -24,8 +25,9 @@ namespace EtherDuels.Game.Model
         }
 
         protected int points = 0;
+
         /// <summary>
-        /// Gets the player's points.
+        /// Returns the player's points.
         /// </summary>
         public int Points
         {
@@ -35,7 +37,7 @@ namespace EtherDuels.Game.Model
 
         protected Spaceship spaceship;
         /// <summary>
-        /// Gets the player's Spaceship.
+        /// Returns the player's spaceship.
         /// </summary>
         public Spaceship Spaceship
         {
@@ -45,7 +47,7 @@ namespace EtherDuels.Game.Model
 
         protected Color playerColor;
         /// <summary>
-        /// Gets the player's Color.
+        /// Returns the player's color.
         /// </summary>
         public Color PlayerColor
         {
@@ -57,6 +59,7 @@ namespace EtherDuels.Game.Model
         /// </summary>
         /// <param name="playerId">The player's ID.</param>
         /// <param name="playerHandler">The player's Handler.</param>
+        /// <param name="playerColor">The player's color.</param>
         public Player(int playerId, PlayerHandler playerHandler, Color playerColor)
         {
             this.playerId = playerId;
@@ -65,8 +68,8 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Called for every frame of the game.
-        /// Updates to the player's behaviour should be implemented in this method.
+        /// This method is being called for every frame of the game.
+        /// It updates the player's behaviour.
         /// </summary>
         /// <param name="frameState">frame specific state</param>
         public abstract void Update(FrameState frameState);

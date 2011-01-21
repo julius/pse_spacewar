@@ -18,7 +18,7 @@ namespace EtherDuels.Game.Model
         private bool isPrevWeaponKeyDown = false;
 
         /// <summary>
-        /// Creates a Human Player.
+        /// Creates a HumanPlayer.
         /// </summary>
         /// <param name="playerId">The player's ID.</param>
         /// <param name="playerHandler">The player's Handler.</param>
@@ -30,15 +30,12 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Called for every frame of the game.
-        /// Computes keyboard input and moves, shoots... accordingly.
+        /// This method is being called for every frame of the game.
+        /// It computes keyboard inputs and makes the player behave accordingly.
         /// </summary>
-        /// <param name="frameState">frame specific state.</param>
+        /// <param name="frameState">The frame specific state.</param>
         public override void Update(FrameState frameState)
         {
-            /*TODO: zumindest bei Fire sollte man vllt eher die isKeyUp benutzen, weil sonst Dauerfeuer geschieht und 
-             * sich die Projectile dann wahrscheinlich gegenseitig zerstören. */
-
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Fire)) isFireKeyDown = true;
             if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.Fire) && isFireKeyDown)
             {
@@ -50,7 +47,7 @@ namespace EtherDuels.Game.Model
             if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.NextWeapon) && isNextWeaponKeyDown)
             {
                 isNextWeaponKeyDown = false;
-                //TODO: erweiterbar machen! 
+                //TODO: erweiterbar machen für mehr waffen! 
                 if (this.spaceship.CurrentWeapon == Weapon.Laser)
                 {
                     this.spaceship.CurrentWeapon = Weapon.Rocket;
@@ -65,7 +62,7 @@ namespace EtherDuels.Game.Model
             if (frameState.KeyboardState.IsKeyUp(this.inputConfigurationRetriever.PrevWeapon) && isPrevWeaponKeyDown)
             {
                 isPrevWeaponKeyDown = false;
-                //TODO: erweiterbar machen! 
+                //TODO: erweiterbar machen für mehr waffen! 
                 if (this.spaceship.CurrentWeapon == Weapon.Laser)
                 {
                     this.spaceship.CurrentWeapon = Weapon.Rocket;

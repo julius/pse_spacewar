@@ -11,10 +11,10 @@ namespace EtherDuels.Game.Model
     public interface PlayerHandler
     {
         /// <summary>
-        /// Called by Players, when they want to shoot.
+        /// This method is being called by players when they shoot.
         /// It defines the reaction of the game to shooting.
         /// </summary>
-        /// <param name="shooter">The player's ship.</param>
+        /// <param name="shooter">The player's spaceship.</param>
         void OnFire(Spaceship shooter);
     }
 }

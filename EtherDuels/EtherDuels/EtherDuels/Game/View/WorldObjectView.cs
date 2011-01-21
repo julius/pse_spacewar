@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Game.View
 {   
     /// <summary>
-    /// Defines the view of a WorldObject.
+    /// The WorldObjectView draws its assigned world object.
     /// </summary>
     public class WorldObjectView
     {
@@ -17,6 +17,10 @@ namespace EtherDuels.Game.View
         Microsoft.Xna.Framework.Graphics.Model model;
         private float angle = 0;
 
+        /// <summary>
+        /// Returns the assigned world object.
+        /// </summary>
+        /// <returns>The assigned WorldObject.</returns>
         public WorldObject WorldObject
         {
             get { return worldObject; }
@@ -25,8 +29,8 @@ namespace EtherDuels.Game.View
         /// <summary>
         /// Creates a new WorldObjectView object.
         /// </summary>
-        /// <param name="model">The dedicated graphic model for drawing the WorldObject.</param>
-        /// <param name="worldObject">The dedicated WorldObject to check it for changes.</param>
+        /// <param name="model">The assigned graphics model for drawing the world object.</param>
+        /// <param name="worldObject">The assigned world object.</param>
         public WorldObjectView(Microsoft.Xna.Framework.Graphics.Model model, WorldObject worldObject)
         {
             this.model = model;
@@ -37,11 +41,10 @@ namespace EtherDuels.Game.View
         /// Draws the WorldObjectView using the according model.
         /// </summary>
         /// <param name="viewport">The used Viewport.</param>
-        /// <param name="cameraPosition">The position of which the camera looks on the WorldObject. .</param>
+        /// <param name="cameraPosition">The position which the camera takes when looking at the world object.</param>
         /// <param name="gameTime">The frame's time object.</param>
         public void Draw(Viewport viewport, Vector3 cameraPosition, GameTime gameTime)
         {
-            
             Vector3 modelPosition = new Vector3(worldObject.Position.X, 0, worldObject.Position.Y);
            // float modelRotation = 0f; // gameTime.TotalGameTime.Milliseconds * 0.01f;
             Matrix matrixWorld = Matrix.CreateScale(1.0f);
@@ -56,14 +59,13 @@ namespace EtherDuels.Game.View
             }
             matrixWorld *= Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(modelPosition);
 
-            //TODO: matrizen als konstanten in die klasse machen.. verändern sich nicht.?
+            //TODO: matrizen als konstanten in die klasse machen hat Tobi gesagt.. verändern sich nicht.?
             Matrix matrixView = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
             Matrix matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), viewport.AspectRatio, 1.0f, 10000.0f);
             
             if (this.worldObject is Explosion)
             {
                 float scale = (float)(gameTime.TotalGameTime.TotalMilliseconds - ((Explosion)this.worldObject).CreationTime.TotalMilliseconds);
-
                 matrixWorld = Matrix.CreateScale(scale * scale * 0.0004f) * matrixWorld;
             }
          
@@ -90,7 +92,6 @@ namespace EtherDuels.Game.View
              }
 
              this.model.Draw(matrixWorld, matrixView, matrixProjection); 
-            
         }
     }
 }

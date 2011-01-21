@@ -11,7 +11,7 @@ using EtherDuels.Game.Model;
 namespace EtherDuels.Game.View
 {
     /// <summary>
-    /// Defines the view of a GameModel.
+    /// The GameView is responsible for drawing all the components needed in the game.
     /// </summary>
     public class GameView
     {
@@ -22,7 +22,7 @@ namespace EtherDuels.Game.View
         /// <summary>
         /// Creates a new GameView object.
         /// </summary>
-        /// <param name="gameModel">The dedicated GameModel to check it for changes.</param>
+        /// <param name="gameModel">The assigned GameModel..</param>
         /// <param name="worldView">The view of the World.</param>
         public GameView(GameModel gameModel, WorldView worldView)
         {
@@ -30,6 +30,9 @@ namespace EtherDuels.Game.View
             this.worldView = worldView;
         }
 
+        /// <summary>
+        /// Gets and sets the WorldView.
+        /// </summary>
         public WorldView WorldView
         {
             get { return this.worldView; }
@@ -44,13 +47,11 @@ namespace EtherDuels.Game.View
         /// <param name="gameTime">The frame's time object.</param>
         public void Draw(Viewport viewport, SpriteBatch spriteBatch, GameTime gameTime)
         {
-           
             this.worldView.Draw(viewport, spriteBatch, gameTime);
             DrawHUD(viewport, spriteBatch);
-           
         }
 
-        //Draws the HUD (HeadUp-Display) of each player, with its points and its health.
+        // Draws the HUD (HeadUp-Display) of each player and its health.
         private void DrawHUD(Viewport viewport, SpriteBatch spriteBatch)
         {
             string points;

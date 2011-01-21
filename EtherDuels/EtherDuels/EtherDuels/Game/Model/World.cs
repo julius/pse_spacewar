@@ -7,24 +7,23 @@ using System.Collections;
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines the world in a game.
+    /// Defines the world in a game which contains all world objects.
     /// </summary>
     public class World
     {
         private List<WorldObject> worldObjects;
 
         /// <summary>
-        /// Creates a new World object.
+        /// Creates a new World.
         /// </summary>
-        /// <param name="worldObjects">A list of WorldObjects the world 
-        /// contains at the beginning of a game.</param>
+        /// <param name="worldObjects">A list of world objects the world contains at the beginning of a game.</param>
         public World(WorldObject[] worldObjects)
         {
             this.worldObjects = new List<WorldObject>(worldObjects);
         }
 
         /// <summary>
-        /// Gets an array of all WordObjects that exists in the world at this moment.
+        /// Returns an array of all the world objects that exist in the world at this moment.
         /// </summary>
         public WorldObject[] WorldObjects
         {
@@ -32,9 +31,9 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Adds a WorldObject to the world.
+        /// Adds a world object to the world.
         /// </summary>
-        /// <param name="worldObject">The WorldObject, which is to add.</param>
+        /// <param name="worldObject">The WorldObject which needs to be added.</param>
         public void AddWorldObject(WorldObject worldObject)
         {
             if (worldObject == null)
@@ -46,9 +45,9 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Removes a WorldObject from the world.
+        /// Removes a world object from the world.
         /// </summary>
-        /// <param name="worldObject">The WorldObject, which is to remove.</param>
+        /// <param name="worldObject">The WorldObject which is to be remove.</param>
         public void RemoveWorldObject(WorldObject worldObject)
         {
             if (worldObject == null)
@@ -60,7 +59,7 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Gets all WorldObjects which are planets
+        /// Returns all world objects which are planets.
         /// </summary>
         public Planet[] Planets
         {

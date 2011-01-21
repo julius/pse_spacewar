@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
-//using EtherDuels;
 
 namespace EtherDuels.Game.Model
 {   
     /// <summary>
-    /// Defines an abstract Physics for the calculation of the movement
-    /// of all existing WorldObjects.
+    /// Defines an abstract physics for the calculation of the movement
+    /// of all existing world objects.
     /// </summary>
     public abstract class Physics
     {
@@ -19,11 +17,11 @@ namespace EtherDuels.Game.Model
         private World world;
 
         /// <summary>
-        /// Updates the position of all WorldObject the World contains
-        /// depending on the used Physics.
+        /// Updates the position of all world objects the world contains
+        /// depending on the used physics algorithm.
         /// </summary>
-        /// <param name="gameTime">A timeobject, which saved how much time is 
-        /// passed since the last update.</param>
+        /// <param name="gameTime">A timeobject, which contains the time that has 
+        /// passed since the last call of Update.</param>
         abstract public void Update(GameTime gameTime);
     }
 }

@@ -7,26 +7,26 @@ using EtherDuels.Game.Model;
 namespace EtherDuels.Config
 {   
     /// <summary>
-    /// Provides methods to retrieve information of the Configuration.
+    /// Provides methods to retrieve information from the configuration.
     /// </summary>
     public interface ConfigurationRetriever
     {   
         /// <summary>
-        /// Gets the difficulty of the game.
+        /// Returns the difficulty of the game.
         /// </summary>
         int Difficulty { get; }
 
         /// <summary>
-        /// Gets the difficulty of the AI Player.
+        /// Returns the difficulty of the AI Player.
         /// </summary>
         int Difficulty_AI { get; }
 
         /// <summary>
-        /// Gets the KeyboardConfiguration of a player.
-        /// The player is defined by its playerID.
+        /// Returns the KeyboardConfiguration of a player.
+        /// The player is being identified by its playerID.
         /// </summary>
         /// <param name="playerID">The player's ID.</param>
-        /// <returns>The KeyboardConfiguration attached to the playerID.</returns>
+        /// <returns>The KeyboardConfiguration associated with the playerID.</returns>
         KeyboardConfiguration GetKeyboardConfiguration(int playerID);
     }
 }

@@ -67,7 +67,7 @@ namespace EtherDuels.Ruby
 
         public GameView BuildView(GameModel model)
         {
-            WorldView worldView = new WorldView(gameAssets.TextureBackground, model.World);
+            WorldView worldView = new WorldView(model.World);
             GameView gameView;
             int i = 0; // to count the planets in the worldobject list
 

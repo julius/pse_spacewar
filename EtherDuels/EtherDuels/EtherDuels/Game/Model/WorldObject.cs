@@ -78,7 +78,7 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Gets and sets the posizion of a WorldObject in the world.
+        /// Gets and sets the position of a WorldObject in the world.
         /// </summary>
         public Vector2 Position
         {

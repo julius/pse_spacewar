@@ -5,13 +5,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using EtherDuels.Config;
 
-
 namespace EtherDuels.Game.Model
 {   
     /// <summary>
-    /// Defines a concrete Physics.
-    /// It provides methods to update the WorldObjects positions depending on a simple
-    /// physics, which just contains gravity.
+    /// Defines a concrete physics algorithm.
+    /// It provides methods to update the world objects' positions depending on a simple
+    /// physics algorithm, which only contains gravity and the difficulty level.
     /// </summary>
     public class SimplePhysicsAlgorithm : Physics
     {
@@ -29,8 +28,8 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Creates a new SimplePhysicsAlgorithm object.
         /// </summary>
-        /// <param name="collisionHandler">The assigned CollisionHandler, which is to inform.</param>
-        /// <param name="world">The assigned World, whose objects are to update.</param>
+        /// <param name="collisionHandler">The assigned CollisionHandler which will be informed about collisions.</param>
+        /// <param name="world">The assigned World whose objects are to be updated.</param>
         public SimplePhysicsAlgorithm(CollisionHandler collisionHandler, World world, ConfigurationRetriever configRetriever)
         {
             this.collisionHandler = collisionHandler;
@@ -40,10 +39,10 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Updates gravity effects, calculates the new positions of all worldObjects 
+        /// Updates gravity effects, calculates the new positions of all world objects 
         /// and then reports all new collisions to the collisionHandler.
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">The GameTime which contains how much time has passed since the last update.</param>
         public override void Update(GameTime gameTime)
         {
             worldObjects = world.WorldObjects;
@@ -71,9 +70,9 @@ namespace EtherDuels.Game.Model
        
 
         /// <summary>
-        /// Applies the gravity of the planets and spaceships to all other worldObjects and updates their velocities.
+        /// Applies the gravity of the planets and spaceships to all other world objects and updates their velocities.
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">The GameTime which contains how much time has passed since the last update.</param>
         private void UpdateGravity(GameTime gameTime)
         {
             for (int i = 0; i < worldObjects.Length; i++)
@@ -122,9 +121,9 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Limits the velocity and updates the position of each worldObject.
+        /// Limits the total velocity and updates the position of each worldObject.
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">The GameTime which contains how much time has passed since the last update.</param>
         private void UpdatePositions(GameTime gameTime)
         {
             foreach (WorldObject worldObject in worldObjects)
@@ -138,31 +137,38 @@ namespace EtherDuels.Game.Model
                         world.RemoveWorldObject(worldObject);
                     }
                 }
-                    // limit velocities
-                    // TODO: check if the resulting velocity is higher than MAX_VELOCITY - does this make sense?
-                    Vector2 velocity = worldObject.Velocity;
-                    velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
-                    velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
-                    worldObject.Velocity = velocity;
+                // limit velocities
+                // TODO: check if the resulting velocity is higher than MAX_VELOCITY - does this make sense?
+                Vector2 velocity = worldObject.Velocity;
+                velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
+                velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
+                worldObject.Velocity = velocity;
 
-                    // calculate new positions
-                    Vector2 postion = worldObject.Position;
-                    postion.X += worldObject.Velocity.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
-                    postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+                // calculate new positions
+                Vector2 postion = worldObject.Position;
+                postion.X += worldObject.Velocity.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
+                postion.Y += worldObject.Velocity.Y * (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.01f;
 
-                    // torodial field
-                    postion.X = postion.X > 3300 ? -2800 : postion.X;
-                    postion.Y = postion.Y > 2400 ? -2000 : postion.Y;
-                    postion.X = postion.X < -3300 ? 2800 : postion.X;
-                    postion.Y = postion.Y < -2400 ? 2000 : postion.Y;
-
-                    worldObject.Position = postion;
+                // torodial field
+                //TODO: flexibler. sollte sich nach den in EtherDuels festgelegten groessen richten.
+                postion.X = postion.X > 3300 ? -2800 : postion.X;
+                postion.Y = postion.Y > 2400 ? -2000 : postion.Y;
+                postion.X = postion.X < -3300 ? 2800 : postion.X;
+                postion.Y = postion.Y < -2400 ? 2000 : postion.Y;
                 
+                worldObject.Position = postion;
             }
         }
 
+        /// <summary>
+        /// Applies the effect that a changed difficulty level has on world objects.
+        /// </summary>
         private void UpdateDifficulty()
         {
+            /* A new difficulty level means stronger/weaker gravity. For most world objects this effect
+             * is being handled in UpdateGravity(), but there are planets which circle in the orbit of other
+             * planets and their velocities need to be readjusted to prevent these planets from leaving the orbit.
+             * */            
             foreach (Planet planet in world.Planets)
             {
                 if (planet.IsFlexible)
@@ -188,20 +194,19 @@ namespace EtherDuels.Game.Model
                         }
                     }
 
-                    // calculate the velocity needed for orbiting this planet
+                    // calculate the velocity needed for orbiting this planet with the given distance.
                     int planetVelocity = (int) Math.Sqrt(mostAttractivePlanet.Mass * GameAssets.G / distance.Length() / (GameAssets.N * 1000 * difficulty));
                     Vector2 currentVelocity = planet.Velocity;
                     currentVelocity.Normalize();
                     planet.Velocity = Vector2.Multiply(currentVelocity, planetVelocity);
-                    System.Console.Write(planetVelocity + "\n");
                 }
             }
         }
 
         /// <summary>
-        /// Detects all current collisions
+        /// Detects all current collisions.
         /// </summary>
-        /// <returns>All current collisions</returns>
+        /// <returns>All current collisions.</returns>
         private WorldObject[][] GetCollisions()
         {
             List<WorldObject[]> collisions = new List<WorldObject[]>();
@@ -230,9 +235,9 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Filters the new collisions
+        /// Filters the new collisions.
         /// </summary>
-        /// <returns>All new collisions</returns>
+        /// <returns>All new collisions.</returns>
         private WorldObject[][] GetNewCollisions()
         {
             WorldObject[][] collisions = GetCollisions();

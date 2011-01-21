@@ -391,6 +391,14 @@ namespace EtherDuels.Menu
             MenuDialog help = new MenuDialog(helpItems);
 
             // Build Highscore Dialog
+            /*TODO: ich hab leider keinen plan wie man sachen in die config schmeisst oder rausholt(also mit datei und so).
+             * Hier muesste man halt einfach in die Spot-Items die eintraege laden, die schon in der highscore stehen. der
+             * neue eintrag wird ja an menuModel uebergeben. checken ob points > spot1, wenn nicht ob > spot2 usw.
+             * bei der actionEnterHighscore muesste man noch korrigieren. Das soll x Zeichen(ruhig feste anzahl, z.b. 7) aus
+             * der tastaur einlesen. irgendwie tuts immer nur eins trotz schleife.
+             * Julius, wenn du das fertig machen wuerdest, wuerd ich mich am Freitag mittag dransetzen das Punktesystem im 
+             * GameController zu implementieren. Hab mir schon was ueberlegt, das waer auf jeden fall machbar.
+             * */
             MenuItem highscoreInfo = new MenuItem(null, delegate() { return "Highscore"; });
             MenuItem highscoreSpot1 = new MenuItem(null, delegate() { return "Player1: " + "10000"; });
             MenuItem highscoreSpot2 = new MenuItem(actionEnterHighscore, delegate() { return name + ": " + menuModel.WinningPlayerPoints; });

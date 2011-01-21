@@ -7,10 +7,14 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines a projectile.
+    /// A projectile is a world object which belongs to a weapon and a shooter.
+    /// Its attack value and its velocity depend on the respective weapon.
     /// </summary>
     public class Projectile : WorldObject
     {
+        /// <summary>
+        /// The constructor of a projectile which sets a couple of default values.
+        /// </summary>
         public Projectile()
         {
             this.Mass = 300;
@@ -20,6 +24,9 @@ namespace EtherDuels.Game.Model
             this.Velocity = new Vector2(0,0);
         }
 
+        /// <summary>
+        /// Gets and sets the shooting spaceship.
+        /// </summary>
         private Spaceship shooter;
         public Spaceship Shooter
         {
@@ -27,6 +34,9 @@ namespace EtherDuels.Game.Model
             set { shooter = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the respective weapon.
+        /// </summary>
         private Weapon weapon;
         public Weapon Weapon
         {

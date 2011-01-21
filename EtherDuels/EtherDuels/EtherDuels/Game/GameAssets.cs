@@ -9,10 +9,17 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
 {
+    /// <summary>
+    /// The GameAssets class contains all assets needed for the game itself.
+    /// It is a singleton, meaning there can only be one instance of this class.
+    /// </summary>
     sealed class GameAssets
     {
         private static readonly GameAssets instance = new GameAssets();
 
+        /// <summary>
+        /// Returns the only instance of this class.
+        /// </summary>
         public static GameAssets Instance
         {
             get
@@ -109,14 +116,6 @@ namespace EtherDuels.Game
             return modelPlanets.ToArray();
         }
 
-
-        //private Microsoft.Xna.Framework.Graphics.Model modelSpaceship;
-        //public Microsoft.Xna.Framework.Graphics.Model ModelSpaceship
-        //{
-        //    get { return modelSpaceship; }
-        //    set { modelSpaceship = value; }
-        //}
-
         private Microsoft.Xna.Framework.Graphics.Model modelRocket;
         public Microsoft.Xna.Framework.Graphics.Model ModelRocket
         {
@@ -137,6 +136,5 @@ namespace EtherDuels.Game
             get { return modelExplosion; }
             set { modelExplosion = value; }
         }
-
     }
 }

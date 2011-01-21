@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
 {
+    //TODO: kommentieren
     class SimpleGameBuilder: GameBuilder
     {    
         private GameAssets gameAssets = GameAssets.Instance;
@@ -58,8 +59,8 @@ namespace EtherDuels.Game
             player1.Spaceship = spaceship1;
             player2.Spaceship = spaceship2;
 
-            player1.Spaceship.Position = new Vector2(-1900, 200);
-            player2.Spaceship.Position = new Vector2(1900, 200);
+            player1.Spaceship.Position = new Vector2(-1900, 0);
+            player2.Spaceship.Position = new Vector2(1900, 0);
 
             List<Player> players = new List<Player>();
             players.Add(player1);
@@ -79,7 +80,7 @@ namespace EtherDuels.Game
 
         public GameView BuildView(GameModel model)
         {
-            WorldView worldView = new WorldView(gameAssets.TextureBackground, model.World);
+            WorldView worldView = new WorldView(model.World);
             GameView gameView;
             int i = 0; // to count the planets in the list of world objects
 

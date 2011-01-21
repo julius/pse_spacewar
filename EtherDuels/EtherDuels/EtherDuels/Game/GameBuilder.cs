@@ -9,6 +9,7 @@ using EtherDuels.Game.Model;
 
 namespace EtherDuels.Game
 {
+    //TODO: kommentieren
     public interface GameBuilder
     {
         CollisionHandler CollisionHandler { set; }

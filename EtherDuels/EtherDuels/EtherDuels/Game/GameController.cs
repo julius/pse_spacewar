@@ -16,7 +16,7 @@ namespace EtherDuels.Game
     /// <summary>
     /// The GameController is responsible for the communication between the GameModel and its GameView.
     /// It creates new worlds and its views via a GameBuilder and can remove and add objects to them.
-    /// It also observes, if a game has ended or was paused, so it has to inform its GameHandler.
+    /// It also observes whether a game has ended or was paused and informs its GameHandler if necessary.
     /// </summary>
     public class GameController: CollisionHandler, PlayerHandler
     {
@@ -29,13 +29,12 @@ namespace EtherDuels.Game
         /// <summary>
         /// Constructor of a GameController object.
         /// </summary>
-        /// <param name="gameBuilder">Defines the GameBuilder the Controller uses.</param> 
-        /// <param name="gameHandler">Defines the GameHandler the Controller uses.</param> 
+        /// <param name="gameBuilder">Defines the GameBuilder the GameController uses.</param> 
+        /// <param name="gameHandler">Defines the GameHandler the GameController uses.</param> 
         public GameController(GameBuilder gameBuilder, GameHandler gameHandler)
         {
             this.gameBuilder = gameBuilder;
             this.gameHandler = gameHandler;
-
             this.gameBuilder.CollisionHandler = this;
             this.gameBuilder.PlayerHandler = this;
         }
@@ -43,7 +42,6 @@ namespace EtherDuels.Game
        /// <summary>
        /// Creates a new game using its dedicated GameBuilder.
        /// A game consists of a model and its view.
-       /// A new game is just created, when there don't exist one yet.
        /// </summary>
         public void CreateGame()
         {            
@@ -52,10 +50,10 @@ namespace EtherDuels.Game
         }
 
         /// <summary>
-        /// Draws the gameView and all its subcomponents.
+        /// Draws the GameView and all its subcomponents.
         /// </summary>
-        /// <param name="viewPort">Defines the Viewport, which is to use.</param>
-        /// <param name="spriteBatch">Defines the SpriteBatch, which is to use.</param>
+        /// <param name="viewPort">Defines the Viewport to usw.</param>
+        /// <param name="spriteBatch">Defines the SpriteBatch to use.</param>
         /// <param name="gameTime">The frame's time object.</param>
         public void Draw(Viewport viewPort, SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -68,15 +66,13 @@ namespace EtherDuels.Game
         /// Reacts to a collision that happend in the game depending on 
         /// the type of the two assigned WorldObjects.
         /// This method creates an explosion, reduces the health of the WorldObject, if necessary,
-        /// and checks, if one of the involved WorldObjects has to be removed from the world.
+        /// and checks, if one of the involved world objects has to be removed from the world.
         /// </summary>
         /// <param name="collisionObject1">The first WorldObject, which was involved in the collision.</param>
         /// <param name="collisionObject2">The second WorldObject, which was involved in the collision.</param>
         public void OnCollision(WorldObject collisionObject1, WorldObject collisionObject2)
         {
             Debug.Assert(gameModel != null);
-
-            System.Console.Write(collisionObject1 + " mit " + collisionObject2 + "\n");
 
             Vector2 posExplosion;
             Vector2 deltaPos;
@@ -142,15 +138,6 @@ namespace EtherDuels.Game
             if (collisionObject.Health <= 0)    // --> object is dead
             {
                 gameModel.World.RemoveWorldObject(collisionObject);
-                //TODO: brauch man nicht mehr wenn man das direkt in der WorldView entfernt.
-                /*foreach (WorldObjectView worldObjectView in worldObjectViews)
-                {
-                    if (worldObjectView.WorldObject == collisionObject)
-                    {
-                        gameView.WorldView.RemoveWorldObjectView(worldObjectView);
-                        break;
-                    }
-                }*/
 
                 /* If the object is a spaceship, delete the according player from the players list
                  * and check whether there was only two players left, meaning the other player has won 
@@ -160,7 +147,6 @@ namespace EtherDuels.Game
                     Player[] players = gameModel.Players;
                     foreach (Player player in players)
                     {
-                        System.Console.Write(player.Spaceship + " \n" + collisionObject + "\n");
                         if (player.Spaceship == collisionObject)
                         {
                             gameModel.RemovePlayer(player);
@@ -185,7 +171,7 @@ namespace EtherDuels.Game
         /// <summary>
         /// Creates a projectile and its fitting view. 
         /// </summary>
-        /// <param name="shooter">The Spaceship, which fired a projectile.</param>
+        /// <param name="shooter">The Spaceship which fired the projectile.</param>
         public void OnFire(Spaceship shooter)
         {
             // create the projectile and its view and add them to the World/WorldView
@@ -223,7 +209,7 @@ namespace EtherDuels.Game
         /// <summary>
         /// Updates the GameModel and its subcomponents.
         /// </summary>
-        /// <param name="gameTime">The time, which is passed since the last update.</param>
+        /// <param name="gameTime">The time, which has passed since the last update.</param>
         public void Update(FrameState frameState)
         {
             /* TODO: hier lassen oder lieber in den HumanPlayer zu den anderen Keyboard-abfragen? 
@@ -239,8 +225,5 @@ namespace EtherDuels.Game
             gameModel.Update(frameState);
         }
     }
-
-
-
 }
 

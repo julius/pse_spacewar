@@ -6,10 +6,14 @@ using System.Text;
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines a planet.
+    /// A planet is a world object which is nearly undestroyable. There are two types of planets:
+    /// those that are being influenced by other planets' gravitational force and those that are not.
     /// </summary>
     public class Planet : WorldObject
     {
+        /// <summary>
+        /// The constructor of a planet which sets a couple of default values.
+        /// </summary>
         public Planet()
         {
             isFlexible = false;
@@ -18,6 +22,9 @@ namespace EtherDuels.Game.Model
             this.Mass = 6E24;
         }
 
+        /// <summary>
+        /// Gets and sets whether the planet should react to other planets' gravitational force.
+        /// </summary>
         private bool isFlexible;
         public bool IsFlexible
         {

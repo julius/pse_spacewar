@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-
-
 namespace EtherDuels.Config
 {  
     /// <summary>
-    /// Provides methods to retrieve the current InputConfiguration.
+    /// Provides methods to retrieve the current input configuration.
     /// </summary>
     public interface InputConfigurationRetriever
     {
         /// <summary>
-        /// Gets the key for forward movement.
+        /// Returns the key for forward movement.
         /// </summary>
         Keys Forward
         {
@@ -22,7 +20,7 @@ namespace EtherDuels.Config
         }
 
         /// <summary>
-        /// Gets the key for turning left.
+        /// Returns the key for turning left.
         /// </summary>
         Keys Left
         {
@@ -30,7 +28,7 @@ namespace EtherDuels.Config
         }
 
         /// <summary>
-        /// Gets the key for turning right.
+        /// Returns the key for turning right.
         /// </summary>
         Keys Right
         {
@@ -38,7 +36,7 @@ namespace EtherDuels.Config
         }
 
         /// <summary>
-        /// Gets the key for firing a weapon.
+        /// Returns the key for firing a weapon.
         /// </summary>
         Keys Fire
         {
@@ -46,7 +44,7 @@ namespace EtherDuels.Config
         }
 
         /// <summary>
-        /// Gets the key for changing to the next weapon.
+        /// Returns the key for changing to the next weapon.
         /// </summary>
         Keys NextWeapon
         {
@@ -54,7 +52,7 @@ namespace EtherDuels.Config
         }
 
         /// <summary>
-        /// Gets the key for changing to the previous weapon.
+        /// Returns the key for changing to the previous weapon.
         /// </summary>
         Keys PrevWeapon
         {
@@ -62,13 +60,11 @@ namespace EtherDuels.Config
         }
 
         /// <summary>
-        /// Gets the key for backward movement.
+        /// Returns the key for backward movement.
         /// </summary>
         Keys Backward
         {
             get;
         }
-
-       
     }
 }

@@ -9,17 +9,16 @@ using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Config
 {
-    // KeyboardConfiguration has to be serializable as well as Configuration, 
-    // if Configuration is supposed to store KeyboardConfiguration as well as if it is serialized
     /// <summary>
-    /// Saves the current KeyboardConfiguration of a Player.
+    /// The KeyboardConfiguration provides methods for setting and getting the respective keys
+    /// of a player.
     /// </summary>
     [Serializable()]
     public class KeyboardConfiguration : InputConfigurationRetriever
     {
-        //Deserialization constructor.
+        // Deserialization constructor.
         /// <summary>
-        /// Creates a new Keyboradconfiguration.
+        /// Creates a new KeyboradConfiguration.
         /// </summary>
         /// <param name="info">The SerializationInfo.</param>
         /// <param name="ctxt">The StreamingContext.</param>
@@ -36,15 +35,15 @@ namespace EtherDuels.Config
 
         public KeyboardConfiguration()
         {
-            //TODO
         }
 
-        //Serialization function.
+        // Serialization function.
+        //TODO: kommentar vervollstaendigen
         /// <summary>
         ///  
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="ctxt"></param>
+        /// <param name="info">The SerializationInfo.</param>
+        /// <param name="ctxt">The StreamingContext</param>
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("backward", backward);
@@ -60,7 +59,7 @@ namespace EtherDuels.Config
         /// Gets and sets the key for backward movement.
         /// </summary>
         private Keys backward;
-           public Keys Backward
+        public Keys Backward
         {
             get { return backward; }
             set { backward = value; }
@@ -129,16 +128,16 @@ namespace EtherDuels.Config
         /// <summary>
         /// Checks if the assigned KeyboardConfiguration object is 
         /// equal to this one.
-        /// Equal are the objects, if all keyboard shortcuts match with each other. 
+        /// Objects are defined equal if all the respective keyboard shortcuts match with each other. 
         /// </summary>
-        /// <param name="secKeyConf">The KeyboardConfiguration, which is to check for equality.</param>
-        /// <returns>true if all keyboard shortcuts are equal.
-        /// false otherwise.</returns>
+        /// <param name="secKeyConf">The KeyboardConfiguration which needs to be checked for equality.</param>
+        /// <returns>true if all respective keyboard shortcuts are equal. false otherwise.</returns>
         public bool Equals(KeyboardConfiguration secKeyConf)
         {
             if (secKeyConf == null)
                 return false;
 
+            //TODO: kommentar verwirrend
             // all the same
             if (this.backward != secKeyConf.backward
                 || this.fire != secKeyConf.fire
