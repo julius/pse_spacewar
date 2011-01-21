@@ -138,11 +138,11 @@ namespace EtherDuels
             this.menuController.SetMainMenu();
 
             // Build GameBuilder and GameController
-            GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
+            //GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
             /* this code can be used to build levels from files:
              * you may replace it with the code line above.
              * */
-            // GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
+            GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
 
             this.gameController = new GameController(gameBuilder, this);
 
