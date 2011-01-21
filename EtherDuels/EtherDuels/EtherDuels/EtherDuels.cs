@@ -73,8 +73,10 @@ namespace EtherDuels
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
 
+            // Fonts
             SpriteFont menuFont = content.Load<SpriteFont>("NiceFont");
 
+            // Textures
             Texture2D textureStars = content.Load<Texture2D>("texture_space");
             Texture2D textureHealthBar = content.Load<Texture2D>("texture_healthbar");
             Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
@@ -96,9 +98,8 @@ namespace EtherDuels
             Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
 
             SoundEffect.MasterVolume = 1.0f;
+            
 
-            
-            
             // Build Asset classes
             MenuAssets menuAssets = MenuAssets.Instance;
             GameAssets gameAssets = GameAssets.Instance;
@@ -106,43 +107,42 @@ namespace EtherDuels
             // Load content into the asset classes
             menuAssets.MenuFont = menuFont;
             menuAssets.TextureBackground = textureStars;
-
             menuAssets.SoundMenuClick = soundMenuClick;
 
             gameAssets.TextureHealthBar = textureHealthBar;
             gameAssets.TextureSmoke = textureSmoke;
             gameAssets.TextureBackground = textureStars;
-          
             gameAssets.SetColoredSpaceship(Color.Green, modelSpaceshipGreen);
             gameAssets.SetColoredSpaceship(Color.Orange, modelSpaceshipOrange);
-            gameAssets.AddModelPlanet(modelEarth);
-            gameAssets.AddModelPlanet(modelMoon);
             gameAssets.ModelRocket = modelRocket;
             gameAssets.ModelLaser = modelLaser;
             gameAssets.ModelExplosion = modelExplosion;
-
             gameAssets.SoundExplosion = soundExplosion;
             gameAssets.SoundLaser = soundLaser;
             gameAssets.SoundRocket = soundRocket;
             gameAssets.Soundtrack = soundtrack;
-
             gameAssets.HudFont = menuFont;
-           
-         
+            // change this to try out different planet models
+            gameAssets.AddModelPlanet(modelEarth);
+            gameAssets.AddModelPlanet(modelMoon);
             
             ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
             Configuration configuration = configurationReader.read("config.cfg");
 
-            // Build MenuController
+            // Build MenuBuilder, MenuModel, MenuView and MenuController
             MenuBuilder menuBuilder = new SimpleMenuBuilder(this, configuration);
             MenuModel menuModel = menuBuilder.BuildModel();
             MenuView menuView = menuBuilder.BuildView(menuModel);
             this.menuController = new MenuController(this, menuModel, menuView);
+            // set the main menu active. This is where the game starts.
             this.menuController.SetMainMenu();
 
-            // Build GameController
+            // Build GameBuilder and GameController
             GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
-            //GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
+            /* this code can be used to build levels from files:
+             * you may replace it with the code line above.
+             * */
+            // GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
 
             this.gameController = new GameController(gameBuilder, this);
 
@@ -154,7 +154,7 @@ namespace EtherDuels
             //play background music
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(soundtrack);
-            MediaPlayer.Volume = 50; //TODO: von config abhängig machen
+            MediaPlayer.Volume = 1.0f;
         }
 
         /// <summary>
