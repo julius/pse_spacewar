@@ -10,7 +10,9 @@ using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game
 {
-    //TODO: kommentieren
+    /// <summary>
+    /// Build a new game with a predefined level.
+    /// </summary>
     class SimpleGameBuilder: GameBuilder
     {    
         private GameAssets gameAssets = GameAssets.Instance;
@@ -29,11 +31,19 @@ namespace EtherDuels.Game
 
         private Configuration configuration;
 
+        /// <summary>
+        /// Creates a new SimpleGameBuilder.
+        /// </summary>
+        /// <param name="configuration">The assigned configuration.</param>
         public SimpleGameBuilder(Configuration configuration)
         {
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Creates a new GameModel and its subcomponents.
+        /// </summary>
+        /// <returns>The created GameModel.</returns>
         public GameModel BuildModel()
         {
             // build game objects
@@ -42,7 +52,7 @@ namespace EtherDuels.Game
 
             // build planet in orbit
             int distance = 700;
-            
+
             Planet planet2 = new Planet();
             planet2.Radius = 82;
             planet2.IsFlexible = true;
@@ -78,6 +88,11 @@ namespace EtherDuels.Game
             return gameModel;
         }
 
+        /// <summary>
+        /// Creates a new GameView and its subcomponents.
+        /// </summary>
+        /// <param name="model">The assigned GameModel.</param>
+        /// <returns>The created GameView.</returns>
         public GameView BuildView(GameModel model)
         {
             WorldView worldView = new WorldView(model.World);

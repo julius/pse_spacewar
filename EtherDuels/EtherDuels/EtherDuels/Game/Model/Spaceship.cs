@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace EtherDuels.Game.Model
 {
@@ -10,7 +11,8 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class Spaceship : WorldObject
     {
-        Weapon currentWeapon;
+        private static float MAX_VELOCITY = 300.0f;
+        private Weapon currentWeapon;
 
         /// <summary>
         /// The constructor of a spaceship which sets a couple of default values.
@@ -32,6 +34,17 @@ namespace EtherDuels.Game.Model
         {
             get { return currentWeapon; }
             set { currentWeapon = value; }
+        }
+
+        public override Vector2 Velocity
+        {
+            get { return velocity; }
+            set
+            {
+                velocity = value;
+                velocity.X = velocity.X > MAX_VELOCITY ? MAX_VELOCITY : velocity.X;
+                velocity.Y = velocity.Y > MAX_VELOCITY ? MAX_VELOCITY : velocity.Y;
+            }
         }
     }
 }

@@ -68,8 +68,7 @@ namespace EtherDuels
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //TODO: was soll das heissen?
-            // Sample code to draw some models and stuff
+            
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
 
@@ -88,7 +87,7 @@ namespace EtherDuels
             Model modelEarth = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
-            Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+            Model modelExplosion = content.Load<Model>("explosion");  
 
             // Sound effects
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
@@ -162,7 +161,7 @@ namespace EtherDuels
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
         }
 
         /// <summary>
@@ -279,10 +278,9 @@ namespace EtherDuels
         /// Returns to the main menu and ends the current game.
         /// </summary>
         /// <param name="playerID">The ID of the winning player.</param>
-        /// <param name="points">The points of the winning player.</param>
-        public void OnGameEnded(int playerID, int points)
+        public void OnGameEnded(int playerID)
         {
-            this.menuController.SetGameEndedMenu(playerID, points);
+            this.menuController.SetGameEndedMenu(playerID);
             this.programState.GameState = GameState.GameEnded;
             this.programState.MenuState = MenuState.NoMenu;
         }

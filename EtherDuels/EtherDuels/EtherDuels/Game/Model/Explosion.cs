@@ -10,7 +10,7 @@ namespace EtherDuels.Game.Model
     /// </summary>
     public class Explosion : WorldObject
     {
-        TimeSpan creationTime;
+        private TimeSpan creationTime;
 
         /// <summary>
         /// Gets and sets the creation time of an explosion.

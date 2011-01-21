@@ -24,17 +24,6 @@ namespace EtherDuels.Game.Model
             get { return this.playerId; }
         }
 
-        protected int points = 0;
-
-        /// <summary>
-        /// Returns the player's points.
-        /// </summary>
-        public int Points
-        {
-            get { return this.points; }
-            set { this.points = value; }
-        }
-
         protected Spaceship spaceship;
         /// <summary>
         /// Returns the player's spaceship.

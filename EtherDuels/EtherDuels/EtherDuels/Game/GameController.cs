@@ -95,25 +95,7 @@ namespace EtherDuels.Game
             // reducing the health of the colliding objects
             collisionObject1.Health -= collisionObject2.Attack;
             collisionObject2.Health -= collisionObject1.Attack;
-
-            // calculating the points
-            /*if (collisionObject1 is Spaceship && collisionObject2 is Projectile)
-            {
-                foreach (Player player in gameModel.Players) 
-                {
-                    if (collisionObject1 == player.Spaceship)
-                    {
-                        if ((collisionObject2 as Projectile).Shooter == collisionObject1)
-                        {
-                            player.Points -= collisionObject2.Attack;
-                        } else {*/
-
-
-                            
-
-
-
-
+            
             /* checking whether the colliding objects are still "alive". Check the object with
              * less health first to make the player with less health lose the game in case both
              * spaceships died. */
@@ -155,11 +137,11 @@ namespace EtherDuels.Game
                             {
                                 if (players[0] == player)
                                 {
-                                    gameHandler.OnGameEnded(players[1].PlayerId, players[1].Points);    //TODO was passiert mit dem restlichen auszufuehrenden Code? Bleibt Datenmuell uebrig?
+                                    gameHandler.OnGameEnded(players[1].PlayerId);
                                 }
                                 else
                                 {
-                                    gameHandler.OnGameEnded(players[0].PlayerId, players[0].Points);
+                                    gameHandler.OnGameEnded(players[0].PlayerId);
                                 }
                             }
                         }
@@ -190,7 +172,7 @@ namespace EtherDuels.Game
             projectilePosition.Y = shooter.Position.Y - (float)Math.Cos(shooter.Rotation) * (shooter.Radius + projectile.Radius + 1);
             projectile.Position = projectilePosition;
 
-            //
+           
             int velocityFactor = 100;
             switch (shooter.CurrentWeapon) 
             {
@@ -220,7 +202,7 @@ namespace EtherDuels.Game
             }
 
             this.gameTime = frameState.GameTime;
-            Debug.Assert(gameModel != null, "No gamemodel exists");      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert--- Assertions sind besser, da das kein erwartetes Verhalten ist.
+            Debug.Assert(gameModel != null, "No gamemodel exists");      
             
             gameModel.Update(frameState);
         }
