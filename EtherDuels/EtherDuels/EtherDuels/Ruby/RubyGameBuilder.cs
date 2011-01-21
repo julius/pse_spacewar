@@ -116,7 +116,6 @@ namespace EtherDuels.Ruby
                 {
                     Player player = GetPlayerOfSpaceship(model, (Spaceship)worldObject);
                     worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetColoredSpaceship(player.PlayerColor), worldObject));
-                    //worldView.AddWorldObjectView(new WorldObjectView(gameAssets.ModelSpaceship, worldObject));
                 }
                 else if (worldObject is Planet)
                 {

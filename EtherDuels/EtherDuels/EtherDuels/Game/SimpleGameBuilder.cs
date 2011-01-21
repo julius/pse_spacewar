@@ -58,7 +58,7 @@ namespace EtherDuels.Game
             planet2.IsFlexible = true;
             planet2.Position = new Vector2(distance, 0);
             // calculate velocity needed to circuit in orbit
-            int planet2Velocity = (int) Math.Sqrt(planet.Mass * GameAssets.G / distance / (GameAssets.N * 1000));
+            float planet2Velocity = (float) Math.Sqrt(planet.Mass * GameAssets.G / distance / (GameAssets.N * 1000));
             planet2.Velocity = new Vector2(0, planet2Velocity);
 
             Spaceship spaceship1 = new Spaceship();
@@ -105,11 +105,10 @@ namespace EtherDuels.Game
                 {
                     Player player = GetPlayerOfSpaceship(model, (Spaceship)worldObject);
                     worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetColoredSpaceship(player.PlayerColor), worldObject));
-                    //worldView.AddWorldObjectView(new WorldObjectView(gameAssets.ModelSpaceship, worldObject));
                 }
                 else if (worldObject is Planet)
                 {
-                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetModelPlanets()[i], worldObject));
+                    worldView.AddWorldObjectView(new WorldObjectView(gameAssets.GetModelPlanets()[i % gameAssets.GetModelPlanets().Length], worldObject));
                     i++;
                 }
                 else if (worldObject is Projectile)

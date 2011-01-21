@@ -188,7 +188,7 @@ namespace EtherDuels.Game.Model
                     }
 
                     // calculate the velocity needed for orbiting this planet with the given distance.
-                    int planetVelocity = (int) Math.Sqrt(mostAttractivePlanet.Mass * GameAssets.G / distance.Length() / (GameAssets.N * 1000 * difficulty));
+                    float planetVelocity = (float) Math.Sqrt(mostAttractivePlanet.Mass * GameAssets.G / distance.Length() / (GameAssets.N * 1000 * difficulty));
                     distance.Normalize();
                     Vector2 newVelocity = new Vector2(distance.Y, -distance.X);
                     planet.Velocity = Vector2.Multiply(newVelocity, planetVelocity);
