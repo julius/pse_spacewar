@@ -6,24 +6,23 @@ using System.Text;
 namespace EtherDuels.Menu.Model
 {   
     /// <summary>
-    /// Defines a MenuDialog.
+    /// A MenuDialog is a group of MenuItems which have a specific functionality.
     /// </summary>
     class MenuDialog
     {
         private MenuItem[] menuItems;
+        private bool active;
 
         /// <summary>
-        /// Gets an array of all MenuItems, the MenuDialog consists of.
+        /// Returns an array of all MenuItems the MenuDialog consists of.
         /// </summary>
         public MenuItem[] MenuItems
         {
             get { return this.menuItems; }
         }
 
-        private bool active;
-
         /// <summary>
-        /// Gets and sets if the MenuDialog is active.
+        /// Gets and sets the active property of a MenuDialog.
         /// </summary>
         public bool Active
         {
@@ -34,13 +33,12 @@ namespace EtherDuels.Menu.Model
         /// <summary>
         /// Creates a new MenuDialog.
         /// </summary>
-        /// <param name="menuItems">An array of all MenuItems, 
-        /// the MenuDialog consists of. </param>
+        /// <param name="menuItems">An array of all MenuItems the MenuDialog consists of.</param>
         public MenuDialog(MenuItem[] menuItems)
         {
             this.menuItems = menuItems;
 
-            // make sure a menuitem is selected
+            // make sure a menu item is selected
             int menuItemIndex = this.GetSelectedMenuItemIndex();
             if (menuItemIndex == -1) this.Down();
         }
@@ -57,8 +55,8 @@ namespace EtherDuels.Menu.Model
         }
 
         /// <summary>
-        /// Moves the selectionof an item one MenuItem down. 
-        /// The previous selected MenuItem is unselected now. 
+        /// Sets the MenuItem beneath the currently selected one to selected.
+        /// The previously selected MenuItem is set to not selected.
         /// </summary>
         public void Down()
         {
@@ -73,11 +71,13 @@ namespace EtherDuels.Menu.Model
             if (menuItemIndex >= this.menuItems.Length) menuItemIndex = 0;
 
             this.menuItems[menuItemIndex].Selected = true;
+            if (this.menuItems[menuItemIndex].IsStaticText)
+                this.Down();
         }
 
         /// <summary>
-        /// Moves the selection of an item one MenuItem up.
-        /// The previous selected MenuItem is unselected now.
+        /// Sets the MenuItem above the currently selected one to selected.
+        /// The previously selected Menuitem is set to not selected.
         /// </summary>
         public void Up()
         {
@@ -92,12 +92,14 @@ namespace EtherDuels.Menu.Model
             if (menuItemIndex < 0) menuItemIndex = this.menuItems.Length - 1;
 
             this.menuItems[menuItemIndex].Selected = true;
+            if (this.menuItems[menuItemIndex].IsStaticText)
+                this.Up();
         }
 
         /// <summary>
-        /// Gets index of the menu item, which is selected.
+        /// Returns the index of the menu item which is currently selected.
         /// </summary>
-        /// <returns>The index of the item. -1 if no item is selected.</returns>
+        /// <returns>The index of the currently selected item. Returns -1 if no item is selected.</returns>
         private int GetSelectedMenuItemIndex()
         {
             for (int i = 0; i < this.menuItems.Length; i += 1)

@@ -2,33 +2,59 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Input;
 
 namespace EtherDuels.Menu.Model
 {   
     /// <summary>
-    /// Defines the complete MenuModel.
-    /// It is the biggest component of the menu.
+    /// The MenuModel is the biggest component of the menu and is responsible for updating the menu logic.
     /// </summary>
     class MenuModel
-    {   
+    {
+        public delegate void KeySetter(Keys key);
+
         private MenuDialog[] menuDialogs;
-        
+        private int previousDialog = 0;
+        private int winningPlayerID;
+        public int WinningPlayerID
+        {
+            get { return this.winningPlayerID; }
+        }
+
+        private int winningPlayerPoints;
+        public int WinningPlayerPoints
+        {
+            get { return winningPlayerPoints; }
+        }
         /// <summary>
-        /// Gets an array of all MenuDialogs, which are used by the menu.
+        /// Returns an array of all MenuDialogs which are being used by the menu.
         /// </summary>
         public MenuDialog[] MenuDialogs
         {
             get { return this.menuDialogs; }
+            set { this.menuDialogs = value; }
         }
 
-        /// <summary>
-        /// Creates a new MenuModel.
-        /// </summary>
-        /// <param name="menuDialogs">All MenuDialogs the MenuModel consists of.</param>
-        public MenuModel(MenuDialog[] menuDialogs)
+        private KeySetter keyWaiter;
+        //TODO: julius kommentieren
+        public bool IsWaitingForKey
         {
-            this.menuDialogs = menuDialogs;
+            get { return this.keyWaiter != null; }
         }
+
+        //TODO: julius kommentieren
+        public void WaitForKey(KeySetter keyWaiter)
+        {
+            this.keyWaiter = keyWaiter;
+        }
+
+        //TODO: julius kommentieren
+        public void SetWaitingKey(Keys key)
+        {
+            this.keyWaiter(key);
+            this.keyWaiter = null;
+        }
+
 
         /// <summary>
         /// Passes the action call to its selected MenuDialog.
@@ -38,6 +64,7 @@ namespace EtherDuels.Menu.Model
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
 
+            MenuAssets.Instance.SoundMenuClick.CreateInstance().Play();
             this.menuDialogs[menuDialogIndex].Action();
         }
 
@@ -49,6 +76,7 @@ namespace EtherDuels.Menu.Model
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
 
+            MenuAssets.Instance.SoundMenuClick.CreateInstance().Play();
             this.menuDialogs[menuDialogIndex].Down();
         }
 
@@ -60,11 +88,12 @@ namespace EtherDuels.Menu.Model
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
 
+            MenuAssets.Instance.SoundMenuClick.Play();
             this.menuDialogs[menuDialogIndex].Up();
         }
 
         /// <summary>
-        /// Sets MenuDialog at index 0 active.
+        /// Sets the main menu dialog active.
         /// </summary>
         public void SetMainMenu()
         {
@@ -72,19 +101,36 @@ namespace EtherDuels.Menu.Model
         }
 
         /// <summary>
-        /// Sets MenuDialog at index 1 active.
+        /// Sets the pause menu dialog active.
         /// </summary>
         public void SetPauseMenu()
         {
             this.SetActiveDialogByIndex(1);
         }
 
-        private void SetActiveDialogByIndex(int index)
+        /// <summary>
+        /// Sets the game ended menu active.
+        /// </summary>
+        /// <param name="playerID">Id of the wining player.</param>
+        /// <param name="points">points of the winning player</param>
+        public void SetGameEndedMenu(int playerID, int points)
+        {
+            this.winningPlayerID = playerID;
+            this.winningPlayerPoints = points;
+            this.SetActiveDialogByIndex(5);
+        }
+
+        /// <summary>
+        /// Sets the specified dialog active.
+        /// </summary>
+        /// <param name="index">index of dialog to be set active</param>
+        public void SetActiveDialogByIndex(int index)
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
 
             if (menuDialogIndex != -1)
             {
+                previousDialog = menuDialogIndex;
                 this.menuDialogs[menuDialogIndex].Active = false;
             }
 
@@ -92,9 +138,17 @@ namespace EtherDuels.Menu.Model
         }
 
         /// <summary>
-        /// Gets index of the menu dialog, which is active.
+        /// Sets the previous dialog active.
         /// </summary>
-        /// <returns>The index of the dialog. -1 if no dialog is active.</returns>
+        public void SetPreviousDialogActive()
+        {
+            SetActiveDialogByIndex(previousDialog);
+        }
+
+        /// <summary>
+        /// Returns the index of the menu dialog which is currently active.
+        /// </summary>
+        /// <returns>The index of the dialog. Returns -1 if no dialog is active.</returns>
         private int GetActiveMenuDialogIndex()
         {
             for (int i = 0; i < this.menuDialogs.Length; i += 1)

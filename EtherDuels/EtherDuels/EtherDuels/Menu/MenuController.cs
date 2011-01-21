@@ -14,13 +14,16 @@ using EtherDuels.Menu.View;
 namespace EtherDuels.Menu
 {
     /// <summary>
-    /// The MenuController is responsible for the communication between the MenuModel and its MenuView.
+    /// The MenuController is responsible for the communication between MenuModel, MenuView and EtherDuels.
     /// </summary>
     class MenuController
     {
         private MenuHandler menuHandler;
         private MenuModel menuModel;
         private MenuView menuView;
+        private bool isDownKeyUp = false;
+        private bool isUpKeyUp = false;
+        private bool isEnterKeyUp = false;
 
         /// <summary>
         /// Creates a new MenuController.
@@ -45,40 +48,47 @@ namespace EtherDuels.Menu
             this.menuView.Draw(viewport, spriteBatch);
         }
 
-        private bool isDownKeyDown = false;
-        private bool isUpKeyDown = false;
-        private bool isEnterKeyDown = false;
-
         /// <summary>
-        /// Updates the menu.
+        /// Updates the menu logic.
         /// </summary>
-        /// <param name="frameState">A state object.</param>
+        /// <param name="frameState">A frame state object.</param>
         public void Update(FrameState frameState)
         {
-            if (frameState.KeyboardState.IsKeyDown(Keys.Down)) isDownKeyDown = true;
-            if (frameState.KeyboardState.IsKeyUp(Keys.Down) && isDownKeyDown)
+            if (this.menuModel.IsWaitingForKey)
             {
-                isDownKeyDown = false;
+                isDownKeyUp = false;
+                isUpKeyUp = false;
+
+                Keys[] keys = frameState.KeyboardState.GetPressedKeys();
+                if (keys.Length == 0 || keys[0] == Keys.Enter) return;
+                this.menuModel.SetWaitingKey(keys[0]);
+                return;
+            }
+
+            if (frameState.KeyboardState.IsKeyUp(Keys.Down)) isDownKeyUp = true;
+            if (frameState.KeyboardState.IsKeyDown(Keys.Down) && isDownKeyUp)
+            {
+                isDownKeyUp = false;
                 this.menuModel.Down();
             }
 
-            if (frameState.KeyboardState.IsKeyDown(Keys.Up)) isUpKeyDown = true;
-            if (frameState.KeyboardState.IsKeyUp(Keys.Up) && isUpKeyDown)
+            if (frameState.KeyboardState.IsKeyUp(Keys.Up)) isUpKeyUp = true;
+            if (frameState.KeyboardState.IsKeyDown(Keys.Up) && isUpKeyUp)
             {
-                isUpKeyDown = false;
+                isUpKeyUp = false;
                 this.menuModel.Up();
             }
 
-            if (frameState.KeyboardState.IsKeyDown(Keys.Enter)) isEnterKeyDown = true;
-            if (frameState.KeyboardState.IsKeyUp(Keys.Enter) && isEnterKeyDown)
+            if (frameState.KeyboardState.IsKeyUp(Keys.Enter)) isEnterKeyUp = true;
+            if (frameState.KeyboardState.IsKeyDown(Keys.Enter) && isEnterKeyUp)
             {
-                isEnterKeyDown = false;
+                isEnterKeyUp = false;
                 this.menuModel.Action();
             }
         }
 
         /// <summary>
-        /// Sets the mainmenu active.
+        /// Sets the main menu active.
         /// </summary>
         public void SetMainMenu()
         {
@@ -86,11 +96,21 @@ namespace EtherDuels.Menu
         }
 
         /// <summary>
-        /// Sets the paused menu active.
+        /// Sets the pause menu active.
         /// </summary>
         public void SetPauseMenu()
         {
             this.menuModel.SetPauseMenu();
+        }
+
+        /// <summary>
+        /// Sets the end game menu active.
+        /// </summary>
+        /// <param name="playerID">Id of the wining player.</param>
+        /// <param name="points">Points of the wining player.</param>
+        public void SetGameEndedMenu(int playerID, int points)
+        {
+            this.menuModel.SetGameEndedMenu(playerID, points);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace EtherDuels.Menu
 {
+    //TODO: kommentieren
     interface MenuHandler
     {
         void OnNewGame();

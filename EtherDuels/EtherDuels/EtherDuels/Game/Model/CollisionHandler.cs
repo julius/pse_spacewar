@@ -7,7 +7,7 @@ namespace EtherDuels.Game.Model
 {   
     /// <summary>
     /// This interface defines a CollisionHandler.
-    /// It provides methods to inform a higher layer of the game of
+    /// It provides a method to inform a higher layer of the game about
     /// a collision that happend in the running game.
     /// </summary>
     public interface CollisionHandler
@@ -15,8 +15,8 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Defines the reaction to a collision that happend in a game.
         /// </summary>
-        /// <param name="object1">The first involved WorldObject.</param>
-        /// <param name="object2">The second involved worldObject.</param>
+        /// <param name="object1">The first colliding WorldObject.</param>
+        /// <param name="object2">The second colliding worldObject.</param>
         void OnCollision(WorldObject object1, WorldObject object2);
     }
 }

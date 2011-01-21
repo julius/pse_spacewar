@@ -5,27 +5,38 @@ using System.Text;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
 using Microsoft.Xna.Framework.Graphics;
+using EtherDuels.Config;
+using Microsoft.Xna.Framework.Input;
+using EtherDuels.Game.Model;
+using EtherDuels.Game;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace EtherDuels.Menu
 {   
     /// <summary>
-    /// Defines a concrete MenuBuilder.
+    /// Defines a simple MenuBuilder.
     /// </summary>
     class SimpleMenuBuilder: MenuBuilder
     {
         private MenuHandler menuHandler;
-        private SpriteFont spriteFont;
-        // TODO: configuration
+        private Configuration configuration;
+        //TODO: nur benötigt für highscore. löschen falls keine highscore.
+        private string name = "";
 
         /// <summary>
         /// Creates a new SimpleMenuBuilder.
         /// </summary>
         /// <param name="menuHandler">The assigned MenuHandler.</param>
-        /// <param name="spriteFont">The used font.</param>
-        public SimpleMenuBuilder(MenuHandler menuHandler, SpriteFont spriteFont)
+        public SimpleMenuBuilder(MenuHandler menuHandler, Configuration configuration)
         {
             this.menuHandler = menuHandler;
-            this.spriteFont = spriteFont;
+            this.configuration = configuration;
+        }
+
+        private string FormatKey(Keys key)
+        {
+            return key == Keys.None ? "Press a key" : key.ToString();
         }
 
         /// <summary>
@@ -34,7 +45,11 @@ namespace EtherDuels.Menu
         /// <returns>The created MenuModel.</returns>
         public MenuModel BuildModel()
         {
-            // build menu actions
+            MenuModel menuModel = new MenuModel();
+            KeyboardConfiguration kconf1 = this.configuration.GetKeyboardConfiguration(1);
+            KeyboardConfiguration kconf2 = this.configuration.GetKeyboardConfiguration(2);
+
+            // Main menu and pause menu ActionHandlers
             MenuItem.ActionHandler actionStartGame = delegate(MenuItem menuItem)
             {
                 this.menuHandler.OnNewGame();
@@ -50,29 +65,374 @@ namespace EtherDuels.Menu
                 this.menuHandler.OnQuitProgram();
             };
 
-            // Build Main Menu
-            MenuItem mainMenuStartGame = new MenuItem(actionStartGame, delegate() { return "Start Game"; });
-            MenuItem mainMenuQuitProgram = new MenuItem(actionQuitProgram, delegate() { return "Quit Program"; });
+            MenuItem.ActionHandler actionMainOptions = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(2);
+            };
 
-            MenuItem[] mainMenuItems = { mainMenuStartGame, mainMenuQuitProgram };
+            MenuItem.ActionHandler actionPauseOptions = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(3);
+            };
+
+            MenuItem.ActionHandler actionHelp = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(4);
+            };
+
+            //TODO: rausnehmen falls keine highscore. Indizes anpassen!
+            MenuItem.ActionHandler actionHighscore = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(5);
+            };
+
+            MenuItem.ActionHandler actionQuit = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(6);
+            };
+
+            // Option menu ActionHandlers
+            MenuItem.ActionHandler actionVolume = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(7);
+            };
+
+            MenuItem.ActionHandler actionDifficulty = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(8);
+            };
+
+            MenuItem.ActionHandler actionKeyboardConfiguration1 = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(9);
+            };
+
+            MenuItem.ActionHandler actionKeyboardConfiguration2 = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(10);
+            };
+
+            MenuItem.ActionHandler actionReturnToMainMenu = delegate(MenuItem menuItem)
+            {
+                menuModel.SetMainMenu();
+            };
+
+            MenuItem.ActionHandler actionReturnToPauseMenu = delegate(MenuItem menuItem)
+            {
+                menuModel.SetPauseMenu();
+            };
+
+            // Volume menu ActionHandlers
+            MenuItem.ActionHandler actionChangeMusicVolume = delegate(MenuItem menuItem)
+            {
+                if (MediaPlayer.Volume >= 1.0f)
+                {
+                    MediaPlayer.Volume = 0;
+                }
+                else
+                {
+                    MediaPlayer.Volume = (MediaPlayer.Volume + 0.2f);
+                }                
+            };
+
+            MenuItem.ActionHandler actionChangeEffectVolume = delegate(MenuItem menuItem)
+            {
+                if (SoundEffect.MasterVolume >= 1.0f)
+                {
+                    SoundEffect.MasterVolume = 0;
+                }
+                else
+                {
+                    SoundEffect.MasterVolume = (SoundEffect.MasterVolume + 0.2f);
+                }                
+            };
+
+            // Difficulty menu ActionHandlers
+            MenuItem.ActionHandler actionChangeDifficulty = delegate(MenuItem menuItem)
+            {
+                configuration.Difficulty = (configuration.Difficulty * 10) % 999;
+            };
+
+            MenuItem.ActionHandler actionReturn = delegate(MenuItem menuItem)
+            {
+                menuModel.SetPreviousDialogActive();
+            };
+
+            // Highscore ActionHandlers
+            //TODO: rausnehmen falls keine highscore
+            MenuItem.ActionHandler actionEnterHighscore = delegate(MenuItem menuItem)
+            {
+                menuModel.WaitForKey(delegate(Keys key) { name += FormatKey(key);});
+            };
+
+            // Keyboard Configuration ActionHandlers
+            // Player 1
+            MenuItem.ActionHandler actionForwardKey1 = delegate(MenuItem menuItem)
+            {
+                kconf1.Forward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Forward = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionBackwardKey1 = delegate(MenuItem menuItem)
+            {
+                kconf1.Backward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Backward = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionLeftKey1 = delegate(MenuItem menuItem)
+            {
+                kconf1.Left = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Left = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionRightKey1 = delegate(MenuItem menuItem)
+            {
+                kconf1.Right = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Right = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionFireKey1 = delegate(MenuItem menuItem)
+            {
+                kconf1.Fire = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.Fire = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionNextWeaponKey1 = delegate(MenuItem menuItem)
+            {
+                kconf1.NextWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.NextWeapon = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionPrevWeaponKey1 = delegate(MenuItem menuItem)
+            {
+                kconf1.PrevWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf1.PrevWeapon = key; configuration.Save(); });
+            };
+
+
+            // Player 2
+            MenuItem.ActionHandler actionForwardKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Forward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Forward = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionBackwardKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Backward = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Backward = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionLeftKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Left = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Left = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionRightKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Right = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Right = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionFireKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.Fire = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.Fire = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionNextWeaponKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.NextWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.NextWeapon = key; configuration.Save(); });
+            };
+
+            MenuItem.ActionHandler actionPrevWeaponKey2 = delegate(MenuItem menuItem)
+            {
+                kconf2.PrevWeapon = Keys.None;
+                menuModel.WaitForKey(delegate(Keys key) { kconf2.PrevWeapon = key; configuration.Save(); });
+            };
+
+
+            // Build main menu
+            MenuItem mainMenuStartGame = new MenuItem(actionStartGame, delegate() { return "Start Game"; });
+            MenuItem mainMenuOptions = new MenuItem(actionMainOptions, delegate() { return "Options"; });
+            MenuItem mainMenuHelp = new MenuItem(actionHelp, delegate() { return "Help"; });
+            MenuItem mainMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
+            MenuItem mainMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });
+
+            MenuItem[] mainMenuItems = { 
+                                           mainMenuStartGame, 
+                                           mainMenuOptions, 
+                                           mainMenuHelp, 
+                                           //TODO: mainMenuHighscore, 
+                                           mainMenuQuitProgram 
+                                       };
             MenuDialog mainMenu = new MenuDialog(mainMenuItems);
 
-            // Build Pause Menu
+            // Build pause menu
             MenuItem pauseMenuResumeGame = new MenuItem(actionResumeGame, delegate() { return "Resume Game"; });
             MenuItem pauseMenuStartNewGame = new MenuItem(actionStartGame, delegate() { return "Start new Game"; });
-            MenuItem pauseMenuQuitProgram = new MenuItem(actionQuitProgram, delegate() { return "Quit Program"; });
+            MenuItem pauseMenuOptions = new MenuItem(actionPauseOptions, delegate() { return "Options"; });
+            MenuItem pauseMenuHelp = new MenuItem(actionHelp, delegate() { return "Help"; });
+            MenuItem pauseMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
+            MenuItem pauseMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });
 
-            MenuItem[] pauseMenuItems = { pauseMenuResumeGame, pauseMenuStartNewGame, pauseMenuQuitProgram };
-            MenuDialog pauseMenu = new MenuDialog(mainMenuItems);
+            MenuItem[] pauseMenuItems = { 
+                                            pauseMenuResumeGame, 
+                                            pauseMenuStartNewGame, 
+                                            pauseMenuOptions, 
+                                            pauseMenuHelp, 
+                                            //TODO: pauseMenuHighscore, 
+                                            pauseMenuQuitProgram 
+                                        };
+            MenuDialog pauseMenu = new MenuDialog(pauseMenuItems);
 
-            // Build Menu Model
-            MenuDialog[] menuDialogs = { mainMenu, pauseMenu };
-            MenuModel menuModel = new MenuModel(menuDialogs);
+            // Build options menues
+            MenuItem optionsMenuVolume = new MenuItem(actionVolume, delegate() { return "Volume"; });
+            MenuItem optionsMenuDifficulty = new MenuItem(actionDifficulty, delegate() { return "Difficulty"; });
+            MenuItem optionsMenuKeyboardConfiguration1 = new MenuItem(actionKeyboardConfiguration1, delegate() { return "Player 1 Controls"; });
+            MenuItem optionsMenuKeyboardConfiguration2 = new MenuItem(actionKeyboardConfiguration2, delegate() { return "Player 2 Controls"; });
+            MenuItem optionsMenuReturnToMainMenu = new MenuItem(actionReturnToMainMenu, delegate() { return "Return to Main Menu"; });
+            MenuItem optionsMenuReturnToPauseMenu = new MenuItem(actionReturnToPauseMenu, delegate() { return "Return to Pause Menu"; });
+
+            MenuItem[] optionsMainMenuItems = { 
+                                                  optionsMenuKeyboardConfiguration1, 
+                                                  optionsMenuKeyboardConfiguration2, 
+                                                  optionsMenuVolume, 
+                                                  optionsMenuDifficulty, 
+                                                  optionsMenuReturnToMainMenu 
+                                              };
+            MenuItem[] optionsPauseMenuItems = { 
+                                                   optionsMenuKeyboardConfiguration1, 
+                                                   optionsMenuKeyboardConfiguration2, 
+                                                   optionsMenuVolume,
+                                                   optionsMenuDifficulty, 
+                                                   optionsMenuReturnToPauseMenu 
+                                               };
+            MenuDialog optionsMainMenu = new MenuDialog(optionsMainMenuItems);
+            MenuDialog optionsPauseMenu = new MenuDialog(optionsPauseMenuItems);
+
+            // Build volume dialog
+            MenuItem volumeInfo = new MenuItem(null, delegate() { return "Press Enter to change volume"; });
+
+            MenuItem volumeMusicValue = new MenuItem(actionChangeMusicVolume, delegate() { return "Music Volume: " + MediaPlayer.Volume; });
+            MenuItem volumeEffectValue = new MenuItem(actionChangeEffectVolume, delegate() { return "Soundeffect Volume: " + SoundEffect.MasterVolume; });
+            MenuItem volumeReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
+            MenuItem[] volumeMenuItems = { volumeInfo, volumeMusicValue, volumeEffectValue, volumeReturnToOptions };
+            MenuDialog volume = new MenuDialog(volumeMenuItems);
+
+            // Build difficulty dialog
+            MenuItem difficultyInfo = new MenuItem(null, delegate() { return "Press Enter to change difficulty"; });
+
+            MenuItem difficultyValue = new MenuItem(actionChangeDifficulty, delegate() 
+                { 
+                    string difficultyText = "";
+                    switch (configuration.Difficulty)
+                    {
+                        case 1: difficultyText = "hard"; break;
+                        case 10: difficultyText = "medium"; break;
+                        case 100: difficultyText = "easy"; break;
+                    }
+                    return "Difficulty: " + difficultyText; 
+                });
+
+            MenuItem difficultyReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
+            MenuItem[] difficultyMenuItems = { difficultyInfo, difficultyValue, difficultyReturnToOptions };
+            MenuDialog difficulty = new MenuDialog(difficultyMenuItems);
+
+            // Build keyboard configuration dialog
+            MenuItem keyConfigInfo = new MenuItem(null, delegate() { return "Press Enter to change controls"; });
+
+            MenuItem keyConfig1ForwardKey = new MenuItem(actionForwardKey1, delegate() { return "Forward: " + FormatKey(kconf1.Forward); });
+            MenuItem keyConfig1BackwardKey = new MenuItem(actionBackwardKey1, delegate() { return "Backward: " + FormatKey(kconf1.Backward); });
+            MenuItem keyConfig1LeftKey = new MenuItem(actionLeftKey1, delegate() { return "Left: " + FormatKey(kconf1.Left); });
+            MenuItem keyConfig1RightKey = new MenuItem(actionRightKey1, delegate() { return "Right: " + FormatKey(kconf1.Right); });
+            MenuItem keyConfig1FireKey = new MenuItem(actionFireKey1, delegate() { return "Fire: " + FormatKey(kconf1.Fire); });
+            MenuItem keyConfig1NextWeaponKey = new MenuItem(actionNextWeaponKey1, delegate() { return "Next Weapon: " + FormatKey(kconf1.NextWeapon); });
+            MenuItem keyConfig1PrevWeaponKey = new MenuItem(actionPrevWeaponKey1, delegate() { return "Previous Weapon: " + FormatKey(kconf1.PrevWeapon); });
+            MenuItem keyConfig1ReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
+            MenuItem[] keyConfigItems1 = { keyConfigInfo, keyConfig1ForwardKey, keyConfig1BackwardKey, keyConfig1LeftKey, keyConfig1RightKey, keyConfig1FireKey,
+                                            keyConfig1NextWeaponKey, keyConfig1PrevWeaponKey, keyConfig1ReturnToOptions };
+            MenuDialog keyConfig1 = new MenuDialog(keyConfigItems1);
+
+            MenuItem keyConfig2ForwardKey = new MenuItem(actionForwardKey2, delegate() { return "Forward: " + FormatKey(kconf2.Forward); });
+            MenuItem keyConfig2BackwardKey = new MenuItem(actionBackwardKey2, delegate() { return "Backward: " + FormatKey(kconf2.Backward); });
+            MenuItem keyConfig2LeftKey = new MenuItem(actionLeftKey2, delegate() { return "Left: " + FormatKey(kconf2.Left); });
+            MenuItem keyConfig2RightKey = new MenuItem(actionRightKey2, delegate() { return "Right: " + FormatKey(kconf2.Right); });
+            MenuItem keyConfig2FireKey = new MenuItem(actionFireKey2, delegate() { return "Fire: " + FormatKey(kconf2.Fire); });
+            MenuItem keyConfig2NextWeaponKey = new MenuItem(actionNextWeaponKey2, delegate() { return "Next Weapon: " + FormatKey(kconf2.NextWeapon); });
+            MenuItem keyConfig2PrevWeaponKey = new MenuItem(actionPrevWeaponKey2, delegate() { return "Previous Weapon: " + FormatKey(kconf2.PrevWeapon); });
+            MenuItem keyConfig2ReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
+            MenuItem[] keyConfigItems2 = { keyConfigInfo, keyConfig2ForwardKey, keyConfig2BackwardKey, keyConfig2LeftKey, keyConfig2RightKey, keyConfig2FireKey,
+                                            keyConfig2NextWeaponKey, keyConfig2PrevWeaponKey, keyConfig2ReturnToOptions };
+            MenuDialog keyConfig2 = new MenuDialog(keyConfigItems2);
+
+
+            // Build help dialog
+            //TODO: funzt so nicht, weil menuItem nicht als so groß geplant ist. Aber das andere is extrem haesslich
+            /* MenuItem helpInfo = new MenuItem(null, delegate() 
+                {
+                    return  "Welcome to EtherDuels! \n\n " + 
+                            "In this 2-player game, you try to shoot each other in space until one spaceship is destroyed. \n" + 
+                            "There are two types of weapons available: \n" +
+                            "- Laser:  speed: 350; health: 5; attack:5 \n" +
+                            "- Rocket: speed: 200; health: 10; attack; 10 \n" +
+                            "Have fun and beware of the gravitation! \n";
+                });*/
+            MenuItem helpInfo1 = new MenuItem(null, delegate() { return "Welcome to EtherDuels!"; });
+            MenuItem helpInfo2 = new MenuItem(null, delegate() { return "In this game, you try to shoot each other"; });
+            MenuItem helpInfo3 = new MenuItem(null, delegate() { return "in space until one spaceship is destroyed."; });
+            MenuItem helpInfo4 = new MenuItem(null, delegate() { return "There are two types of weapons available:"; });
+            MenuItem helpInfo5 = new MenuItem(null, delegate() { return "- Laser:  speed: 350; health: 5; attack:5"; });
+            MenuItem helpInfo6 = new MenuItem(null, delegate() { return "- Rocket: speed: 200; health: 10; attack; 10"; });
+            MenuItem helpInfo7 = new MenuItem(null, delegate() { return "Have fun and beware of the gravitation!"; });
+
+            MenuItem helpReturn = new MenuItem(actionReturn, delegate() { return "Return to Main Menu"; });
+            MenuItem[] helpItems = { helpInfo1, helpInfo2, helpInfo3, helpInfo4, helpInfo5, helpInfo6, helpInfo7, helpReturn };
+            MenuDialog help = new MenuDialog(helpItems);
+
+            // Build highscore dialog
+            /*TODO: ich hab leider keinen plan wie man sachen in die config schmeisst oder rausholt(also mit datei und so).
+             * Hier muesste man halt einfach in die Spot-Items die eintraege laden, die schon in der highscore stehen. der
+             * neue eintrag wird ja an menuModel uebergeben. checken ob points > spot1, wenn nicht ob > spot2 usw.
+             * bei der actionEnterHighscore muesste man noch korrigieren. Das soll x Zeichen(ruhig feste anzahl, z.b. 7) aus
+             * der tastaur einlesen. irgendwie tuts immer nur eins trotz schleife.
+             * Julius, wenn du das fertig machen wuerdest, wuerd ich mich am Freitag mittag dransetzen das Punktesystem im 
+             * GameController zu implementieren. Hab mir schon was ueberlegt, das waer auf jeden fall machbar.
+             * */
+            MenuItem highscoreInfo = new MenuItem(null, delegate() { return "Highscore"; });
+            MenuItem highscoreSpot1 = new MenuItem(null, delegate() { return "Player1: " + "10000"; });
+            MenuItem highscoreSpot2 = new MenuItem(actionEnterHighscore, delegate() { return name + ": " + menuModel.WinningPlayerPoints; });
+            
+
+            MenuItem highscoreReturn = new MenuItem(actionReturn, delegate() { return "Return to Main Menu"; });
+            MenuItem[] highscoreItems = { highscoreInfo, highscoreSpot1, highscoreSpot2, highscoreReturn };
+            MenuDialog highscore = new MenuDialog(highscoreItems);
+
+            // Build quit program dialog
+            MenuItem quitProgramQuestion = new MenuItem(null, delegate() { return "Do you really want to quit ?"; });
+            MenuItem quitProgramYes = new MenuItem(actionQuitProgram, delegate() { return "Yes"; });
+            MenuItem quitProgramNo = new MenuItem(actionReturn, delegate() { return "No"; });
+            MenuItem[] quitProgramItems = { quitProgramQuestion, quitProgramYes, quitProgramNo };
+            MenuDialog quitProgram = new MenuDialog(quitProgramItems);
+
+            // Build game ended dialog
+            MenuItem gameEndedInfo = new MenuItem(null, delegate() { return "Player " + menuModel.WinningPlayerID + " wins !"; });
+            MenuItem gameEndedReturnToMainMenu = new MenuItem(actionReturnToMainMenu, delegate() { return "Return to Main Menu"; });
+            MenuItem[] gameEndedItems = { gameEndedInfo, gameEndedReturnToMainMenu };
+            MenuDialog gameEnded = new MenuDialog(gameEndedItems);
+
+            // Build menu model
+            MenuDialog[] menuDialogs = { mainMenu, pauseMenu, optionsMainMenu, optionsPauseMenu, help, highscore, quitProgram,
+                                       volume, difficulty, keyConfig1, keyConfig2, gameEnded};
+            menuModel.MenuDialogs = menuDialogs;
+
             return menuModel;
         }
 
         /// <summary>
-        /// Creates a new MenuView fittin gto the assigned MenuModel.
+        /// Creates a new MenuView matching the assigned MenuModel.
         /// </summary>
         /// <param name="menuModel">The assigned MenuModel.</param>
         /// <returns>The created MenuView.</returns>
@@ -86,12 +446,11 @@ namespace EtherDuels.Menu
 
                 foreach (MenuItem menuItem in menuDialog.MenuItems)
                 {
-                    MenuItemView menuItemView = new MenuItemView(menuItem, this.spriteFont);
+                    MenuItemView menuItemView = new MenuItemView(menuItem);
                     menuItemViewList.Add(menuItemView);
                 }
 
-                // TODO: add background texture (3rd argument)
-                MenuDialogView menuDialogView = new MenuDialogView(menuItemViewList.ToArray(), menuDialog, null);
+                MenuDialogView menuDialogView = new MenuDialogView(menuItemViewList.ToArray(), menuDialog);
                 menuDialogViewList.Add(menuDialogView);
             }
 

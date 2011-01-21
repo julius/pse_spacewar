@@ -9,22 +9,20 @@ using Microsoft.Xna.Framework.Graphics;
 namespace EtherDuels.Menu.View
 {   
     /// <summary>
-    /// Defines the view of one MenuItem.
+    /// Defines the view of a MenuItem.
     /// </summary>
     class MenuItemView
     {
         private MenuItem menuItem;
-        private SpriteFont font;
+        private MenuAssets menuAssets = MenuAssets.Instance;
 
         /// <summary>
         /// Creates a MenuItemView object for its dedicated MenuItem.
         /// </summary>
-        /// <param name="menuItem">Defines the dedicated MenuItem, to check it for changes.</param>
-        /// <param name="font">Defines the used font. </param>
-        public MenuItemView(MenuItem menuItem, SpriteFont font)
+        /// <param name="menuItem">Defines the dedicated MenuItem to check it for changes.</param>
+        public MenuItemView(MenuItem menuItem)
         {
             this.menuItem = menuItem;
-            this.font = font;
         }
 
         /// <summary>
@@ -37,11 +35,15 @@ namespace EtherDuels.Menu.View
             Color color = Color.White;
             if (this.menuItem.Selected)
             {
-                color = Color.Red;
+                color = Color.Orange;
+            }
+            if (this.menuItem.IsStaticText)
+            {
+                color = Color.LightGray;
             }
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            spriteBatch.DrawString(this.font, this.menuItem.Text, position, color);
+            spriteBatch.DrawString(menuAssets.MenuFont, this.menuItem.Text, position, color);
             spriteBatch.End();
         }
     }

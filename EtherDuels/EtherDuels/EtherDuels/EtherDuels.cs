@@ -16,24 +16,25 @@ using EtherDuels.Game;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
 using System.Runtime.Serialization.Formatters.Binary;
+using EtherDuels.Config;
+using EtherDuels.Ruby;
 
 namespace EtherDuels
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// This is the main class for the game. It defines the highest layer in the class structure.
     /// </summary>
     public class EtherDuels : Microsoft.Xna.Framework.Game, MenuHandler, GameHandler
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
         private MenuController menuController;
         private GameController gameController;
         private ProgramState programState;
 
-        GameView gameView; // <- remove this one later
-        private Game.Model.InputConfigurationRetriever inputConfigurationRetriever;
-
+        /// <summary>
+        /// Creates a new instance of EtherDuels. Only one is needed for the game.
+        /// </summary>
         public EtherDuels()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,57 +42,107 @@ namespace EtherDuels
         }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// Allows the game to perform any initialization it needs before starting to run.
         /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
+        /// related content. Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
+            //TODO: fullscreen true setzen?
+            graphics.IsFullScreen = false;
+            graphics.ApplyChanges();
+
+            Window.Title = "EtherDuels";
 
             base.Initialize();
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        /// LoadContent will be called once per game and it loads all the content needed for the game.
         /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //TODO: was soll das heissen?
             // Sample code to draw some models and stuff
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
-            SpriteFont font = content.Load<SpriteFont>("NiceFont");
-            Texture2D textureStars = content.Load<Texture2D>("texture_stars");
-            Model modelShip = content.Load<Model>("player_ship");
-            Model modelPlanet = content.Load<Model>("planet");
 
-            // Spaceship ship = new Spaceship();
-            // WorldObjectView shipView = new WorldObjectView(modelShip, ship);
+            SpriteFont menuFont = content.Load<SpriteFont>("NiceFont");
 
-            //this.gameView = new GameView();
-            //this.gameView.WorldView = new WorldView(textureStars, null);
-            //this.gameView.WorldView.AddWorldObjectView(shipView);
+            Texture2D textureStars = content.Load<Texture2D>("texture_space");
+            Texture2D textureHealthBar = content.Load<Texture2D>("texture_healthbar");
+            Texture2D textureSmoke = content.Load<Texture2D>("texture_smoke");
 
+            // Models
+            Model modelSpaceshipGreen = content.Load<Model>("spaceship_green");
+            Model modelSpaceshipOrange = content.Load<Model>("spaceship_orange"); 
+            Model modelMoon = content.Load<Model>("moon");
+            Model modelEarth = content.Load<Model>("earth");
+            Model modelRocket = content.Load<Model>("rocket");
+            Model modelLaser = content.Load<Model>("laser_blast");
+            Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+
+            // Sound effects
+            SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
+            SoundEffect soundLaser = content.Load<SoundEffect>("sound_laser");
+            SoundEffect soundRocket = content.Load<SoundEffect>("sound_rocket");
+            SoundEffect soundMenuClick = content.Load<SoundEffect>("sound_menuClick");
+            Song soundtrack = content.Load<Song>("soundtrack_libellaSwing");
+
+            SoundEffect.MasterVolume = 1.0f;
+
+            
+            
+            // Build Asset classes
+            MenuAssets menuAssets = MenuAssets.Instance;
+            GameAssets gameAssets = GameAssets.Instance;
+
+            // Load content into the asset classes
+            menuAssets.MenuFont = menuFont;
+            menuAssets.TextureBackground = textureStars;
+
+            menuAssets.SoundMenuClick = soundMenuClick;
+
+            gameAssets.TextureHealthBar = textureHealthBar;
+            gameAssets.TextureSmoke = textureSmoke;
+            gameAssets.TextureBackground = textureStars;
+          
+            gameAssets.SetColoredSpaceship(Color.Green, modelSpaceshipGreen);
+            gameAssets.SetColoredSpaceship(Color.Orange, modelSpaceshipOrange);
+            gameAssets.AddModelPlanet(modelEarth);
+            gameAssets.AddModelPlanet(modelMoon);
+            gameAssets.ModelRocket = modelRocket;
+            gameAssets.ModelLaser = modelLaser;
+            gameAssets.ModelExplosion = modelExplosion;
+
+            gameAssets.SoundExplosion = soundExplosion;
+            gameAssets.SoundLaser = soundLaser;
+            gameAssets.SoundRocket = soundRocket;
+            gameAssets.Soundtrack = soundtrack;
+
+            gameAssets.HudFont = menuFont;
+           
+         
+            
             ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
             Configuration configuration = configurationReader.read("config.cfg");
 
             // Build MenuController
-            MenuBuilder menuBuilder = new SimpleMenuBuilder(this, font);
+            MenuBuilder menuBuilder = new SimpleMenuBuilder(this, configuration);
             MenuModel menuModel = menuBuilder.BuildModel();
             MenuView menuView = menuBuilder.BuildView(menuModel);
             this.menuController = new MenuController(this, menuModel, menuView);
             this.menuController.SetMainMenu();
 
-            // TODO: Build GameController
+            // Build GameController
             GameBuilder gameBuilder = new SimpleGameBuilder(configuration);
-            gameBuilder.Background = textureStars;
-            gameBuilder.SpaceshipModel = modelShip;
-            gameBuilder.PlanetModel = modelPlanet;
+            //GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
 
             this.gameController = new GameController(gameBuilder, this);
 
@@ -99,6 +150,11 @@ namespace EtherDuels
             this.programState = new ProgramState();
             programState.GameState = GameState.NoGame;
             programState.MenuState = MenuState.InMenu;
+
+            //play background music
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(soundtrack);
+            MediaPlayer.Volume = 50; //TODO: von config abhängig machen
         }
 
         /// <summary>
@@ -108,6 +164,7 @@ namespace EtherDuels
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+           
         }
 
         /// <summary>
@@ -123,8 +180,9 @@ namespace EtherDuels
 
             FrameState frameState = new FrameState(gameTime, Keyboard.GetState());
 
-            // Update GameController if necessary
-            if (this.programState.GameState != GameState.NoGame)
+          
+            
+            if (this.programState.GameState == GameState.InGame)
             {
                 this.gameController.Update(frameState);
             }
@@ -145,13 +203,12 @@ namespace EtherDuels
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //this.gameView.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
-
+                     
+                      
             // Draw GameController if necessary
-            if (this.programState.GameState != GameState.NoGame)
+            if (this.programState.GameState == GameState.InGame)
             {
-                this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch);
+                this.gameController.Draw(this.GraphicsDevice.Viewport, this.spriteBatch, gameTime);
             }
 
             // Draw MenuController if necessary
@@ -189,7 +246,8 @@ namespace EtherDuels
         /// </summary>
         public void OnResumeGame()
         {
-            throw new NotImplementedException();
+            this.programState.GameState = GameState.InGame;
+            this.programState.MenuState = MenuState.NoMenu;
         }
 
 
@@ -197,12 +255,16 @@ namespace EtherDuels
 
         public void OnGamePaused()
         {
-            throw new NotImplementedException();
+            this.menuController.SetPauseMenu();
+            this.programState.GameState = GameState.GamePaused;
+            this.programState.MenuState = MenuState.InMenu;
         }
 
         public void OnGameEnded(int playerID, int points)
         {
-            throw new NotImplementedException();
+            this.menuController.SetGameEndedMenu(playerID, points);
+            this.programState.GameState = GameState.NoGame;
+            this.programState.MenuState = MenuState.InMenu;
         }
     }
 }

@@ -80,7 +80,7 @@ namespace GameTest
             WorldObject[] worldObjects = new WorldObject[0];
             Planet planet = new Planet();
 
-            World target = new World(worldObjects, planet);
+            World target = new World(worldObjects);
             WorldObject spaceship1 = new Spaceship();
             target.AddWorldObject(spaceship1);
 
@@ -97,7 +97,7 @@ namespace GameTest
             WorldObject[] worldObjects = { projectile1 };
             Planet planet = new Planet();
 
-            World target = new World(worldObjects, planet);
+            World target = new World(worldObjects);
             target.RemoveWorldObject(projectile1);
 
             Assert.IsFalse((new List<WorldObject>(target.WorldObjects)).Contains(projectile1));

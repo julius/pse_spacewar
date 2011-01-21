@@ -9,11 +9,9 @@ using EtherDuels.Game.Model;
 
 namespace EtherDuels.Game
 {
+    //TODO: kommentieren
     public interface GameBuilder
     {
-        Texture2D Background { set; }
-        Microsoft.Xna.Framework.Graphics.Model SpaceshipModel { set; }
-        Microsoft.Xna.Framework.Graphics.Model PlanetModel { set; }
         CollisionHandler CollisionHandler { set; }
         PlayerHandler PlayerHandler { set; }
         GameModel BuildModel();

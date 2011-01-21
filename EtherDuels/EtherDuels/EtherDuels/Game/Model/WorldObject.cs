@@ -14,14 +14,26 @@ namespace EtherDuels.Game.Model
     {
         int attack;
         int health;
-        double mass;
+        double mass;    // in kg
         Vector2 position;
         float radius;
         float rotation;
         Vector2 velocity;
 
+        // default constructor
+        public WorldObject()
+        {
+            this.attack = 10;
+            this.health = 100;
+            this.Mass = 1;
+            this.position = new Vector2(0, 0);
+            this.radius = 10;
+            this.rotation = 0;
+            this.velocity = new Vector2(0, 0);
+        }
+
         /// <summary>
-        /// Gets and sets the attackpower of a WorldObject.
+        /// Gets and sets the attack of a WorldObject.
         /// </summary>
         public int Attack
         {
@@ -66,7 +78,7 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Gets and sets the posizion of a WorldObject in the world.
+        /// Gets and sets the position of a WorldObject in the world.
         /// </summary>
         public Vector2 Position
         {

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines the GameModel.
+    /// The GameModel is responsible for updating the logic of the game repeatedly.
     /// </summary>
     public class GameModel
     {
@@ -17,9 +17,9 @@ namespace EtherDuels.Game.Model
         private World world;
         
         /// <summary>
-        /// Returns an array of the assigned players.
+        /// Returns an array of the participating players.
         /// </summary>
-        /// <returns>The assigned players</returns>
+        /// <returns>The participating players</returns>
         public Player[] Players
         {
             get { return players.ToArray<Player>(); }
@@ -28,9 +28,9 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Creates a new GameModel object.
         /// </summary>
-        /// <param name="factory">The assigned ShortLifespanFactory to create new WorldObjects.</param>
+        /// <param name="factory">The assigned ShortLifespanObjectFactory to create new WorldObjects.</param>
         /// <param name="physics">The assigned Physics to calculate new positions.</param>
-        /// <param name="players">An array of all players.</param>
+        /// <param name="players">An array of all participating players.</param>
         /// <param name="world">The assigned World.</param>
         public GameModel(ShortLifespanObjectFactory factory, Physics physics, List<Player> players, World world)
         {
@@ -41,23 +41,27 @@ namespace EtherDuels.Game.Model
         }
 
         /// <summary>
-        /// Returns the assigned ShortLifespanFactory.
+        /// Returns the assigned ShortLifespanObjectFactory.
         /// </summary>
-        /// <returns>The assigned ShortLifespanFactory.</returns>
+        /// <returns>The assigned ShortLifespanObjectFactory.</returns>
         public ShortLifespanObjectFactory GetFactory()
         {
             return factory;
         }
 
+        /// <summary>
+        /// Removes the assigned player from the list of players.
+        /// </summary>
+        /// <param name="player">The player which has to be removed.</param>
         public void RemovePlayer(Player player)
         {
             players.Remove(player);
         }
 
         /// <summary>
-        /// Updates the Physics and all Players.
+        /// Updates the physics and all players.
         /// </summary>
-        /// <param name="frameState">A state object, which contains how much time is passed since the last update.</param>
+        /// <param name="frameState">A state object which contains how much time has passed since the last update.</param>
         public void Update(FrameState frameState)
         {
             foreach (Player player in players)

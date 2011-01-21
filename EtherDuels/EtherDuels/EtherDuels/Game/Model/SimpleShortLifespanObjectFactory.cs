@@ -2,69 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
-
 using EtherDuels.Game.View;
 using EtherDuels.Config;
 
 namespace EtherDuels.Game.Model
 {
     /// <summary>
-    /// Defines a concrete ShortLifespanFactory.
-    /// It provides methods to create WorldObject with a limited lifespan 
+    /// Defines a simple ShortLifespanObjectFactory.
+    /// It provides methods to create world objects with a limited lifespan 
     /// and its fitting views.
     /// </summary>
     public class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
     {
-        Configuration configuration;
-
-       /* public SimpleShortLifespanObjectFactory(Configuration configuration)
-        {
-            this.configuration = configuration;
-        } */
-
-        private Microsoft.Xna.Framework.Graphics.Model explosionModel;
-        public Microsoft.Xna.Framework.Graphics.Model ExplosionModel
-        {
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                this.explosionModel = value;
-            }
-        }
-
-        private Microsoft.Xna.Framework.Graphics.Model projectileModel;
-        public Microsoft.Xna.Framework.Graphics.Model ProjectileModel
-        {
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                this.projectileModel = value;
-            }
-        }
+        private GameAssets gameAssets = GameAssets.Instance;
 
         /// <summary>
-        /// Creates a new explosion.
+        /// Creates a new Explosion object.
         /// </summary>
-        /// <param name="gameTime">The time the explosion was created.</param>
+        /// <param name="gameTime">The GameTime which defines the explosion's creation time.</param>
         /// <returns>The created Explosion object.</returns>
         public Explosion CreateExplosion(GameTime gameTime)
         {
             Explosion explosion = new Explosion();
             explosion.CreationTime = gameTime.TotalGameTime;
+            gameAssets.SoundExplosion.CreateInstance().Play();
             return explosion;
         }
+
         /// <summary>
-        /// Creates a new projectile.
+        /// Creates a new Projectile object.
         /// </summary>
-        /// <param name="weapon">The type of the weapon to define a projectiles attackpower.</param>
+        /// <param name="weapon">The weapon which shot the projectile.</param>
         /// <returns>The created Projectile object.</returns>
         public Projectile CreateProjectile(Weapon weapon)
         {
@@ -74,44 +43,57 @@ namespace EtherDuels.Game.Model
                 case Weapon.Laser:
                     {
                         projectile.Attack = 5;
-                        projectile.Radius = 2;
-                        projectile.Velocity = new Vector2(1, 1);
-                        projectile.Mass = 10;
-                        projectile.Health = 100;
-                        projectile.Rotation = 0;
-                        projectile.Position = new Vector2(0, 0);
+                        projectile.Health = 5;
+                        projectile.Weapon = Weapon.Laser;
+                        gameAssets.SoundLaser.CreateInstance().Play();
                         break;
                     }
+                    
                 case Weapon.Rocket:
                     {
-                        projectile.Attack = 10; break;
+                        projectile.Attack = 10;
+                        projectile.Health = 10;
+                        projectile.Weapon = Weapon.Rocket;
+                        gameAssets.SoundRocket.CreateInstance().Play();
+                        break;
                     }
             }
             return projectile;
         }
 
         /// <summary>
-        /// Creates a new view for an explosion.
+        /// Creates a new WorldObjectView of an explosion.
         /// </summary>
-        /// <param name="explosion">An Explosion object.</param>
-        /// <returns>The created view fitting to the assigned Explosion object.</returns>
+        /// <param name="explosion">The Explosion object needed to create the accordant view.</param>
+        /// <returns>The created WorldObjectView of an explosion.</returns>
         public WorldObjectView CreateExplosionView(Explosion explosion)
         {
-            // TODO set correct 3D-Model for Explosion
-            WorldObjectView explosionView = new WorldObjectView(explosionModel, explosion);
+            WorldObjectView explosionView = new WorldObjectView(gameAssets.ModelExplosion, explosion);
             return explosionView;
         }
 
         /// <summary>
-        /// Creates a new view for a projectile.
+        /// Creates a new WorldObjectView of a projectile.
         /// </summary>
-        /// <param name="weapon">The type of the weapon to define the projectiles look.</param>
-        /// <param name="projectile">A Projectile object.</param>
-        /// <returns>The created view fitting the assigned Projectile object.</returns>
-        public WorldObjectView CreateProjectileview(Weapon weapon, Projectile projectile)
+        /// <param name="weapon">The weapon which shot the projectile.</param>
+        /// <param name="projectile">The Projectile object needed to create the accordant view.</param>
+        /// <returns>The created WorldObjectView of a projectile.</returns>
+        public WorldObjectView CreateProjectileView(Weapon weapon, Projectile projectile)
         {
-            // TODO set correct 3D-Model for Explosion
-            WorldObjectView projectileView = new WorldObjectView(projectileModel, projectile);
+            WorldObjectView projectileView = null;
+            switch (weapon)
+            {
+                case Weapon.Laser:
+                    {
+                        projectileView = new WorldObjectView(gameAssets.ModelLaser, projectile);
+                        break;
+                    }
+                case Weapon.Rocket:
+                    {
+                        projectileView = new WorldObjectView(gameAssets.ModelRocket, projectile);
+                        break;
+                    }
+            }
             return projectileView;
         }
     }

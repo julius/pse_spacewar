@@ -9,27 +9,24 @@ using Microsoft.Xna.Framework;
 namespace EtherDuels.Menu.View
 {   
     /// <summary>
-    /// Defines the view of a MenuDialog.
-    /// It contains a background and a list of MenuItemViews.
-    /// It also holds a reference to its MenuDialog to check it for changes.
+    /// Defines the view of a MenuDialog. It contains a list of MenuItemViews.
+    /// It draws the associated MenuDialog only if that is currently active.
     /// </summary>
     class MenuDialogView
     {
-        private Texture2D background;
         private MenuDialog menuDialog;
         private MenuItemView[] menuItemViews;
+        private MenuAssets menuAssets = MenuAssets.Instance;
 
         /// <summary>
         /// Creates a new MenuDialogView object.
         /// </summary>
-        /// <param name="menuItemViews">An array of its containing MenuItemViews.</param>
-        /// <param name="menuDialog">Its dedicated MenuDialog.</param>
-        /// <param name="background">Defines the background of this MenuDialog.</param>
-        public MenuDialogView(MenuItemView[] menuItemViews, MenuDialog menuDialog, Texture2D background)
+        /// <param name="menuItemViews">An array of MenuItemViews.</param>
+        /// <param name="menuDialog">The dedicated MenuDialog.</param>
+        public MenuDialogView(MenuItemView[] menuItemViews, MenuDialog menuDialog)
         {
             this.menuItemViews = menuItemViews;
             this.menuDialog = menuDialog;
-            this.background = background;
         }
 
         /// <summary>
@@ -42,15 +39,17 @@ namespace EtherDuels.Menu.View
             // do not draw if not active
             if (!this.menuDialog.Active) return;
 
-            // TODO draw background
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Draw(menuAssets.TextureBackground, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.End();
             
             // draw items
-            Vector2 position = new Vector2(100, 20);
-
+            int offset = 40;
+            Vector2 position = new Vector2((viewport.Width / 2) - 300, (viewport.Height / 2) - ((this.menuItemViews.Length * offset) / 2));
             foreach (MenuItemView menuItemView in this.menuItemViews)
             {
                 menuItemView.Draw(position, spriteBatch);
-                position.Y += 30;
+                position.Y += offset;
             }
         }
     }

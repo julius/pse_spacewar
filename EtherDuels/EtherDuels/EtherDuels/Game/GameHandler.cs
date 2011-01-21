@@ -16,10 +16,10 @@ namespace EtherDuels.Game
         void OnGamePaused();
 
         /// <summary>
-        /// Defines the behavior of the program if the game is ended. 
+        /// Defines the behavior of the program if the game has ended. 
         /// </summary>
         /// <param name="playerID">The playerID of the player who won.</param>
-        /// <param name="points">The players points.</param>
+        /// <param name="points">The winner's points.</param>
         void OnGameEnded(int playerID, int points);
     }
 }
