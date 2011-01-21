@@ -151,7 +151,7 @@ namespace EtherDuels
             programState.GameState = GameState.NoGame;
             programState.MenuState = MenuState.InMenu;
 
-            //play background music
+            // play background music
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(soundtrack);
             MediaPlayer.Volume = 1.0f;
@@ -164,7 +164,6 @@ namespace EtherDuels
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
-           
         }
 
         /// <summary>
@@ -179,8 +178,6 @@ namespace EtherDuels
                 this.Exit();
 
             FrameState frameState = new FrameState(gameTime, Keyboard.GetState());
-
-          
             
             if (this.programState.GameState == GameState.InGame)
             {
@@ -197,13 +194,12 @@ namespace EtherDuels
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        /// This method is called when the game is supposed to draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-                     
                       
             // Draw GameController if necessary
             if (this.programState.GameState == GameState.InGame)
@@ -242,7 +238,7 @@ namespace EtherDuels
         }
 
         /// <summary>
-        /// 
+        /// Resumes the current game.
         /// </summary>
         public void OnResumeGame()
         {
@@ -253,6 +249,9 @@ namespace EtherDuels
 
         /* === GameHandler Methods === */
 
+        /// <summary>
+        /// Returns to the pause menu and pauses the game.
+        /// </summary>
         public void OnGamePaused()
         {
             this.menuController.SetPauseMenu();
@@ -260,6 +259,11 @@ namespace EtherDuels
             this.programState.MenuState = MenuState.InMenu;
         }
 
+        /// <summary>
+        /// Returns to the main menu and ends the current game.
+        /// </summary>
+        /// <param name="playerID">The ID of the winning player.</param>
+        /// <param name="points">The points of the winning player.</param>
         public void OnGameEnded(int playerID, int points)
         {
             this.menuController.SetGameEndedMenu(playerID, points);
