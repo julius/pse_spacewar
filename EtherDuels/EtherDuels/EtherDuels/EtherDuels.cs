@@ -87,7 +87,7 @@ namespace EtherDuels
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
             Model modelExplosion = content.Load<Model>("explosion");
-
+            Model modelMars = content.Load<Model>("mars");
 
             // Sound effects
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
@@ -124,6 +124,7 @@ namespace EtherDuels
             // change this to try out different planet models
             gameAssets.AddModelPlanet(modelEarth);
             gameAssets.AddModelPlanet(modelMoon);
+            gameAssets.AddModelPlanet(modelMars);
             
             ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
             Configuration configuration = configurationReader.read("config.cfg");

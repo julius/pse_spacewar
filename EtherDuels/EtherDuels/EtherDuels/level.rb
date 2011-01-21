@@ -22,10 +22,12 @@ distance = 700
 planet2.health = 500
 planet2.radius = 82
 planet2.is_flexible = true
+planet2.attack = 150;
 planet2.position = level.vector(distance, 0)
 planet2.velocity = level.vector(0, Math.sqrt(planet1.mass * physic.G / distance / (physic.N * 1000)))
 
 planet3.position = level.vector(2000,2000)
-planet3.radius = 100
+planet3.radius = 150
 planet3.mass = 6E23
+planet3.health = 1000
 

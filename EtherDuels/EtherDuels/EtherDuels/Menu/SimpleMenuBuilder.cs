@@ -370,7 +370,7 @@ namespace EtherDuels.Menu
             MenuItem quitProgramQuestion = new MenuItem(null, delegate() { return "Do you really want to quit ?"; });
             MenuItem quitProgramYes = new MenuItem(actionQuitProgram, delegate() { return "Yes"; });
             MenuItem quitProgramNo = new MenuItem(actionReturn, delegate() { return "No"; });
-            MenuItem[] quitProgramItems = { quitProgramQuestion, quitProgramYes, quitProgramNo };
+            MenuItem[] quitProgramItems = { quitProgramQuestion, quitProgramNo, quitProgramYes };
             MenuDialog quitProgram = new MenuDialog(quitProgramItems);
 
             // Build game ended dialog
