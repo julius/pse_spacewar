@@ -57,9 +57,6 @@ namespace EtherDuels.Ruby
 
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();
-            shortLifespanObjectFactory.RocketModel = gameAssets.ModelRocket;
-            shortLifespanObjectFactory.LaserModel = gameAssets.ModelLaser;
-            shortLifespanObjectFactory.ExplosionModel = gameAssets.ModelExplosion;
 
             // build game model
             World world = new World(levelBuilder.WorldObjects);

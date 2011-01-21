@@ -305,6 +305,7 @@ namespace EtherDuels.Menu
                                                    optionsMenuKeyboardConfiguration1, 
                                                    optionsMenuKeyboardConfiguration2, 
                                                    optionsMenuVolume,
+                                                   optionsMenuDifficulty, 
                                                    optionsMenuReturnToPauseMenu 
                                                };
             MenuDialog optionsMainMenu = new MenuDialog(optionsMainMenuItems);

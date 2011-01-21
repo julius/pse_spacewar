@@ -16,48 +16,7 @@ namespace EtherDuels.Game.Model
     public class SimpleShortLifespanObjectFactory : ShortLifespanObjectFactory
     {
         private GameAssets gameAssets = GameAssets.Instance;
-
-        /* TODO: hatte das irgendjemand aus besonderem grund eingefügt oder kann das weg?
-        private Microsoft.Xna.Framework.Graphics.Model explosionModel;
-        public Microsoft.Xna.Framework.Graphics.Model ExplosionModel
-        {
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                this.explosionModel = value;
-            }
-        }
-
-        private Microsoft.Xna.Framework.Graphics.Model rocketModel;
-        public Microsoft.Xna.Framework.Graphics.Model RocketModel
-        {
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                this.rocketModel = value;
-            }
-        }
-
-        private Microsoft.Xna.Framework.Graphics.Model laserModel;
-        public Microsoft.Xna.Framework.Graphics.Model LaserModel
-        {
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                this.laserModel = value;
-            }
-        }*/
-
-        
+            
         /// <summary>
         /// Creates a new explosion.
         /// </summary>

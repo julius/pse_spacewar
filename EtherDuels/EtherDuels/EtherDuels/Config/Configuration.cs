@@ -121,7 +121,6 @@ namespace EtherDuels.Config
             stream.Close();
         }
 
-
         public void SetBackwardKey(int playerID, Keys key)
         {
             keyConfigurations[playerID].Backward = key;

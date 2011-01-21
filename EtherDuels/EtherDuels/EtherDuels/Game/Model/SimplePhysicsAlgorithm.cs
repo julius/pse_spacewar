@@ -21,6 +21,7 @@ namespace EtherDuels.Game.Model
         private CollisionHandler collisionHandler;
         private ConfigurationRetriever configRetriever;
         private World world;
+        private int difficulty;
 
         private WorldObject[] worldObjects;
         private WorldObject[][] oldCollisions = new WorldObject[0][];
@@ -35,6 +36,7 @@ namespace EtherDuels.Game.Model
             this.collisionHandler = collisionHandler;
             this.world = world;
             this.configRetriever = configRetriever;
+            this.difficulty = 0;
         }
 
         /// <summary>
@@ -46,9 +48,14 @@ namespace EtherDuels.Game.Model
         {
             worldObjects = world.WorldObjects;
 
+            if (difficulty != configRetriever.Difficulty)
+            {
+                difficulty = configRetriever.Difficulty;
+                UpdateDifficulty();
+            }
+
             UpdateGravity(gameTime);
             UpdatePositions(gameTime);
-
 
             foreach (Planet planet in world.Planets)
             {
@@ -60,6 +67,8 @@ namespace EtherDuels.Game.Model
                 collisionHandler.OnCollision(collision[0], collision[1]);
             }
         }
+
+       
 
         /// <summary>
         /// Applies the gravity of the planets and spaceships to all other worldObjects and updates their velocities.
@@ -104,7 +113,7 @@ namespace EtherDuels.Game.Model
                                 distance.Normalize();
                                 Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
                                 Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N * configRetriever.Difficulty);
+                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N * difficulty);
                             }
                         }
                     }
@@ -149,6 +158,43 @@ namespace EtherDuels.Game.Model
 
                     worldObject.Position = postion;
                 
+            }
+        }
+
+        private void UpdateDifficulty()
+        {
+            foreach (Planet planet in world.Planets)
+            {
+                if (planet.IsFlexible)
+                {
+                    // find the planet that this one is most attracted to
+                    // default values
+                    float highestAcceleration = 0;
+                    Planet mostAttractivePlanet = planet;
+                    Vector2 distance = new Vector2(1, 1);
+
+                    foreach (Planet planet2 in world.Planets)
+                    {
+                        Vector2 distanceToPlanet = new Vector2(planet2.Position.X - planet.Position.X, planet2.Position.Y - planet.Position.Y);
+                        if (distanceToPlanet.Length() != 0)
+                        {
+                            float acceleration = ((float)(GameAssets.G * planet2.Mass / distanceToPlanet.LengthSquared()));
+                            if (acceleration > highestAcceleration)
+                            {
+                                highestAcceleration = acceleration;
+                                mostAttractivePlanet = planet2;
+                                distance = distanceToPlanet;
+                            }
+                        }
+                    }
+
+                    // calculate the velocity needed for orbiting this planet
+                    int planetVelocity = (int) Math.Sqrt(mostAttractivePlanet.Mass * GameAssets.G / distance.Length() / (GameAssets.N * 1000 * difficulty));
+                    Vector2 currentVelocity = planet.Velocity;
+                    currentVelocity.Normalize();
+                    planet.Velocity = Vector2.Multiply(currentVelocity, planetVelocity);
+                    System.Console.Write(planetVelocity + "\n");
+                }
             }
         }
 

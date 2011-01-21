@@ -40,14 +40,14 @@ namespace EtherDuels.Game
             planet.Radius = 300;
 
             // build planet in orbit
-            int distance = 1200;
+            int distance = 700;
             
             Planet planet2 = new Planet();
             planet2.Radius = 82;
             planet2.IsFlexible = true;
             planet2.Position = new Vector2(distance, 0);
             // calculate velocity needed to circuit in orbit
-            int planet2Velocity = (int) Math.Round(Math.Sqrt(planet.Mass * GameAssets.G / distance / (GameAssets.N * 1000)), 2);
+            int planet2Velocity = (int) Math.Sqrt(planet.Mass * GameAssets.G / distance / (GameAssets.N * 1000));
             planet2.Velocity = new Vector2(0, planet2Velocity);
 
             Spaceship spaceship1 = new Spaceship();
@@ -69,9 +69,6 @@ namespace EtherDuels.Game
 
             // build ShortLifespanObjectFactory
             ShortLifespanObjectFactory shortLifespanObjectFactory = new SimpleShortLifespanObjectFactory();
-            shortLifespanObjectFactory.RocketModel = gameAssets.ModelRocket;
-            shortLifespanObjectFactory.LaserModel = gameAssets.ModelLaser;
-            shortLifespanObjectFactory.ExplosionModel = gameAssets.ModelExplosion;
             
             // build game model
             World world = new World(worldObjects);
