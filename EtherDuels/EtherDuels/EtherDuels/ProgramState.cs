@@ -11,6 +11,7 @@ namespace EtherDuels
     public enum GameState
     {
         GamePaused,
+        GameEnded,
         InGame,
         NoGame
     }
@@ -51,6 +52,18 @@ namespace EtherDuels
         {
             get { return this.menuState; }
             set { this.menuState = value; }
+        }
+
+
+        private TimeSpan gameEndTime = TimeSpan.Zero;
+
+        /// <summary>
+        /// Holds point of time, when a game ended
+        /// </summary>
+        public TimeSpan GameEndTime
+        {
+            get { return this.gameEndTime; }
+            set { this.gameEndTime = value; }
         }
     }
 }
