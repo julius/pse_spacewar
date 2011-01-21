@@ -28,6 +28,6 @@ planet2.velocity = level.vector(0, Math.sqrt(planet1.mass * physic.G / distance 
 
 planet3.position = level.vector(2000,2000)
 planet3.radius = 150
-planet3.mass = 6E23
+planet3.mass = 6E22
 planet3.health = 1000
 
