@@ -54,7 +54,7 @@ namespace EtherDuels.Game.View
         // Draws the HUD (HeadUp-Display) of each player and its health.
         private void DrawHUD(Viewport viewport, SpriteBatch spriteBatch)
         {
-            string points;
+            string playerName;
             Vector2 posHUD;
             int health;
             Player[] players = gameModel.Players;
@@ -63,11 +63,11 @@ namespace EtherDuels.Game.View
 
             for (int i = 0; i < players.Length; i++)
             {
-                points = "Player " + players[i].PlayerId; //"points : " + players[i].Points;
+                playerName = "Player " + players[i].PlayerId;
                 posHUD = new Vector2(i * 200 + 100, 20);
 
-                spriteBatch.DrawString(gameAssets.HudFont, points, posHUD, players[i].PlayerColor, 0,
-                gameAssets.HudFont.MeasureString(points) / 2, 0.8f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(gameAssets.HudFont, playerName, posHUD, players[i].PlayerColor, 0,
+                gameAssets.HudFont.MeasureString(playerName) / 2, 0.8f, SpriteEffects.None, 0.5f);
 
                 posHUD.Y = 60;
 

@@ -43,7 +43,7 @@ namespace EtherDuels.Game.Model
         /// and then reports all new collisions to the collisionHandler.
         /// </summary>
         /// <param name="gameTime">The GameTime which contains how much time has passed since the last update.</param>
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             worldObjects = world.WorldObjects;
 

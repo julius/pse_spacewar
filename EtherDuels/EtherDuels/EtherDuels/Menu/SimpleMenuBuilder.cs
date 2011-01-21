@@ -256,7 +256,7 @@ namespace EtherDuels.Menu
 
             // Build main menu
             MenuItem mainMenuStartGame = new MenuItem(actionStartGame, delegate() { return "Start Game"; });
-            MenuItem mainMenuOptions = new MenuItem(actionMainOptions, delegate() { return "Options"; });
+           MenuItem mainMenuOptions = new MenuItem(actionMainOptions, delegate() { return "Options"; });
             MenuItem mainMenuHelp = new MenuItem(actionHelp, delegate() { return "Help"; });
             MenuItem mainMenuHighscore = new MenuItem(actionHighscore, delegate() { return "Highscore"; });
             MenuItem mainMenuQuitProgram = new MenuItem(actionQuit, delegate() { return "Quit Program"; });

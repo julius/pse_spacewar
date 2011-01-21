@@ -190,7 +190,7 @@ namespace EtherDuels.Game
             projectilePosition.Y = shooter.Position.Y - (float)Math.Cos(shooter.Rotation) * (shooter.Radius + projectile.Radius + 1);
             projectile.Position = projectilePosition;
 
-            //
+           
             int velocityFactor = 100;
             switch (shooter.CurrentWeapon) 
             {
@@ -220,7 +220,7 @@ namespace EtherDuels.Game
             }
 
             this.gameTime = frameState.GameTime;
-            Debug.Assert(gameModel != null, "No gamemodel exists");      //TODO Exception verwenden. Update soll nicht aufgerufen werden, wenn GameModel nicht existiert--- Assertions sind besser, da das kein erwartetes Verhalten ist.
+            Debug.Assert(gameModel != null, "No gamemodel exists");      
             
             gameModel.Update(frameState);
         }

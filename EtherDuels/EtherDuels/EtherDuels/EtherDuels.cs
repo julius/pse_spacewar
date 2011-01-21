@@ -68,8 +68,7 @@ namespace EtherDuels
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //TODO: was soll das heissen?
-            // Sample code to draw some models and stuff
+            
             // (Not production code !)
             ContentManager content = new ContentManager(Services, "Assets");
 
@@ -88,7 +87,7 @@ namespace EtherDuels
             Model modelEarth = content.Load<Model>("earth");
             Model modelRocket = content.Load<Model>("rocket");
             Model modelLaser = content.Load<Model>("laser_blast");
-            Model modelExplosion = content.Load<Model>("explosion");   // damit das Programm nicht abstuerzt mal Ersatzmodel genommen
+            Model modelExplosion = content.Load<Model>("explosion");  
 
             // Sound effects
             SoundEffect soundExplosion = content.Load<SoundEffect>("sound_explosion");
