@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Input;
 using Moq;
 using System.Collections.Generic;
 
+using EtherDuels.Config;
+using System.Runtime.Serialization.Formatters.Binary;
+
 namespace GameTest
 {
     
@@ -18,11 +21,10 @@ namespace GameTest
     [TestClass()]
     public class SimplePhysicsAlgorithmTest
     {
-        /*
-
         private TestContext testContextInstance;
 
         private SimplePhysicsAlgorithm target;
+        private Configuration configuration;
         private Mock<CollisionHandler> mockCollisionHandler;
         private Planet planet;
         private World world;
@@ -76,6 +78,8 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
+            ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
+            configuration = configurationReader.read("config.cfg");
             mockCollisionHandler = new Mock<CollisionHandler>();
             planet = new Planet();
             planet.Mass = 100000;
@@ -89,7 +93,7 @@ namespace GameTest
         /// Test of the collision detection
         ///</summary>
         [TestMethod()]
-        public void UpdateTest1()
+        public void UpdateCollisionTest()
         {
             WorldObject object1 = new WorldObject();
             object1.Position = new Vector2(0.0f, 0.0f);
@@ -104,7 +108,7 @@ namespace GameTest
 
             mockCollisionHandler.Setup(m => m.OnCollision(object1, object2));
 
-            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world);
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, configuration);
             target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
             target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
 
@@ -115,7 +119,7 @@ namespace GameTest
         /// Test the speed limitation
         /// </summary>
         [TestMethod()]
-        public void UpdateTest2()
+        public void UpdateMaxSpeedTest()
         {
             float MAX_VELOCITY = 299792458.0f;
             WorldObject worldObject = new WorldObject();
@@ -125,10 +129,11 @@ namespace GameTest
             planet.Mass = 0.0;
             world.AddWorldObject(worldObject);
 
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, configuration);
             target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 0)));
 
+            // TODO an den code anpassen, siehe SimplePhysicsAlgorithm
             Assert.IsTrue(worldObject.Velocity.X == MAX_VELOCITY && worldObject.Velocity.Y == MAX_VELOCITY);
         }
-         */
     }
 }
