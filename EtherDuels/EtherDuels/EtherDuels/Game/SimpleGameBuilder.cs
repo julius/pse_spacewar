@@ -13,7 +13,7 @@ namespace EtherDuels.Game
     /// <summary>
     /// Build a new game with a predefined level.
     /// </summary>
-    class SimpleGameBuilder: GameBuilder
+    public class SimpleGameBuilder: GameBuilder
     {    
         private GameAssets gameAssets = GameAssets.Instance;
 

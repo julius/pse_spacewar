@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IronRuby, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="IronRuby.Libraries">
+      <HintPath>..\EtherDuels\EtherDuels\IronRuby.Libraries.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=1.1.0.10, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Scripting, Version=1.1.0.10, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
@@ -51,6 +57,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -61,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationTest.cs" />
+    <Compile Include="GameControllerTest.cs" />
     <Compile Include="GameModelTest.cs" />
     <Compile Include="HumanPlayerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +79,10 @@
     <Shadow Include="Test References\EtherDuels.accessor" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Assets\Assets.contentproj">
+      <Project>{2355F6FF-4AE3-4C98-A807-B24C7C516BB1}</Project>
+      <Name>Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EtherDuels\EtherDuels\EtherDuels.csproj">
       <Project>{B0ED64AD-3D6A-4C81-A109-1982C91E2346}</Project>
       <Name>EtherDuels</Name>
