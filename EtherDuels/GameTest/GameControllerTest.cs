@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using EtherDuels.Game.View;
+using Microsoft.Xna.Framework.Input;
 
 namespace GameTest
 {
@@ -74,30 +75,7 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
-            ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
-            Configuration configuration = configurationReader.read("config.cfg");
-           
-            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
-
-            Mock<Physics> mockPhysics = new Mock<Physics>();
-            mockPhysics.Setup(m => m.Update(gameTime));
-
-            Mock<Player> mockPlayer = new Mock<Player>();
-            mockPlayer.Setup(m => m.Update(new EtherDuels.FrameState(gameTime, null)));
-            List<Player> players = new List<Player>();
-            players.Add(mockPlayer.Object);
-
-            WorldObject object1 = new WorldObject();
-            WorldObject object2 = new WorldObject();
-            WorldObject[] worldObjects = { object1, object2 };
-            World world = new World(worldObjects);
-
-            GameModel model = new GameModel(new SimpleShortLifespanObjectFactory(), mockPhysics.Object, players, world);
-            GameView view = new SimpleGameBuilder(configuration).BuildView(model);
-
-            mockGameBuilder = new Mock<GameBuilder>();
-            mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
-            mockGameBuilder.Setup(m => m.BuildView(model));
+            
         }
 
         /// <summary>
@@ -120,13 +98,46 @@ namespace GameTest
         [TestMethod()]
         public void OnCollisionTest()
         {
-            GameBuilder gameBuilder = null; // TODO: Initialize to an appropriate value
-            GameHandler gameHandler = null; // TODO: Initialize to an appropriate value
-            GameController target = new GameController(gameBuilder, gameHandler); // TODO: Initialize to an appropriate value
-            WorldObject collisionObject1 = null; // TODO: Initialize to an appropriate value
-            WorldObject collisionObject2 = null; // TODO: Initialize to an appropriate value
-            target.OnCollision(collisionObject1, collisionObject2);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
+            Configuration configuration = configurationReader.read("config.cfg");
+           
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
+
+            Mock<Physics> mockPhysics = new Mock<Physics>();
+            mockPhysics.Setup(m => m.Update(gameTime));
+
+            Mock<Player> mockPlayer = new Mock<Player>();
+            Keys[] keys = { Keys.Space };
+            mockPlayer.Setup(m => m.Update(new EtherDuels.FrameState(gameTime, new KeyboardState(keys))));
+            List<Player> players = new List<Player>();
+            players.Add(mockPlayer.Object);
+
+            Spaceship object1 = new Spaceship();
+            mockPlayer.SetupGet(m => m.Spaceship).Returns(object1);
+
+            WorldObject object2 = new WorldObject();
+            WorldObject[] worldObjects = { object1, object2 };
+            Mock<World> mockWorld = new Mock<World>();
+            GameModel model = new GameModel(new SimpleShortLifespanObjectFactory(), mockPhysics.Object, players, mockWorld.Object);
+
+            Mock<WorldView> mockWorldView = new Mock<WorldView>();
+            Mock<GameView> mockGameView = new Mock<GameView>();
+            mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
+
+
+            mockGameBuilder = new Mock<GameBuilder>();
+            mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
+            mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
+
+            Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
+            mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer.Object.PlayerId));
+
+            object1.Position = new Vector2(100.0f, 100.0f);
+            object2.Position = new Vector2(100.0f, 100.0f);
+
+            target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
+            target.OnCollision(object1, object2);
+
         }
     }
 }
