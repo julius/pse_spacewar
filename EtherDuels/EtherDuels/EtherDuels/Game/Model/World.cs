@@ -34,7 +34,7 @@ namespace EtherDuels.Game.Model
         /// Adds a world object to the world.
         /// </summary>
         /// <param name="worldObject">The WorldObject which needs to be added.</param>
-        public void AddWorldObject(WorldObject worldObject)
+        virtual public void AddWorldObject(WorldObject worldObject)
         {
             if (worldObject == null)
             {
@@ -48,7 +48,7 @@ namespace EtherDuels.Game.Model
         /// Removes a world object from the world.
         /// </summary>
         /// <param name="worldObject">The WorldObject which is to be remove.</param>
-        public void RemoveWorldObject(WorldObject worldObject)
+        virtual public void RemoveWorldObject(WorldObject worldObject)
         {
             if (worldObject == null)
             {

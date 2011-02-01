@@ -37,6 +37,11 @@ namespace EtherDuels.Game.View
             this.worldObject = worldObject;
         }
 
+        public WorldObjectView(WorldObject worldObject)
+        {
+            this.worldObject = worldObject;
+        }
+
         /// <summary>
         /// Draws the WorldObjectView using the according model.
         /// </summary>

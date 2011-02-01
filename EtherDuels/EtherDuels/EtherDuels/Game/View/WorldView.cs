@@ -40,7 +40,7 @@ namespace EtherDuels.Game.View
         /// Adds a new WorldObjectView to the WorldView.
         /// </summary>
         /// <param name="worldObjectView">The worldObjectView which has to be added.</param>
-        public void AddWorldObjectView(WorldObjectView worldObjectView)
+        virtual public void AddWorldObjectView(WorldObjectView worldObjectView)
         {
             this.worldObjectViews.Add(worldObjectView);
         }

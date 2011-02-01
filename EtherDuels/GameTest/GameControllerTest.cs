@@ -107,16 +107,21 @@ namespace GameTest
             mockPhysics.Setup(m => m.Update(gameTime));
 
             //Mock<PlayerHandler> mockPlayerHandler = new Mock<PlayerHandler>();
-            Mock<Player> mockPlayer = new Mock<Player>();          //Mock<Player>(0, mockPlayerHandler.Object, Color.AliceBlue);
+            Mock<Player> mockPlayer1 = new Mock<Player>();          //Mock<Player>(0, mockPlayerHandler.Object, Color.AliceBlue);
             Keys[] keys = { Keys.Space };
-            mockPlayer.Setup(m => m.Update(new EtherDuels.FrameState(gameTime, new KeyboardState(keys))));
+//            mockPlayer1.Setup(m => m.Update(new EtherDuels.FrameState(gameTime, new KeyboardState(keys))));
+            Mock<Player> mockPlayer2 = new Mock<Player>();
             List<Player> players = new List<Player>();
-            players.Add(mockPlayer.Object);
+            players.Add(mockPlayer1.Object);
+            players.Add(mockPlayer2.Object);
 
             Spaceship object1 = new Spaceship();
-            mockPlayer.SetupGet(m => m.Spaceship).Returns(object1);
+            object1.Attack = 0;
+            mockPlayer1.SetupGet(m => m.Spaceship).Returns(object1);
 
             WorldObject object2 = new WorldObject();
+            object2.Attack = 1000;
+
             WorldObject[] worldObjects = { object1, object2 };
             WorldObject[][] mockParams = { worldObjects };
             Mock<World> mockWorld = new Mock<World>(mockParams);
@@ -124,8 +129,8 @@ namespace GameTest
             Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
             Explosion explosion = new Explosion();
             explosion.CreationTime = gameTime.TotalGameTime;
-            mockFactory.Setup(m => m.CreateExplosion(gameTime)).Returns(explosion);
-            Mock<WorldObjectView> mockExplosionView = new Mock<WorldObjectView>();
+            mockFactory.Setup(m => m.CreateExplosion(null)).Returns(explosion);
+            Mock<WorldObjectView> mockExplosionView = new Mock<WorldObjectView>(explosion);
             mockFactory.Setup(m => m.CreateExplosionView(explosion)).Returns(mockExplosionView.Object);
             GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
 
@@ -139,7 +144,7 @@ namespace GameTest
             mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
 
             Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
-            mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer.Object.PlayerId));
+            mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer1.Object.PlayerId));
 
             object1.Position = new Vector2(100.0f, 100.0f);
             object2.Position = new Vector2(100.0f, 100.0f);
@@ -148,7 +153,10 @@ namespace GameTest
             target.CreateGame();
             target.OnCollision(object1, object2);
 
-            Assert.Inconclusive("blabla");
+            mockWorld.Verify(m => m.AddWorldObject(explosion), Times.Exactly(1));
+            mockWorldView.Verify(m => m.AddWorldObjectView(mockExplosionView.Object), Times.Exactly(1));
+            mockWorld.Verify(m => m.RemoveWorldObject(object1), Times.Exactly(1));
+            mockGameHandler.Verify(m => m.OnGameEnded(mockPlayer1.Object.PlayerId), Times.Exactly(1));
         }
     }
 }
