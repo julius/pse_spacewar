@@ -51,7 +51,7 @@ namespace EtherDuels.Game.Model
             {
                 isNextWeaponKeyDown = false;
                 i++;
-                this.spaceship.CurrentWeapon = weapons[i % weapons.Length];    
+                this.spaceship.CurrentWeapon = weapons[Math.Abs(i % weapons.Length)];    
             }
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.PrevWeapon)) isPrevWeaponKeyDown = true;
@@ -59,7 +59,7 @@ namespace EtherDuels.Game.Model
             {
                 isPrevWeaponKeyDown = false;
                 i--;
-                this.spaceship.CurrentWeapon = weapons[i % weapons.Length];                             
+                this.spaceship.CurrentWeapon = weapons[Math.Abs(i % weapons.Length)];                             
             }
 
             if (frameState.KeyboardState.IsKeyDown(this.inputConfigurationRetriever.Forward))
