@@ -99,10 +99,12 @@ namespace GameTest
         {
             // configure object1
             object1.Attack = 0;
+            object1.Position = new Vector2(100.0f, 100.0f);
             
             // create and configure object2
             WorldObject object2 = new WorldObject();
             object2.Attack = 1000;
+            object2.Position = new Vector2(100.0f, 100.0f);
 
             // initialize players
             Mock<Player> mockPlayer1 = new Mock<Player>();
@@ -118,19 +120,20 @@ namespace GameTest
             WorldObject[][] mockParams = { worldObjects };
             Mock<World> mockWorld = new Mock<World>(mockParams);
 
+            // setup SLsO factory
             Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
             Explosion explosion = new Explosion();
             mockFactory.Setup(m => m.CreateExplosion(null)).Returns(explosion);
             Mock<WorldObjectView> mockExplosionView = new Mock<WorldObjectView>(explosion);
             mockFactory.Setup(m => m.CreateExplosionView(explosion)).Returns(mockExplosionView.Object);
 
+            // create GameModel
             GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
 
             Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
             Mock<GameView> mockGameView = new Mock<GameView>(model, mockWorldView.Object);
             mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
-
-
+            
             mockGameBuilder = new Mock<GameBuilder>();
             mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
             mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
@@ -138,9 +141,7 @@ namespace GameTest
             Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
             mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer1.Object.PlayerId));
 
-            object1.Position = new Vector2(100.0f, 100.0f);
-            object2.Position = new Vector2(100.0f, 100.0f);
-
+            
             target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
             target.CreateGame();
             target.OnCollision(object1, object2);
