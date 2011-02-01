@@ -120,7 +120,14 @@ namespace GameTest
             WorldObject[] worldObjects = { object1, object2 };
             WorldObject[][] mockParams = { worldObjects };
             Mock<World> mockWorld = new Mock<World>(mockParams);
-            GameModel model = new GameModel(new SimpleShortLifespanObjectFactory(), mockPhysics.Object, players, mockWorld.Object);
+
+            Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
+            Explosion explosion = new Explosion();
+            explosion.CreationTime = gameTime.TotalGameTime;
+            mockFactory.Setup(m => m.CreateExplosion(gameTime)).Returns(explosion);
+            Mock<WorldObjectView> mockExplosionView = new Mock<WorldObjectView>();
+            mockFactory.Setup(m => m.CreateExplosionView(explosion)).Returns(mockExplosionView.Object);
+            GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
 
             Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
             Mock<GameView> mockGameView = new Mock<GameView>(model, mockWorldView.Object);
