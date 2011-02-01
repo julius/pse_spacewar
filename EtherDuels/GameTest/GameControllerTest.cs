@@ -130,22 +130,26 @@ namespace GameTest
             // create GameModel
             GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
 
+            // setup GameView
             Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
             Mock<GameView> mockGameView = new Mock<GameView>(model, mockWorldView.Object);
             mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
             
+            // setup GameBuilder
             mockGameBuilder = new Mock<GameBuilder>();
             mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
             mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
 
+            // setup GameHandler
             Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
             mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer1.Object.PlayerId));
-
-            
+                        
+            // setup target and test it
             target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
             target.CreateGame();
             target.OnCollision(object1, object2);
 
+            // verify the tests
             mockWorld.Verify(m => m.AddWorldObject(explosion), Times.Exactly(1));
             mockWorldView.Verify(m => m.AddWorldObjectView(mockExplosionView.Object), Times.Exactly(1));
             mockWorld.Verify(m => m.RemoveWorldObject(object1), Times.Exactly(1));
