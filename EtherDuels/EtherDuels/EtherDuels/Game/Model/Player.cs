@@ -56,7 +56,7 @@ namespace EtherDuels.Game.Model
             this.playerColor = playerColor;
         }
 
-        public Player() { }
+        public Player() { } //TODO: hier sollte man vllt wenigstens default-werte zuweisen?
 
         /// <summary>
         /// This method is being called for every frame of the game.

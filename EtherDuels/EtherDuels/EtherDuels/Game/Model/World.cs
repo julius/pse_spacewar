@@ -22,6 +22,15 @@ namespace EtherDuels.Game.Model
             this.worldObjects = new List<WorldObject>(worldObjects);
         }
 
+        //TODO: schöner?
+        /// <summary>
+        /// Needed for testing.
+        /// </summary>
+        public World()
+        {
+            this.worldObjects = new List<WorldObject>();
+        }
+
         /// <summary>
         /// Returns an array of all the world objects that exist in the world at this moment.
         /// </summary>

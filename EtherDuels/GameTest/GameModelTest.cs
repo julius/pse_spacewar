@@ -1,8 +1,9 @@
 ﻿using EtherDuels.Game.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Moq;
+using System.Collections.Generic;
 using EtherDuels;
+using Moq;
 
 namespace GameTest
 {
@@ -64,56 +65,55 @@ namespace GameTest
         //}
         //
         #endregion
-        private Mock<ShortLifespanObjectFactory> mockFactory;
-        private Mock<Physics> mockPhysics;
-        private HumanPlayer[] fakePlayers;
-        private Mock<HumanPlayer>[] mockPlayers;
-        private Mock<World> mockWorld;
-        private GameModel target;
-
+        Mock<World> mockWorld = new Mock<World>(); // is only needed for the constructor
+        Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>(); // is only needed for the constructor
+        Mock<Physics> mockPhysics = new Mock<Physics>();    
+        List<Player> players = new List<Player>();
+        List<Mock<Player>> mockPlayers = new List<Mock<Player>>();
+        int n; // number of players
 
         [TestInitialize()]
         public void Initialize()
         {
-            mockFactory = new Moq.Mock<ShortLifespanObjectFactory>();
-            mockPhysics = new Moq.Mock<Physics>();
-            mockWorld = new Moq.Mock<World>();
-
-            // create a random number of players for testing
+            // test with a random number of players to be sure it works every time.
             Random random = new Random();
-            int nrOfPlayers = random.Next(0,10);
-            mockPlayers = new Mock<HumanPlayer>[nrOfPlayers];
-            fakePlayers = new HumanPlayer[nrOfPlayers];
-            for (int i = 0; i < nrOfPlayers; i++) {
-                mockPlayers[i] = new Moq.Mock<HumanPlayer>();
-                fakePlayers[i] = mockPlayers[i].Object;
+            n = 1 + random.Next() % 9; // there must be a minimum of 1 player
+
+            for (int i = 0; i < n; i++)
+            {
+                mockPlayers.Add(new Mock<Player>());
+                players.Add(mockPlayers[i].Object);
             }
         }
 
-        /// <summary>
-        ///A test for GetFactory
-        ///</summary>
-        [TestMethod()]
-        public void GetFactoryTest()
-        {
-            // TODO: Cannot be built
-            //target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
-            //ShortLifespanObjectFactory expected = mockFactory.Object;
-            //ShortLifespanObjectFactory actual = target.GetFactory();
-            //Assert.AreEqual(expected, actual);
-        }
 
         /// <summary>
-        ///A test for GetPlayers
+        ///A test for RemovePlayer
         ///</summary>
         [TestMethod()]
-        public void GetPlayersTest()
+        public void RemovePlayerTest()
         {
-            // TODO: Cannot be built
-            //target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
-            //Player[] expected = fakePlayers;
-            //Player[] actual = target.GetPlayers();
-            //Assert.AreEqual(expected, actual);
+            GameModel target = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
+
+            // choose one of the players randomly
+            Random random = new Random();
+            int x;
+            if (n == 1)
+            {
+                x = 0;
+            }
+            else
+            {
+                x = random.Next() % (n - 1);
+            }
+            
+            Player player = players[x];
+            
+            // execute RemovePlayer(player)
+            target.RemovePlayer(player);
+
+            // verify that player has been removed from players
+            Assert.IsFalse(players.Contains(player));
         }
 
         /// <summary>
@@ -122,33 +122,27 @@ namespace GameTest
         [TestMethod()]
         public void UpdateTest()
         {
-            // TODO: Cannot be built
-            //target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
-            //Mock<FrameState> mockFrameState = new Moq.Mock<FrameState>();
-            //target.Update(mockFrameState.Object);
+            
+            
+            GameModel target = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
+            FrameState frameState = new FrameState();
 
-            //for (int i = 0; i < mockPlayers.Length; i++)
-            //{
-            //    mockPlayers[i].Verify(b => b.Update(mockFrameState.Object), Times.Exactly(1));
-            //}
-            //mockPhysics.Verify(b => b.Update(mockFrameState.Object.GameTime), Times.Exactly(1));
-        }
+            // set up mock functionalities
+            mockPhysics.Setup(m => m.Update(frameState.GameTime));
+            for (int i = 0; i < n; i++)
+            {
+                mockPlayers[i].Setup(m => m.Update(frameState));
+            }
 
-        /*
-        /// <summary>
-        ///A test for World
-        ///</summary>
-        [TestMethod()]
-        public void WorldTest()
-        {
-            target = new GameModel(mockFactory.Object, mockPhysics.Object, fakePlayers, mockWorld.Object);
-            World expected = mockWorld.Object;
-            World actual;
-            target.World = expected;
-            actual = target.World;
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            // execute Update(frameState)
+            target.Update(frameState);
+            
+            // verify functionality of the Update function
+            mockPhysics.Verify(m => m.Update(frameState.GameTime), Times.Exactly(1));
+            for (int i = 0; i < n; i++)
+            {
+                mockPlayers[i].Verify(m => m.Update(frameState), Times.Exactly(1));
+            }
         }
-        */
     }
 }
