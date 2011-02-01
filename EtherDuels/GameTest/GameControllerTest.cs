@@ -150,6 +150,8 @@ namespace GameTest
             target.OnCollision(object1, object2);
 
             // verify the tests
+            // TODO: verify mockFactory stuff
+            // TODO: position
             mockWorld.Verify(m => m.AddWorldObject(explosion), Times.Exactly(1));
             mockWorldView.Verify(m => m.AddWorldObjectView(mockExplosionView.Object), Times.Exactly(1));
             mockWorld.Verify(m => m.RemoveWorldObject(object1), Times.Exactly(1));
