@@ -33,7 +33,7 @@ namespace EtherDuels.Game.View
         /// <summary>
         /// Gets and sets the WorldView.
         /// </summary>
-        public WorldView WorldView
+        virtual public WorldView WorldView
         {
             get { return this.worldView; }
             set { this.worldView = value; }

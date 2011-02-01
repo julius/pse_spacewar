@@ -28,7 +28,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Returns the player's spaceship.
         /// </summary>
-        public Spaceship Spaceship
+        virtual public Spaceship Spaceship
         {
             get { return this.spaceship; }
             set { this.spaceship = value; }
@@ -55,6 +55,8 @@ namespace EtherDuels.Game.Model
             this.playerHandler = playerHandler;
             this.playerColor = playerColor;
         }
+
+        public Player() { }
 
         /// <summary>
         /// This method is being called for every frame of the game.

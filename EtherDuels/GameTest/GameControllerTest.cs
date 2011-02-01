@@ -106,7 +106,8 @@ namespace GameTest
             Mock<Physics> mockPhysics = new Mock<Physics>();
             mockPhysics.Setup(m => m.Update(gameTime));
 
-            Mock<Player> mockPlayer = new Mock<Player>();
+            //Mock<PlayerHandler> mockPlayerHandler = new Mock<PlayerHandler>();
+            Mock<Player> mockPlayer = new Mock<Player>();          //Mock<Player>(0, mockPlayerHandler.Object, Color.AliceBlue);
             Keys[] keys = { Keys.Space };
             mockPlayer.Setup(m => m.Update(new EtherDuels.FrameState(gameTime, new KeyboardState(keys))));
             List<Player> players = new List<Player>();
@@ -117,11 +118,12 @@ namespace GameTest
 
             WorldObject object2 = new WorldObject();
             WorldObject[] worldObjects = { object1, object2 };
-            Mock<World> mockWorld = new Mock<World>();
+            WorldObject[][] mockParams = { worldObjects };
+            Mock<World> mockWorld = new Mock<World>(mockParams);
             GameModel model = new GameModel(new SimpleShortLifespanObjectFactory(), mockPhysics.Object, players, mockWorld.Object);
 
-            Mock<WorldView> mockWorldView = new Mock<WorldView>();
-            Mock<GameView> mockGameView = new Mock<GameView>();
+            Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
+            Mock<GameView> mockGameView = new Mock<GameView>(model, mockWorldView.Object);
             mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
 
 
@@ -136,8 +138,10 @@ namespace GameTest
             object2.Position = new Vector2(100.0f, 100.0f);
 
             target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
+            target.CreateGame();
             target.OnCollision(object1, object2);
 
+            Assert.Inconclusive("blabla");
         }
     }
 }

@@ -76,11 +76,8 @@ namespace EtherDuels.Game
         {
             Debug.Assert(gameModel != null);
 
-            Vector2 posExplosion;
-            Vector2 deltaPos;
-
-            deltaPos.X = collisionObject2.Position.X - collisionObject1.Position.X;
-            deltaPos.Y = collisionObject2.Position.Y - collisionObject1.Position.Y;
+            Vector2 posExplosion = new Vector2();
+            Vector2 deltaPos = new Vector2(collisionObject2.Position.X - collisionObject1.Position.X, collisionObject2.Position.Y - collisionObject1.Position.Y);
 
             posExplosion.X = collisionObject1.Position.X + deltaPos.X / 2;
             posExplosion.Y = collisionObject1.Position.Y + deltaPos.Y / 2;
