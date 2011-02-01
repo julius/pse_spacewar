@@ -23,6 +23,8 @@ namespace GameTest
     {
         private GameController target;
         private Mock<GameBuilder> mockGameBuilder;
+        private Mock<Physics> mockPhysics;
+        private Spaceship object1;
 
         private TestContext testContextInstance;
 
@@ -75,7 +77,8 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
-            
+            mockPhysics = new Mock<Physics>();
+            object1 = new Spaceship();
         }
 
         /// <summary>
@@ -84,11 +87,7 @@ namespace GameTest
         [TestMethod()]
         public void OnFireTest()
         {
-            GameBuilder gameBuilder = null; // TODO: Initialize to an appropriate value
-            GameHandler gameHandler = null; // TODO: Initialize to an appropriate value
-            GameController target = new GameController(gameBuilder, gameHandler); // TODO: Initialize to an appropriate value
-            Spaceship shooter = null; // TODO: Initialize to an appropriate value
-            target.OnFire(shooter);
+            
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
@@ -98,40 +97,33 @@ namespace GameTest
         [TestMethod()]
         public void OnCollisionTest()
         {
-            ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
-            Configuration configuration = configurationReader.read("config.cfg");
-           
-            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
+            // configure object1
+            object1.Attack = 0;
+            
+            // create and configure object2
+            WorldObject object2 = new WorldObject();
+            object2.Attack = 1000;
 
-            Mock<Physics> mockPhysics = new Mock<Physics>();
-            mockPhysics.Setup(m => m.Update(gameTime));
-
-            //Mock<PlayerHandler> mockPlayerHandler = new Mock<PlayerHandler>();
-            Mock<Player> mockPlayer1 = new Mock<Player>();          //Mock<Player>(0, mockPlayerHandler.Object, Color.AliceBlue);
+            // initialize players
+            Mock<Player> mockPlayer1 = new Mock<Player>();
+            mockPlayer1.SetupGet(m => m.Spaceship).Returns(object1);
             Keys[] keys = { Keys.Space };
-//            mockPlayer1.Setup(m => m.Update(new EtherDuels.FrameState(gameTime, new KeyboardState(keys))));
             Mock<Player> mockPlayer2 = new Mock<Player>();
             List<Player> players = new List<Player>();
             players.Add(mockPlayer1.Object);
             players.Add(mockPlayer2.Object);
 
-            Spaceship object1 = new Spaceship();
-            object1.Attack = 0;
-            mockPlayer1.SetupGet(m => m.Spaceship).Returns(object1);
-
-            WorldObject object2 = new WorldObject();
-            object2.Attack = 1000;
-
+            // create world mock
             WorldObject[] worldObjects = { object1, object2 };
             WorldObject[][] mockParams = { worldObjects };
             Mock<World> mockWorld = new Mock<World>(mockParams);
 
             Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
             Explosion explosion = new Explosion();
-            explosion.CreationTime = gameTime.TotalGameTime;
             mockFactory.Setup(m => m.CreateExplosion(null)).Returns(explosion);
             Mock<WorldObjectView> mockExplosionView = new Mock<WorldObjectView>(explosion);
             mockFactory.Setup(m => m.CreateExplosionView(explosion)).Returns(mockExplosionView.Object);
+
             GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
 
             Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
