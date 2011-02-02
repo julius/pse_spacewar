@@ -153,7 +153,8 @@ namespace GameTest
 
             //calculate and verify the expected position of the explosion
             Vector2 deltaPos = new Vector2(object2.Position.X - object1.Position.X, object2.Position.Y - object1.Position.Y);
-            Vector2 posExplosion = new Vector2(object1.Position.X + deltaPos.X / 2, object1.Position.Y + deltaPos.Y / 2);
+            Vector2 expectedExplosionPos = new Vector2(object1.Position.X + deltaPos.X / 2, object1.Position.Y + deltaPos.Y / 2);
+            Assert.AreEqual(expectedExplosionPos, explosion.Position);
 
             // verify the called mock methods
             mockFactory.Verify(m => m.CreateExplosion(null), Times.Exactly(1));
