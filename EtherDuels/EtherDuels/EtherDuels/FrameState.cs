@@ -29,7 +29,7 @@ namespace EtherDuels
         /// <summary>
         /// The frame's time object.
         /// </summary>
-        public GameTime GameTime
+        virtual public GameTime GameTime
         {
             get { return this.gameTime; }
         }

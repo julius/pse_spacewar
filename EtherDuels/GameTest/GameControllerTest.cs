@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using EtherDuels.Game.View;
 using Microsoft.Xna.Framework.Input;
+using EtherDuels;
 
 namespace GameTest
 {
@@ -23,7 +24,8 @@ namespace GameTest
     {
         private GameController target;
         private Mock<GameBuilder> mockGameBuilder;
-        private Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
+        private Mock<GameHandler> mockGameHandler;
+        private Mock<ShortLifespanObjectFactory> mockFactory;
         private Mock<Physics> mockPhysics;
         private Spaceship object1;
 
@@ -81,6 +83,7 @@ namespace GameTest
             mockPhysics = new Mock<Physics>();
             mockGameHandler = new Mock<GameHandler>();
             mockGameBuilder = new Mock<GameBuilder>();
+            mockFactory = new Mock<ShortLifespanObjectFactory>();
             object1 = new Spaceship();
         }
 
@@ -101,7 +104,6 @@ namespace GameTest
             Mock<World> mockWorld = new Mock<World>(mockParams);
 
             // setup SLsO factory
-            Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
             Projectile projectile = new Projectile();
             mockFactory.Setup(m => m.CreateProjectile(weapon)).Returns(projectile);
             Mock<WorldObjectView> mockProjectileView = new Mock<WorldObjectView>(projectile);
@@ -184,7 +186,6 @@ namespace GameTest
             Mock<World> mockWorld = new Mock<World>(mockParams);
 
             // setup SLsO factory
-            Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
             Explosion explosion = new Explosion();
             mockFactory.Setup(m => m.CreateExplosion(null)).Returns(explosion);
             Mock<WorldObjectView> mockExplosionView = new Mock<WorldObjectView>(explosion);
@@ -222,6 +223,47 @@ namespace GameTest
             mockWorldView.Verify(m => m.AddWorldObjectView(mockExplosionView.Object), Times.Exactly(1));
             mockWorld.Verify(m => m.RemoveWorldObject(object1), Times.Exactly(1));
             mockGameHandler.Verify(m => m.OnGameEnded(mockPlayer2.Object.PlayerId), Times.Exactly(1));
+        }
+
+        /// <summary>
+        ///A test for Update
+        ///</summary>
+        [TestMethod()]
+        public void UpdateTest()
+        {
+            // create world mock
+            WorldObject[] worldObjects = { object1 };
+            WorldObject[][] mockParams = { worldObjects };
+            Mock<World> mockWorld = new Mock<World>(mockParams);
+
+            // create GameModel
+            GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, new List<Player>(), mockWorld.Object);
+
+            // setup GameView
+            Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
+            Mock<GameView> mockGameView = new Mock<GameView>(model, mockWorldView.Object);
+            mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
+
+            // setup GameBuilder
+            mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
+            mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
+
+            // setup GameHandler      
+            mockGameHandler.Setup(m => m.OnGamePaused());
+
+            // setup FrameState
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
+            Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, null);
+            mockFrameState.SetupGet(m => m.GameTime).Returns(gameTime);
+
+            // setup target and test it
+            target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
+            target.CreateGame();
+            target.Update(mockFrameState.Object);
+
+            
+
+            Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
     }
 }
