@@ -71,6 +71,7 @@
     <Compile Include="GameControllerTest.cs" />
     <Compile Include="GameModelTest.cs" />
     <Compile Include="HumanPlayerTest.cs" />
+    <Compile Include="MenuItemTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimplePhysicsAlgorithmTest.cs" />
     <Compile Include="WorldTest.cs" />

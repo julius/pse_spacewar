@@ -8,7 +8,7 @@ namespace EtherDuels.Menu.Model
     /// <summary>
     /// A MenuItem is the smallest component of the menu. It has a specific functionality which can be executed via the action() function.
     /// </summary>
-    class MenuItem
+    public class MenuItem
     {
         public delegate string TextProvider();
         public delegate void ActionHandler(MenuItem menuItem);
