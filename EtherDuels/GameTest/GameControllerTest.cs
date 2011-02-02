@@ -236,34 +236,36 @@ namespace GameTest
             WorldObject[][] mockParams = { worldObjects };
             Mock<World> mockWorld = new Mock<World>(mockParams);
 
+            // setup FrameState
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
+            Keys[] keys = { Keys.Escape };
+            Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, new KeyboardState(keys));
+            mockFrameState.SetupGet(m => m.GameTime).Returns(gameTime);
+
             // create GameModel
-            GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, new List<Player>(), mockWorld.Object);
+            Mock<GameModel> mockGameModel = new Mock<GameModel>(null, null, null, null);
+            mockGameModel.Setup(m => m.Update(mockFrameState.Object));
 
             // setup GameView
             Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
-            Mock<GameView> mockGameView = new Mock<GameView>(model, mockWorldView.Object);
+            Mock<GameView> mockGameView = new Mock<GameView>(mockGameModel.Object, mockWorldView.Object);
             mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
 
             // setup GameBuilder
-            mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
-            mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
+            mockGameBuilder.Setup(m => m.BuildModel()).Returns(mockGameModel.Object);
+            mockGameBuilder.Setup(m => m.BuildView(mockGameModel.Object)).Returns(mockGameView.Object);
 
             // setup GameHandler      
             mockGameHandler.Setup(m => m.OnGamePaused());
-
-            // setup FrameState
-            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
-            Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, null);
-            mockFrameState.SetupGet(m => m.GameTime).Returns(gameTime);
 
             // setup target and test it
             target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
             target.CreateGame();
             target.Update(mockFrameState.Object);
 
-            
-
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            // verify the called mock methods
+            mockGameHandler.Verify(m => m.OnGamePaused(), Times.Exactly(1));
+            mockGameModel.Verify(m => m.Update(mockFrameState.Object), Times.Exactly(1));
         }
     }
 }

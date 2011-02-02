@@ -62,7 +62,7 @@ namespace EtherDuels.Game.Model
         /// Updates the physics and all players.
         /// </summary>
         /// <param name="frameState">A state object which contains how much time has passed since the last update.</param>
-        public void Update(FrameState frameState)
+        virtual public void Update(FrameState frameState)
         {
             foreach (Player player in players)
             {
