@@ -23,6 +23,7 @@ namespace GameTest
     {
         private GameController target;
         private Mock<GameBuilder> mockGameBuilder;
+        private Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
         private Mock<Physics> mockPhysics;
         private Spaceship object1;
 
@@ -78,6 +79,8 @@ namespace GameTest
         public void Initialize()
         {
             mockPhysics = new Mock<Physics>();
+            mockGameHandler = new Mock<GameHandler>();
+            mockGameBuilder = new Mock<GameBuilder>();
             object1 = new Spaceship();
         }
 
@@ -87,7 +90,38 @@ namespace GameTest
         [TestMethod()]
         public void OnFireTest()
         {
-            
+            // configure object1
+            object1.Position = new Vector2(100.0f, 100.0f);
+            object1.CurrentWeapon = Weapon.Rocket;
+
+            // create world mock
+            WorldObject[] worldObjects = { object1 };
+            WorldObject[][] mockParams = { worldObjects };
+            Mock<World> mockWorld = new Mock<World>(mockParams);
+
+            // setup SLsO factory
+            Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
+            Projectile projectile = new Projectile();
+            mockFactory.Setup(m => m.CreateProjectile(object1.CurrentWeapon)).Returns(projectile);
+            Mock<WorldObjectView> mockProjectileView = new Mock<WorldObjectView>(projectile);
+            mockFactory.Setup(m => m.CreateProjectileView(object1.CurrentWeapon, projectile)).Returns(mockProjectileView.Object);
+
+            // create GameModel
+            GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, new List<Player>(), mockWorld.Object);
+
+            // setup GameView
+            Mock<WorldView> mockWorldView = new Mock<WorldView>(mockWorld.Object);
+            Mock<GameView> mockGameView = new Mock<GameView>(model, mockWorldView.Object);
+            mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
+
+            // setup GameBuilder
+            mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
+            mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
+
+            // setup target and test it
+            target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
+            target.CreateGame();
+
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
@@ -138,12 +172,10 @@ namespace GameTest
             mockGameView.SetupGet(m => m.WorldView).Returns(mockWorldView.Object);
             
             // setup GameBuilder
-            mockGameBuilder = new Mock<GameBuilder>();
             mockGameBuilder.Setup(m => m.BuildModel()).Returns(model);
             mockGameBuilder.Setup(m => m.BuildView(model)).Returns(mockGameView.Object);
 
-            // setup GameHandler
-            Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
+            // setup GameHandler      
             mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer2.Object.PlayerId));
                         
             // setup target and test it
