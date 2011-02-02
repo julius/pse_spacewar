@@ -109,8 +109,10 @@ namespace GameTest
             // initialize players
             Mock<Player> mockPlayer1 = new Mock<Player>();
             mockPlayer1.SetupGet(m => m.Spaceship).Returns(object1);
+            mockPlayer1.SetupGet(m => m.PlayerId).Returns(0);
             Keys[] keys = { Keys.Space };
             Mock<Player> mockPlayer2 = new Mock<Player>();
+            mockPlayer2.SetupGet(m => m.PlayerId).Returns(1);
             List<Player> players = new List<Player>();
             players.Add(mockPlayer1.Object);
             players.Add(mockPlayer2.Object);
@@ -142,20 +144,24 @@ namespace GameTest
 
             // setup GameHandler
             Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
-            mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer1.Object.PlayerId));
+            mockGameHandler.Setup(m => m.OnGameEnded(mockPlayer2.Object.PlayerId));
                         
             // setup target and test it
             target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
             target.CreateGame();
             target.OnCollision(object1, object2);
 
-            // verify the tests
-            // TODO: verify mockFactory stuff
-            // TODO: position
+            //calculate and verify the expected position of the explosion
+            Vector2 deltaPos = new Vector2(object2.Position.X - object1.Position.X, object2.Position.Y - object1.Position.Y);
+            Vector2 posExplosion = new Vector2(object1.Position.X + deltaPos.X / 2, object1.Position.Y + deltaPos.Y / 2);
+
+            // verify the called mock methods
+            mockFactory.Verify(m => m.CreateExplosion(null), Times.Exactly(1));
+            mockFactory.Verify(m => m.CreateExplosionView(explosion), Times.Exactly(1));
             mockWorld.Verify(m => m.AddWorldObject(explosion), Times.Exactly(1));
             mockWorldView.Verify(m => m.AddWorldObjectView(mockExplosionView.Object), Times.Exactly(1));
             mockWorld.Verify(m => m.RemoveWorldObject(object1), Times.Exactly(1));
-            mockGameHandler.Verify(m => m.OnGameEnded(mockPlayer1.Object.PlayerId), Times.Exactly(1));
+            mockGameHandler.Verify(m => m.OnGameEnded(mockPlayer2.Object.PlayerId), Times.Exactly(1));
         }
     }
 }
