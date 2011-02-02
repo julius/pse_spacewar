@@ -19,7 +19,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Returns the player's ID.
         /// </summary>
-        public int PlayerId
+        virtual public int PlayerId
         {
             get { return this.playerId; }
         }
