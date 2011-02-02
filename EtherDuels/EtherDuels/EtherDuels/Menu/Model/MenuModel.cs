@@ -9,7 +9,7 @@ namespace EtherDuels.Menu.Model
     /// <summary>
     /// The MenuModel is the biggest component of the menu and is responsible for updating the menu logic.
     /// </summary>
-    class MenuModel
+    public class MenuModel
     {
         public delegate void KeySetter(Keys key);
 
