@@ -28,6 +28,16 @@ namespace EtherDuels.Game
         private const int velocityLaser = 400;
         private const int velocityRocket = 200;
 
+        public int VelocityLaser
+        {
+            get { return velocityLaser; }
+        }
+
+        public int VelocityRocket
+        {
+            get { return velocityRocket; }
+        }
+
         /// <summary>
         /// Constructor of a GameController object.
         /// </summary>

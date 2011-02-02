@@ -92,7 +92,8 @@ namespace GameTest
         {
             // configure object1
             object1.Position = new Vector2(100.0f, 100.0f);
-            object1.CurrentWeapon = Weapon.Rocket;
+            Weapon weapon = Weapon.Rocket;
+            object1.CurrentWeapon = weapon;
 
             // create world mock
             WorldObject[] worldObjects = { object1 };
@@ -102,9 +103,9 @@ namespace GameTest
             // setup SLsO factory
             Mock<ShortLifespanObjectFactory> mockFactory = new Mock<ShortLifespanObjectFactory>();
             Projectile projectile = new Projectile();
-            mockFactory.Setup(m => m.CreateProjectile(object1.CurrentWeapon)).Returns(projectile);
+            mockFactory.Setup(m => m.CreateProjectile(weapon)).Returns(projectile);
             Mock<WorldObjectView> mockProjectileView = new Mock<WorldObjectView>(projectile);
-            mockFactory.Setup(m => m.CreateProjectileView(object1.CurrentWeapon, projectile)).Returns(mockProjectileView.Object);
+            mockFactory.Setup(m => m.CreateProjectileView(weapon, projectile)).Returns(mockProjectileView.Object);
 
             // create GameModel
             GameModel model = new GameModel(mockFactory.Object, mockPhysics.Object, new List<Player>(), mockWorld.Object);
@@ -121,8 +122,34 @@ namespace GameTest
             // setup target and test it
             target = new GameController(mockGameBuilder.Object, mockGameHandler.Object);
             target.CreateGame();
+            target.OnFire(object1);
 
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            // verify correct rotation of the projectile
+            Assert.AreEqual(projectile.Rotation, object1.Rotation);
+
+            // calculate and verify the expected position of the projectile
+            Vector2 expectedProjectilePos;
+            expectedProjectilePos.X = object1.Position.X + (float)Math.Sin(object1.Rotation) * (object1.Radius + projectile.Radius + 1);
+            expectedProjectilePos.Y = object1.Position.Y - (float)Math.Cos(object1.Rotation) * (object1.Radius + projectile.Radius + 1);
+            Assert.AreEqual(expectedProjectilePos, projectile.Position);
+
+            // calculate and verify the expected velocity of the projectile
+            int velocityFactor = 100;
+            switch (weapon) 
+            {
+                case Weapon.Laser: { velocityFactor = target.VelocityLaser; break; }
+                case Weapon.Rocket: { velocityFactor = target.VelocityRocket; break; }
+            }
+
+            Vector2 expectedProjectileVelocity = object1.Velocity;
+            expectedProjectileVelocity.X += (float)Math.Sin(object1.Rotation) * velocityFactor;
+            expectedProjectileVelocity.Y -= (float)Math.Cos(object1.Rotation) * velocityFactor;
+            
+            // verify the called mock methods
+            mockFactory.Verify(m => m.CreateProjectile(weapon), Times.Exactly(1));
+            mockFactory.Verify(m => m.CreateProjectileView(weapon, projectile), Times.Exactly(1));
+            mockWorld.Verify(m => m.AddWorldObject(projectile), Times.Exactly(1));
+            mockWorldView.Verify(m => m.AddWorldObjectView(mockProjectileView.Object), Times.Exactly(1));
         }
 
         /// <summary>
