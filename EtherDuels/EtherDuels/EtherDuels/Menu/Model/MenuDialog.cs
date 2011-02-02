@@ -8,7 +8,7 @@ namespace EtherDuels.Menu.Model
     /// <summary>
     /// A MenuDialog is a group of MenuItems which have a specific functionality.
     /// </summary>
-    class MenuDialog
+    public class MenuDialog
     {
         private MenuItem[] menuItems;
         private bool active;
