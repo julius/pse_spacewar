@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using EtherDuels.Menu;
 using Microsoft.Xna.Framework.Audio;
 using System.IO;
+using System.Collections.Generic;
 
 namespace GameTest
 {
@@ -99,10 +100,6 @@ namespace GameTest
 
             MenuDialog[] dialogs = { dialog1, dialog2 };
             this.dialogs = dialogs;
-
-            FileStream stream = new FileStream(@"..\..\..\GameTest\null_sound.wav", FileMode.Open);
-            MenuAssets.Instance.SoundMenuClick = SoundEffect.FromStream(stream);
-            stream.Close();
         }
 
         /// <summary>
@@ -128,9 +125,17 @@ namespace GameTest
         [TestMethod()]
         public void DownTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
+            this.dialog1.Active = false;
+            this.dialog2.Active = true;
+
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = this.dialogs;
             target.Down();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.IsTrue(this.menuItem11.Selected);
+            Assert.IsFalse(this.menuItem12.Selected);
+            Assert.IsFalse(this.menuItem21.Selected);
+            Assert.IsTrue(this.menuItem22.Selected);
         }
 
         /// <summary>
@@ -139,10 +144,15 @@ namespace GameTest
         [TestMethod()]
         public void SetActiveDialogByIndexTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            int index = 0; // TODO: Initialize to an appropriate value
-            target.SetActiveDialogByIndex(index);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            this.dialog1.Active = false;
+            this.dialog2.Active = true;
+
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = this.dialogs;
+            target.SetActiveDialogByIndex(0);
+
+            Assert.IsTrue(dialog1.Active);
+            Assert.IsFalse(dialog2.Active);
         }
 
         /// <summary>
@@ -151,10 +161,23 @@ namespace GameTest
         [TestMethod()]
         public void SetGameEndedMenuTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            int playerID = 0; // TODO: Initialize to an appropriate value
-            target.SetGameEndedMenu(playerID);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            List<MenuDialog> dialogList = new List<MenuDialog>();
+            for (int i = 0; i <= 10; i += 1)
+            {
+                MenuItem menuItem = new MenuItem(delegate(MenuItem m) { }, null);
+                MenuItem[] menuItems = { menuItem };
+                MenuDialog d = new MenuDialog(menuItems);
+                d.Active = (i == 3) ? true : false;
+                dialogList.Add(d);
+            }
+
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = dialogList.ToArray();
+            target.SetGameEndedMenu(2);
+
+            Assert.IsFalse(dialogList[3].Active);
+            Assert.IsTrue(dialogList[10].Active);
+            Assert.AreEqual(2, target.WinningPlayerID);
         }
 
         /// <summary>
@@ -163,9 +186,15 @@ namespace GameTest
         [TestMethod()]
         public void SetMainMenuTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
+            this.dialog1.Active = false;
+            this.dialog2.Active = true;
+
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = this.dialogs;
             target.SetMainMenu();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.IsTrue(dialog1.Active);
+            Assert.IsFalse(dialog2.Active);
         }
 
         /// <summary>
@@ -174,9 +203,15 @@ namespace GameTest
         [TestMethod()]
         public void SetPauseMenuTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
+            this.dialog1.Active = true;
+            this.dialog2.Active = false;
+
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = this.dialogs;
             target.SetPauseMenu();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.IsFalse(dialog1.Active);
+            Assert.IsTrue(dialog2.Active);
         }
 
         /// <summary>
@@ -185,21 +220,16 @@ namespace GameTest
         [TestMethod()]
         public void SetPreviousDialogActiveTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            target.SetPreviousDialogActive();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
+            this.dialog1.Active = true;
+            this.dialog2.Active = false;
 
-        /// <summary>
-        ///A test for SetWaitingKey
-        ///</summary>
-        [TestMethod()]
-        public void SetWaitingKeyTest()
-        {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            Keys key = new Keys(); // TODO: Initialize to an appropriate value
-            target.SetWaitingKey(key);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = this.dialogs;
+            target.SetActiveDialogByIndex(1);
+            target.SetPreviousDialogActive();
+
+            Assert.IsTrue(dialog1.Active);
+            Assert.IsFalse(dialog2.Active);
         }
 
         /// <summary>
@@ -208,9 +238,17 @@ namespace GameTest
         [TestMethod()]
         public void UpTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
+            this.dialog1.Active = false;
+            this.dialog2.Active = true;
+
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = this.dialogs;
             target.Up();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.IsTrue(this.menuItem11.Selected);
+            Assert.IsFalse(this.menuItem12.Selected);
+            Assert.IsFalse(this.menuItem21.Selected);
+            Assert.IsTrue(this.menuItem22.Selected);
         }
 
         /// <summary>
@@ -219,22 +257,18 @@ namespace GameTest
         [TestMethod()]
         public void WaitForKeyTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            MenuModel.KeySetter keyWaiter = null; // TODO: Initialize to an appropriate value
-            target.WaitForKey(keyWaiter);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
+            MenuModel target = new MenuModel();
+            Assert.IsFalse(target.IsWaitingForKey);
 
-        /// <summary>
-        ///A test for IsWaitingForKey
-        ///</summary>
-        [TestMethod()]
-        public void IsWaitingForKeyTest()
-        {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.IsWaitingForKey;
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            Keys k = Keys.None;
+            target.WaitForKey(delegate(Keys key) { k = key; });
+
+            Assert.IsTrue(target.IsWaitingForKey);
+
+            target.SetWaitingKey(Keys.A);
+
+            Assert.IsFalse(target.IsWaitingForKey);
+            Assert.AreEqual(Keys.A, k);
         }
 
         /// <summary>
@@ -243,25 +277,9 @@ namespace GameTest
         [TestMethod()]
         public void MenuDialogsTest()
         {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            MenuDialog[] expected = null; // TODO: Initialize to an appropriate value
-            MenuDialog[] actual;
-            target.MenuDialogs = expected;
-            actual = target.MenuDialogs;
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
-        ///A test for WinningPlayerID
-        ///</summary>
-        [TestMethod()]
-        public void WinningPlayerIDTest()
-        {
-            MenuModel target = new MenuModel(); // TODO: Initialize to an appropriate value
-            int actual;
-            actual = target.WinningPlayerID;
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            MenuModel target = new MenuModel();
+            target.MenuDialogs = this.dialogs;
+            Assert.AreEqual(this.dialogs, target.MenuDialogs);
         }
     }
 }
