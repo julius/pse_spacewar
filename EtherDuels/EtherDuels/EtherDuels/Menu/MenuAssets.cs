@@ -11,7 +11,7 @@ namespace EtherDuels.Menu
     /// The MenuAssets class contains all assets needed for the menu.
     /// It is a singleton, meaning there can only be one instance of this class.
     /// </summary>
-    sealed class MenuAssets
+    public sealed class MenuAssets
     {
         private static readonly MenuAssets instance = new MenuAssets();
 

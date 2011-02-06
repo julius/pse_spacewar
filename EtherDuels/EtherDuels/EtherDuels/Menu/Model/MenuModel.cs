@@ -70,7 +70,8 @@ namespace EtherDuels.Menu.Model
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
 
-            MenuAssets.Instance.SoundMenuClick.CreateInstance().Play();
+            if (MenuAssets.Instance.SoundMenuClick != null)
+                MenuAssets.Instance.SoundMenuClick.CreateInstance().Play();
             this.menuDialogs[menuDialogIndex].Action();
         }
 
@@ -82,7 +83,9 @@ namespace EtherDuels.Menu.Model
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
 
-            MenuAssets.Instance.SoundMenuClick.CreateInstance().Play();
+            if (MenuAssets.Instance.SoundMenuClick != null)
+                MenuAssets.Instance.SoundMenuClick.CreateInstance().Play();
+
             this.menuDialogs[menuDialogIndex].Down();
         }
 
@@ -94,7 +97,8 @@ namespace EtherDuels.Menu.Model
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
 
-            MenuAssets.Instance.SoundMenuClick.Play();
+            if (MenuAssets.Instance.SoundMenuClick != null)
+                MenuAssets.Instance.SoundMenuClick.Play();
             this.menuDialogs[menuDialogIndex].Up();
         }
 
