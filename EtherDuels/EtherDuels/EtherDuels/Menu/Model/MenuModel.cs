@@ -109,7 +109,7 @@ namespace EtherDuels.Menu.Model
         /// <summary>
         /// Sets the pause menu dialog active.
         /// </summary>
-        public void SetPauseMenu()
+        virtual public void SetPauseMenu()
         {
             this.SetActiveDialogByIndex(1);
         }
@@ -118,7 +118,7 @@ namespace EtherDuels.Menu.Model
         /// Sets the game ended menu active.
         /// </summary>
         /// <param name="playerID">Id of the wining player.</param>
-        public void SetGameEndedMenu(int playerID)
+        virtual public void SetGameEndedMenu(int playerID)
         {
             this.winningPlayerID = playerID;
             this.SetActiveDialogByIndex(10);
