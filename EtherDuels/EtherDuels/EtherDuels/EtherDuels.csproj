@@ -159,6 +159,7 @@
     <Compile Include="Menu\Model\MenuItem.cs" />
     <Compile Include="Menu\Model\MenuModel.cs" />
     <Compile Include="Menu\SimpleMenuBuilder.cs" />
+    <Compile Include="Menu\View\IMenuView.cs" />
     <Compile Include="Menu\View\MenuDialogView.cs" />
     <Compile Include="Menu\View\MenuItemView.cs" />
     <Compile Include="Menu\View\MenuView.cs" />

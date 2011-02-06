@@ -101,7 +101,7 @@ namespace EtherDuels.Menu.Model
         /// <summary>
         /// Sets the main menu dialog active.
         /// </summary>
-        public void SetMainMenu()
+        virtual public void SetMainMenu()
         {
             this.SetActiveDialogByIndex(0);
         }

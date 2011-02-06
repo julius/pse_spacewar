@@ -20,7 +20,7 @@ namespace EtherDuels.Menu
     {
         private MenuHandler menuHandler;
         private MenuModel menuModel;
-        private MenuView menuView;
+        private IMenuView menuView;
         private bool isDownKeyUp = false;
         private bool isUpKeyUp = false;
         private bool isEnterKeyUp = false;
@@ -31,7 +31,7 @@ namespace EtherDuels.Menu
         /// <param name="menuHandler">The assigned MenuHandler.</param>
         /// <param name="menuModel">The assigned MenuModel.</param>
         /// <param name="menuView">The assigned MenuView.</param>
-        public MenuController(MenuHandler menuHandler, MenuModel menuModel, MenuView menuView)
+        public MenuController(MenuHandler menuHandler, MenuModel menuModel, IMenuView menuView)
         {
             this.menuHandler = menuHandler;
             this.menuModel = menuModel;

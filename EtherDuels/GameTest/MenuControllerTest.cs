@@ -4,6 +4,7 @@ using System;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
 using EtherDuels;
+using Moq;
 
 namespace GameTest
 {
@@ -75,7 +76,7 @@ namespace GameTest
         {
             MenuHandler menuHandler = null; // TODO: Initialize to an appropriate value
             MenuModel menuModel = null; // TODO: Initialize to an appropriate value
-            MenuView menuView = null; // TODO: Initialize to an appropriate value
+            IMenuView menuView = null; // TODO: Initialize to an appropriate value
             MenuController target = new MenuController(menuHandler, menuModel, menuView); // TODO: Initialize to an appropriate value
             int playerID = 0; // TODO: Initialize to an appropriate value
             target.SetGameEndedMenu(playerID);
@@ -88,12 +89,14 @@ namespace GameTest
         [TestMethod()]
         public void SetMainMenuTest()
         {
-            MenuHandler menuHandler = null; // TODO: Initialize to an appropriate value
-            MenuModel menuModel = null; // TODO: Initialize to an appropriate value
-            MenuView menuView = null; // TODO: Initialize to an appropriate value
-            MenuController target = new MenuController(menuHandler, menuModel, menuView); // TODO: Initialize to an appropriate value
+            Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
+            Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
+            mockMenuModel.Setup(m => m.SetMainMenu());
+            Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
+            MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
             target.SetMainMenu();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            mockMenuModel.Verify(m => m.SetMainMenu(), Times.Exactly(1));
         }
 
         /// <summary>
@@ -104,7 +107,7 @@ namespace GameTest
         {
             MenuHandler menuHandler = null; // TODO: Initialize to an appropriate value
             MenuModel menuModel = null; // TODO: Initialize to an appropriate value
-            MenuView menuView = null; // TODO: Initialize to an appropriate value
+            IMenuView menuView = null; // TODO: Initialize to an appropriate value
             MenuController target = new MenuController(menuHandler, menuModel, menuView); // TODO: Initialize to an appropriate value
             target.SetPauseMenu();
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
@@ -118,7 +121,7 @@ namespace GameTest
         {
             MenuHandler menuHandler = null; // TODO: Initialize to an appropriate value
             MenuModel menuModel = null; // TODO: Initialize to an appropriate value
-            MenuView menuView = null; // TODO: Initialize to an appropriate value
+            IMenuView menuView = null; // TODO: Initialize to an appropriate value
             MenuController target = new MenuController(menuHandler, menuModel, menuView); // TODO: Initialize to an appropriate value
             FrameState frameState = null; // TODO: Initialize to an appropriate value
             target.Update(frameState);
