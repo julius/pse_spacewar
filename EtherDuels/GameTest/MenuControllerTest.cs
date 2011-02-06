@@ -5,6 +5,8 @@ using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
 using EtherDuels;
 using Moq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace GameTest
 {
@@ -126,13 +128,13 @@ namespace GameTest
         [TestMethod()]
         public void UpdateTest()
         {
-            MenuHandler menuHandler = null; // TODO: Initialize to an appropriate value
-            MenuModel menuModel = null; // TODO: Initialize to an appropriate value
-            IMenuView menuView = null; // TODO: Initialize to an appropriate value
-            MenuController target = new MenuController(menuHandler, menuModel, menuView); // TODO: Initialize to an appropriate value
-            FrameState frameState = null; // TODO: Initialize to an appropriate value
-            target.Update(frameState);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            // setup FrameState
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
+            Keys[] keys = { Keys.Escape };
+            Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, new KeyboardState(keys));
+            mockFrameState.SetupGet(m => m.GameTime).Returns(gameTime);
+
+            
         }
     }
 }
