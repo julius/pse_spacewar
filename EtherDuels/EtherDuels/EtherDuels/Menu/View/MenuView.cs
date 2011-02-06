@@ -11,7 +11,7 @@ namespace EtherDuels.Menu.View
     /// The MenuView is responsible for drawing the menu and all its subcomponents.
     /// It contains a list of menuDialogViews of which only one at a time can be active.
     /// </summary>
-    class MenuView
+    public class MenuView
     {
         private MenuDialogView[] menuDialogViews;
         private MenuModel menuModel;

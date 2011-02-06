@@ -16,7 +16,7 @@ namespace EtherDuels.Menu
     /// <summary>
     /// The MenuController is responsible for the communication between MenuModel, MenuView and EtherDuels.
     /// </summary>
-    class MenuController
+    public class MenuController
     {
         private MenuHandler menuHandler;
         private MenuModel menuModel;

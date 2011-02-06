@@ -12,7 +12,7 @@ namespace EtherDuels.Menu.View
     /// Defines the view of a MenuDialog. It contains a list of MenuItemViews.
     /// It draws the associated MenuDialog only if that is currently active.
     /// </summary>
-    class MenuDialogView
+    public class MenuDialogView
     {
         private MenuDialog menuDialog;
         private MenuItemView[] menuItemViews;

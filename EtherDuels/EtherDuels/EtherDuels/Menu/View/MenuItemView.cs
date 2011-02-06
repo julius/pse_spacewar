@@ -11,7 +11,7 @@ namespace EtherDuels.Menu.View
     /// <summary>
     /// Defines the view of a MenuItem.
     /// </summary>
-    class MenuItemView
+    public class MenuItemView
     {
         private MenuItem menuItem;
         private MenuAssets menuAssets = MenuAssets.Instance;
