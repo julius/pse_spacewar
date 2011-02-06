@@ -65,7 +65,7 @@ namespace EtherDuels.Menu.Model
         /// <summary>
         /// Passes the action call to its selected MenuDialog.
         /// </summary>
-        public void Action()
+        virtual public void Action()
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
@@ -77,7 +77,7 @@ namespace EtherDuels.Menu.Model
         /// <summary>
         /// Passes the down call to its selected MenuDialog.
         /// </summary>
-        public void Down()
+        virtual public void Down()
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;
@@ -89,7 +89,7 @@ namespace EtherDuels.Menu.Model
         /// <summary>
         /// Passes the up call to its selected MenuDialog.
         /// </summary>
-        public void Up()
+        virtual public void Up()
         {
             int menuDialogIndex = this.GetActiveMenuDialogIndex();
             if (menuDialogIndex == -1) return;

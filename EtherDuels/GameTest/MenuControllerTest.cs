@@ -82,8 +82,8 @@ namespace GameTest
             Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
             mockMenuModel.Setup(m => m.SetGameEndedMenu(playerID));
             Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
-            MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
 
+            MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
             target.SetGameEndedMenu(playerID);
 
             mockMenuModel.Verify(m => m.SetGameEndedMenu(playerID), Times.Exactly(1));
@@ -99,6 +99,7 @@ namespace GameTest
             Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
             mockMenuModel.Setup(m => m.SetMainMenu());
             Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
+
             MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
             target.SetMainMenu();
 
@@ -115,8 +116,8 @@ namespace GameTest
             Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
             mockMenuModel.Setup(m => m.SetPauseMenu());
             Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
-            MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
 
+            MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
             target.SetPauseMenu();
 
             mockMenuModel.Verify(m => m.SetPauseMenu(), Times.Exactly(1));            
@@ -130,11 +131,23 @@ namespace GameTest
         {
             // setup FrameState
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
-            Keys[] keys = { Keys.Escape };
+            Keys[] keys = { Keys.Down, Keys.Up, Keys.Enter };
             Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, new KeyboardState(keys));
-            mockFrameState.SetupGet(m => m.GameTime).Returns(gameTime);
 
-            
+            Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
+            Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
+
+            Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
+            mockMenuModel.Setup(m => m.Down());
+            mockMenuModel.Setup(m => m.Up());
+            mockMenuModel.Setup(m => m.Action());
+
+            MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
+            target.Update(mockFrameState.Object);
+
+            mockMenuModel.Verify(m => m.Down(), Times.Exactly(1));
+            mockMenuModel.Verify(m => m.Up(), Times.Exactly(1));
+            mockMenuModel.Verify(m => m.Action(), Times.Exactly(1));
         }
     }
 }
