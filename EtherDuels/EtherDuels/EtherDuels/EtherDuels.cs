@@ -127,7 +127,7 @@ namespace EtherDuels
             gameAssets.AddModelPlanet(modelMars);
             
             ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
-            Configuration configuration = configurationReader.read("config.cfg");
+            Configuration configuration = configurationReader.Read("config.cfg");
 
             // Build MenuBuilder, MenuModel, MenuView and MenuController
             MenuBuilder menuBuilder = new SimpleMenuBuilder(this, configuration);

@@ -34,7 +34,7 @@ namespace EtherDuels.Config
         /// </summary>
         /// <param name="path">The specified path to read from.</param>
         /// <returns>Returns the created Configuration object.</returns>
-        public Configuration read(string path)
+        public Configuration Read(string path)
         {
             if (File.Exists(path))
             {

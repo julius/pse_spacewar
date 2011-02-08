@@ -79,7 +79,7 @@ namespace GameTest
         public void Initialize()
         {
             ConfigurationReader configurationReader = new ConfigurationReader(new BinaryFormatter(), null);
-            configuration = configurationReader.read("config.cfg");
+            configuration = configurationReader.Read("config.cfg");
             mockCollisionHandler = new Mock<CollisionHandler>();
             planet = new Planet();
             planet.Mass = 100000;

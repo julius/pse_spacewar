@@ -33,12 +33,14 @@ namespace GameTest
         }
 
         [TestMethod()]
-        public void SaveFile()
+        public void SaveFileTest()
         {
-            conf.Path = "etherduels.conf";
+            string path = "etherduels.conf";
+            conf.Path = path;
             conf.Save();
 
-            Configuration secondConf = getConfig();
+            ConfigurationReader reader = new ConfigurationReader(new BinaryFormatter(), null);
+            Configuration secondConf = reader.Read(path);
 
             if (secondConf == null)
                 Assert.Fail("Deserialized config is null");
