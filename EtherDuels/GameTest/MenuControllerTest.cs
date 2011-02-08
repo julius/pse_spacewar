@@ -132,6 +132,7 @@ namespace GameTest
             // setup FrameState
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
             Keys[] keys = { Keys.Down, Keys.Up, Keys.Enter };
+            Mock<KeyboardState> mockKeyboardState = new Mock<KeyboardState>(keys);
             Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, new KeyboardState(keys));
 
             Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
