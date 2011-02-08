@@ -99,8 +99,11 @@ namespace GameTest
             this.target = new HumanPlayer(playerId, mockPlayerHandler.Object, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
-            Keys[] keys = { Keys.Space };
-            FrameState frameState = new FrameState(null, new KeyboardState(keys));
+            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
+            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.Space)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.Space)).Returns(true);
+
+            FrameState frameState = new FrameState(null, mockKeyboardState.Object);
 
             target.Update(frameState);
 
