@@ -24,19 +24,6 @@ namespace EtherDuels.Config
         private KeyboardConfiguration[] keyConfigurations = new KeyboardConfiguration[2]; // fixed number of players, for now
         private Stream stream;
 
-        /*public override bool Equals(object obj)
-        {
-            if (!(obj is Configuration)) return false;
-            
-            Configuration other = obj as Configuration;
-
-            if (volumeMusic != other.VolumeMusic) return false;
-            if (volumeEffects != other.VolumeEffects) return false;
-            if (difficulty != other.Difficulty) return false;
-            if (difficulty_AI != other.difficulty_AI) return false;
-            return true;
-        }*/
-
         /// <summary>
         /// Constructor which initializes the KeyboardConfiguration Array. Currently, fixed sized of 10 players.
         /// </summary>
