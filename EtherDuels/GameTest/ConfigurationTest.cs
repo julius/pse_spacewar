@@ -52,41 +52,5 @@ namespace GameTest
             secondConf.ToString();
 
         }
-
-        private Configuration getConfig()
-        {
-            if (conf.Path == null)
-                conf.Path = "etherduels.conf";
-
-            //StreamReader streamR = null;
-            Stream stream = null;
-
-            try 
-            {
-                stream = File.Open(conf.Path, FileMode.Open);
-                //new StreamReader(conf.Path);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail("File.open() threw exception: " + e.ToString());
-                //Assert.Fail("new StreamReader() threw exception: " + e.ToString());
-            }
-
-            //string text = streamR.ReadToEnd();
-            //streamR.Close();
-
-            BinaryFormatter bFormatter = new BinaryFormatter();
-            Configuration deSerializedConfig = (Configuration)bFormatter.Deserialize(stream);
-            stream.Close();
-
-            return deSerializedConfig;
-        }
-
-
-        [TestMethod()]
-        public void UpdateTest2()
-        {
-
-        }
     }
 }

@@ -43,6 +43,10 @@ namespace EtherDuels.Config
         public Configuration()
         {
             keyConfigurations = new KeyboardConfiguration[10];
+            for (int i = 0; i < keyConfigurations.Length; i++)
+            {
+                keyConfigurations[i] = new KeyboardConfiguration();
+            }
         }
 
         private float volumeMusic;
