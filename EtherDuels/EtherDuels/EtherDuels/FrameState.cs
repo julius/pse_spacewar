@@ -26,6 +26,12 @@ namespace EtherDuels
             this.keyboardState = new EDKeyboardState(keyboardState);
         }
 
+        public FrameState(GameTime gameTime, EDKeyboardState keyboardState)
+        {
+            this.gameTime = gameTime;
+            this.keyboardState = keyboardState;
+        }
+
         //TODO: geht das schöner?
         /// <summary>
         /// Needed for testing.

@@ -20,17 +20,17 @@ namespace EtherDuels
             this.keyboardState = keyboardState;
         }
 
-        public bool IsKeyDown(Keys key)
+        virtual public bool IsKeyDown(Keys key)
         {
             return keyboardState.IsKeyDown(key);
         }
 
-        public bool IsKeyUp(Keys key)
+        virtual public bool IsKeyUp(Keys key)
         {
             return keyboardState.IsKeyUp(key);
         }
 
-        public Keys[] GetPressedKeys()
+        virtual public Keys[] GetPressedKeys()
         {
             return keyboardState.GetPressedKeys();
         }

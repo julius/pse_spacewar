@@ -36,7 +36,7 @@ namespace EtherDuels.Menu.Model
         /// When true, the menu is waiting for a single key.
         /// Used for changing keyboard controls of players.
         /// </summary>
-        public bool IsWaitingForKey
+        virtual public bool IsWaitingForKey
         {
             get { return this.keyWaiter != null; }
         }
@@ -55,7 +55,7 @@ namespace EtherDuels.Menu.Model
         /// See WaitForKey(..)
         /// </summary>
         /// <param name="key">Key which is pressed</param>
-        public void SetWaitingKey(Keys key)
+        virtual public void SetWaitingKey(Keys key)
         {
             this.keyWaiter(key);
             this.keyWaiter = null;

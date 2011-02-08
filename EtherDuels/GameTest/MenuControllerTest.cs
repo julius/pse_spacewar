@@ -127,13 +127,18 @@ namespace GameTest
         ///A test for Update
         ///</summary>
         [TestMethod()]
-        public void UpdateTest()
+        public void UpdateTest1()
         {
             // setup FrameState
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
-            Keys[] keys = { Keys.Down, Keys.Up, Keys.Enter };
-            Mock<KeyboardState> mockKeyboardState = new Mock<KeyboardState>(keys);
-            Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, new KeyboardState(keys));
+            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
+            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.Up)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.Up)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.Down)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.Down)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.Enter)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.Enter)).Returns(true);
+            Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, mockKeyboardState.Object);
 
             Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
             Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
@@ -149,6 +154,32 @@ namespace GameTest
             mockMenuModel.Verify(m => m.Down(), Times.Exactly(1));
             mockMenuModel.Verify(m => m.Up(), Times.Exactly(1));
             mockMenuModel.Verify(m => m.Action(), Times.Exactly(1));
+        }
+
+        /// <summary>
+        ///A test for Update
+        ///</summary>
+        [TestMethod()]
+        public void UpdateTest2()
+        {
+            // setup FrameState
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
+            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
+            Keys[] keys = { Keys.Down };
+            mockKeyboardState.Setup(m => m.GetPressedKeys()).Returns(keys);
+            Mock<FrameState> mockFrameState = new Mock<FrameState>(gameTime, mockKeyboardState.Object);
+
+            Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
+            Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
+
+            Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
+            mockMenuModel.SetupGet<bool>(m => m.IsWaitingForKey).Returns(true);
+            mockMenuModel.Setup(m => m.SetWaitingKey(keys[0]));
+            
+            MenuController target = new MenuController(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
+            target.Update(mockFrameState.Object);
+
+            mockMenuModel.Verify(m => m.SetWaitingKey(keys[0]), Times.Exactly(1));
         }
     }
 }
