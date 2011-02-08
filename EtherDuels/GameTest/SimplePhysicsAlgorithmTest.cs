@@ -140,7 +140,6 @@ namespace GameTest
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, configuration);
             target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 0)));
 
-            // TODO an den code anpassen, siehe SimplePhysicsAlgorithm
             Assert.AreEqual(worldObject.Velocity, expectedVel);
         }
     }
