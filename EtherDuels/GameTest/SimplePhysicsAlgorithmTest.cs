@@ -129,11 +129,19 @@ namespace GameTest
             planet.Mass = 0.0;
             world.AddWorldObject(worldObject);
 
+            Vector2 expectedVel = worldObject.Velocity;
+            if (expectedVel.Length() > MAX_VELOCITY)
+            {
+                expectedVel.Normalize();
+                expectedVel *= MAX_VELOCITY;
+                worldObject.Velocity = expectedVel;
+            }
+
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, configuration);
             target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 0)));
 
             // TODO an den code anpassen, siehe SimplePhysicsAlgorithm
-            Assert.IsTrue(worldObject.Velocity.X == MAX_VELOCITY && worldObject.Velocity.Y == MAX_VELOCITY);
+            Assert.AreEqual(worldObject.Velocity, expectedVel);
         }
     }
 }
