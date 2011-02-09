@@ -18,7 +18,7 @@ namespace EtherDuels.Game.Model
         public Projectile()
         {
             this.Mass = 300;
-            this.Radius = 20;
+            this.Radius = 40;
             this.Rotation = 0;
             this.Position = new Vector2(0, 0);
             this.Velocity = new Vector2(0,0);
