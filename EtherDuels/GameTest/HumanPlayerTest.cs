@@ -128,7 +128,7 @@ namespace GameTest
 
             target.Update(frameState);
 
-            Assert.AreEqual(new Vector2(0f, -1f), spaceship.Velocity);
+            Assert.AreEqual(new Vector2(0f, -10f), spaceship.Velocity);
         }
 
         /// <summary>
