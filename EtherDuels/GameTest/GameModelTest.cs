@@ -75,15 +75,7 @@ namespace GameTest
         [TestInitialize()]
         public void Initialize()
         {
-            // test with a random number of players to be sure it works every time.
-            Random random = new Random();
-            n = 1 + random.Next() % 9; // there must be a minimum of 1 player
-
-            for (int i = 0; i < n; i++)
-            {
-                mockPlayers.Add(new Mock<Player>());
-                players.Add(mockPlayers[i].Object);
-            }
+            n = 10;
         }
 
 
@@ -93,27 +85,35 @@ namespace GameTest
         [TestMethod()]
         public void RemovePlayerTest()
         {
-            GameModel target = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
-
-            // choose one of the players randomly
-            Random random = new Random();
-            int x;
-            if (n == 1)
+            for (int i = 1; i < n; i++)
             {
-                x = 0;
-            }
-            else
-            {
-                x = random.Next() % (n - 1);
-            }
-            
-            Player player = players[x];
-            
-            // execute RemovePlayer(player)
-            target.RemovePlayer(player);
+                mockPlayers.Clear();
+                players.Clear();
 
-            // verify that player has been removed from players
-            Assert.IsFalse(players.Contains(player));
+                for (int j = 0; j < i; j++)
+                {
+                    mockPlayers.Add(new Mock<Player>());
+                    players.Add(mockPlayers[j].Object);
+                }
+
+                // create target
+                GameModel target = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
+
+
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    Player player = players[j];
+
+                    // execute RemovePlayer(player)
+                    target.RemovePlayer(player);
+
+                    // verify that player has been removed from players
+                    Assert.IsFalse(players.Contains(player));
+
+                    // reset players for next test
+                    players.Add(player);
+                }
+            }
         }
 
         /// <summary>
@@ -122,26 +122,37 @@ namespace GameTest
         [TestMethod()]
         public void UpdateTest()
         {
-            
-            
-            GameModel target = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
-            FrameState frameState = new FrameState();
-
-            // set up mock functionalities
-            mockPhysics.Setup(m => m.Update(frameState.GameTime));
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i < n; i++)
             {
-                mockPlayers[i].Setup(m => m.Update(frameState));
-            }
+                mockPlayers.Clear();
+                players.Clear();
 
-            // execute Update(frameState)
-            target.Update(frameState);
-            
-            // verify functionality of the Update function
-            mockPhysics.Verify(m => m.Update(frameState.GameTime), Times.Exactly(1));
-            for (int i = 0; i < n; i++)
-            {
-                mockPlayers[i].Verify(m => m.Update(frameState), Times.Exactly(1));
+                for (int j = 0; j < i; j++)
+                {
+                    mockPlayers.Add(new Mock<Player>());
+                    players.Add(mockPlayers[j].Object);
+                }
+
+                // create target
+                GameModel target = new GameModel(mockFactory.Object, mockPhysics.Object, players, mockWorld.Object);
+                FrameState frameState = new FrameState();
+
+                // set up mock functionalities
+                mockPhysics.Setup(m => m.Update(frameState.GameTime));
+                for (int j = 0; j < i; j++)
+                {
+                    mockPlayers[j].Setup(m => m.Update(frameState));
+                }
+
+                // execute Update(frameState)
+                target.Update(frameState);
+
+                // verify functionality of the Update function
+                mockPhysics.Verify(m => m.Update(frameState.GameTime), Times.Exactly(1));
+                for (int j = 0; j < i; j++)
+                {
+                    mockPlayers[j].Verify(m => m.Update(frameState), Times.Exactly(1));
+                }
             }
         }
     }

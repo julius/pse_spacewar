@@ -78,7 +78,7 @@ namespace EtherDuels.Game.Model
         public World World
         {
             get { return world; }
-            set { world = value; }
+            //set { world = value; }
         }
     }
 }
