@@ -217,7 +217,7 @@ namespace GameTest
 
             target.Update(frameState);
 
-            Assert.AreEqual(-1f, spaceship.Rotation);
+            Assert.AreEqual(-0.3f, spaceship.Rotation);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace GameTest
 
             target.Update(frameState);
 
-            Assert.AreEqual(2f, spaceship.Rotation);
+            Assert.AreEqual(0.6f, spaceship.Rotation);
         }
     }
 }
