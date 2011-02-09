@@ -142,5 +142,58 @@ namespace GameTest
 
             Assert.AreEqual(worldObject.Velocity, expectedVel);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        public void UpdateDifficultyTest()
+        {
+            Mock<ConfigurationRetriever> mockConfRet = new Mock<ConfigurationRetriever>();
+            mockConfRet.SetupGet(m => m.Difficulty).Returns(1);
+
+            // setup a big planet
+            Planet bigPlanet = new Planet();
+            bigPlanet.Mass = 10000;
+            bigPlanet.IsFlexible = false;
+            bigPlanet.Position = Vector2.Zero;
+            world.AddWorldObject(bigPlanet);
+
+            // setup a small planet
+            Planet smallPlanet = new Planet();
+            smallPlanet.Mass = 100;
+            smallPlanet.IsFlexible = true;
+            smallPlanet.Position = new Vector2(400, 400);
+            smallPlanet.Velocity = new Vector2(80, 80);
+            world.AddWorldObject(smallPlanet);
+
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, mockConfRet.Object);
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
+
+            Assert.Inconclusive("Not done yet.");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        public void UpdateDeleteExplosionTest()
+        {
+            // setup the explosion
+            Explosion explosion = new Explosion();
+            explosion.CreationTime = new TimeSpan(0, 0, 0, 0, 0);
+            
+            // setup  a World mock
+            Mock<World> mockWorld = new Mock<World>();
+            WorldObject[] worldObjects = { explosion };
+            mockWorld.SetupGet(m => m.WorldObjects).Returns(worldObjects);
+            mockWorld.Setup(m => m.RemoveWorldObject(explosion));
+      
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, mockWorld.Object, configuration);
+            target.Update(new GameTime(new TimeSpan(0, 0, 0, 1, 0), new TimeSpan(0, 0, 0, 0, 100)));
+
+            Assert.IsTrue(explosion.Health == 0);
+            mockWorld.Verify(m => m.RemoveWorldObject(explosion), Times.Exactly(1));
+        }
     }
 }
