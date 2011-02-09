@@ -172,5 +172,28 @@ namespace GameTest
 
             Assert.Inconclusive("Not done yet.");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        public void UpdateDeleteExplosionTest()
+        {
+            // setup the explosion
+            Explosion explosion = new Explosion();
+            explosion.CreationTime = new TimeSpan(0, 0, 0, 0, 0);
+            
+            // setup  a World mock
+            Mock<World> mockWorld = new Mock<World>();
+            WorldObject[] worldObjects = { explosion };
+            mockWorld.SetupGet(m => m.WorldObjects).Returns(worldObjects);
+            mockWorld.Setup(m => m.RemoveWorldObject(explosion));
+      
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, mockWorld.Object, configuration);
+            target.Update(new GameTime(new TimeSpan(0, 0, 0, 1, 0), new TimeSpan(0, 0, 0, 0, 100)));
+
+            Assert.IsTrue(explosion.Health == 0);
+            mockWorld.Verify(m => m.RemoveWorldObject(explosion), Times.Exactly(1));
+        }
     }
 }

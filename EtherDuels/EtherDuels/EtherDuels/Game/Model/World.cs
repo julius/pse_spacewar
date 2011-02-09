@@ -34,7 +34,7 @@ namespace EtherDuels.Game.Model
         /// <summary>
         /// Returns an array of all the world objects that exist in the world at this moment.
         /// </summary>
-        public WorldObject[] WorldObjects
+        virtual public WorldObject[] WorldObjects
         {
             get { return worldObjects.ToArray<WorldObject>(); }
         }
