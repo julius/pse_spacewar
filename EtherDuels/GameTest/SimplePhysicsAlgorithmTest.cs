@@ -28,6 +28,10 @@ namespace GameTest
         private Mock<CollisionHandler> mockCollisionHandler;
         private Planet planet;
         private World world;
+        // G: gravitational constant
+        public static double G = 6.67428E-11;  // in m^3/kg/s^2
+        // N: normalisation factor, to downsize the dimensions of the universe to those of our game
+        public static float N = 300000;        // must NOT be 0!!
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -152,25 +156,40 @@ namespace GameTest
             Mock<ConfigurationRetriever> mockConfRet = new Mock<ConfigurationRetriever>();
             mockConfRet.SetupGet(m => m.Difficulty).Returns(1);
 
-            // setup a big planet
+            // set up a big planet
             Planet bigPlanet = new Planet();
-            bigPlanet.Mass = 10000;
             bigPlanet.IsFlexible = false;
-            bigPlanet.Position = Vector2.Zero;
+            bigPlanet.Position = new Vector2(0, 0);
+            bigPlanet.Radius = 300;
             world.AddWorldObject(bigPlanet);
 
-            // setup a small planet
+            // set up a small planet
+            float desiredDistance = 700;
+
             Planet smallPlanet = new Planet();
-            smallPlanet.Mass = 100;
             smallPlanet.IsFlexible = true;
-            smallPlanet.Position = new Vector2(400, 400);
-            smallPlanet.Velocity = new Vector2(80, 80);
+            smallPlanet.Position = new Vector2(desiredDistance, 0);
+
+            // calculate velocity needed to circuit in orbit
+            float smallPlanetVelocity = (float)Math.Sqrt(bigPlanet.Mass * G / desiredDistance / (N * 1000));
+            smallPlanet.Velocity = new Vector2(0, smallPlanetVelocity);
+            smallPlanet.Radius = 150;
             world.AddWorldObject(smallPlanet);
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, mockConfRet.Object);
-            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
 
-            Assert.Inconclusive("Not done yet.");
+            //TODO: kay problem is: wenn TimeSpan zu groß, funzt UpdateGravity nicht richtig. Muss ich mal in der Physik untersuchen.
+            for (int i = 0; i < 1000000; i++)
+            {
+                target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 10)));
+            }
+
+            // check whether the distance between the planets is still about the same
+            float distance = Vector2.Distance(bigPlanet.Position, smallPlanet.Position);
+            System.Console.Write("desired: " + desiredDistance + "; actual: " + distance + "; position: " + smallPlanet.Position);
+
+            Assert.IsTrue(distance <= desiredDistance + 10);
+
         }
 
         /// <summary>
