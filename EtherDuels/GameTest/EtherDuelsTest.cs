@@ -177,9 +177,17 @@ namespace GameTest
         [TestMethod()]
         public void OnResumeGameTest()
         {
-            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(); // TODO: Initialize to an appropriate value
+            // setup the ProgramState
+            ProgramState programState = new ProgramState();
+            programState.GameState = GameState.GamePaused;
+            programState.MenuState = MenuState.InMenu;
+
+            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(programState);
+
             target.OnResumeGame();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.AreEqual(programState.GameState, GameState.InGame);
+            Assert.AreEqual(programState.MenuState, MenuState.NoMenu);
         }
     }
 }
