@@ -92,7 +92,77 @@ namespace EtherDuels.Game.View
                 mesh.Draw();
              }
 
-             this.model.Draw(matrixWorld, matrixView, matrixProjection); 
+             this.model.Draw(matrixWorld, matrixView, matrixProjection);
+
+            
+             if (this.worldObject is Spaceship || this.worldObject is Projectile)
+             {
+                 Vector2 position = worldObject.Position;
+
+                 if (4000 - this.worldObject.Position.X < this.worldObject.Radius)
+                 {
+                    
+                     this.worldObject.Position = new Vector2((-8000 + this.worldObject.Position.X), this.worldObject.Position.Y);
+
+                     matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
+
+                 }
+                 else
+                 {
+                     if (4000 + this.worldObject.Position.X < this.worldObject.Radius)
+                     {
+                         this.worldObject.Position = new Vector2((8000 + this.worldObject.Position.X), this.worldObject.Position.Y);
+
+                         matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
+
+                     }
+
+                 }
+
+                 if (2900 - this.worldObject.Position.Y < this.worldObject.Radius)
+                 {
+                    
+                     this.worldObject.Position = new Vector2(this.worldObject.Position.X, (-6200 + this.worldObject.Position.Y));
+
+                     matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
+
+                    
+                 }
+                 else
+                 {
+                     if (3300 + this.worldObject.Position.Y < this.worldObject.Radius)
+                     {
+                         
+                         this.worldObject.Position = new Vector2(this.worldObject.Position.X,(6200 + this.worldObject.Position.Y));
+
+                         matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
+                                                                      
+                     }
+                 }
+
+                 foreach (ModelMesh mesh in model.Meshes)
+                 {
+                     foreach (BasicEffect effect in mesh.Effects)
+                     {
+                         effect.EnableDefaultLighting();
+                         effect.World = matrixWorld;
+                         effect.View = matrixView;
+                         effect.Projection = matrixProjection;
+                         effect.PreferPerPixelLighting = true;
+                         effect.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+                         effect.DiffuseColor = new Vector3(0.8f);
+                         effect.AmbientLightColor = new Vector3(0.7f, 0.5f, 0.7f);
+                     }
+
+                     mesh.Draw();
+                 }
+
+                 this.model.Draw(matrixWorld, matrixView, matrixProjection);
+
+                 this.worldObject.Position = position;
+
+             }
+         
         }
     }
 }
