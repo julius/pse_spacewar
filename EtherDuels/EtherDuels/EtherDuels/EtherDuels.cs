@@ -277,6 +277,7 @@ namespace EtherDuels
         /// </summary>
         public void OnQuitProgram()
         {
+            MediaPlayer.Stop();
             this.Exit();
         }
 
