@@ -30,7 +30,7 @@ namespace EtherDuels
     /// A programstate cointains the state of its menu and
     /// its game. It changes dynamically while using the program.
     /// </summary>
-    class ProgramState
+    public class ProgramState
     {
         private GameState gameState;
 

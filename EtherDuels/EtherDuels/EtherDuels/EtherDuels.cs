@@ -28,8 +28,24 @@ namespace EtherDuels
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         private MenuController menuController;
+
+        public MenuController MenuController
+        {
+            get { return menuController; }
+            set { menuController = value; }
+        }
+
+
         private GameController gameController;
+
+        public GameController GameController
+        {
+            get { return gameController; }
+            set { gameController = value; }
+        }
+
         private ProgramState programState;
 
         /// <summary>
@@ -39,6 +55,22 @@ namespace EtherDuels
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            // Build Programstate
+            this.programState = new ProgramState();
+            programState.GameState = GameState.NoGame;
+            programState.MenuState = MenuState.InMenu;
+        }
+
+        /// <summary>
+        /// Creates a new instance of EtherDuels. Only one is needed for the game.
+        /// </summary>
+        public EtherDuels(ProgramState programState)
+        {
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+
+            this.programState = programState;
         }
 
         /// <summary>
@@ -145,11 +177,6 @@ namespace EtherDuels
             GameBuilder gameBuilder = new RubyGameBuilder("level.rb", configuration);
 
             this.gameController = new GameController(gameBuilder, this);
-
-            // Build Programstate
-            this.programState = new ProgramState();
-            programState.GameState = GameState.NoGame;
-            programState.MenuState = MenuState.InMenu;
 
             // play background music
             MediaPlayer.IsRepeating = true;
