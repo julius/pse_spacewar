@@ -158,6 +158,7 @@ namespace GameTest
             mockGameController.Verify(m => m.CreateGame(), Times.Exactly(1));
         }
 
+/*
         /// <summary>
         ///A test for OnQuitProgram
         ///</summary>
@@ -170,6 +171,7 @@ namespace GameTest
 
             Assert.Inconclusive("There is no behaviour to be tested.");
         }
+*/ 
 
         /// <summary>
         ///A test for OnResumeGame
