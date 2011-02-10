@@ -126,25 +126,27 @@ namespace GameTest
         public void UpdateMaxSpeedTest()
         {
             float MAX_VELOCITY = 299792458.0f;
-            WorldObject worldObject = new WorldObject();
-            worldObject.Position = new Vector2(0.0f, 0.0f);
-            worldObject.Velocity = new Vector2(MAX_VELOCITY + 5.0f, MAX_VELOCITY + 1.0f);
+            WorldObject worldObject1 = new WorldObject();
+            worldObject1.Position = new Vector2(0.0f, 0.0f);
+            worldObject1.Velocity = new Vector2(MAX_VELOCITY + 5.0f, MAX_VELOCITY + 1.0f);
+            world.AddWorldObject(worldObject1);
+
+            WorldObject worldObject2 = new WorldObject();
+            worldObject2.Position = new Vector2(200, 200);
+            worldObject2.Velocity = Vector2.One;
+            world.AddWorldObject(worldObject2);
 
             planet.Mass = 0.0;
-            world.AddWorldObject(worldObject);
 
-            Vector2 expectedVel = worldObject.Velocity;
-            if (expectedVel.Length() > MAX_VELOCITY)
-            {
-                expectedVel.Normalize();
-                expectedVel *= MAX_VELOCITY;
-                worldObject.Velocity = expectedVel;
-            }
+            Vector2 expectedVel = worldObject1.Velocity;
+            expectedVel.Normalize();
+            expectedVel *= MAX_VELOCITY;
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, configuration);
-            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 0)));
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1)));
 
-            Assert.AreEqual(worldObject.Velocity, expectedVel);
+            Assert.AreEqual(worldObject1.Velocity, expectedVel);
+            Assert.AreEqual(worldObject2.Velocity, Vector2.One);
         }
 
         /// <summary>
