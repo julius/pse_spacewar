@@ -5,6 +5,7 @@ using EtherDuels.Menu;
 using Moq;
 using EtherDuels.Menu.Model;
 using EtherDuels.Menu.View;
+using EtherDuels.Game;
 
 namespace GameTest
 {
@@ -136,9 +137,25 @@ namespace GameTest
         [TestMethod()]
         public void OnNewGameTest()
         {
-            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(); // TODO: Initialize to an appropriate value
+            // setup the ProgramState
+            ProgramState programState = new ProgramState();
+            programState.GameState = GameState.NoGame;
+            programState.MenuState = MenuState.InMenu;
+
+            Mock<GameBuilder> mockGameBuilder = new Mock<GameBuilder>();
+            Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
+
+            Mock<GameController> mockGameController = new Mock<GameController>(mockGameBuilder.Object, mockGameHandler.Object);
+            mockGameController.Setup(m => m.CreateGame());
+
+            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(programState);
+            target.GameController = mockGameController.Object;
+
             target.OnNewGame();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.AreEqual(programState.GameState, GameState.InGame);
+            Assert.AreEqual(programState.MenuState, MenuState.NoMenu);
+            mockGameController.Verify(m => m.CreateGame(), Times.Exactly(1));
         }
 
         /// <summary>

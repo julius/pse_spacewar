@@ -55,7 +55,7 @@ namespace EtherDuels.Game
        /// Creates a new game using its dedicated GameBuilder.
        /// A game consists of a model and its view.
        /// </summary>
-        public void CreateGame()
+        virtual public void CreateGame()
         {            
             gameModel = gameBuilder.BuildModel();
             gameView = gameBuilder.BuildView(gameModel);
