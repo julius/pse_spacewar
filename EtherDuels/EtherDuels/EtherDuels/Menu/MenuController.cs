@@ -98,7 +98,7 @@ namespace EtherDuels.Menu
         /// <summary>
         /// Sets the pause menu active.
         /// </summary>
-        public void SetPauseMenu()
+        virtual public void SetPauseMenu()
         {
             this.menuModel.SetPauseMenu();
         }

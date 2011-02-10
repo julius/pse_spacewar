@@ -106,9 +106,28 @@ namespace GameTest
         [TestMethod()]
         public void OnGamePausedTest()
         {
-            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(); // TODO: Initialize to an appropriate value
+            // setup the ProgramState
+            ProgramState programState = new ProgramState();
+            programState.GameState = GameState.InGame;
+            programState.MenuState = MenuState.NoMenu;
+
+            Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
+            Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
+            Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
+
+            // setup MenuController mock
+            Mock<MenuController> mockMenuController = new Mock<MenuController>(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
+            mockMenuController.Setup(m => m.SetPauseMenu());
+
+            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(programState);
+            target.MenuController = mockMenuController.Object;
+
             target.OnGamePaused();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.AreEqual(programState.GameState, GameState.GamePaused);
+            Assert.AreEqual(programState.MenuState, MenuState.InMenu);
+
+            mockMenuController.Verify(m => m.SetPauseMenu(), Times.Exactly(1));
         }
 
         /// <summary>
