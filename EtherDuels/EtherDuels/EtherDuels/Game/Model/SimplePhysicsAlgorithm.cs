@@ -51,8 +51,16 @@ namespace EtherDuels.Game.Model
                 UpdateDifficulty();
             }
 
-            UpdateGravity(gameTime);
-            UpdatePositions(gameTime);
+            //TODO: Übergangsloesung..weiss nich ob das so schön ist
+            GameTime reducedGameTime = new GameTime(gameTime.TotalGameTime, new TimeSpan(0, 0, 0, 0, 1));
+            TimeSpan countingTimeSpan = new TimeSpan(0, 0, 0, 0, 0);
+            while (countingTimeSpan < gameTime.ElapsedGameTime)
+            {
+                countingTimeSpan += reducedGameTime.ElapsedGameTime;
+                UpdateGravity(reducedGameTime);
+                UpdatePositions(reducedGameTime);
+            }
+           
 
             foreach (Planet planet in world.Planets)
             {
