@@ -107,16 +107,28 @@ namespace GameTest
             object2.Position = new Vector2(1.0f, 1.0f);
             object2.Radius = 1.0f;
 
+            WorldObject object3 = new WorldObject();
+            object3.Position = new Vector2(200, 200);
+            object3.Radius = 1.0f;
+
+            WorldObject object4 = new WorldObject();
+            object4.Position = new Vector2(201, 201);
+            object4.Radius = 1.0f;
+
             world.AddWorldObject(object1);
             world.AddWorldObject(object2);
 
             mockCollisionHandler.Setup(m => m.OnCollision(object1, object2));
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, configuration);
-            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
-            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100)));
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1)));
+
+            world.AddWorldObject(object3);
+            world.AddWorldObject(object4);
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 1), new TimeSpan(0, 0, 0, 0, 1)));
 
             mockCollisionHandler.Verify(m => m.OnCollision(object1, object2), Times.Exactly(1));
+            mockCollisionHandler.Verify(m => m.OnCollision(object3, object4), Times.Exactly(1));
         }
 
         /// <summary>
