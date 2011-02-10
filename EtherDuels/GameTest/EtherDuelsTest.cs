@@ -82,15 +82,15 @@ namespace GameTest
             programState.GameState = GameState.InGame;
             programState.MenuState = MenuState.NoMenu;
 
-            Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
             Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
             Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
 
+            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(programState);
+            
             // setup MenuController mock
-            Mock<MenuController> mockMenuController = new Mock<MenuController>(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
+            Mock<MenuController> mockMenuController = new Mock<MenuController>(target, mockMenuModel.Object, mockMenuView.Object);
             mockMenuController.Setup(m => m.SetGameEndedMenu(playerID));
 
-            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(programState);
             target.MenuController = mockMenuController.Object;
 
             target.OnGameEnded(playerID);
@@ -112,15 +112,15 @@ namespace GameTest
             programState.GameState = GameState.InGame;
             programState.MenuState = MenuState.NoMenu;
 
-            Mock<MenuHandler> mockMenuHandler = new Mock<MenuHandler>();
             Mock<MenuModel> mockMenuModel = new Mock<MenuModel>();
             Mock<IMenuView> mockMenuView = new Mock<IMenuView>();
 
-            // setup MenuController mock
-            Mock<MenuController> mockMenuController = new Mock<MenuController>(mockMenuHandler.Object, mockMenuModel.Object, mockMenuView.Object);
-            mockMenuController.Setup(m => m.SetPauseMenu());
-
             EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(programState);
+
+            // setup MenuController mock
+            Mock<MenuController> mockMenuController = new Mock<MenuController>(target, mockMenuModel.Object, mockMenuView.Object);
+            mockMenuController.Setup(m => m.SetPauseMenu());
+            
             target.MenuController = mockMenuController.Object;
 
             target.OnGamePaused();
@@ -143,12 +143,13 @@ namespace GameTest
             programState.MenuState = MenuState.InMenu;
 
             Mock<GameBuilder> mockGameBuilder = new Mock<GameBuilder>();
-            Mock<GameHandler> mockGameHandler = new Mock<GameHandler>();
-
-            Mock<GameController> mockGameController = new Mock<GameController>(mockGameBuilder.Object, mockGameHandler.Object);
-            mockGameController.Setup(m => m.CreateGame());
 
             EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(programState);
+
+            Mock<GameController> mockGameController = new Mock<GameController>(mockGameBuilder.Object, target);
+            mockGameController.Setup(m => m.CreateGame());
+
+
             target.GameController = mockGameController.Object;
 
             target.OnNewGame();
