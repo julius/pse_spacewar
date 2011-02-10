@@ -194,7 +194,7 @@ namespace GameTest
 
             target.Update(frameState);
 
-            bool correctX = (spaceship.Velocity.X > 0.99) && (spaceship.Velocity.X < 1.001);
+            bool correctX = (spaceship.Velocity.X > 9.99) && (spaceship.Velocity.X < 10.001);
             bool correctY = (spaceship.Velocity.Y > -0.001) && (spaceship.Velocity.Y < 0.001);
             Assert.AreEqual(true, correctX);
             Assert.AreEqual(true, correctY);
