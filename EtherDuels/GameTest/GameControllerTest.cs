@@ -146,7 +146,8 @@ namespace GameTest
             Vector2 expectedProjectileVelocity = object1.Velocity;
             expectedProjectileVelocity.X += (float)Math.Sin(object1.Rotation) * velocityFactor;
             expectedProjectileVelocity.Y -= (float)Math.Cos(object1.Rotation) * velocityFactor;
-            
+            Assert.AreEqual(expectedProjectileVelocity, projectile.Velocity);
+
             // verify the called mock methods
             mockFactory.Verify(m => m.CreateProjectile(weapon), Times.Exactly(1));
             mockFactory.Verify(m => m.CreateProjectileView(weapon, projectile), Times.Exactly(1));
