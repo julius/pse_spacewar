@@ -51,7 +51,8 @@ namespace EtherDuels.Game.Model
                 UpdateDifficulty();
             }
 
-            //TODO: Übergangsloesung..weiss nich ob das so schön ist
+            UpdateExplosions(gameTime);
+
             GameTime reducedGameTime = new GameTime(gameTime.TotalGameTime, new TimeSpan(0, 0, 0, 0, 1));
             TimeSpan countingTimeSpan = new TimeSpan(0, 0, 0, 0, 0);
             while (countingTimeSpan < gameTime.ElapsedGameTime)
@@ -128,16 +129,6 @@ namespace EtherDuels.Game.Model
         {
             foreach (WorldObject worldObject in worldObjects)
             {
-                if (worldObject is Explosion)
-                {   
-                    // deleting explosions after a certain amount of time
-                    if ((gameTime.TotalGameTime.TotalMilliseconds - (worldObject as Explosion).CreationTime.TotalMilliseconds) > 100)
-                    {
-                        worldObject.Health = 0;
-                        world.RemoveWorldObject(worldObject);
-                    }
-                }
-
                 // limit velocities
                 Vector2 velocity = worldObject.Velocity;
                 if (velocity.Length() > MAX_VELOCITY)
@@ -162,6 +153,21 @@ namespace EtherDuels.Game.Model
             }
         }
 
+        private void UpdateExplosions(GameTime gameTime)
+        {
+            foreach (WorldObject worldObject in worldObjects)
+            {
+                if (worldObject is Explosion)
+                {
+                    // deleting explosions after a certain amount of time
+                    if ((gameTime.TotalGameTime.TotalMilliseconds - (worldObject as Explosion).CreationTime.TotalMilliseconds) > 100)
+                    {
+                        worldObject.Health = 0;
+                        world.RemoveWorldObject(worldObject);
+                    }
+                }
+            }
+        }
         
         // Applies the effect that a changed difficulty level has on world objects.
         private void UpdateDifficulty()
