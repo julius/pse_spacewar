@@ -94,51 +94,45 @@ namespace EtherDuels.Game.View
 
              this.model.Draw(matrixWorld, matrixView, matrixProjection);
 
-            
-             if (this.worldObject is Spaceship || this.worldObject is Projectile)
+              
+            /* Draws the spaceship twice if it leaves the window boundaries.*/
+             if (this.worldObject is Spaceship )
              {
                  Vector2 position = worldObject.Position;
 
-                 if (4000 - this.worldObject.Position.X < this.worldObject.Radius)
+                 if (4000 - this.worldObject.Position.X < this.worldObject.Radius) // right boundary 
                  {
                     
                      this.worldObject.Position = new Vector2((-8000 + this.worldObject.Position.X), this.worldObject.Position.Y);
 
-                     matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
-
                  }
                  else
                  {
-                     if (4000 + this.worldObject.Position.X < this.worldObject.Radius)
+                     if (4000 + this.worldObject.Position.X < this.worldObject.Radius) // left boundary
                      {
                          this.worldObject.Position = new Vector2((8000 + this.worldObject.Position.X), this.worldObject.Position.Y);
-
-                         matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
 
                      }
 
                  }
 
-                 if (2900 - this.worldObject.Position.Y < this.worldObject.Radius)
+                 if (2900 - this.worldObject.Position.Y < this.worldObject.Radius) // lower boundary
                  {
                     
                      this.worldObject.Position = new Vector2(this.worldObject.Position.X, (-6200 + this.worldObject.Position.Y));
 
-                     matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
-
-                    
                  }
                  else
                  {
-                     if (3300 + this.worldObject.Position.Y < this.worldObject.Radius)
+                     if (3300 + this.worldObject.Position.Y < this.worldObject.Radius) // upper boundary
                      {
                          
                          this.worldObject.Position = new Vector2(this.worldObject.Position.X,(6200 + this.worldObject.Position.Y));
-
-                         matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
-                                                                      
+                                
                      }
                  }
+
+                 matrixWorld = Matrix.CreateScale(1.0f) * Matrix.CreateRotationY(-worldObject.Rotation) * Matrix.CreateTranslation(new Vector3(this.worldObject.Position.X, 0, this.worldObject.Position.Y));
 
                  foreach (ModelMesh mesh in model.Meshes)
                  {
