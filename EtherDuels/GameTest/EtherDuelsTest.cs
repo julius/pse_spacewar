@@ -164,9 +164,11 @@ namespace GameTest
         [TestMethod()]
         public void OnQuitProgramTest()
         {
-            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels(); // TODO: Initialize to an appropriate value
+            EtherDuels.EtherDuels target = new EtherDuels.EtherDuels();
+
             target.OnQuitProgram();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+
+            Assert.Inconclusive("There is no behaviour to be tested.");
         }
 
         /// <summary>
