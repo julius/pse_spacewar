@@ -26,6 +26,7 @@ namespace GameTest
         private Mock<InputConfigurationRetriever> mockInputConfigurationRetriever;
         private Spaceship spaceship;
         private HumanPlayer target;
+        private Weapon[] weapons;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -81,11 +82,16 @@ namespace GameTest
             this.mockInputConfigurationRetriever = new Moq.Mock<InputConfigurationRetriever>();
             this.spaceship = new Spaceship();
 
+            weapons = (Weapon[])Enum.GetValues(typeof(Weapon));
+
+            // default keyboard configuration for a player
             mockInputConfigurationRetriever.Setup(b => b.Fire).Returns(Keys.Space);
             mockInputConfigurationRetriever.Setup(b => b.Forward).Returns(Keys.Up);
             mockInputConfigurationRetriever.Setup(b => b.Backward).Returns(Keys.Down);
             mockInputConfigurationRetriever.Setup(b => b.Left).Returns(Keys.Left);
             mockInputConfigurationRetriever.Setup(b => b.Right).Returns(Keys.Right);
+            mockInputConfigurationRetriever.Setup(b => b.NextWeapon).Returns(Keys.P);
+            mockInputConfigurationRetriever.Setup(b => b.PrevWeapon).Returns(Keys.O);
         }
 
         /// <summary>
@@ -111,6 +117,60 @@ namespace GameTest
         }
 
         /// <summary>
+        /// Tests switching to the next weapon.
+        /// </summary>
+        [TestMethod()]
+        public void UpdateNextWeaponTest()
+        {
+            this.target = new HumanPlayer(playerId, mockPlayerHandler.Object, Color.Blue, mockInputConfigurationRetriever.Object);
+            this.target.Spaceship = this.spaceship;
+            
+            Weapon currentWeapon = weapons[0];
+            spaceship.CurrentWeapon = weapons[0];
+
+            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
+            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.P)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.P)).Returns(true);
+
+            FrameState frameState = new FrameState(null, mockKeyboardState.Object);
+
+            for (int i = 1; i < 7; i++)
+            {
+                currentWeapon = weapons[i % weapons.Length];
+                target.Update(frameState);
+                Assert.AreEqual(currentWeapon, spaceship.CurrentWeapon);
+            } 
+        }
+
+        /// <summary>
+        /// Tests switching to the previous weapon.
+        /// </summary>
+        [TestMethod()]
+        public void UpdatePrevWeaponTest()
+        {
+            this.target = new HumanPlayer(playerId, mockPlayerHandler.Object, Color.Blue, mockInputConfigurationRetriever.Object);
+            this.target.Spaceship = this.spaceship;
+
+            Weapon currentWeapon = weapons[11 % weapons.Length];
+            spaceship.CurrentWeapon = weapons[11 % weapons.Length];
+
+            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
+            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.O)).Returns(true);
+            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.O)).Returns(true);
+
+            FrameState frameState = new FrameState(null, mockKeyboardState.Object);
+
+            for (int i = 10; i >= 0; i--)
+            {
+                currentWeapon = weapons[Math.Abs(i % weapons.Length)];
+                target.Update(frameState);
+                Assert.AreEqual(currentWeapon, spaceship.CurrentWeapon);
+            }
+        }
+
+        
+
+        /// <summary>
         /// Tests accelerating forward
         /// </summary>
         [TestMethod()]
@@ -118,17 +178,29 @@ namespace GameTest
         {
             this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
-
-            Keys[] keys = { Keys.Up };
-            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 100));
-            FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
-
             spaceship.Rotation = 0;
             spaceship.Velocity = new Vector2(0, 0);
 
-            target.Update(frameState);
+            Keys[] keys = { Keys.Up };
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1));
+            FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
+            float speed;
+            Vector2 velocity;
 
-            Assert.AreEqual(new Vector2(0f, -10f), spaceship.Velocity);
+            for (int i = 0; i < 20; i++)
+            {
+                speed = (float) gameTime.ElapsedGameTime.TotalMilliseconds * 0.1f;
+                velocity = spaceship.Velocity;
+                velocity.X += (float)Math.Sin(this.spaceship.Rotation) * speed;
+                velocity.Y -= (float)Math.Cos(this.spaceship.Rotation) * speed;
+
+                target.Update(frameState);
+
+                Assert.AreEqual(velocity, spaceship.Velocity);
+
+                // construct a new random TimeSpan for the next test
+                gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, i*(87 + i)));
+            }
         }
 
         /// <summary>
@@ -161,7 +233,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateAccelerationBackward1Test()
         {
-            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
+            /*this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Down };
@@ -173,7 +245,33 @@ namespace GameTest
 
             target.Update(frameState);
 
-            Assert.AreEqual(new Vector2(0f, 10f), spaceship.Velocity);
+            Assert.AreEqual(new Vector2(0f, 10f), spaceship.Velocity);*/
+
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
+            this.target.Spaceship = this.spaceship;
+            spaceship.Rotation = 0;
+            spaceship.Velocity = new Vector2(0, 0);
+
+            Keys[] keys = { Keys.Up };
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1));
+            FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
+            float speed;
+            Vector2 velocity;
+
+            for (int i = 0; i < 20; i++)
+            {
+                speed = (float)gameTime.ElapsedGameTime.TotalMilliseconds * -0.1f;
+                velocity = spaceship.Velocity;
+                velocity.X += (float)Math.Sin(this.spaceship.Rotation) * speed;
+                velocity.Y -= (float)Math.Cos(this.spaceship.Rotation) * speed;
+
+                target.Update(frameState);
+
+                Assert.AreEqual(velocity, spaceship.Velocity);
+
+                // construct a new random TimeSpan for the next test
+                gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, i * (69 + i)));
+            }
         }
 
         /// <summary>
@@ -206,7 +304,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateRotateLeftTest()
         {
-            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
+            /*this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Left };
@@ -217,7 +315,30 @@ namespace GameTest
 
             target.Update(frameState);
 
-            Assert.AreEqual(-0.3f, spaceship.Rotation);
+            Assert.AreEqual(-0.3f, spaceship.Rotation);*/
+
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
+            this.target.Spaceship = this.spaceship;
+            spaceship.Rotation = 0;
+
+            Keys[] keys = { Keys.Up };
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1));
+            FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
+            float speed;
+            float rotation;
+
+            for (int i = 0; i < 20; i++)
+            {
+                speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.003f;
+                rotation = spaceship.Rotation + (speed * -1f);
+
+                target.Update(frameState);
+
+                Assert.AreEqual(rotation, spaceship.Rotation);
+
+                // construct a new random TimeSpan for the next test
+                gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, i * (76 + i)));
+            }
         }
 
         /// <summary>
@@ -226,7 +347,7 @@ namespace GameTest
         [TestMethod()]
         public void UpdateRotateRightTest()
         {
-            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
+            /*this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Right };
@@ -237,7 +358,30 @@ namespace GameTest
 
             target.Update(frameState);
 
-            Assert.AreEqual(0.6f, spaceship.Rotation);
+            Assert.AreEqual(0.6f, spaceship.Rotation);*/
+
+            this.target = new HumanPlayer(playerId, null, Color.Blue, mockInputConfigurationRetriever.Object);
+            this.target.Spaceship = this.spaceship;
+            spaceship.Rotation = 0;
+
+            Keys[] keys = { Keys.Up };
+            GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1));
+            FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
+            float speed;
+            float rotation;
+
+            for (int i = 0; i < 20; i++)
+            {
+                speed = ((float)frameState.GameTime.ElapsedGameTime.TotalMilliseconds) * 0.003f;
+                rotation = spaceship.Rotation + (speed * 1f);
+
+                target.Update(frameState);
+
+                Assert.AreEqual(rotation, spaceship.Rotation);
+
+                // construct a new random TimeSpan for the next test
+                gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, i * (74 + i)));
+            }
         }
     }
 }
