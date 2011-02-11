@@ -77,14 +77,28 @@ namespace GameTest
         [TestMethod()]
         public void AddWorldObjectTest()
         {
-            WorldObject[] worldObjects = new WorldObject[0];
-            Planet planet = new Planet();
+            Planet planet1 = new Planet();
+            WorldObject[] worldObjects = {planet1};
 
             World target = new World(worldObjects);
             WorldObject spaceship1 = new Spaceship();
-            target.AddWorldObject(spaceship1);
+            WorldObject spaceship2 = new Spaceship();
+            WorldObject projectile = new Projectile();
+            WorldObject explosion = new Explosion();
+            WorldObject planet2 = new Planet();
 
+            target.AddWorldObject(spaceship1);
+            target.AddWorldObject(spaceship2);
+            target.AddWorldObject(projectile);
+            target.AddWorldObject(explosion);
+            target.AddWorldObject(planet2);
+
+            Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(planet1));
             Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(spaceship1));
+            Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(spaceship2));
+            Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(projectile));
+            Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(explosion));
+            Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(planet2));
         }
 
         /// <summary>
@@ -94,13 +108,24 @@ namespace GameTest
         public void RemoveWorldObjectTest()
         {
             Projectile projectile1 = new Projectile();
-            WorldObject[] worldObjects = { projectile1 };
+            Projectile projectile2 = new Projectile();
+            Spaceship spaceship = new Spaceship();
             Planet planet = new Planet();
+            Explosion explosion = new Explosion();
+
+            WorldObject[] worldObjects = { projectile1, projectile2, spaceship, planet, explosion };
 
             World target = new World(worldObjects);
             target.RemoveWorldObject(projectile1);
+            target.RemoveWorldObject(projectile2);
+            target.RemoveWorldObject(spaceship);
+            target.RemoveWorldObject(explosion);
 
             Assert.IsFalse((new List<WorldObject>(target.WorldObjects)).Contains(projectile1));
+            Assert.IsFalse((new List<WorldObject>(target.WorldObjects)).Contains(projectile2));
+            Assert.IsFalse((new List<WorldObject>(target.WorldObjects)).Contains(spaceship));
+            Assert.IsFalse((new List<WorldObject>(target.WorldObjects)).Contains(explosion));
+            Assert.IsTrue((new List<WorldObject>(target.WorldObjects)).Contains(planet));
         }
     }
 }
