@@ -106,9 +106,10 @@ namespace GameTest
             this.target.Spaceship = this.spaceship;
 
             Keys[] keys = { Keys.Space };
-            KeyboardState keyboardState = new KeyboardState(keys);
             FrameState frameState = new FrameState(null, new KeyboardState(keys));
+            target.Update(frameState);
 
+            frameState = new FrameState(null, new KeyboardState());
             target.Update(frameState);
 
             mockPlayerHandler.Verify(b => b.OnFire(spaceship), Times.Exactly(1));
@@ -126,13 +127,17 @@ namespace GameTest
             Weapon currentWeapon = weapons[0];
             spaceship.CurrentWeapon = weapons[0];
 
-            Keys[] keys = { Keys.P };
-            FrameState frameState = new FrameState(null, new KeyboardState(keys));
-
             for (int i = 1; i < 7; i++)
             {
                 currentWeapon = weapons[i % weapons.Length];
+
+                Keys[] keys = { Keys.P };
+                FrameState frameState = new FrameState(null, new KeyboardState(keys));
                 target.Update(frameState);
+
+                frameState = new FrameState(null, new KeyboardState());
+                target.Update(frameState);
+
                 Assert.AreEqual(currentWeapon, spaceship.CurrentWeapon);
             } 
         }
@@ -149,13 +154,19 @@ namespace GameTest
             Weapon currentWeapon = weapons[11 % weapons.Length];
             spaceship.CurrentWeapon = weapons[11 % weapons.Length];
 
-            Keys[] keys = { Keys.O };
-            FrameState frameState = new FrameState(null, new KeyboardState(keys));
+            
 
             for (int i = 10; i >= 0; i--)
             {
                 currentWeapon = weapons[Math.Abs(i % weapons.Length)];
+
+                Keys[] keys = { Keys.O };
+                FrameState frameState = new FrameState(null, new KeyboardState(keys));
                 target.Update(frameState);
+
+                frameState = new FrameState(null, new KeyboardState());
+                target.Update(frameState);
+
                 Assert.AreEqual(currentWeapon, spaceship.CurrentWeapon);
             }
         }
@@ -313,7 +324,7 @@ namespace GameTest
             this.target.Spaceship = this.spaceship;
             spaceship.Rotation = 0;
 
-            Keys[] keys = { Keys.Up };
+            Keys[] keys = { Keys.Left };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
             float speed;
@@ -356,7 +367,7 @@ namespace GameTest
             this.target.Spaceship = this.spaceship;
             spaceship.Rotation = 0;
 
-            Keys[] keys = { Keys.Up };
+            Keys[] keys = { Keys.Right };
             GameTime gameTime = new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1));
             FrameState frameState = new FrameState(gameTime, new KeyboardState(keys));
             float speed;
