@@ -100,34 +100,34 @@ namespace EtherDuels.Game.View
              {
                  Vector2 position = worldObject.Position;
 
-                 if (4000 - this.worldObject.Position.X < this.worldObject.Radius) // right boundary 
+                 if (GameAssets.rightFieldBoundary - this.worldObject.Position.X < this.worldObject.Radius) // right boundary 
                  {
                     
-                     this.worldObject.Position = new Vector2((-8000 + this.worldObject.Position.X), this.worldObject.Position.Y);
+                     this.worldObject.Position = new Vector2(((-1.0f * GameAssets.rightFieldBoundary) + GameAssets.leftFieldBoundary + this.worldObject.Position.X), this.worldObject.Position.Y);
 
                  }
                  else
                  {
-                     if (4000 + this.worldObject.Position.X < this.worldObject.Radius) // left boundary
+                     if ( (-1.0f * GameAssets.leftFieldBoundary) + this.worldObject.Position.X < this.worldObject.Radius) // left boundary
                      {
-                         this.worldObject.Position = new Vector2((8000 + this.worldObject.Position.X), this.worldObject.Position.Y);
+                         this.worldObject.Position = new Vector2(((-1.0f * GameAssets.leftFieldBoundary) + GameAssets.rightFieldBoundary + this.worldObject.Position.X), this.worldObject.Position.Y);
 
                      }
 
                  }
 
-                 if (2900 - this.worldObject.Position.Y < this.worldObject.Radius) // lower boundary
+                 if (GameAssets.lowerFieldBoundary - this.worldObject.Position.Y < this.worldObject.Radius) // lower boundary
                  {
-                    
-                     this.worldObject.Position = new Vector2(this.worldObject.Position.X, (-6200 + this.worldObject.Position.Y));
+                     
+                     this.worldObject.Position = new Vector2(this.worldObject.Position.X, ((-1.0f * GameAssets.lowerFieldBoundary) + GameAssets.upperFieldBoundary + this.worldObject.Position.Y));
 
                  }
                  else
                  {
-                     if (3300 + this.worldObject.Position.Y < this.worldObject.Radius) // upper boundary
+                     if ((-1.0f * GameAssets.upperFieldBoundary) + this.worldObject.Position.Y < this.worldObject.Radius) // upper boundary
                      {
-                         
-                         this.worldObject.Position = new Vector2(this.worldObject.Position.X,(6200 + this.worldObject.Position.Y));
+
+                         this.worldObject.Position = new Vector2(this.worldObject.Position.X, ((-1.0f * GameAssets.upperFieldBoundary) + GameAssets.lowerFieldBoundary + this.worldObject.Position.Y));
                                 
                      }
                  }
