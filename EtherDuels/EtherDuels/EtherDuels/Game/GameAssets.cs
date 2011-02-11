@@ -36,6 +36,14 @@ namespace EtherDuels.Game
         // N: normalisation factor, to downsize the dimensions of the universe to those of our game
         public static float N = 300000;        // must NOT be 0!!
 
+       public static int leftFieldBoundary = -4000;
+
+        public static int rightFieldBoundary = 4000;
+
+        public static int upperFieldBoundary = -3300;
+
+        public static int lowerFieldBoundary = 2900;
+
 
         private Song soundtrack;
         public Song Soundtrack
