@@ -212,21 +212,36 @@ namespace GameTest
         [TestMethod()]
         public void UpdateDeleteExplosionTest()
         {
-            // setup the explosion
-            Explosion explosion = new Explosion();
-            explosion.CreationTime = new TimeSpan(0, 0, 0, 0, 0);
-            
-            // setup  a World mock
-            Mock<World> mockWorld = new Mock<World>();
-            WorldObject[] worldObjects = { explosion };
-            mockWorld.SetupGet(m => m.WorldObjects).Returns(worldObjects);
-            mockWorld.Setup(m => m.RemoveWorldObject(explosion));
-      
-            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, mockWorld.Object, configuration);
-            target.Update(new GameTime(new TimeSpan(0, 0, 0, 1, 0), new TimeSpan(0, 0, 0, 0, 100)));
+            // create explosions
+            Explosion explosion1 = new Explosion();
+            Explosion explosion2 = new Explosion();
+            Explosion explosion3 = new Explosion();
+            explosion1.Health = 100;
+            explosion2.Health = 100;
+            explosion3.Health = 100;
+            explosion1.CreationTime = new TimeSpan(0, 0, 0, 0, 1); // should be destroyed at (0, 0, 0, 0, 100)
+            explosion2.CreationTime = new TimeSpan(0, 0, 0, 0, 250); // should be destroyed at (0, 0, 0, 0, 351)
+            explosion3.CreationTime = new TimeSpan(0, 0, 0, 0, 34); // should be destroyed at (0, 0, 0, 0, 135)
 
-            Assert.IsTrue(explosion.Health == 0);
-            mockWorld.Verify(m => m.RemoveWorldObject(explosion), Times.Exactly(1));
+            // create a mock world
+            Mock<World> mockWorld = new Mock<World>();
+            WorldObject[] worldObjects = { explosion1, explosion2, explosion3 };
+            mockWorld.SetupGet(m => m.WorldObjects).Returns(worldObjects);
+            mockWorld.Setup(m => m.RemoveWorldObject(explosion1));
+            mockWorld.Setup(m => m.RemoveWorldObject(explosion3));
+
+
+            // create target and call update
+            target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, mockWorld.Object, configuration);
+            target.Update(new GameTime(new TimeSpan(0, 0, 0, 0, 135), new TimeSpan(0, 0, 0, 0, 1)));
+
+            // explosions 1 and 3 should be destroyed, explosion 2 should still be there
+            Assert.IsTrue(explosion1.Health <= 0);
+            Assert.IsTrue(explosion2.Health > 0);
+            Assert.IsTrue(explosion3.Health <= 0);
+
+            mockWorld.Verify(m => m.RemoveWorldObject(explosion1), Times.Exactly(1));
+            mockWorld.Verify(m => m.RemoveWorldObject(explosion3), Times.Exactly(1));            
         }
     }
 }
