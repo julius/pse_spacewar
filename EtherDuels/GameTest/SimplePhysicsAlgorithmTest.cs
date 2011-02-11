@@ -101,19 +101,23 @@ namespace GameTest
         {
             WorldObject object1 = new WorldObject();
             object1.Position = new Vector2(0.0f, 0.0f);
-            object1.Radius = 1.0f;
+            object1.Radius = 0.51f;
 
             WorldObject object2 = new WorldObject();
-            object2.Position = new Vector2(1.0f, 1.0f);
-            object2.Radius = 1.0f;
+            object2.Position = new Vector2(0.0f, 1.0f);
+            object2.Radius = 0.5f;
 
             WorldObject object3 = new WorldObject();
             object3.Position = new Vector2(200, 200);
-            object3.Radius = 1.0f;
+            object3.Radius = 0.3f;
 
             WorldObject object4 = new WorldObject();
-            object4.Position = new Vector2(201, 201);
-            object4.Radius = 1.0f;
+            object4.Position = new Vector2(200, 201);
+            object4.Radius = 0.8f;
+
+            WorldObject object5 = new WorldObject();
+            object5.Position = new Vector2(200, 200.5f);
+            object5.Radius = 0.1f;
 
             world.AddWorldObject(object1);
             world.AddWorldObject(object2);
@@ -125,10 +129,12 @@ namespace GameTest
 
             world.AddWorldObject(object3);
             world.AddWorldObject(object4);
+            world.AddWorldObject(object5);
             target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 1), new TimeSpan(0, 0, 0, 0, 1)));
 
             mockCollisionHandler.Verify(m => m.OnCollision(object1, object2), Times.Exactly(1));
             mockCollisionHandler.Verify(m => m.OnCollision(object3, object4), Times.Exactly(1));
+            mockCollisionHandler.Verify(m => m.OnCollision(object4, object5), Times.Exactly(1));
         }
 
         /// <summary>
@@ -208,15 +214,12 @@ namespace GameTest
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, mockConfRet.Object);
 
-            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 5, 10)));
-           
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 5, 10)));           
 
             // check whether the distance between the planets is still about the same
             float distance = Vector2.Distance(bigPlanet.Position, smallPlanet.Position);
-            System.Console.Write("desired: " + desiredDistance + "; actual: " + distance + "; position: " + smallPlanet.Position);
 
             Assert.IsTrue(distance <= desiredDistance + 30);
-
         }
 
         /// <summary>
