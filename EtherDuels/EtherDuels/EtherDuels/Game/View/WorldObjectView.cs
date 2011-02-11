@@ -95,8 +95,8 @@ namespace EtherDuels.Game.View
              this.model.Draw(matrixWorld, matrixView, matrixProjection);
 
               
-            /* Draws the spaceship twice if it leaves the window boundaries.*/
-             if (this.worldObject is Spaceship )
+            /* Draws the spaceship or projectile twice if it leaves the window boundaries.*/
+             if (this.worldObject is Spaceship || this.worldObject is Projectile )
              {
                  Vector2 position = worldObject.Position;
 
