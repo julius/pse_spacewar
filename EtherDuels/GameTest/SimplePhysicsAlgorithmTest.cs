@@ -138,6 +138,8 @@ namespace GameTest
         public void UpdateMaxSpeedTest()
         {
             float MAX_VELOCITY = 299792458.0f;
+
+            // create worldObjects with different speeds
             WorldObject worldObject1 = new WorldObject();
             worldObject1.Position = new Vector2(0.0f, 0.0f);
             worldObject1.Velocity = new Vector2(MAX_VELOCITY + 5.0f, MAX_VELOCITY + 1.0f);
@@ -148,17 +150,31 @@ namespace GameTest
             worldObject2.Velocity = Vector2.One;
             world.AddWorldObject(worldObject2);
 
+            WorldObject worldObject3 = new WorldObject();
+            worldObject3.Position = new Vector2(-13.0f, 80.0f);
+            /* a² + b² = c²
+             * a = 50
+             * b = Sqrt(MAX_VELOCITY² - 50²)
+             * */
+
+            worldObject3.Velocity = new Vector2(50, (float) Math.Sqrt(MAX_VELOCITY * MAX_VELOCITY - 50 * 50));
+            world.AddWorldObject(worldObject3);
+
             planet.Mass = 0.0;
 
-            Vector2 expectedVel = worldObject1.Velocity;
-            expectedVel.Normalize();
-            expectedVel *= MAX_VELOCITY;
+            Vector2 expectedVelocity1 = worldObject1.Velocity;
+            expectedVelocity1.Normalize();
+            expectedVelocity1 *= MAX_VELOCITY;
+            Vector2 expectedVelocity2 = worldObject2.Velocity;
+            Vector2 expectedVelocity3 = worldObject3.Velocity;
+            
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, configuration);
             target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 0, 1)));
 
-            Assert.AreEqual(worldObject1.Velocity, expectedVel);
-            Assert.AreEqual(worldObject2.Velocity, Vector2.One);
+            Assert.AreEqual(worldObject1.Velocity, expectedVelocity1);
+            Assert.AreEqual(worldObject2.Velocity, expectedVelocity2);
+            Assert.AreEqual(worldObject3.Velocity, expectedVelocity3);
         }
 
         /// <summary>
