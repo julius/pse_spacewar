@@ -105,11 +105,9 @@ namespace GameTest
             this.target = new HumanPlayer(playerId, mockPlayerHandler.Object, Color.Blue, mockInputConfigurationRetriever.Object);
             this.target.Spaceship = this.spaceship;
 
-            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
-            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.Space)).Returns(true);
-            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.Space)).Returns(true);
-
-            FrameState frameState = new FrameState(null, mockKeyboardState.Object);
+            Keys[] keys = { Keys.Space };
+            KeyboardState keyboardState = new KeyboardState(keys);
+            FrameState frameState = new FrameState(null, new KeyboardState(keys));
 
             target.Update(frameState);
 
@@ -128,11 +126,8 @@ namespace GameTest
             Weapon currentWeapon = weapons[0];
             spaceship.CurrentWeapon = weapons[0];
 
-            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
-            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.P)).Returns(true);
-            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.P)).Returns(true);
-
-            FrameState frameState = new FrameState(null, mockKeyboardState.Object);
+            Keys[] keys = { Keys.P };
+            FrameState frameState = new FrameState(null, new KeyboardState(keys));
 
             for (int i = 1; i < 7; i++)
             {
@@ -154,11 +149,8 @@ namespace GameTest
             Weapon currentWeapon = weapons[11 % weapons.Length];
             spaceship.CurrentWeapon = weapons[11 % weapons.Length];
 
-            Mock<EDKeyboardState> mockKeyboardState = new Mock<EDKeyboardState>();
-            mockKeyboardState.Setup(m => m.IsKeyUp(Keys.O)).Returns(true);
-            mockKeyboardState.Setup(m => m.IsKeyDown(Keys.O)).Returns(true);
-
-            FrameState frameState = new FrameState(null, mockKeyboardState.Object);
+            Keys[] keys = { Keys.O };
+            FrameState frameState = new FrameState(null, new KeyboardState(keys));
 
             for (int i = 10; i >= 0; i--)
             {

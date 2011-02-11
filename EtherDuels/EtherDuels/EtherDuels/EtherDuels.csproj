@@ -122,7 +122,6 @@
   <ItemGroup>
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\ConfigurationRetriever.cs" />
-    <Compile Include="EDKeyboardState.cs" />
     <Compile Include="EtherDuels.cs" />
     <Compile Include="Config\ConfigurationReader.cs" />
     <Compile Include="Game\GameAssets.cs" />

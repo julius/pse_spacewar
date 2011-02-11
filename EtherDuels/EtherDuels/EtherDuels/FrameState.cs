@@ -13,7 +13,7 @@ namespace EtherDuels
     public class FrameState
     {
         private GameTime gameTime;
-        private EDKeyboardState keyboardState;
+        private KeyboardState keyboardState;
 
         /// <summary>
         /// Initializes a FrameState object.
@@ -21,12 +21,6 @@ namespace EtherDuels
         /// <param name="gameTime">The frame's time object.</param>
         /// <param name="keyboardState">The frame's keyboard state.</param>
         public FrameState(GameTime gameTime, KeyboardState keyboardState)
-        {
-            this.gameTime = gameTime;
-            this.keyboardState = new EDKeyboardState(keyboardState);
-        }
-
-        public FrameState(GameTime gameTime, EDKeyboardState keyboardState)
         {
             this.gameTime = gameTime;
             this.keyboardState = keyboardState;
@@ -39,7 +33,7 @@ namespace EtherDuels
         public FrameState() 
         {
             this.gameTime = new GameTime();
-            this.keyboardState = new EDKeyboardState();
+            this.keyboardState = new KeyboardState();
         }
 
         /// <summary>
@@ -53,7 +47,7 @@ namespace EtherDuels
         /// <summary>
         /// The frame's keyboard state.
         /// </summary>
-        public EDKeyboardState KeyboardState
+        public KeyboardState KeyboardState
         {
             get { return this.keyboardState; }
         }
