@@ -192,11 +192,8 @@ namespace GameTest
 
             target = new SimplePhysicsAlgorithm(mockCollisionHandler.Object, world, mockConfRet.Object);
 
-            //TODO: kay problem is: wenn TimeSpan zu groß, funzt UpdateGravity nicht richtig. Muss ich mal in der Physik untersuchen.
-            //for (int i = 0; i < 1000000; i++)
-            //{
-                target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 5, 10)));
-            //}
+            target.Update(new GameTime(new TimeSpan(0, 0, 10, 3, 0), new TimeSpan(0, 0, 0, 5, 10)));
+           
 
             // check whether the distance between the planets is still about the same
             float distance = Vector2.Distance(bigPlanet.Position, smallPlanet.Position);
