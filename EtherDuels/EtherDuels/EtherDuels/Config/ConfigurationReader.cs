@@ -65,6 +65,7 @@ namespace EtherDuels.Config
                 defaultConf.SetKeyboardConfiguration(1, defaultKeyConfPlayerA);
                 defaultConf.SetKeyboardConfiguration(2, defaultKeyConfPlayerB);
                 defaultConf.Difficulty = 1;
+                defaultConf.Realism = 1.0f;
 
                 defaultConf.VolumeMusic = 1.0f;
                 defaultConf.VolumeEffects = 1.0f;

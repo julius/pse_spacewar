@@ -94,14 +94,19 @@ namespace EtherDuels.Menu
                 menuModel.SetActiveDialogByIndex(7);
             };
 
-            MenuItem.ActionHandler actionKeyboardConfiguration1 = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionRealism = delegate(MenuItem menuItem)
             {
                 menuModel.SetActiveDialogByIndex(8);
             };
 
-            MenuItem.ActionHandler actionKeyboardConfiguration2 = delegate(MenuItem menuItem)
+            MenuItem.ActionHandler actionKeyboardConfiguration1 = delegate(MenuItem menuItem)
             {
                 menuModel.SetActiveDialogByIndex(9);
+            };
+
+            MenuItem.ActionHandler actionKeyboardConfiguration2 = delegate(MenuItem menuItem)
+            {
+                menuModel.SetActiveDialogByIndex(10);
             };
 
             MenuItem.ActionHandler actionReturnToMainMenu = delegate(MenuItem menuItem)
@@ -148,10 +153,36 @@ namespace EtherDuels.Menu
                 configuration.Save();
             };
 
+            // Realism menu ActionHandlers
+            MenuItem.ActionHandler actionChangeRealism = delegate(MenuItem menuItem)
+            {
+                if (Math.Abs((configuration.Realism - 0.1f)) < 0.01)
+                {
+                    configuration.Realism = 1;
+                }
+                else if (Math.Abs((configuration.Realism - 1.0f)) < 0.01)
+                {
+                    configuration.Realism = 0.3f;
+                }
+                else if (Math.Abs((configuration.Realism - 0.3f)) < 0.01)
+                {
+                    configuration.Realism = 0.2f;
+                }
+                else if (Math.Abs((configuration.Realism - 0.2f)) < 0.01)
+                {
+                    configuration.Realism = 0.1f;
+                }
+                configuration.Save();
+            };
+
+
+            // Action Return ActionHandler
             MenuItem.ActionHandler actionReturn = delegate(MenuItem menuItem)
             {
                 menuModel.SetPreviousDialogActive();
             };
+
+            
 
             // Keyboard Configuration ActionHandlers
             // Player 1
@@ -275,6 +306,7 @@ namespace EtherDuels.Menu
             // Build options menues
             MenuItem optionsMenuVolume = new MenuItem(actionVolume, delegate() { return "Volume"; });
             MenuItem optionsMenuDifficulty = new MenuItem(actionDifficulty, delegate() { return "Difficulty"; });
+            MenuItem optionsMenuRealism = new MenuItem(actionRealism, delegate() { return "Realism"; });
             MenuItem optionsMenuKeyboardConfiguration1 = new MenuItem(actionKeyboardConfiguration1, delegate() { return "Player 1 Controls"; });
             MenuItem optionsMenuKeyboardConfiguration2 = new MenuItem(actionKeyboardConfiguration2, delegate() { return "Player 2 Controls"; });
             MenuItem optionsMenuReturnToMainMenu = new MenuItem(actionReturnToMainMenu, delegate() { return "Return to Main Menu"; });
@@ -285,6 +317,7 @@ namespace EtherDuels.Menu
                                                   optionsMenuKeyboardConfiguration2, 
                                                   optionsMenuVolume, 
                                                   optionsMenuDifficulty, 
+                                                  optionsMenuRealism,
                                                   optionsMenuReturnToMainMenu 
                                               };
             MenuItem[] optionsPauseMenuItems = { 
@@ -292,6 +325,7 @@ namespace EtherDuels.Menu
                                                    optionsMenuKeyboardConfiguration2, 
                                                    optionsMenuVolume,
                                                    optionsMenuDifficulty, 
+                                                   optionsMenuRealism,
                                                    optionsMenuReturnToPauseMenu 
                                                };
             MenuDialog optionsMainMenu = new MenuDialog(optionsMainMenuItems);
@@ -324,6 +358,21 @@ namespace EtherDuels.Menu
             MenuItem difficultyReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
             MenuItem[] difficultyMenuItems = { difficultyInfo, difficultyValue, difficultyReturnToOptions };
             MenuDialog difficulty = new MenuDialog(difficultyMenuItems);
+
+            // Build realism dialog
+            MenuItem realismInfo = new MenuItem(null, delegate() { return "Press Enter to change realism factor"; });
+            MenuItem realismValue = new MenuItem(actionChangeRealism, delegate()
+                {
+                    string realismText = "";
+                    if (configuration.Realism == 1) { realismText = "realistic"; }
+                    if (configuration.Realism <= 0.3f) { realismText = "fun"; }
+                    if (configuration.Realism <= 0.2f) { realismText = "more fun"; }
+                    if (configuration.Realism <= 0.1f) { realismText = "much more fun"; }
+                    return "Physics: " + realismText;
+                });
+            MenuItem realismReturnToOptions = new MenuItem(actionReturn, delegate() { return "Return to Options"; });
+            MenuItem[] realismMenuItems = { realismInfo, realismValue, realismReturnToOptions };
+            MenuDialog realism = new MenuDialog(realismMenuItems);
 
             // Build keyboard configuration dialog
             MenuItem keyConfigInfo = new MenuItem(null, delegate() { return "Press Enter to change controls"; });
@@ -381,7 +430,7 @@ namespace EtherDuels.Menu
 
             // Build menu model
             MenuDialog[] menuDialogs = { mainMenu, pauseMenu, optionsMainMenu, optionsPauseMenu, help, quitProgram,
-                                       volume, difficulty, keyConfig1, keyConfig2, gameEnded};
+                                       volume, difficulty, realism, keyConfig1, keyConfig2, gameEnded};
             menuModel.MenuDialogs = menuDialogs;
 
             return menuModel;

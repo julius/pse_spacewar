@@ -22,6 +22,11 @@ namespace EtherDuels.Config
         int Difficulty_AI { get; }
 
         /// <summary>
+        /// Returns the realism of the physics engine.
+        /// </summary>
+        float Realism { get; }
+
+        /// <summary>
         /// Returns the KeyboardConfiguration of a player.
         /// The player is being identified by its playerID.
         /// </summary>

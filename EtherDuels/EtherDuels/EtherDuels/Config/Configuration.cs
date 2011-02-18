@@ -64,6 +64,14 @@ namespace EtherDuels.Config
             }
         }
 
+        private float realism;
+
+        public float Realism
+        {
+            get { return realism; }
+            set { realism = value; }
+        }
+
 
         private int difficulty;
         /// <summary>
@@ -106,6 +114,7 @@ namespace EtherDuels.Config
         {
             this.difficulty = (int)info.GetValue("difficulty", typeof(int));
             this.difficulty_AI = (int)info.GetValue("difficulty_AI", typeof(int));
+            this.realism = (float)info.GetValue("realism", typeof(float));
             keyConfigurations = (KeyboardConfiguration[])info.GetValue("keyConfigurations", typeof(KeyboardConfiguration[]));
 
             this.VolumeMusic = (float)info.GetValue("volumeMusic", typeof(float));
@@ -121,6 +130,7 @@ namespace EtherDuels.Config
         {
             info.AddValue("difficulty", difficulty);
             info.AddValue("difficulty_AI", difficulty_AI);
+            info.AddValue("realism", realism);
             info.AddValue("keyConfigurations", keyConfigurations);
             info.AddValue("volumeMusic", volumeMusic);
             info.AddValue("volumeEffects", volumeEffects);
@@ -277,6 +287,9 @@ namespace EtherDuels.Config
 
             if (this.difficulty != secConf.difficulty
                 || this.difficulty_AI != secConf.difficulty_AI)
+                /*|| this.realism != secConf.realism
+                || this.volumeEffects != secConf.volumeEffects
+                || this.volumeMusic != secConf.volumeMusic)*/
                 return false;
 
             if (this.keyConfigurations.Length != secConf.keyConfigurations.Length)

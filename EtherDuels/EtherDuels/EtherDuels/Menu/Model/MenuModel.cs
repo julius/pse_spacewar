@@ -125,7 +125,7 @@ namespace EtherDuels.Menu.Model
         virtual public void SetGameEndedMenu(int playerID)
         {
             this.winningPlayerID = playerID;
-            this.SetActiveDialogByIndex(10);
+            this.SetActiveDialogByIndex(11);
         }
 
         /// <summary>

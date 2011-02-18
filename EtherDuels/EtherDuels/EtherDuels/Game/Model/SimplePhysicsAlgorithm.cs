@@ -116,7 +116,16 @@ namespace EtherDuels.Game.Model
                                 distance.Normalize();
                                 Vector2 accelerationVector = Vector2.Multiply(distance, acceleration);
                                 Vector2 velocityVector = Vector2.Multiply(accelerationVector, 0.01f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                                worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N * difficulty);
+                                
+                                // adapt velocity of projectiles to menu settings (difficulty is being disregarded for projectiles, so that it's still fun to play)
+                                if (worldObjects[j] is Projectile)
+                                {
+                                    worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N * configRetriever.Realism);
+                                }
+                                else
+                                {
+                                    worldObjects[j].Velocity += Vector2.Divide(velocityVector, GameAssets.N * difficulty);
+                                }
                             }
                         }
                     }
